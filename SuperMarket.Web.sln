@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Web", "SuperMarket.Web\SuperMarket.Web.csproj", "{5AB0CD95-2E08-4AE0-8409-DA2151C98204}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Web.Controllers", "SuperMarket.Web.Controllers\SuperMarket.Web.Controllers.csproj", "{9D46BE54-4922-47B2-8BBC-60AB1A5A9EE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{5AB0CD95-2E08-4AE0-8409-DA2151C98204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AB0CD95-2E08-4AE0-8409-DA2151C98204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AB0CD95-2E08-4AE0-8409-DA2151C98204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D46BE54-4922-47B2-8BBC-60AB1A5A9EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D46BE54-4922-47B2-8BBC-60AB1A5A9EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D46BE54-4922-47B2-8BBC-60AB1A5A9EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D46BE54-4922-47B2-8BBC-60AB1A5A9EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
