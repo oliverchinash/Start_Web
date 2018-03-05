@@ -15,6 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.BLL", "SuperMar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Model", "SuperMarket.Model\SuperMarket.Model.csproj", "{506C0AC1-0D1D-47A8-B4E3-6CD3745A7433}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.SysWeb", "SuperMarket.SysWeb\SuperMarket.SysWeb.csproj", "{2D6A8DB8-4DBF-4EFE-90A8-6F537FDAAD38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.SysWebControllers", "SuperMarket.SysWebControllers\SuperMarket.SysWebControllers.csproj", "{7C9FCF2D-3D06-4384-8DAE-273A8428F740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.LoginWebControllers", "SuperMarket.LoginWebControllers\SuperMarket.LoginWebControllers.csproj", "{FF924D13-0A49-4ACF-B473-6BF8E7C10DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.LoginWeb", "SuperMarket.LoginWeb\SuperMarket.LoginWeb.csproj", "{9C4ED4C1-7F1D-46A8-B3ED-D298648BF5C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +53,22 @@ Global
 		{506C0AC1-0D1D-47A8-B4E3-6CD3745A7433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{506C0AC1-0D1D-47A8-B4E3-6CD3745A7433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{506C0AC1-0D1D-47A8-B4E3-6CD3745A7433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6A8DB8-4DBF-4EFE-90A8-6F537FDAAD38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6A8DB8-4DBF-4EFE-90A8-6F537FDAAD38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6A8DB8-4DBF-4EFE-90A8-6F537FDAAD38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6A8DB8-4DBF-4EFE-90A8-6F537FDAAD38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C9FCF2D-3D06-4384-8DAE-273A8428F740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C9FCF2D-3D06-4384-8DAE-273A8428F740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C9FCF2D-3D06-4384-8DAE-273A8428F740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C9FCF2D-3D06-4384-8DAE-273A8428F740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF924D13-0A49-4ACF-B473-6BF8E7C10DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF924D13-0A49-4ACF-B473-6BF8E7C10DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF924D13-0A49-4ACF-B473-6BF8E7C10DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF924D13-0A49-4ACF-B473-6BF8E7C10DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C4ED4C1-7F1D-46A8-B3ED-D298648BF5C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C4ED4C1-7F1D-46A8-B3ED-D298648BF5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C4ED4C1-7F1D-46A8-B3ED-D298648BF5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C4ED4C1-7F1D-46A8-B3ED-D298648BF5C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
