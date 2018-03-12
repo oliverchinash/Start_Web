@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "忘记密码";
+}
+
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服权限提醒页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link href="/themes/basic/css/basic.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Themes/Basic/css/relogin.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/paycheck.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div class="register">
+        <!----头部开始------>
+        <header data-am-widget="header" class="am-header header">
+            @Html.Partial("controls/_HeadLeftBanner")
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                    权限不足
+                </a>
+            </h1>
+        </header>
+        <!----头部结束------>
+        <!---注册开始---->
+        <div class="confirmation">
+            <div class="confirmation-main1">
+                <div class="confirmation-main1-p">
+                    <p>
+                        <span class="am-icon am-icon-check-square"></span>
+                        <span>您的权限不足，请<a  onclick="funloginreback()" >重新登录</a>！</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+     </div>
+    <div style="display:none;"><input id="txtreturnurl" value="@ViewBag.LoginUrl" /></div> 
+    <script>
+        function funloginreback() {
+            location.href = "/Home/Login?returnurl=" + $("#txtreturnurl").val();
+        }
+    </script>
+</body>
+</html> 

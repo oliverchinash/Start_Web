@@ -1,0 +1,132 @@
+
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+/*******角色分配页面开始******/
+/*****用户信息******/
+.role-info{
+    margin-top: 10px;
+}
+.role-info ul{
+    margin-top: 5px;
+    background-color: #FAFAFA;
+    padding: 6px;
+}
+.role-info ul li{
+    float: left;
+    display: inline;
+   padding: 5px 26px 5px 0;
+}
+
+/******角色权限*****/
+.role{
+    margin-top: 15px;
+}
+.role-main{
+    background-color: #FAFAFA;
+    border-top: 2px solid #0085D7;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.role-left{
+    margin-right: 20px;
+}
+.role-left ul{
+    background-color:#fff;
+    padding: 5px 10px;
+}
+.role-left ul li{
+    padding: 3px 0;
+}
+.role-right{
+    margin-right: 40px;
+}
+.role-right ul{
+    background-color: #fff;
+    padding: 5px 15px;
+}
+.role-right ul li{
+    padding: 3px 0;
+}
+.add{
+    color: #E83E3F;
+}
+.role-affirm button{
+    margin-top: 10px;
+    border: none;
+    background-color:#E83E3F;
+    color: #fff;
+    padding: 4px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/********供应商信息*******/
+.info-title{
+
+}
+.info-main{
+    max-height:200px;
+    overflow: scroll;
+}
+.info-tab{
+    margin-top: 10px;
+    width: 420px;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.info-search{
+    margin-left: 10px;
+    position: relative;
+}
+.info-search input{
+    height: 25px;
+    line-height:25px;
+}
+.info-search button{
+    position: absolute;
+    top:0;
+    right:-37px;
+    cursor: pointer;
+    background-color: red;
+    color: #fff;
+    border: none;
+    height: 25px;
+    line-height: 25px;
+}
+.info-tab th{
+    padding: 0 3px;
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.info-tab td{
+    word-break: break-all;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.info-tab td .info-input{
+    width: 100%;
+}
+.info-td1{
+    width:50%;
+}
+.info-td2{
+    width:30%;
+}
+.info-td3{
+    width:20%;
+}

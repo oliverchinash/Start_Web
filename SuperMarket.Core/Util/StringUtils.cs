@@ -569,9 +569,13 @@ namespace SuperMarket.Core.Util
         /// <returns></returns>
         public static int GetDbInt(object obj)
         {
-            if (obj == null || obj == System.DBNull.Value || obj.ToString() == "")
+            if (obj == null || obj == System.DBNull.Value  || obj.ToString() == "" || obj.ToString() == System.Boolean.FalseString )
             {
                 return 0;
+            }
+            else if(obj.ToString() == System.Boolean.TrueString)
+            {
+                return 1;
             }
             else
             {

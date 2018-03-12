@@ -30,12 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\Lib\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Analysis.China">
+      <HintPath>..\Lib\Lucene.Net.Analysis.China.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,11 +53,210 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AdminLoginBLL.cs" />
+    <Compile Include="Account\MemberLoginBLL.cs" />
+    <Compile Include="Account\UserAuthService.cs" />
+    <Compile Include="Basic\CatograyDB\BrandBLL.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeBLL.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeBrandBLL.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeClassBLL.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeModelBLL.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeSeriesBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassBrandBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassCGScopeBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesFoundBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesMenuADBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassProDetailsBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ClassPropertiesBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyDetailsBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigNavMenuBLL.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigSmsProviderBLL.cs" />
+    <Compile Include="Basic\CatograyDB\DicCouponsBLL.cs" />
+    <Compile Include="Basic\CatograyDB\DicUnitEnumBLL.cs" />
+    <Compile Include="Basic\CatograyDB\PartsCarBrandBLL.cs" />
+    <Compile Include="Basic\CatograyDB\PartsProductFoundBLL.cs" />
+    <Compile Include="Basic\CatograyDB\StaticCarTypeBLL.cs" />
+    <Compile Include="Basic\CatograyDB\StaticClassesFoundBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderDetailBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferSubBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderSendBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderTakeBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderVoucherBLL.cs" />
+    <Compile Include="Basic\CGOrderDB\CGReturnBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProCertifacateBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductLLogBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsLongitudeBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockAppBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsTransverseBLL.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductTLogBLL.cs" />
+    <Compile Include="Basic\CMSDB\CmsContentBLL.cs" />
+    <Compile Include="Basic\CMSDB\CmsTempletBLL.cs" />
+    <Compile Include="Basic\CMSDB\CmsTemProductBLL.cs" />
+    <Compile Include="Basic\CommentDB\CommentBLL.cs" />
+    <Compile Include="Basic\CommentDB\CommentPicBLL.cs" />
+    <Compile Include="Basic\CommentDB\CommentShowBLL.cs" />
+    <Compile Include="Basic\CommentDB\InquiryRecordsBLL.cs" />
+    <Compile Include="Basic\CommentDB\StatisticCommentNumBLL.cs" />
+    <Compile Include="Basic\HelpDB\IssueClassBLL.cs" />
+    <Compile Include="Basic\HelpDB\IssueContentBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGMemQuotedBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGQuotedPriceBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderCGMemBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderProductBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\DicInquiryOrderBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderFeedBackBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InQuiryOrderFlowBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderMemberBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderPicsBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductBLL.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductSubBLL.cs" />
+    <Compile Include="Basic\MemberDB\BankInfoBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemAuthBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemberBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemberInfoBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemBillComBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemBillVATBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemBrowseLogBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemCGScopeBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemFavoritesBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBaiduBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBDBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemGiftLogBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemLoginLogBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemPWDModLogBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemRecommendBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleAuthBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleRelateBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemWareHouseBLL.cs" />
+    <Compile Include="Basic\MemberDB\MemWeChatMsgBLL.cs" />
+    <Compile Include="Basic\MemberDB\PostAddressBLL.cs" />
+    <Compile Include="Basic\MemberDB\SendEmailSmsBLL.cs" />
+    <Compile Include="Basic\MemberDB\StoreBLL.cs" />
+    <Compile Include="Basic\MemberDB\StoreBusscopeBLL.cs" />
+    <Compile Include="Basic\MemberDB\SuggestBLL.cs" />
+    <Compile Include="Basic\MemberDB\SuggestDealLogBLL.cs" />
+    <Compile Include="Basic\MemberDB\SysMsgBLL.cs" />
+    <Compile Include="Basic\MemberDB\WZShopCartBLL.cs" />
+    <Compile Include="Basic\MessageDB\B2BNoticeBLL.cs" />
+    <Compile Include="Basic\MessageDB\EmailSendBLL.cs" />
+    <Compile Include="Basic\MessageDB\MemProductClickBLL.cs" />
+    <Compile Include="Basic\MessageDB\MobileMessageBLL.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeBLL.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeLogBLL.cs" />
+    <Compile Include="Basic\MessageDB\SMSTempletBLL.cs" />
+    <Compile Include="Basic\MessageDB\SuggestRecordBLL.cs" />
+    <Compile Include="Basic\MessageDB\WeChatMsgBLL.cs" />
+    <Compile Include="Basic\MessageDB\WeChatTokenLogBLL.cs" />
+    <Compile Include="Basic\MessageDB\WeiXinQNewsBLL.cs" />
+    <Compile Include="Basic\PayDB\AliResultBLL.cs" />
+    <Compile Include="Basic\PayDB\AliResultOrderBLL.cs" />
+    <Compile Include="Basic\PayDB\PayOrderBLL.cs" />
+    <Compile Include="Basic\PayDB\PayOrderRebackBLL.cs" />
+    <Compile Include="Basic\PayDB\WeChatResultBLL.cs" />
+    <Compile Include="Basic\ProductDB\DisCountBLL.cs" />
+    <Compile Include="Basic\ProductDB\DisCountInfoBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductBaoPinBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeModelBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductDailyGrabBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductDetailBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductFineBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductMenuBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertyBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarHotBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarSupBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialDetailsBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductStylePicsBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleSpecBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductWholeSaleBLL.cs" />
+    <Compile Include="Basic\ProductDB\StatisticDataBLL.cs" />
+    <Compile Include="Basic\ProductDB\StatisticProductSpecBLL.cs" />
+    <Compile Include="Basic\ProductDB\StatisticTradeBLL.cs" />
+    <Compile Include="Basic\ProductDB\WzAdClassRBLL.cs" />
+    <Compile Include="Basic\ProductDB\WzAdContentBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetChangeBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetReChargeBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetWithdrawBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\FinanceRefundBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralChangeBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\MemCouponsBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderAddressBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderBillBasicBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderCommonBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderCreateLogBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailPreTempBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgMemBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgSupplierBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderPayLineConfirmBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderVirtualBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\PayAliResultBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\PayEBankBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\PayRebackBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\PayTradeBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSWLBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\WLCompanyBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderBLL.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderDetailBLL.cs" />
+    <Compile Include="Basic\SysDB\CacheConfigBLL.cs" />
+    <Compile Include="Basic\SysDB\DicEnumBLL.cs" />
+    <Compile Include="Basic\SysDB\GYAuthBLL.cs" />
+    <Compile Include="Basic\SysDB\GYCityBLL.cs" />
+    <Compile Include="Basic\SysDB\GYRoleAuthBLL.cs" />
+    <Compile Include="Basic\SysDB\GYRoleBLL.cs" />
+    <Compile Include="Basic\SysDB\SysUserBLL.cs" />
+    <Compile Include="Basic\SysDB\WeChatNavigationBLL.cs" />
+    <Compile Include="Basic\SysDB\XTCodeBLL.cs" />
+    <Compile Include="Basic\SysDB\XTCodeNumBLL.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Common\Calculate.cs" />
+    <Compile Include="Common\JiChenCommonBLL.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\JiChenWebUrl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cookie\CookieBLL.cs" />
+    <Compile Include="GYProvinceBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionShopping\SessionUtil.cs" />
+    <Compile Include="SessionShopping\ShoppingCartProcessor.cs" />
+    <Compile Include="SessionShopping\ShoppingXuQiuProcessor.cs" />
+    <Compile Include="WeiXin\WeiXinConfig.cs" />
+    <Compile Include="WeiXin\WeiXinCustomerBLL.cs" />
+    <Compile Include="WeiXin\WeiXinInQuiryOrderBLL.cs" />
+    <Compile Include="WeiXin\WeiXinJsSdk.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperMarket.Core\SuperMarket.Core.csproj">
+      <Project>{141147c2-4822-4f66-84c8-a277ab1d7d51}</Project>
+      <Name>SuperMarket.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Data\SuperMarket.Data.csproj">
+      <Project>{ab35a9e6-ec44-44cd-8004-3b7c878eefd7}</Project>
+      <Name>SuperMarket.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
+      <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
+      <Name>SuperMarket.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

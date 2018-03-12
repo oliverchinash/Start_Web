@@ -1,0 +1,61 @@
+
+.print{
+    width: 840px;
+    margin: 0 auto;
+}
+
+.print-title{
+    padding: 18px 0;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+.print-title img{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.print-ul{
+    margin-bottom: 10px;
+}
+.print-ul li{
+    color: #333;
+    font-size: 14px;
+    padding: 5px 5px;
+    text-align: left;
+    float: left;
+    display: inline;
+    width: 33.3%;
+}
+
+.print-table{
+    font-size: 14px;
+    width: 100%;
+    text-align:center;
+    border: 1px solid #000;
+    border-right: none;
+    border-bottom: none;
+    margin-bottom:15px;
+}
+.print-table th{
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+.print-table td{
+    color: #000;
+    line-height: 35px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+.print-qianshou li{
+    width: 50%;
+    margin-bottom: 15px;
+}
+.print-tishi{
+    text-align: left;
+    color: #000;
+    font-size: 14px;
+}

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>ab35a9e6-ec44-44cd-8004-3b7c878eefd7</ProjectGuid>
+    <ProjectGuid>{AB35A9E6-EC44-44CD-8004-3B7C878EEFD7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperMarket.Data</RootNamespace>
@@ -30,25 +30,226 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\Lib\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\Lib\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\Lib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Globalization" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseSuperMarketDB.cs" />
+    <Compile Include="Basic\CatograyDB\BrandDA.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeBrandDA.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeClassDA.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeDA.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeModelDA.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeSeriesDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassBrandDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassCGScopeDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesFoundDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesMenuADDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassProDetailsDA.cs" />
+    <Compile Include="Basic\CatograyDB\ClassPropertiesDA.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyDA.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyDetailsDA.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigNavMenuDA.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigSmsProviderDA.cs" />
+    <Compile Include="Basic\CatograyDB\DicCouponsDA.cs" />
+    <Compile Include="Basic\CatograyDB\DicUnitEnumDA.cs" />
+    <Compile Include="Basic\CatograyDB\PartsCarBrandDA.cs" />
+    <Compile Include="Basic\CatograyDB\PartsProductFoundDA.cs" />
+    <Compile Include="Basic\CatograyDB\StaticCarTypeDA.cs" />
+    <Compile Include="Basic\CatograyDB\StaticClassesFoundDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderDetailDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferSubDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderSendDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderTakeDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderVoucherDA.cs" />
+    <Compile Include="Basic\CGOrderDB\CGReturnDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProCertifacateDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductLLogDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsLongitudeDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockAppDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsTransverseDA.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductTLogDA.cs" />
+    <Compile Include="Basic\CommentDB\CommentDA.cs" />
+    <Compile Include="Basic\CommentDB\CommentPicDA.cs" />
+    <Compile Include="Basic\CommentDB\CommentShowDA.cs" />
+    <Compile Include="Basic\CommentDB\InquiryRecordsDA.cs" />
+    <Compile Include="Basic\CommentDB\StatisticCommentNumDA.cs" />
+    <Compile Include="Basic\GYProvinceDA.cs" />
+    <Compile Include="Basic\HelpDB\IssueClassDA.cs" />
+    <Compile Include="Basic\HelpDB\IssueContentDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGMemQuotedDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGQuotedPriceDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderCGMemDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderProductDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\DicInquiryOrderDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderFeedBackDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InQuiryOrderFlowDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderMemberDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderPicsDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductDA.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductSubDA.cs" />
+    <Compile Include="Basic\Log\CmsContentDA.cs" />
+    <Compile Include="Basic\Log\CmsTempletDA.cs" />
+    <Compile Include="Basic\Log\CmsTemProductDA.cs" />
+    <Compile Include="Basic\MemberDB\BankInfoDA.cs" />
+    <Compile Include="Basic\MemberDB\MemAuthDA.cs" />
+    <Compile Include="Basic\MemberDB\MemberDA.cs" />
+    <Compile Include="Basic\MemberDB\MemberInfoDA.cs" />
+    <Compile Include="Basic\MemberDB\MemBillComDA.cs" />
+    <Compile Include="Basic\MemberDB\MemBillVATDA.cs" />
+    <Compile Include="Basic\MemberDB\MemBrowseLogDA.cs" />
+    <Compile Include="Basic\MemberDB\MemCGScopeDA.cs" />
+    <Compile Include="Basic\MemberDB\MemFavoritesDA.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBaiduDA.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBDDA.cs" />
+    <Compile Include="Basic\MemberDB\MemGiftLogDA.cs" />
+    <Compile Include="Basic\MemberDB\MemLoginLogDA.cs" />
+    <Compile Include="Basic\MemberDB\MemPWDModLogDA.cs" />
+    <Compile Include="Basic\MemberDB\MemRecommendDA.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleAuthDA.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleDA.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleRelateDA.cs" />
+    <Compile Include="Basic\MemberDB\MemWareHouseDA.cs" />
+    <Compile Include="Basic\MemberDB\MemWeChatMsgDA.cs" />
+    <Compile Include="Basic\MemberDB\PostAddressDA.cs" />
+    <Compile Include="Basic\MemberDB\SendEmailSmsDA.cs" />
+    <Compile Include="Basic\MemberDB\StoreDA.cs" />
+    <Compile Include="Basic\MemberDB\SuggestDA.cs" />
+    <Compile Include="Basic\MemberDB\SuggestDealLogDA.cs" />
+    <Compile Include="Basic\MemberDB\SupplierBusscopeDA.cs" />
+    <Compile Include="Basic\MemberDB\SysMsgDA.cs" />
+    <Compile Include="Basic\MemberDB\WZShopCartDA.cs" />
+    <Compile Include="Basic\MessageDB\B2BNoticeDA.cs" />
+    <Compile Include="Basic\MessageDB\EmailSendDA.cs" />
+    <Compile Include="Basic\MessageDB\MemProductClickDA.cs" />
+    <Compile Include="Basic\MessageDB\MobileMessageDA.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeDA.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeLogDA.cs" />
+    <Compile Include="Basic\MessageDB\SMSTempletDA.cs" />
+    <Compile Include="Basic\MessageDB\SuggestRecordDA.cs" />
+    <Compile Include="Basic\MessageDB\WeChatMsgDA.cs" />
+    <Compile Include="Basic\MessageDB\WeChatTokenLogDA.cs" />
+    <Compile Include="Basic\MessageDB\WeiXinQNewsDA.cs" />
+    <Compile Include="Basic\PayDB\AliResultDA.cs" />
+    <Compile Include="Basic\PayDB\AliResultOrderDA.cs" />
+    <Compile Include="Basic\PayDB\PayOrderDA.cs" />
+    <Compile Include="Basic\PayDB\PayOrderRebackDA.cs" />
+    <Compile Include="Basic\PayDB\WeChatResultDA.cs" />
+    <Compile Include="Basic\ProductDB\DisCountDA.cs" />
+    <Compile Include="Basic\ProductDB\DisCountInfoDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductBaoPinDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeModelDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductDailyGrabDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductDetailDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductFineDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductMenuDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertyDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarHotDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarSupDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialDetailsDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleCarDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleExtDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductStylePicsDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleSpecDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductWholeSaleDA.cs" />
+    <Compile Include="Basic\ProductDB\StatisticDataDA.cs" />
+    <Compile Include="Basic\ProductDB\StatisticProductSpecDA.cs" />
+    <Compile Include="Basic\ProductDB\StatisticTradeDA.cs" />
+    <Compile Include="Basic\ProductDB\WzAdClassRDA.cs" />
+    <Compile Include="Basic\ProductDB\WzAdContentDA.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetChangeDA.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetChangeDAExt.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetDA.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetReChargeDA.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetWithdrawDA.cs" />
+    <Compile Include="Basic\ShoppingDB\FinanceRefundDA.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralChangeDA.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralDA.cs" />
+    <Compile Include="Basic\ShoppingDB\MemCouponsDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderAddressDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderBillBasicDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderCreateLogDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailPreTempDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgMemDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgSupplierDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderPayLineConfirmDA.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderVirtualDA.cs" />
+    <Compile Include="Basic\ShoppingDB\PayAliResultDA.cs" />
+    <Compile Include="Basic\ShoppingDB\PayEBankDA.cs" />
+    <Compile Include="Basic\ShoppingDB\PayRebackDA.cs" />
+    <Compile Include="Basic\ShoppingDB\PayTradeDA.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSDA.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSWLDA.cs" />
+    <Compile Include="Basic\ShoppingDB\WLCompanyDA.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderDA.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderDetailDA.cs" />
+    <Compile Include="Basic\SysDB\CacheConfigDA.cs" />
+    <Compile Include="Basic\SysDB\DicEnumDA.cs" />
+    <Compile Include="Basic\SysDB\DicEnumDAExt.cs" />
+    <Compile Include="Basic\SysDB\GYAuthDA.cs" />
+    <Compile Include="Basic\SysDB\GYCityDA.cs" />
+    <Compile Include="Basic\SysDB\GYRoleAuthDA.cs" />
+    <Compile Include="Basic\SysDB\GYRoleDA.cs" />
+    <Compile Include="Basic\SysDB\SysUserDA.cs" />
+    <Compile Include="Basic\SysDB\WeChatNavigationDA.cs" />
+    <Compile Include="Basic\SysDB\XTCodeDA.cs" />
+    <Compile Include="Basic\SysDB\XTCodeNumDA.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperMarket.Core\SuperMarket.Core.csproj">
+      <Project>{141147c2-4822-4f66-84c8-a277ab1d7d51}</Project>
+      <Name>SuperMarket.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
+      <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
+      <Name>SuperMarket.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -57,5 +258,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

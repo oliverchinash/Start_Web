@@ -1,0 +1,144 @@
+
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+/******商品搜索开始*******/
+.list-search{
+    width: 100%;
+}
+.list-search-main{
+    width: 100%;
+    margin-top: 10px;
+}
+.list-search-wrap{
+    width: 33%;
+    float: left;
+    display: inline;
+}
+.list-search-wrap label{
+    width: 91px;
+    text-align: center;
+    color: #000000;
+    font-size: 14px;
+    line-height: 28px;
+}
+.list-search-input{
+    float: left;
+    display: inline;
+}
+.list-search-input input{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-input select{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-button{
+    margin-top: 20px;
+}
+.list-search-button button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+
+/*******订单列表开始*******/
+.dispatch-list{
+    margin-top: 15px;
+}
+.dispatch-list table{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.dispatch-list table th{
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.dispatch-list table td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.dispatch-a{
+    color: #0085D7;
+    display: block;
+}
+
+/********模态框*********/
+.list-modal{
+    width: 790px;
+    height: 550px;
+    margin: auto;
+    background: rgba(204, 204, 204,0.6);
+    position: fixed;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+}
+.list-modal-main{
+    background-color: #fff;
+    margin: 6px;
+}
+.list-modal-header{
+    background-color:#efefef;
+    height: 32px;
+    line-height: 32px;
+    width: 100%;
+    position: relative;
+}
+.list-modal-header span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url("../img/list-closeicon.png") no-repeat;
+    width: 31px;
+    height: 32px;
+    cursor: pointer;
+}
+.list-modal-content{
+    height: 450px;
+    padding: 18px 12px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.All_popcontent{
+    width:100%;
+    height:980px;
+    background:#999;
+    opacity:0.5;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);/*兼容ie6-ie8*/
+    position:fixed;
+    top:0; left:0;
+    z-index:9999;
+    display:none;
+}

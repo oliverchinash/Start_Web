@@ -1,0 +1,73 @@
+
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+
+/*****选择供应商列表*****/
+.select-list table{
+    width: 100%;
+    margin-bottom: 15px;
+}
+.select-list table{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.select-list table th{
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.select-list table td{
+    word-break: break-all;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.best{
+    color: red;
+}
+
+/****选择供应商****/
+.select-s{
+    font-size: 14px;
+}
+.select-s .select-fl{
+    font-size: 14px;
+    color: #000;
+    width: 10%;
+}
+.select-s .select-fr{
+    width: 90%;
+}
+.select-s .select-fr li{
+    float: left;
+    display: inline;
+    padding-right:18px;
+    padding-bottom: 8px;
+}
+.select-button{
+    margin-top: 10px;
+}
+.select-button button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}

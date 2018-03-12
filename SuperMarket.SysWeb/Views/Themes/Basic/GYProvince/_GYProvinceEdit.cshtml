@@ -1,0 +1,72 @@
+﻿@{
+    SuperMarket.Model.GYProvinceEntity entity = ViewBag.entity;
+}
+<div class="property"> 
+    <div class="property-top">
+        <h3 class="fl">编辑</h3>
+    </div>
+    <div class="clear"></div> 
+    <div class="property-right fl">
+        <h3>1.基本信息</h3>
+        <div class="property-main">
+            <div class="property-title">
+                <span>简称：</span>
+                <input type="text" id="txtName" value="@entity.Name">
+            </div>
+            <div class="property-title">
+                <span>全名：</span> 
+                <input type="text" id="txtFullName" value="@entity.FullName">
+            </div> 
+            <div class="property-shop">
+                <span class="property-shop-span">是否有效：</span> 
+                <a>
+                    <input type="radio" name="radIsActive" value="1" @(entity.IsActive == 1 ? "checked" : "")>
+                    是
+                </a>
+                <a>
+                    <input type="radio" name="radIsActive" value="0" @(entity.IsActive == 0 ? "checked" : "")>
+                    否
+                </a>
+            </div>
+            <div class="property-title">
+                <span>序号：</span>
+                <input type="text" id="txtSort" value="@entity.Sort">
+            </div>  
+            <div class="property-shop">
+                <button onclick="Fun_SaveEntity()">保存</button>
+            </div> 
+        </div>
+    </div> 
+    <div class="clear"></div>
+</div> 
+<div style="display:none;">
+     <input id="txtId" value="@entity.Id" />
+</div>
+
+<script type="text/javascript">
+     
+    function Fun_SaveEntity() {
+        var enid=$("#txtId").val();
+        var name = $("#txtName").val(); 
+        var fullname = $("#txtFullName").val(); 
+        var isactive = $("input[name='radIsActive']:checked").val();
+        var sort = $("#txtSort").val(); 
+
+        $.post("/GYProvince/GYProvinceEditSubmit", {
+            enid: enid, name: name, fullname: fullname, isactive: isactive,  sort: sort
+        }, function (data) {
+            debugger
+            var _returncode = eval("(" + data + ")");
+            var _returnStatus = -_returncode.Status;
+            if (_returnStatus == _TheArray[0]) {
+                alert("操作成功");
+                location.href = "/GYProvince/GYProvinceEdit"  ;
+            }
+            else {
+                alert(_TheArray[_returnStatus]);
+                cliki = 0;
+                return false;
+            }
+        });
+    }
+</script>

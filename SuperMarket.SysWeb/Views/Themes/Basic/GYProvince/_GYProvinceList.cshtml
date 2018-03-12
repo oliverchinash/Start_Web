@@ -1,0 +1,89 @@
+﻿
+@{
+
+    IList<SuperMarket.Model.GYProvinceEntity> entitylist = ViewBag.entitylist;
+}
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main"> 
+            <span>省份管理</span>
+        </div>
+    </div>
+    <!------top结束------>
+    <!------搜索开始------>
+    <div class="list-search"> 
+        <div class="list-search-main"> 
+            <div class="list-search-wrap">
+                <label class="fl">名称：</label>
+                <div class="list-search-input">
+                    <input id="txtkey" type="text">
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button class="fr" onclick="Fun_SearchList()">搜索</button>
+        </div>
+        <div class="list-search-button">
+            <a class="fl" target="_blank" href="/GYProvince/GYProvinceEdit">添加</a>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main"> 
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0">
+                <tr> 
+                    <th>名称</th> 
+                    <th>排序</th> 
+                    <th>操作</th>
+                </tr>
+                @{
+                    if (entitylist != null && entitylist.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.GYProvinceEntity entity in entitylist)
+                        {
+                            <tr enid="@entity.Id">
+                                <td>@(entity.Name)</td> 
+                                <td>@(entity.Sort)</td> 
+                                <td>
+                                    <a href="/GYProvince/GYProvinceEdit?id=@entity.Id">修改</a>
+                                    <a onclick="FunDelete(@entity.Id)">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div> 
+        <div class="list-page">
+            <ul>
+                @Html.Raw(ViewBag.PageStr)
+            </ul>
+        </div>
+        </div>
+</div>
+<script>
+    function FunDelete(enid) { 
+        if (confirm("确定删除?") == false) {
+            return false;
+        } 
+        $.post("/GYProvince/GYProvinceDeleteSubmit", { id: enid }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                location.reload();
+                return false;
+            }
+            else {
+                alert(_TheArray[status]);
+                return false;
+            }
+        })
+    }
+    function   Fun_SearchList()
+    { 
+        var key = $("#txtkey").val();
+        location.href = "/GYProvince/GYProvinceList?key=" + key;
+    }
+</script>

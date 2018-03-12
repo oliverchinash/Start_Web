@@ -1,0 +1,375 @@
+@charset "utf-8";
+
+/*********placeholder样式设置*********/
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
+}
+/*************注册页面开始************/
+.register-header{
+    background: #fff;
+    box-shadow:0 0 5px #CCC;
+    width: 100%;
+    height: 100px;
+}
+.register-header-logo{
+    width: 1125px;
+    margin:0 auto;
+    padding-top: 28px;
+}
+.register-header-login{
+    padding-top: 35px;
+}
+.register-header-login .register-header-a{
+    color: #ababab;
+    font-size: 16px;
+    padding-right: 8px;
+}
+.register-header-login .register-header-a2{
+    color: #6c6b6b;
+    font-size: 16px;
+}
+
+/********注册内容开始*********/
+.register{
+    font-size: 14px;
+    width: 1125px;
+    margin: 35px auto;
+}
+.register-main{
+    width: 410px;
+    margin:0 auto;
+}
+.register-number{
+    position: relative;
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid #dddddd;
+    margin-top: 10px;
+}
+.register-number p{
+    position: absolute;
+    right:-172px;
+    color: red;
+    width: 160px;
+    text-align: left;
+}
+.register-number span{
+    height: 45px;
+    width: 100px;
+    text-align: center;
+}
+.register-number input{
+    width: 285px;
+    height: 43px;
+    color: #666;
+    border: none;
+    text-indent: 10px;
+    border-left: 1px solid #dddddd;
+}
+.register-number2{
+    position: relative;
+    margin-top: 10px;
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid #dddddd;
+}
+.register-number2 span{
+    height: 45px;
+    width: 100px;
+    text-align: center;
+}
+.register-number2 p{
+    position: absolute;
+    right:-172px;
+    color: red;
+    width: 160px;
+    text-align: left;
+}
+.register-number2 div{
+    border-left: 1px solid #dddddd;
+    padding-left:3px;
+}
+.register-number2-w select{
+    padding-left: 10px;
+    margin-left: 10px;
+    height: 27px;
+    line-height:27px;
+    width: 80px;
+    border: 1px solid #dddddd;
+}
+.register-verify{
+    position: relative;
+    margin-top: 10px;
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid #dddddd;
+}
+.register-verify p{
+    position: absolute;
+    right:-172px;
+    color: red;
+    width: 160px;
+    text-align: left;
+}
+.register-verify span{
+    height: 45px;
+    width: 100px;
+    text-align: center;
+}
+.register-verify input{
+    width: 200px;
+    height: 43px;
+    color: #666;
+    border: none;
+    text-indent: 10px;
+    border-left: 1px solid #dddddd;
+}
+.register-verify a{
+    margin-top: 4px;
+    background-color: #e1e0e0;
+    color: #fff;
+    height: 35px;
+    line-height: 35px;
+    width: 90px;
+}
+
+.register-type{
+    position: relative;
+    margin-top: 10px;
+    width: 400px;
+    height: 45px;
+    border: 1px solid #dddddd;
+}
+.register-type p{
+    position: absolute;
+    right:-172px;
+    color: red;
+    top: 10px;
+    width: 160px;
+    text-align: left;
+}
+.register-type span{
+    height: 45px;
+    line-height: 45px;
+    width: 100px;
+    text-align: center;
+}
+.register-type-right{
+    width: 298px;
+    height: 45px;
+    overflow: hidden;
+    zoom: 1;
+    border-left: 1px solid #dddddd;
+}
+.register-type-right a{
+    padding-left: 30px;
+    color: #666;
+}
+.register-type-top{
+    line-height: 45px;
+    height: 45px;
+}
+.register-type-bottom{
+    line-height: 45px;
+    height: 45px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.register-password{
+    position:relative ;
+    margin-top: 10px;
+    width: 400px;
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid #dddddd;
+}
+.register-password p{
+    position: absolute;
+    right:-172px;
+    color: red;
+    width: 160px;
+    text-align: left;
+}
+.register-password span{
+    height: 45px;
+    width: 100px;
+    text-align: center;
+
+}
+.register-password input{
+    width: 285px;
+    height: 43px;
+    color: #666;
+    border: none;
+    text-indent: 10px;
+    border-left: 1px solid #dddddd;
+}
+.register-agree{
+    margin-top: 10px;
+}
+.register-agree a{
+    color: #666;
+}
+.register-agree span{
+    color: #e83e3f;
+    cursor: pointer;
+}
+.register-btn{
+    margin-top: 25px;
+}
+.register-btn button{
+    cursor: pointer;
+    color: #fff;
+    background-color: #e83e3f;
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
+    border: none;
+}
+
+/******注册页面2开始*******/
+.register2{
+    width: 985px;
+    margin: 20px auto;
+}
+.register2-main{
+    width: 450px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.register2-main ul li{
+    text-align: center;
+    float: left;
+    display: inline;
+    padding: 0 32px;
+}
+.register2-main2{
+    border: 1px solid #e4e4e4;
+    width: 100%;
+}
+.register2-main2 .register2-main2-title{
+    text-align: left;
+    line-height: 32px;
+    padding-left: 15px;
+}
+.register2-main2-m{
+    width: 825px;
+    margin: 20px auto;
+}
+.register2-main2-left{
+    width: 333px;
+    margin-bottom: 60px;
+}
+.register2-main2-w{
+    border: 1px solid #e4e4e4;
+    margin-bottom: 10px;
+}
+.register2-main2-w img{
+    width: 330px;
+    height: 225px;
+    padding: 3px;
+    display: block;
+}
+.register2-main2-left h2{
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+.register2-main2-left a{
+    display:inline-block;
+    padding:5px 25px;
+    color: #333;
+    border: 1px solid #e4e4e4;
+}
+.register2-main2-b{
+    height: 33px;
+    line-height: 33px;
+    border: 1px solid red;
+    background-color: #fef1e6;
+    margin: 0 35px 15px 35px;
+}
+.red{
+    color: red;
+}
+.register2-next{
+    width: 400px;
+    margin: 0 auto;
+}
+.register2-next a{
+    font-size: 15px;
+    margin-top:30px;
+    padding: 10px 0;
+    display: block;
+    background-color: #e83e3f;
+    color: #fff;
+}
+
+/********模态框************/
+/*****选择车型模态框开始******/
+.list-modal{
+    width: 760px;
+    height:510px;
+    margin: auto;
+    background: rgba(204, 204, 204,0.6);
+    position: fixed;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000000;
+}
+.list-modal-main{
+    background-color: #fff;
+    margin: 6px;
+}
+.list-modal-header{
+    background-color:#efefef;
+    height: 32px;
+    line-height: 32px;
+    width: 100%;
+    position: relative;
+}
+.list-modal-header span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url("../img/list-closeicon.png") no-repeat;
+    width: 31px;
+    height: 32px;
+    cursor: pointer;
+}
+.list-modal-content{
+    height: 470px;
+    padding: 18px 12px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.register-cont{
+    text-align: left;
+    line-height: 25px;
+}
+.register-cont h3{
+    margin-top: 8px;
+}
+.All_popcontent{
+    width:100%;
+    height:980px;
+    background:#999;
+    opacity:0.5;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);/*兼容ie6-ie8*/
+    position:fixed;
+    top:0; left:0;
+    z-index:9999;
+    display:none;
+}

@@ -1,0 +1,156 @@
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+/******商品搜索开始*******/
+.list-search{
+    width: 100%;
+}
+.list-search-main{
+    width: 100%;
+    margin-top: 10px;
+}
+.list-search-wrap{
+    width: 33%;
+    float: left;
+    display: inline;
+}
+.list-search-wrap label{
+    width: 91px;
+    text-align: center;
+    color: #000000;
+    font-size: 14px;
+    line-height: 28px;
+}
+.list-search-input{
+    float: left;
+    display: inline;
+}
+.list-search-input input{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-input select{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-button{
+    margin-top: 20px;
+}
+.list-search-button button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+
+/********列表开始*******/
+.audit-table{
+    margin-top: 15px;
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.audit-table th{
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.audit-table td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.audit-btn{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+
+/*******经营范围页面*****/
+/*****已选*****/
+.range-select p{
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: left;
+    color:#ff4200;
+    padding-left: 10px;
+
+}
+.range-s-m li{
+    float: left;
+    display: inline;
+    padding:20px;
+    position: relative;
+}
+.range-s-m li button{
+    background-color:#eee;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    padding: 5px 12px;
+}
+.range-s-m .enquiry-range-del{
+    position: absolute;
+    top:12px;
+    right:13px;
+    z-index: 1;
+}
+.range-s-m .enquiry-range-del img{
+    width: 16px;
+    height: 16px;
+}
+
+.range p{
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: left;
+    color:#ff4200;
+    padding-left: 10px;
+}
+.range-main li{
+    float: left;
+    display: inline;
+    width: 10%;
+    padding: 5px 0;
+}
+.range-btn {
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+    margin-right: 20px;
+}

@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +81,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -192,47 +204,61 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\ai.0.15.0-build58334.js" />
-    <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Themes\Basic\Css\amazeui.min.css" />
+    <Content Include="Themes\Basic\Css\basic.css" />
+    <Content Include="Themes\Basic\Css\cssadd.css" />
+    <Content Include="Themes\Basic\Css\paycheck.css" />
+    <Content Include="Themes\Basic\Css\personal.css" />
+    <Content Include="Themes\Basic\Css\relogin.css" />
+    <Content Include="Themes\Basic\Img\register-tp2.png" />
+    <Content Include="Themes\Basic\Img\validate_tp.png" />
+    <Content Include="Themes\Basic\Js\amazeui.min.js" />
+    <Content Include="Themes\Basic\Js\Common.js" />
+    <Content Include="Themes\Basic\Js\CommonControlBind.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\css\diyUpload.css" />
+    <Content Include="Themes\Basic\Js\diyUpload\css\webuploader.css" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\bgblack.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\check_alt.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\avi.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\cdr.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\csv.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\doc.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\jpg.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\mp3.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\pdf.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\png.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\ppt.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\rar.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\txt.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\xls.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\zip.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\filebg\复件 txt.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\images\x_alt.png" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\diyUpload.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\diyUploadEvaluateM.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\diyUploadExt.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\JiChenPreUpload.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\Uploader.swf" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\webuploader.html5only.min.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\webuploader.js" />
+    <Content Include="Themes\Basic\Js\diyUpload\js\webuploader.min.js" />
+    <Content Include="Themes\Basic\Js\jquery-1.11.1.min.js" />
+    <Content Include="Themes\Basic\Js\JsGlobalEnum.js" />
+    <Content Include="Views\Themes\Basic\Home\register.js" />
+    <Content Include="Views\Themes\Basic\Home\register2.html" />
+    <Content Include="Views\Themes\Basic\Home\register3.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -244,40 +270,56 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\Controls\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Themes\Basic\fonts\fontawesome-webfont.eot" />
+    <Content Include="Themes\Basic\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Themes\Basic\fonts\fontawesome-webfont.woff" />
+    <Content Include="Themes\Basic\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Themes\Basic\fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ForgetPwd.cshtml" />
+    <Content Include="Views\Home\ForgetPwdReset.cshtml" />
+    <Content Include="Views\Home\ForgetPwdSuccess.cshtml" />
+    <Content Include="Views\Home\HasNoAuth.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Home\Reg.cshtml" />
+    <Content Include="Views\Home\Reg2.cshtml" />
+    <Content Include="Views\Home\Reg3.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\RegisterAgree.cshtml" />
+    <Content Include="Views\Home\RegMsg.cshtml" />
+    <Content Include="Views\Member\PersonalMsg.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Controls\_BodyBefore.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_HeadLeftBanner.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwd.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwdReset.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwdSuccess.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_HasNoAuth.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Login.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_LogOut.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Reg - 复制.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Reg.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Reg2.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Reg3.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Register.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_RegisterAgree.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_RegMsg.cshtml" />
+    <Content Include="Views\Themes\Basic\Main\_LoginB_Master.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_PersonalMsg.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

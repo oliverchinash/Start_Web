@@ -95,14 +95,7 @@ namespace SuperMarket.Core
             get;
             set;
         }
-        /// <summary>
-        ///某个系统适用的相对路径
-        /// </summary>
-        public List<FtpImagesSysPath> FtpImagesSysPathList
-        {
-            get;
-            set;
-        } 
+       
         /// <summary>
         /// 用户cookie
         /// </summary>
@@ -166,6 +159,15 @@ namespace SuperMarket.Core
             get;
             set;
         }
+        /// <summary>
+        /// 静态站点
+        /// </summary>
+        public string StaticWebUrl
+        {
+            get;
+            set;
+        }
+        
         public string HelpMobileWebUrl
         {
             get;

@@ -1,0 +1,314 @@
+
+/******头部********/
+.index-right-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+.index-right-top a{
+    color: blue;
+}
+/*****供应商名片*****/
+.index-module{
+    width: 100%;
+    height: 128px;
+    border: 1px solid #E0E0E0;
+    margin-bottom: 15px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 4px 0 #d7d7d7;
+    -moz-box-shadow: 0 1px 4px 0 #d7d7d7;
+    box-shadow: 0 1px 4px 0 #d7d7d7;
+    position: relative;
+}
+.index-module-img{
+    height: 128px;
+    width: 128px;
+    text-align: center;
+    font-size: 0;
+    white-space: nowrap;
+}
+.index-module-avatar{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 128px;
+    height: 36px;
+
+}
+.display{
+    display: block;
+}
+.index-module-avatar a{
+    display: block;
+    width: 128px;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 1;
+    text-decoration: none;
+}
+.index-module-avatar s{
+    background: #000;
+    opacity: .4;
+    width: 128px;
+    height: 36px;
+    display: block;
+}
+.index-module-img img{
+    max-width: 96px;
+    max-height: 96px;
+    margin-top: 10px;
+}
+.shop-information{
+    padding: 10px 10px;
+    width: 845px;
+}
+.shop-information p{
+    padding-top: 5px;
+}
+.shop-information p span{
+    color:#3CA1E0;
+    padding-left: 5px;
+}
+
+/******待处理******/
+.enquiry{
+    width: 100%;
+}
+.enquiry li{
+
+    float: left;
+    padding-right: 15px;
+    padding-top: 8px;
+}
+.enquiry li a{
+    color: #333;
+}
+.enquiry li a span{
+    color:#3CA1E0;
+    padding-left: 5px;
+}
+
+/*******供应商模块头部*******/
+.index-module-hd h2{
+    font-size: 24px;
+    font-weight: 400;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+/**********询价订单详情页**********/
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+.listDetail-table{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+    margin-bottom: 15px;
+    margin-top:10px;
+}
+.listDetail-table th{
+    background-color:#EAF8FF;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.listDetail-table td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    word-break: break-all;
+}
+.listDetail-table .listDetail-td{
+    width: 35px;
+}
+.listDetail-table .listDetail-td2{
+    width: 45px;
+}
+.listDetail-table .listDetail-td3{
+    width: 20px;
+}
+/*****订单明细*****/
+.listDetail-main{
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-top:10px ;
+}
+.listDetail-cont{
+
+}
+.listDetail-cont li{
+    float: left;
+    display: inline;
+    width: 33%;
+   padding-right: 10px;
+}
+.listDetail-cont2 li{
+    padding-bottom: 5px;
+ }
+.listDetail-cont2 li span{
+    padding-right: 10px;
+}
+.listDetail-table2{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+    margin-bottom: 15px;
+}
+.listDetail-table2 th{
+    background-color:#EAF8FF;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.listDetail-table2 td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    word-break: break-all;
+}
+.red{
+    color: red;
+}
+
+
+/********报价页开始**********/
+.quote-m{
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+.quote-m h3{
+    background-color: #FAFAFA;
+    padding: 5px 10px;
+}
+.quote-m ul{
+    padding: 10px;
+}
+.quote-m ul li{
+    padding-bottom: 2px;
+}
+.quote-m ul li span{
+    padding-right: 10px;
+}
+.quote-table{
+
+}
+
+.quote-m2{
+    padding:10px 10px;
+}
+.quote-table{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.quote-table th{
+    background-color:#EAF8FF;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.quote-table td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    word-break: break-all;
+}
+.quote-btn{
+    margin-top: 10px;
+    float: right;
+}
+.quote-btn button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+
+
+/********供应商经营范围开始**********/
+.enquiry-range{
+    border: 1px solid #eee;
+    margin-bottom: 15px;
+}
+.enquiry-range-t{
+    background-color: #FAFAFA;
+    height:45px;
+    padding: 10px;
+}
+.enquiry-range-t p{
+    font-weight: bold;
+    font-size: 14px;
+    padding-right: 10px;
+    padding-top: 3px;
+}
+.enquiry-range-t button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+.enquiry-range-m{
+
+}
+.enquiry-range-m li{
+   float: left;
+    display: inline;
+    padding:20px;
+    position: relative;
+}
+.enquiry-range-m li button{
+    background-color:#eee;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    padding: 5px 12px;
+}
+.enquiry-range-m .enquiry-range-del{
+    position: absolute;
+    top:12px;
+    right:13px;
+    z-index: 1;
+}
+.enquiry-range-m .enquiry-range-del img{
+    width: 16px;
+    height: 16px;
+}

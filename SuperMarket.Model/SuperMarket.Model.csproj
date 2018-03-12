@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>506c0ac1-0d1d-47a8-b4e3-6cd3745a7433</ProjectGuid>
+    <ProjectGuid>{506C0AC1-0D1D-47A8-B4E3-6CD3745A7433}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SuperMarket.Model</RootNamespace>
@@ -30,25 +30,288 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AdminLoginEntity.cs" />
+    <Compile Include="Account\MemberLoginEntity.cs" />
+    <Compile Include="Account\SessionObject.cs" />
+    <Compile Include="Account\UserIdentity.cs" />
+    <Compile Include="Api\ApiResultObj.cs" />
+    <Compile Include="Api\ConditionListObj.cs" />
+    <Compile Include="Api\ListResultObj.cs" />
+    <Compile Include="Basic\CatograyDB\BrandEntity.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeBrandEntity.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeClassEntity.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeEntity.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeModelEntity.cs" />
+    <Compile Include="Basic\CatograyDB\CarTypeSeriesEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassBrandEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassCGScopeEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesFoundEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassesMenuADEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassProDetailsEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ClassPropertiesEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyDetailsEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ComPropertyEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigNavMenuEntity.cs" />
+    <Compile Include="Basic\CatograyDB\ConfigSmsProviderEntity.cs" />
+    <Compile Include="Basic\CatograyDB\DicCouponsEntity.cs" />
+    <Compile Include="Basic\CatograyDB\DicUnitEnumEntity.cs" />
+    <Compile Include="Basic\CatograyDB\PartsCarBrandEntity.cs" />
+    <Compile Include="Basic\CatograyDB\PartsProductFoundEntity.cs" />
+    <Compile Include="Basic\CatograyDB\StaticCarTypeEntity.cs" />
+    <Compile Include="Basic\CatograyDB\StaticClassesFoundEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderDetailEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderOfferSubEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderSendEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderTakeEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGOrderVoucherEntity.cs" />
+    <Compile Include="Basic\CGOrderDB\CGReturnEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProCertifacateEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductLLogEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsLongitudeEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockAppEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductStockEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductsTransverseEntity.cs" />
+    <Compile Include="Basic\CGProductDB\CGProductTLogEntity.cs" />
+    <Compile Include="Basic\CMSDB\CmsContentEntity.cs" />
+    <Compile Include="Basic\CMSDB\CmsTempletEntity.cs" />
+    <Compile Include="Basic\CMSDB\CmsTemProductEntity.cs" />
+    <Compile Include="Basic\CommentDB\CommentEntity.cs" />
+    <Compile Include="Basic\CommentDB\CommentPicEntity.cs" />
+    <Compile Include="Basic\CommentDB\CommentShowEntity.cs" />
+    <Compile Include="Basic\CommentDB\InquiryRecordsEntity.cs" />
+    <Compile Include="Basic\CommentDB\StatisticCommentNumEntity.cs" />
+    <Compile Include="Basic\Ext\ComProDetailsEntity.cs" />
+    <Compile Include="Basic\Ext\MemberEntity.cs" />
+    <Compile Include="Basic\Ext\ProductSpecEntity.cs" />
+    <Compile Include="Basic\Ext\ProductStyleCarEntity.cs" />
+    <Compile Include="Basic\Ext\ProductStylePicsEntity.cs" />
+    <Compile Include="Basic\Ext\ProductStyleProEntity.cs" />
+    <Compile Include="Basic\HelpDB\IssueClassEntity.cs" />
+    <Compile Include="Basic\HelpDB\IssueContentEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGMemQuotedEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\CGQuotedPriceEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderCGMemEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\ConfirmOrderProductEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\DicInquiryOrderEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderFeedBackEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InQuiryOrderFlowEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderMemberEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryOrderPicsEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductEntity.cs" />
+    <Compile Include="Basic\JcOrderInquiry\InquiryProductSubEntity.cs" />
+    <Compile Include="Basic\MemberDB\BankInfoEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemAuthEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemberEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemberInfoEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemBillComEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemBillVATEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemBrowseLogEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemCGScopeEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemFavoritesEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBaiduEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemFromBDEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemGiftLogEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemLoginLogEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemPWDModLogEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemRecommendEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleAuthEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemRoleRelateEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemWareHouseEntity.cs" />
+    <Compile Include="Basic\MemberDB\MemWeChatMsgEntity.cs" />
+    <Compile Include="Basic\MemberDB\PostAddressEntity.cs" />
+    <Compile Include="Basic\MemberDB\SendEmailSmsEntity.cs" />
+    <Compile Include="Basic\MemberDB\ShoppCarEntity.cs" />
+    <Compile Include="Basic\MemberDB\StoreBusscopeEntity.cs" />
+    <Compile Include="Basic\MemberDB\StoreEntity.cs" />
+    <Compile Include="Basic\MemberDB\SuggestDealLogEntity.cs" />
+    <Compile Include="Basic\MemberDB\SuggestEntity.cs" />
+    <Compile Include="Basic\MemberDB\SysMsgEntity.cs" />
+    <Compile Include="Basic\MemberDB\WZShopCartEntity.cs" />
+    <Compile Include="Basic\MessageDB\B2BNoticeEntity.cs" />
+    <Compile Include="Basic\MessageDB\EmailSendEntity.cs" />
+    <Compile Include="Basic\MessageDB\MemProductClickEntity.cs" />
+    <Compile Include="Basic\MessageDB\MobileMessageEntity.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeEntity.cs" />
+    <Compile Include="Basic\MessageDB\SMSNoticeLogEntity.cs" />
+    <Compile Include="Basic\MessageDB\SMSTempletEntity.cs" />
+    <Compile Include="Basic\MessageDB\SuggestRecordEntity.cs" />
+    <Compile Include="Basic\MessageDB\WeChatMsgEntity.cs" />
+    <Compile Include="Basic\MessageDB\WeChatTokenLogEntity.cs" />
+    <Compile Include="Basic\MessageDB\WeiXinQNewsEntity.cs" />
+    <Compile Include="Basic\PayDB\AliResultEntity.cs" />
+    <Compile Include="Basic\PayDB\AliResultOrderEntity.cs" />
+    <Compile Include="Basic\PayDB\PayOrderEntity.cs" />
+    <Compile Include="Basic\PayDB\PayOrderRebackEntity.cs" />
+    <Compile Include="Basic\PayDB\WeChatResultEntity.cs" />
+    <Compile Include="Basic\ProductDB\DisCountEntity.cs" />
+    <Compile Include="Basic\ProductDB\DisCountInfoEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductBaoPinEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductCarTypeModelEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductDailyGrabEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductDetailEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductExtEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductFineEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductMenuEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertyEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarHotEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductSimilarSupEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialDetailsEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductSpecialEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleCarEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleExtEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStylePicsEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleProEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleSpecEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductWholeSaleEntity.cs" />
+    <Compile Include="Basic\ProductDB\StatisticDataEntity.cs" />
+    <Compile Include="Basic\ProductDB\StatisticProductSpecEntity.cs" />
+    <Compile Include="Basic\ProductDB\StatisticTradeEntity.cs" />
+    <Compile Include="Basic\ProductDB\WzAdClassREntity.cs" />
+    <Compile Include="Basic\ProductDB\WzAdContentEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetChangeEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetReChargeEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\AssetWithdrawEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\FinanceRefundEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralChangeEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\IntegralEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\MemCouponsEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderAddressEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderBillBasicEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderCreateLogEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderDetailPreTempEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgMemEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderMsgSupplierEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderPayLineConfirmEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\OrderVirtualEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\PayAliResultEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\PayEBankEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\PayRebackEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\PayTradeEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnItemEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\ReturnXSWLEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\WLCompanyEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderDetailEntity.cs" />
+    <Compile Include="Basic\ShoppingDB\WLPsOrderEntity.cs" />
+    <Compile Include="Basic\SysDB\CacheConfigEntity.cs" />
+    <Compile Include="Basic\SysDB\DicEnumEntity.cs" />
+    <Compile Include="Basic\SysDB\GYAuthEntity.cs" />
+    <Compile Include="Basic\SysDB\GYCityEntity.cs" />
+    <Compile Include="Basic\SysDB\GYRoleAuthEntity.cs" />
+    <Compile Include="Basic\SysDB\GYRoleEntity.cs" />
+    <Compile Include="Basic\SysDB\SysUserEntity.cs" />
+    <Compile Include="Basic\SysDB\WeChatNavigationEntity.cs" />
+    <Compile Include="Basic\SysDB\XTCodeEntity.cs" />
+    <Compile Include="Basic\SysDB\XTCodeNumEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWClassCGScopeEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWClassesFoundEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWConfigNavMenuEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWTreeBrandEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWTreeCTBrandEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWTreeCTModelEntity.cs" />
+    <Compile Include="Basic\VW\CatograyDB\VWTreeCTSeriesEntity.cs" />
+    <Compile Include="Basic\VW\CGOrderDB\VWCGOrderEntity.cs" />
+    <Compile Include="Basic\VW\CGOrderDB\VWCGOrderOfferSubEntity.cs" />
+    <Compile Include="Basic\VW\CGOrderDB\VWCGOrderReturnEntity.cs" />
+    <Compile Include="Basic\VW\CGOrderDB\VWCGReturnEntity.cs" />
+    <Compile Include="Basic\VW\CGOrderDB\VWCGSyncOrder.cs" />
+    <Compile Include="Basic\VW\CGProduct\VWCGProductStockEntity.cs" />
+    <Compile Include="Basic\VW\Comment\VWXunJiaObj.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWCGMemForConfirmEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWCGMemQuotedEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWCGQuotedPriceEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWConfirmOrderCGMemEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWConfirmOrderEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWInquiryOrderEntity.cs" />
+    <Compile Include="Basic\VW\JcOrderInquiry\VWInquiryProductEntity.cs" />
+    <Compile Include="Basic\VW\Member\VWMember.cs" />
+    <Compile Include="Basic\VW\Member\VWMemberEntity.cs" />
+    <Compile Include="Basic\VW\Member\VWMemBrowseLogEntity.cs" />
+    <Compile Include="Basic\VW\Member\VWMemFavoritesEntity.cs" />
+    <Compile Include="Basic\VW\Member\VWShowStoreEntity.cs" />
+    <Compile Include="Basic\VW\PayDB\VWPayOrderEntity.cs" />
+    <Compile Include="Basic\VW\Product\ProcProductEntity.cs" />
+    <Compile Include="Basic\VW\Product\ProcProductStyleEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWClassPropertiesEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWClassSpecEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWComPropertiesEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWConProductEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWOrderMsgEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductBaoPinEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductDailyGrabEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductFineEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductMenuEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductNomalParamEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductSimilarHotEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductSpecialDetailsEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductStyleEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductStyleSpecEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWSpeProductEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWSupplierEntity.cs" />
+    <Compile Include="Basic\VW\Report\ReportCGOrderEntity.cs" />
+    <Compile Include="Basic\VW\Report\ReportInquiryOrderEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWFinanceRefundEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWMemCouponsEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderCommentEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderDetailEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderEntity1.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderListEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderPayLineConfirm.cs" />
+    <Compile Include="Basic\VW\Shopping\VWOrderRemarkEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWPayAliResultEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWReturnEntity.cs" />
+    <Compile Include="Basic\VW\Shopping\VWShoppingCartInfo.cs" />
+    <Compile Include="BLL\EnumShow.cs" />
+    <Compile Include="Cache\SysCacheKey.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Basic\GYProvinceEntity.cs" />
+    <Compile Include="Common\CommonKey.cs" />
+    <Compile Include="Common\CommonStatus.cs" />
+    <Compile Include="Common\InquiryDicMenuCode.cs" />
+    <Compile Include="Common\MemAuthAndRole.cs" />
+    <Compile Include="Common\SearchFieldName.cs" />
+    <Compile Include="Common\UnitAutoTemplete.cs" />
+    <Compile Include="Common\UnitStr.cs" />
+    <Compile Include="Common\WebUrlEnum.cs" />
+    <Compile Include="Common\XTCodeType.cs" />
+    <Compile Include="Const\DicMenu.cs" />
+    <Compile Include="Const\EnumDicTionary.cs" />
+    <Compile Include="Const\EnumHelp.cs" />
+    <Compile Include="Const\LanageType.cs" />
+    <Compile Include="Lucene\GyLuceneEntity.cs" />
+    <Compile Include="Lucene\LuceneSearchEnum.cs" />
+    <Compile Include="Lucene\ProductLuceneEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeiXin\WeiXinEntity.cs" />
+    <Compile Include="WeiXin\WeiXinEnum.cs" />
+    <Compile Include="WeiXin\WeiXinSendMsgEntity.cs" />
+    <Compile Include="WeiXin\WeiXinTemplet.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -57,5 +320,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

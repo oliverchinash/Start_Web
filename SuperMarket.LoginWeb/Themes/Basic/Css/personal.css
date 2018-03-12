@@ -1,0 +1,255 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+    font-size: 1.4rem;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+/**********个人中心页面开始***********/
+/******头部开始******/
+.personal-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+}
+.personal-header a{
+    color: #5D5F6A;
+}
+personal-header .am-header .am-header-nav img{
+    height: 27px !important;
+}
+/*******内容开始******/
+.personal{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+
+}
+/******top开始*******/
+/*****已经登录过的*******/
+.personal-top{
+    background-color: #CC1B23;
+    padding: 15px 0;
+}
+.personal-top-main p{
+    margin: .3rem 0 0 0;
+    color: #fff;
+}
+.personal-top-main a{
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    margin: 0 auto;
+    border-radius:50px;
+    overflow: hidden;
+}
+/****没有登录过的***/
+.personal-top-no{
+    background-color: #CC1B23;
+    padding: 15px 0;
+}
+.personal-top-no-main p{
+    margin: .3rem 0 0 0;
+    color: #fff;
+}
+.personal-top-no-main a{
+    width: 114px;
+    height: 30px;
+    line-height: 30px;
+    background: #ffeeea;
+    border-radius: 3px;
+    color: #CC1B23;
+    text-align: center;
+    margin: 10px auto 0;
+    display: block
+}
+/******top结束*******/
+/*****收藏优惠券开始******/
+.personal-main1{
+    background-color: #fff;
+    padding: .3rem 0;
+}
+.personal-main1 li{
+
+}
+.personal-main1 a{
+    color: #666;
+}
+.personal-main1 a:after{
+    position: absolute;
+    right: 0;
+    top: 11px;
+    width: 1px;
+    height: 60%;
+    content: '';
+    -webkit-transform: scaleX(.5);
+    transform: scaleX(.5);
+    background-color: #e5e5e5;
+}
+/*******我的全部订单开始*******/
+.personal-order{
+    background-color: #fff;
+    padding-left: 0;
+    margin: .8rem 0 0 0;
+}
+.personal-order a{
+    color: #666;
+}
+.personal-order-li{
+    border-bottom:1px solid #F2F2F2;
+    padding:.7rem 1.5rem .5rem 1.5rem;
+}
+.personal-order-span{
+    color: #999;
+}
+.personal-order-span i{
+    padding-left: .5rem;
+}
+.personal-order-li2{
+    padding:1rem 0;
+}
+.personal-order-span2{
+    position: relative;
+}
+.personal-order-span2 span{
+    position:absolute;
+    top: -5px;
+    left: 100%;
+    margin-left: -10px;
+    padding: 1px 5px;
+}
+/******询价单开始******/
+.personal-xunjia{
+    background-color: #fff;
+    padding-left: 0;
+    margin: .8rem 0 0 0;
+}
+.personal-xunjia a{
+    color: #666;
+}
+.personal-xunjia li{
+    border-bottom:1px solid #F2F2F2;
+    padding:1rem 1.5rem .5rem 1.5rem;
+}
+.personal-xunjia i{
+    color: #999;
+}
+/*******我的积分开始*******/
+.personal-jifen{
+    background-color: #fff;
+    padding-left: 0;
+    margin: .8rem 0 0 0;
+}
+.personal-jifen a{
+    color: #666;
+}
+.personal-jifen-li{
+    border-bottom:1px solid #F2F2F2;
+    padding:1rem 1.5rem .5rem 1.5rem;
+}
+.personal-jifen-span{
+    color: #999;
+}
+.personal-jifen-span i{
+    padding-left: .5rem;
+}
+/******收货地址客户服务开始*******/
+.personal-shouhuo{
+    background-color: #fff;
+    padding-left: 0;
+    margin: .8rem 0 0 0;
+}
+.personal-shouhuo a{
+    color: #666;
+}
+.personal-shouhuo li{
+    border-bottom:1px solid #F2F2F2;
+    padding:1rem 1.5rem .5rem 1.5rem;
+}
+.personal-shouhuo i{
+    color: #999;
+}
+.personal-shouhuo-li{
+    border-bottom:none;
+    padding:1rem 1.5rem .5rem 1.5rem;
+}
+.personal-shouhuo-span{
+    color: #999;
+}
+.personal-shouhuo-span i{
+    padding-left: .5rem;
+}
+/*****账户管理客户服务开始*****/
+.personal-fuwu{
+    background-color: #fff;
+    padding-left: 0;
+    margin: .8rem 0 0 0;
+}
+.personal-fuwu a{
+    color: #666;
+}
+.personal-fuwu li{
+    border-bottom:1px solid #F2F2F2;
+    padding:1rem 1.5rem .5rem 1.5rem;
+}
+.personal-fuwu i{
+    color: #999;
+}
+
+/*******退出登录*********/
+.personal-tuichu{
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #646464;
+    background: #fff;
+    margin: 23px 0;
+}
+.personal-tuichu:hover{
+    color: #646464;
+}
+
+/******底部导航栏开始******/
+.personal-navbar{
+    background: #fff;
+}
+.personal-navbar li a{
+    color: #999;
+}
+.personal-navbar .personal-navbar-li a{
+     color:red;
+}
+
+
+/*************客户服务开始*************/
+.service{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+
+}
+.service ul{
+    background: #fff;
+    text-align: left;
+    padding-left: 1rem;
+}
+.service ul li{
+    line-height: 3.5rem;
+    padding-right: 1rem;
+    border-bottom: 1px solid #EFEFEF;
+}
+.service ul li span{
+    color: #FF0000;
+}
+/*************客户服务结束*************/

@@ -1,0 +1,56 @@
+@charset "utf-8";
+i, em { font-style: normal; }
+/********搜索开始********/
+.search{
+    width: 620px;
+    margin: 20px auto;
+    height: 35px;
+    line-height: 35px;
+}
+.search-content input{
+    width: 412px;
+    height: 28px;
+    padding: 3px 5px;
+    border: 1px solid #4096e7;
+    vertical-align: baseline;
+}
+.search-content button{
+    border: 0;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #4096e7;
+    width: 105px;
+    height: 28px;
+    background-image: none;
+    margin: 0 0 0 -6px;
+}
+.search-main{
+    margin-top: 20px;
+}
+.search-wrap select{
+    width: 350px;
+    height: 28px;
+    border: 1px solid #4096e7;
+}
+
+/*********分类选择开始***********/
+/*主体部分*/
+.contains { width: 1000px; margin: 10px auto; text-align: left}
+/*面包屑导航*/
+.crumbNav { padding: 18px 0; color: #323232; }
+.crumbNav a { color: #ed7f5a; }
+.crumbNav a:hover { color: #d95459; }
+.crumbNav font { padding: 0 2px; font-family: simsun; }
+/**选择商品分类**/
+.wareSort { padding: 15px 8px 15px 7px; border: 1px solid #ddd; background-color: #f6f6f6; }
+.wareSort ul { float: left; width: 290px; height: 250px; overflow-y: scroll; padding: 10px; border: 1px solid #ddd; margin-right: 7px; margin-left: 8px; background-color: #fff; }
+.wareSort ul li a { display: block; padding-right: 25px; padding-left: 10px; border: 1px solid #fff; line-height: 28px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: #333 }
+.wareSort ul li a:hover { color: #D95459; }
+.wareSort ul li.active a { border-color: #D95459; background: #FFF4F0 url(../img/arrow.png) no-repeat right center; color: #333; }
+.selectedSort { padding: 10px 15px; border: 1px solid #ed7f5a; margin-top: 10px; margin-bottom: 10px; background-color: #fff4f0; color: #ed7f5a; }
+.selectedSort b { font-weight: bold; }
+.wareSortBtn { padding-bottom: 50px; text-align: center; }
+.wareSortBtn input { width: 200px; height: 36px; border: 1px solid #ed7f5a; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; background-color: #ed7f5a; color: #fff; }
+.wareSortBtn input:hover { border-color: #d95459; background-color: #d95459; }
+.wareSortBtn input:disabled { border-color: #ddd; background-color: #f6f6f6; color: #9a9a9a; cursor: default; }

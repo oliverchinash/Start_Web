@@ -1,0 +1,108 @@
+
+
+/*******top开始******/
+.list-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+
+/******商品搜索开始*******/
+.list-search{
+    width: 100%;
+}
+.list-search-main{
+    width: 100%;
+    margin-top: 10px;
+}
+.list-search-wrap{
+    width: 33%;
+    float: left;
+    display: inline;
+}
+.list-search-wrap label{
+    width: 91px;
+    text-align: center;
+    color: #000000;
+    font-size: 14px;
+    line-height: 28px;
+}
+.list-search-input{
+    float: left;
+    display: inline;
+}
+.list-search-input input{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-input select{
+    box-sizing: border-box;
+    width: 192px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    padding: 0 5px;
+}
+.list-search-button{
+    margin-top: 20px;
+}
+.list-search-button button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+/*******列表内容********/
+.list-main{
+    margin-top:10px;
+}
+.list-add{
+    float: right;
+    display: inline;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.list-add button{
+    height: 28px;
+    line-height: 28px;
+    background-color: #ff4200;
+    color: #fff;
+    border: 1px solid #ff4200;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 12px;
+    border-radius: 3px;
+}
+.list-main table{
+    width: 100%;
+    text-align:center;
+    border: 1px solid #F0F0F0;
+    border-right: none;
+    border-bottom: none;
+}
+.list-main table th{
+    background-color: #F5F5F5;
+    height: 35px;
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+}
+.list-main table td{
+    line-height: 35px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
