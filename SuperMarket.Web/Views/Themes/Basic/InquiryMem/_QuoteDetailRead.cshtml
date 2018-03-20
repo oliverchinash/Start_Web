@@ -1,6 +1,6 @@
 ﻿<!----头部开始------>
 @{
-    JiChen.Entities.VWInquiryOrderEntity order = ViewBag.VWInquiryOrder;
+    SuperMarket.Model.VWInquiryOrderEntity order = ViewBag.VWInquiryOrder;
 }
 <header data-am-widget="header" class="am-header-fixed am-header header" style="padding: 0;">
     <div class="am-header-left am-header-nav">
@@ -43,7 +43,7 @@
         @{
             if (order.OrderProducts != null && order.OrderProducts.Count > 0)
             {
-                foreach (JiChen.Entities.InquiryProductEntity product in order.OrderProducts)
+                foreach (SuperMarket.Model.InquiryProductEntity product in order.OrderProducts)
                 {
                     <li class="orderDetails2-chanpin am-g am-cf" style="position: relative; padding: .5rem 0;">
                         <span class="am-u-sm-9">@product.ProductName</span>
@@ -55,7 +55,7 @@
         }
     </ul>
     @{
-        if (order.Status == (int)JiChen.Entities.OrderInquiryStatusEnum.Submit || order.Status == (int)JiChen.Entities.OrderInquiryStatusEnum.Checked)
+        if (order.Status == (int)SuperMarket.Model.OrderInquiryStatusEnum.Submit || order.Status == (int)SuperMarket.Model.OrderInquiryStatusEnum.Checked)
         {
             <button class="am-btn am-btn-danger am-u-sm-10 am-u-sm-centered demand-next" onclick="FunInquiryOrderToQuote()">提交报价</button>
         }

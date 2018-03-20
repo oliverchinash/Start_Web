@@ -1,0 +1,317 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+/**********我的积分页面***********/
+/******头部开始******/
+
+/*******内容开始*********/
+.myIntegral{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+.myIntegral-top{
+    background: #FFBC3A;
+    width: 100%;
+    color: #fff;
+    padding: 3rem 0 6rem 3.8rem;
+}
+.myIntegral-top p{
+    font-size: 51px;
+    margin: 0;
+    text-shadow: 0 5px 5px rgba(0,0,0,.14);
+}
+.myIntegral-top span{
+    display:block;
+}
+
+.myIntegral ul{
+    background: #fff;
+    margin-top: 0;
+}
+.myIntegral ul li{
+   border-bottom: 1px solid #ddd;
+    padding: .8rem 0;
+}
+.myIntegral ul li a{
+   color: #666;
+    background: #fff;
+    width: 100%;
+}
+/**********我的积分页面结束**************/
+
+/***********积分说明页面开始**************/
+.IntegralDescription{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+.IntegralDescription-main1{
+   background: #fff;
+   padding:0 0 .5rem 1rem;
+}
+.IntegralDescription-main1 h4{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+    line-height: 3rem;
+    font-size: 1.6rem;
+}
+.IntegralDescription-main1 ul{
+    margin-top:.5rem;
+    padding-left: 0;
+    color: #999;
+    padding-right:1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.IntegralDescription-main1 ul li{
+    line-height: 2.2rem;
+}
+
+.IntegralDescription-main2{
+    background: #fff;
+    padding:0 0 .5rem 1rem;
+    margin-top: .8rem;
+}
+.IntegralDescription-main2 h4{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+    line-height: 3rem;
+    font-size: 1.6rem;
+}
+.IntegralDescription-main2 ul{
+    margin-top:.5rem;
+    padding-left: 0;
+    color: #999;
+    padding-right:1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.IntegralDescription-main2 ul li{
+    line-height: 2.2rem;
+}
+/***********积分说明结束************/
+/**********积分明细开始*************/
+.integralDetails{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+.integralDetails ul{
+    text-align: center;
+    padding-left: 0;
+}
+.integralDetails ul li{
+    padding: .5rem 0;
+    border-bottom: 1px solid #ccc;
+    border-top: none;
+}
+.integralDetails-li{
+    padding: .5rem 0;
+    background: #fff;
+}
+/**********积分明细结束*************/
+
+/*********我的优惠券页面开始*******/
+/******头部开始******/
+/*******内容开始*********/
+.myCoupon{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+/*******选项卡开始*******/
+.myCoupon .myCoupon-tabs{
+    margin: 0;
+}
+.myCoupon .am-tabs-default .am-tabs-nav{
+    background-color: #fff;
+}
+.myCoupon .am-tabs-default .am-tabs-nav>.am-active a{
+    background:none;
+    color: #D61419;
+    border-bottom: 2px solid #D61419;
+}
+.myCoupon .am-tabs-bd{
+    border: none;
+}
+.myCoupon .am-tabs-bd .am-tab-panel{
+
+    padding: 0;
+}
+/********未使用的优惠券******/
+/****没有优惠券****/
+.myCoupon-no{
+    width: 100%;
+    text-align:center;
+    padding-top: 4rem;
+}
+.myCoupon-no img{
+    width: 7rem;
+    height: 8rem;
+    margin-left:38%;
+}
+.myCoupon-no p{
+    text-align: center;
+    margin-top: .8rem;
+    color: #ccc;
+}
+/****有优惠券****/
+.myCoupon-have ul{
+    padding-left: 0;
+    margin-top: 1rem;
+}
+.myCoupon-have ul li{
+    margin-top: .8rem;
+}
+.myCoupon-have-main{
+    background: url("../img/Coupon_tp.png") no-repeat;
+    padding: .2rem 0;
+    color: #fff;
+}
+.myCoupon-have-main p{
+    margin: 0;
+    text-indent: 1rem;
+}
+.myCoupon-have-span{
+    display: inline-block;
+    margin: .5rem 0 .5rem 1rem;
+}
+
+/***********我的优惠券页面结束************/
+
+/***********优惠券使用说明页面***********/
+.couponExplain{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+.couponExplain-main1{
+    background: #fff;
+    padding:0 0 .5rem 1rem;
+}
+.couponExplain-main1 h4{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+    line-height: 3rem;
+    font-size: 1.6rem;
+}
+.couponExplain-main1 ul{
+    margin-top:.5rem;
+    padding-left: 0;
+    color: #999;
+    padding-right:1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.couponExplain-main1 ul li{
+    line-height: 2.2rem;
+}
+
+.couponExplain-main2{
+    background: #fff;
+    padding:0 0 .5rem 1rem;
+    margin-top: .8rem;
+}
+.couponExplain-main2 h4{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 0;
+    line-height: 3rem;
+    font-size: 1.6rem;
+}
+.couponExplain-main2 ul{
+    margin-top:.5rem;
+    padding-left: 0;
+    color: #999;
+    padding-right:1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+.couponExplain-main2 ul li{
+    line-height: 2.2rem;
+}
+/***********优惠券使用说明页面结束***********/
+
+/************我的购买记录开始*************/
+.payHistory{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+
+/******产品列表开始******/
+.payHistory ul{
+    padding-left: 0;
+    background-color: #fff;
+}
+.payHistory ul li{
+    border-bottom: 1px solid #ddd;
+}
+.payHistory ul li span{
+    color: #D85359;
+}
+/****产品图文介绍开始****/
+.payHistory .am-list{
+    margin-bottom: 0rem;
+    margin-top: .8rem;
+}
+.payHistory .am-list li{
+   padding: .8rem 0;
+    border-top: none;
+}
+.payHistory .am-list-news-default{
+  margin: 0;
+}
+.payHistory .am-list-news-default .am-list .am-list-item-thumbed{
+    padding:1rem 0;
+}
+.payHistory .am-list-main{
+    text-align: left;
+
+}
+.payHistory .am-list-item-hd{
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.payHistory .am-list-main h3 a{
+    color: #343434;
+}
+
+.payHistory .am-list-news-default .am-list-item-thumb-left .am-list-thumb img {
+    display: block;
+    width: 9rem;
+    height: 9rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/************我的购买记录结束*************/

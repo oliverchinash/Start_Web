@@ -9,26 +9,26 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
-    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
-    <link rel="stylesheet" href="/Themes/Basic/css/product.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/product.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
   <link rel="stylesheet" href="/Themes/Basic/css/discounts.css"> 
-    <link href="/themes/basic/css/cssadd.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle" rel="stylesheet" />
+    <link href="/themes/basic/css/cssadd.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle" rel="stylesheet" />
   <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
     <script src="/themes/basic/js/amazeui.min.js"></script>
     <script src="/themes/basic/js/handlebars.min.js"></script>
     <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
     <script src="/themes/basic/js/jquery.fly2.min.js"></script>
-    <script src="/themes/basic/js/productbehind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/CommonNumInit.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/globalcart.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/productbehind.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/CommonNumInit.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/globalcart.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
 </head>
 <body>
     @{
-        IList<JiChen.Entities.VWProductDailyGrabEntity> productlist = ViewBag.DailyGrabList;
+        IList<SuperMarket.Model.VWProductDailyGrabEntity> productlist = ViewBag.DailyGrabList;
 }<div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <header data-am-widget="header" class="am-header product-list-header">
         @Html.Partial("controls/_HeadBanner")
@@ -56,12 +56,12 @@
                 <ul class="am-list"> 
                    @if (productlist != null && productlist.Count > 0)
                    {
-                       foreach (JiChen.Entities.VWProductDailyGrabEntity _productentity in productlist)
+                       foreach (SuperMarket.Model.VWProductDailyGrabEntity _productentity in productlist)
                        {
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                             <div class="am-u-sm-4 am-list-thumb">
                                 <a href="/MobileProduct/Detail?pd=@(_productentity.ProductDetailId)" class="">
-                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _productentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
+                                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _productentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
                                 </a>
                             </div>
                             <div class="am-u-sm-8 am-list-main">

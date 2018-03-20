@@ -1,0 +1,116 @@
+﻿
+.divCanvasContainer .am-offcanvas-bar:after{
+    background:none;
+} 
+.divCanvasContainer .am-offcanvas-bar{
+    background: #fff;
+}
+.divCanvasContainer .am-offcanvas-content{
+    padding: 0;
+}
+.am-offcanvas-content .am-accordion-content  .classify-list-a{
+    display:block;
+}
+
+/********产品列表导航栏*********/
+.divCanvasContainer{ 
+    width: 100%;
+}
+.divCanvasContainer ul{
+    padding: 0;
+
+}
+.divCanvasContainer .am-menu-default .am-parent a{
+    color: #333;
+}
+.divCanvasContainer .am-menu-default .am-menu-nav>.am-parent.am-open>a{
+    color: #B11205;
+
+}
+.divCanvasContainer .am-menu-default .am-menu-nav a{
+
+}
+.divCanvasContainer .am-menu-default .am-menu-nav{
+    padding: 0;
+} 
+
+/********支付配送方式开始*********/
+.divCanvasContainer{
+    margin-top: .8rem;
+    padding-bottom: 2rem;
+}
+.divCanvasContainer ul{
+    background: #fff;
+    width:100%;
+    font-size: 1.4rem;
+    padding-left: .5rem;
+}
+.divCanvasContainer ul li{
+    border-bottom: 1px solid #ddd;
+    padding: .8rem 0;
+
+}
+.divCanvasContainer ul li p{
+    margin-bottom: 0;
+}
+.divCanvasContainer ul li span{
+    padding-right: 1rem;
+    color:#8F8F94;
+}
+
+.divCanvasContainer-ul{
+    margin-top: 0;
+    border: none;
+    padding-left: 0;
+}
+.divCanvasContainer-ul li {
+    text-align: left;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 0;
+}
+.divCanvasContainer-ul li span{
+    text-indent: 1rem;
+}
+
+.personal-top-main div{
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    margin: 0 auto;
+    border-radius:50px;
+    overflow: hidden;
+}
+
+.am-icon-angle-right{
+    color:#ccc;
+}
+#divCarTypeSeriesBox ul li{ 
+    padding:  0 0;
+}
+
+.home-daojishi #spantimer
+{
+    font-family:Helvetica, Microsoft YaHei, Arial, sans-serif;
+    font-size:14px;
+    color:#151515;
+    font-weight:bold;
+}
+.home-deal{
+    margin-bottom:0;
+}
+.home-tuijian{
+    margin-top: 0rem;
+margin-bottom: 0rem;
+}
+.home-faxian{
+    margin-top: 0rem;
+margin-bottom: 0rem;
+
+}
+/*.product-list-choose ul{
+    width:100%;display: inline;white-space: nowrap;overflow-x:scroll;float:left;overflow-y:hidden; margin-bottom: 0rem;
+}
+.product-list-choose ul li{
+   display:inline-block;width:80px;height:30px;padding-left:10px;
+}*/ 

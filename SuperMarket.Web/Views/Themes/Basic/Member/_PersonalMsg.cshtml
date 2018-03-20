@@ -1,5 +1,5 @@
 ﻿@{
-    JiChen.Entities.VWMemberEntity mem = ViewBag.VWMember;
+    SuperMarket.Model.VWMemberEntity mem = ViewBag.VWMember;
 }
 <!doctype html>
 <html class="no-js">
@@ -20,15 +20,15 @@
     <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/webuploader.css">
     <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/diyUpload.css">
     <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/webuploader.js"></script>
-    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/diyUpload.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/commoncontrolbind.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/jsglobalenum.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/diyUpload.js?type==@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/commoncontrolbind.js?type==@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type==@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
 
 </head>
 <body><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
-    <input id="txtPicServerRootUrl" type="hidden" value="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+    <input id="txtPicServerRootUrl" type="hidden" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
     <div class="validate">
         <!----头部开始------>
         <header data-am-widget="header" class="am-header header">
@@ -50,7 +50,7 @@
                 <div   id="divhearpic">
                     @if (!string.IsNullOrEmpty(mem.HeadPicUrl))
                     {
-                        <img id="imglisence" src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+mem.HeadPicUrl)">
+                        <img id="imglisence" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+mem.HeadPicUrl)">
                     }
                     else
                     {
@@ -112,7 +112,7 @@
         <input id="txtLisencePath" type="hidden" value="@mem.LicensePath" />
         <div class="validate-img am-g"> 
             <div class="am-u-sm-6">
-                <div id="divuploadlisence"><img id="imglisence" src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+ mem.LicensePath)"></div>
+                <div id="divuploadlisence"><img id="imglisence" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+ mem.LicensePath)"></div>
             </div> 
         </div> 
     </div>

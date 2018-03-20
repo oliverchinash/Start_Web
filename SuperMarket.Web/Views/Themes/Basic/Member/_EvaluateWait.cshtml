@@ -19,9 +19,9 @@
 </head>
 <body>
     @{ 
-        IList<JiChen.Entities.VWOrderCommentEntity> list = ViewBag.OrderCommentList;
+        IList<SuperMarket.Model.VWOrderCommentEntity> list = ViewBag.OrderCommentList;
     }<div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始------>
     <header data-am-widget="header" class="am-header header">
@@ -42,7 +42,7 @@
         <div class="myComment-list"><div id="divordercommentbox">
     @if (list != null && list.Count > 0)
     {
-        foreach (JiChen.Entities.VWOrderCommentEntity commententity in list)
+        foreach (SuperMarket.Model.VWOrderCommentEntity commententity in list)
         {
             <div class="myComment-main">
                 <ul class="am-cf">
@@ -52,7 +52,7 @@
                     </li>
                     @if (commententity.OrderDetails != null && commententity.OrderDetails.Count > 0)
                     {
-                        foreach (JiChen.Entities.VWOrderDetailEntity orderdetailentity in commententity.OrderDetails)
+                        foreach (SuperMarket.Model.VWOrderDetailEntity orderdetailentity in commententity.OrderDetails)
                         {
                             <li>
                                 <div data-am-widget="list_news" class="am-list-news am-list-news-default">
@@ -61,7 +61,7 @@
                                             <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                                 <div class="am-u-sm-4 am-list-thumb">
                                                     <a href="/MobileProduct/Detail?pd=@(orderdetailentity.ProductDetailId)">
-                                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + orderdetailentity.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                        <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + orderdetailentity.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                     </a>
                                                 </div>
                                                 <div class="am-u-sm-8 am-list-main">
@@ -106,7 +106,7 @@
                                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                             <div class="am-u-sm-4 am-list-thumb">
                                                 <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
-                                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                 </a>
                                             </div>
                                             <div class="am-u-sm-8 am-list-main">

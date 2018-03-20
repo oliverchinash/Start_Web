@@ -15,17 +15,17 @@
             <!-------头部结束--------->
             <ul class="am-list paycheck-pay-ul" id="ulpaymethodbox">
                 
-                @*<li class="am-g active" PayType="@((int)JiChen.Entities.PayType.WeChat)" PayName="微信" IsDefault="1" returnobjid="txtSelectPayType" onclick="FunSelectPayMethod(this)">
+                @*<li class="am-g active" PayType="@((int)SuperMarket.Model.PayType.WeChat)" PayName="微信" IsDefault="1" returnobjid="txtSelectPayType" onclick="FunSelectPayMethod(this)">
                     <div class="am-u-sm-12 paycheck-peisong-main">
                         <p style="color: #333;">微信[推荐]</p>
                     </div>
                 </li>*@
-                <li class="am-g active"  PayType="@((int)JiChen.Entities.PayType.AliPayMobile)" PayName="支付宝" IsDefault="1" returnobjid="txtSelectPayType"  onclick="FunSelectPayMethod(this)">
+                <li class="am-g active"  PayType="@((int)SuperMarket.Model.PayType.AliPayMobile)" PayName="支付宝" IsDefault="1" returnobjid="txtSelectPayType"  onclick="FunSelectPayMethod(this)">
                     <div class="am-u-sm-12 paycheck-peisong-main">
                         <p style="color: #333;">支付宝</p> 
                     </div>
                 </li>
-                <li class="am-g" PayType="@((int)JiChen.Entities.PayType.OutLine)"  PayName="线下支付"  IsDefault="0"  returnobjid="txtSelectPayType"  onclick="FunSelectPayMethod(this)">
+                <li class="am-g" PayType="@((int)SuperMarket.Model.PayType.OutLine)"  PayName="线下支付"  IsDefault="0"  returnobjid="txtSelectPayType"  onclick="FunSelectPayMethod(this)">
                     <div class="am-u-sm-12 paycheck-peisong-main">
                         <p style="color: #333;">线下支付</p>
                     </div>

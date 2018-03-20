@@ -942,7 +942,7 @@ namespace SuperMarket.Web.MemberControllers
 
             VWMemberEntity _mem = new VWMemberEntity();
             _mem.MemId = memid;
-            _mem.NickName = nickname;
+            _mem.MemNikeName = nickname;
             int rei = MemberBLL.Instance.BasicMsgUpdate(_mem);
             if (rei > 0)
             {

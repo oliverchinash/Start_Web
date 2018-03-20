@@ -42,16 +42,16 @@ namespace SuperMarket.Model
             }
         }
         // 昵称
-        private string _NickName;
-        public string NickName
+        private string _MemNikeName;
+        public string MemNikeName
         {
             get
             {
-                return _NickName;
+                return _MemNikeName;
             }
             set
             {
-                _NickName = value;
+                _MemNikeName = value;
             }
         }
         // 密码

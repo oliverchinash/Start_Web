@@ -1,0 +1,250 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的个人中心</title> 
+    <meta name="renderer" content="webkit">  
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/personal.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script> 
+    <script src="/themes/basic/js/amazeui.min.js"></script>  
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body>
+    @{ 
+        SuperMarket.Model.VWOrderMsgEntity _msgentity = ViewBag.VWOrderMsg;
+        SuperMarket.Model.VWMemberEntity _mementity = ViewBag.Member;
+        }
+    <div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header am-header-fixed header">
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                我的易店心
+            </a>
+        </h1>
+       
+    </header>
+    <!----header结束----->
+    <!-------内容开始---------->
+    <div class="personal">
+        <!--------top开始-------->
+        <!-------已登录过后-------->
+        <div class="personal-top">
+            <div class="personal-top-main">
+                <a href="javascript:void(0)">
+                    @if (string.IsNullOrEmpty(_mementity.HeadPicUrl))
+                    {
+                        <img src="/themes/basic/img/personal_tp1.png">
+                    }
+                    else
+                    {
+                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _mementity.HeadPicUrl)" />
+                    }
+                </a>
+                <p>@(string.IsNullOrEmpty(_mementity.MemNikeName) ? _mementity.MemCode : _mementity.MemNikeName)</p>
+                <p>@(_mementity.CompanyName)</p>
+            </div>
+        </div>
+        <!------未登录过的-------->
+        <div class="personal-top-no" style="display: none">
+            <div class="personal-top-no-main">
+                <p>您还尚未登录哦</p>
+                <a href="javascript:void(0)">
+                    立即登录
+                </a>
+            </div>
+        </div>
+        <!--------top结束-------->
+        <!--------收藏优惠券开始--------->
+        <ul class="am-g personal-main1">
+            <li class="am-u-sm-4">
+                <a href="/MobileMember/Favorites">
+                    <span>@(ViewBag.FavoritesNum)</span>
+                    <div>我的收藏</div>
+                </a>
+            </li>
+            <li class="am-u-sm-4">
+                <a href="/MobileMember/Coupons">
+                    <span>@(ViewBag.CouponsNum)</span>
+                    <div>优惠券</div>
+                </a>
+            </li>
+            <li class="am-u-sm-4">
+                <a href="/MobileMember/BrowseLog">
+                    <span>&nbsp;</span>
+                    <div>浏览记录</div>
+                </a>
+            </li>
+        </ul>
+        <!--------收藏优惠券结束--------->
+        <!--------我的全部订单开始--------->
+        <ul class="personal-order">
+            <li class="personal-order-li am-cf">
+                <a href="/MobileMember/OrderList">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon2.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的订单
+                    </span>
+                    <span class="am-fr personal-order-span">查看全部订单<i class="am-icon am-icon-angle-right"></i></span>
+                </a>
+            </li>
+            <li class="am-g am-cf personal-order-li2">
+                <a href="/MobileMember/OrderList?s=1" class="am-u-sm-4">
+                    <span class="personal-order-span2">
+                        <img src="/themes/basic/img/personal_icon3.png" class="am-img-responsive" style="width: 27px;height:27px;display: inline-block;vertical-align: bottom;">
+                        <span class="am-badge am-badge-danger am-round">@_msgentity.WaitPayNum</span>
+                    </span>
+                    <div>待付款</div>
+                </a>
+                <a href="/MobileMember/OrderList?s=4" class="am-u-sm-4">
+                    <span class="personal-order-span2">
+                        <img src="/themes/basic/img/personal_icon4.png" class="am-img-responsive" style="width: 27px;height:27px;display: inline-block;vertical-align: bottom;">
+                        <span class="am-badge am-badge-danger am-round">@_msgentity.WaitReciveNum</span>
+                    </span>
+                    <div>待收货</div>
+                </a>
+                <a href="/MobileMember/OrderList?s=7" class="am-u-sm-4">
+                    <span>
+                        <img src="/themes/basic/img/personal_icon5.png" class="am-img-responsive" style="width: 27px;height:27px;display: inline-block;vertical-align: bottom;">
+                    </span>
+                    <div>已取消</div>
+                </a>
+            </li>
+        </ul>
+        <!--------我的全部订单结束--------->
+   
+        <!--------我的优惠券开始--------->
+        <ul class="personal-xunjia">
+            <li class="am-cf">
+                <a href="/MobileMember/Coupons">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的优惠券
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="/MobileMember/OrderList?os=2">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的需求订单
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/InquiryOrderList">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的询价单
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/ConfirmOrderList">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的询价确认订单
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li> 
+        </ul>
+        <!--------我的预购单结束--------->
+        <!--------我的积分开始--------->
+        <ul class="personal-jifen">
+            <li class="personal-jifen-li am-cf">
+                <a href="/MobileMember/Integral">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon5.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的积分
+                    </span>
+                    <span class="am-fr personal-jifen-span"><i class="am-icon am-icon-angle-right"></i></span>
+                </a>
+            </li>
+            <li class="personal-jifen-li am-cf">
+                <a href="/MobileMember/EvaluateWait">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon8.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的评价
+                    </span>
+                    <span class="am-fr personal-jifen-span"><i class="am-icon am-icon-angle-right"></i></span>
+                </a>
+            </li>
+        </ul>
+        <!------我的积分结束------->
+        <!------收货地址客户服务开始------->
+        <ul class="personal-shouhuo">
+            <li class="am-cf">
+                <a href="/MobileMember/Address">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon9.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">收货地址
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="/MobileMember/Invoice">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon12.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">发票信息
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="personal-shouhuo-li am-cf">
+                <a href="/MobileHome/ContactUs">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon10.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">客户服务
+                    </span>
+                    <span class="am-fr personal-shouhuo-span">400-999-8411<i class="am-icon am-icon-angle-right"></i></span>
+                </a>
+            </li>
+        </ul>
+        <!------收货地址客户服务结束------->
+        <!------账户管理客户服务开始------->
+        <ul class="personal-fuwu">
+            <li class="am-cf">
+                <a href="/MobileMember/PersonalMsg">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon11.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">基础信息
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="/MobileMember/WeChatCode">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon11.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">微信绑定
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="/MobileHome/ForgetPwd">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon3.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">修改密码
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+            <li class="am-cf">
+                <a href="/MobileMember/Suggest">
+                    <span class="am-fl">
+                        <img src="/themes/basic/img/personal_icon13.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">意见反馈
+                    </span>
+                    <i class="am-icon am-icon-angle-right am-fr"></i>
+                </a>
+            </li>
+        </ul> 
+        <!--------退出登录开始---------->
+        <a onclick="FunRedirectLogOut()" class="personal-tuichu">退出登录</a>
+        <!--------退出登录结束---------->
+    </div>
+    <!-------内容结束---------->
+    <!--------底部导航栏开始-------->
+    @Html.Partial("controls/_FootBanner")
+</body>
+</html>

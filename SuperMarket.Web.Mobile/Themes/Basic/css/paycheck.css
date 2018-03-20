@@ -1,0 +1,689 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.cl{
+    clear: none;
+}
+
+/**********订单核对页面***********/
+/*******header********/
+.paycheck-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+    height: 44px;
+    line-height: 44px;
+}
+.paycheck-header a{
+    color:  #5D5F6A;
+}
+.am-header .am-header-title{
+    font-size: 1.7rem;
+}
+.paycheck{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+
+/**********收货地址***********/
+.paycheck-dizhi{
+    background:#fff;
+}
+.paycheck-dizhi .paycheck-dizhi-top{
+    background:url("../img/paycheck_bg.png") repeat-x;
+    width: 100%;
+    height:.6rem;
+}
+.paycheck-dizhi-ul{
+    margin: 0;
+}
+.paycheck-dizhi-ul p{
+    margin-bottom: 0;
+    margin-top: .5rem;
+    font-size: 1.2rem;
+    text-align: left;
+}
+.paycheck-dizhi .am-list>li{
+    border: none;
+}
+/***********收货地址的侧边栏开始************/
+.paycheck .am-offcanvas-bar{
+    background: #FFFFFF;
+}
+.paycheck .am-offcanvas-bar:after{
+    background: #FFFFFF;
+}
+.paycheck .am-offcanvas-content{
+    padding:0 ;
+}
+.active{
+ background: url("../img/paycheck_icon.png") no-repeat right center;
+}
+.paycheck-offcanvas-ul{
+    margin: 0;
+}
+.paycheck-offcanvas-ul p{
+    margin-bottom: 0;
+    margin-top: .5rem;
+    font-size: 1.2rem;
+    text-align: left;
+}
+.paycheck-offcanvas-ul .am-list>li{
+    border: none;
+}
+.paycheck-dizhi-moren a{
+   font-size: 1.2rem;
+    color: #666;
+    padding-top: .5rem;
+}
+/********支付配送方式开始*********/
+.paycheck-pay{
+    margin-top: .8rem;
+    padding-bottom: 2rem;
+}
+.paycheck-pay ul{
+    background: #fff;
+    width:100%;
+    font-size: 1.4rem;
+    padding-left: .5rem;
+}
+.paycheck-pay ul li{
+    border-bottom: 1px solid #ddd;
+    padding: .8rem 0;
+
+}
+.paycheck-pay ul li p{
+    margin-bottom: 0;
+}
+.paycheck-pay ul li span{
+    padding-right: 1rem;
+    color:#8F8F94;
+}
+
+.paycheck-pay-ul{
+    margin-top: 0;
+    border: none;
+    padding-left: 0;
+}
+.paycheck-pay-ul li {
+    text-align: left;
+    font-size: 1.2rem;
+    border: none;
+    margin-bottom: 0;
+}
+.paycheck-pay-ul li span{
+    text-indent: 1rem;
+}
+/********优惠券选择**********/
+.paycheck-youhui{
+    color:#8F8F94;
+    margin-top: 6rem;
+}
+/********图文介绍开始*********/
+.paycheck .am-list-news-default{
+    margin: 0;
+}
+.paycheck .am-list-news-default .am-list{
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.paycheck .am-list-news-default .am-list .am-list-item-text{
+    margin-top: 0;
+}
+.paycheck .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.paycheck .am-list-main{
+    text-align: left;
+
+}
+.paycheck .am-list-item-hd{
+    color: #000;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+
+.paycheck .am-list-main h3 a{
+    color: #343434;
+}
+.paycheck .am-list-item-desced a{
+    color: #FF532B;
+}
+.am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 9rem;
+    height: 9rem;
+    border: 1px solid #ddd;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+
+/*******底部提交订单*******/
+.paycheck-money{
+    background: #fff;
+    height: 50px;
+    width: 100%;
+    max-width: 75rem;
+    position: fixed;
+    bottom: 0;
+    line-height: 50px;
+    text-align: left;
+    border-top: 1px solid #eeee;
+}
+.paycheck-money-div{
+    padding-left: 1rem;
+}
+.paycheck-money span{
+    color: #FF532B;
+}
+.paycheck-money a{
+    background: #FF532B;
+    display: inline-block;
+    color: #fff;
+    width: 33%;
+    text-align: center;
+    float: right;
+}
+/********支付配送方式结束*********/
+
+/**********新建收货地址开始***********/
+.newAddress{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+}
+/********内容开始*********/
+.newAddress-main{
+    background-color: #fff;
+    font-size: 1.4rem;
+}
+.newAddress-main ul{
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.newAddress-main li{
+    border-bottom: 1px solid #dedede;
+    line-height: 4rem;
+}
+.newAddress-main li input{
+    margin-top: .5rem;
+    line-height: 2.8rem;
+    border: 1px solid #ccc;
+    padding-left: 0;
+}
+.newAddress-main li textarea{
+    width: 100%;
+    border: none;
+    text-indent: 1rem;
+    line-height: 1.8rem;
+    resize:none;
+    height: 95px;
+    max-height: 95px;
+    overflow-y:hidden;
+}
+/**********设为默认***********/
+.newAddress-moren{
+    background-color: #fff;
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: .8rem;
+}
+.newAddress-moren li{
+    border-bottom: 1px solid #dedede;
+    line-height: 4rem;
+}
+.newAddress-moren li input{
+    margin-top: .8rem;
+    border: none;
+}
+
+
+/*********开关样式**********/
+/***
+.newAddress-moren .am-switch{
+    border-radius: 1.5rem;
+    float: right;
+    height: 3rem;
+    line-height: 3rem;
+    margin-top:.5rem;
+}
+.newAddress-moren .am-switch .am-switch-handle-on.am-switch-primary, .am-switch .am-switch-handle-off.am-switch-primary{
+    background: #fff;
+    color: #666;
+}
+.newAddress-moren .am-switch .am-switch-label{
+    background: #4CD964;
+}
+.am-switch .am-switch-handle-on.am-switch-default, .am-switch .am-switch-handle-off.am-switch-default{
+    background: none;
+}
+.am-switch .am-switch-handle-on, .am-switch .am-switch-handle-off, .am-switch .am-switch-label{
+   font-size: 1.2rem;
+    line-height: 2rem;
+}
+********/
+/**********新建收货地址结束***********/
+
+/**************确认订单开始****************/
+
+/******内容开始*******/
+.confirmation{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+.confirmation-main1{
+    background:#fff url("../img/paycheck_bg.png") repeat-x;
+    width: 100%;
+}
+.confirmation-main1-p{
+    margin: 0 10px;
+    padding: 3rem 0;
+    border-bottom: 1px dashed #ddd;
+    color: #62AA22;
+}
+.confirmation-main1-p p{
+    margin-bottom: 0;
+}
+.confirmation-main1-p2{
+    margin:0 1rem 0 1rem;
+    padding:1rem 0;
+}
+.confirmation-main1-p2 span b{
+    color: #FF532B;
+}
+/*******支付方式******/
+.confirmation-main2{
+    background: #fff;
+    margin-bottom: 0;
+    padding-left: 0;
+    margin-top: .8rem;
+}
+.confirmation-main2 li{
+    padding:.6rem 1rem;
+}
+.confirmation-main2 li p{
+    margin-bottom: 0;
+}
+.confirmation-main2 li a{
+    color: #666;
+}
+/*****支付方式侧边栏开始*****/
+.confirmation .am-offcanvas-bar{
+    background: #FFFFFF;
+}
+.confirmation .am-offcanvas-bar:after{
+    background: #FFFFFF;
+}
+.confirmation .am-offcanvas-content{
+    padding:0 ;
+}
+.active{
+    background: url("../img/paycheck_icon.png") no-repeat right center;
+}
+.confirmation-ul-xuanze{
+    border-bottom: 1px solid #EFEFEF;
+}
+.confirmation-ul-xuanze p{
+    height:3.2rem;
+    line-height:3.2rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+/*******确认支付*******/
+.confirmation-mian3{
+    margin:1rem 1rem 0 1rem;
+}
+.confirmation-mian3 button{
+    background: #FF532B;
+    color: #fff;
+    width: 100%;
+    border-radius:.3rem;
+}
+.confirmation-mian3 button:hover{
+    color: #fff;
+}
+/******订单中心*******/
+.confirmation-mian4{
+    margin:3rem 1rem 0 1rem;
+}
+.confirmation-mian4 a{
+    border-radius: .3rem;
+    width: 47%;
+}
+/**************确认订单结束****************/
+
+/**********填写卡号页面开始*********/
+/******内容开始*******/
+.payCard{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+}
+.payCard ul{
+    margin: 0;
+    padding-left: 0;
+    background: #fff;
+    font-size: 1.4rem;
+}
+.payCard ul li{
+    border-bottom: 1px solid #ddd;
+    padding: .5rem 1rem;
+}
+.payCard ul li p{
+    margin-bottom: 0;
+}
+.payCard ul li span{
+    color: #9E9E9E;
+}
+/******填写卡号*******/
+.payCard-kahao{
+    padding: .6rem 0;
+    margin-top: 1rem;
+    border:1px solid #ddd;
+    background-color: #fff;
+    border-radius: .5rem;
+    text-align: center;
+}
+.payCard-kahao span{
+    padding: 0;
+    line-height:2.5rem;
+}
+.payCard-kahao input{
+    padding: 0;
+    border:none;
+    height: 2.5rem;
+    line-height:2.5rem;
+}
+.payCard-kahao input:focus{
+    border: none;
+}
+/******下一步********/
+.payCard-btn{
+    margin: 1rem 2rem 0 2rem;
+}
+.payCard-btn a{
+    background-color:#22AC38;
+    color: #fff;
+    width: 100%;
+    border-radius: .3rem;
+}
+.payCard-btn a:hover{
+    color: #fff;
+}
+/**********填写卡号页面结束*********/
+
+/**********收货地址开始*********/
+/******头部开始******/
+.address-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+}
+
+.address .am-header .am-header-title{
+    margin: 0;
+}
+.address-header a{
+    color: #5D5F6A;
+}
+/******内容开始*******/
+.address{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    font-size: 1.4rem;
+}
+.address ul{
+    background: #fff;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 1rem;
+}
+.address ul li{
+    border-bottom: 1px solid #ddd;
+    line-height: 3rem;
+    padding-right: 1rem;
+}
+.address-dizhi-main{
+    margin-top: .8rem;
+    line-height: 2.2rem;
+    padding-bottom: .5rem;
+}
+.address ul li p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.address ul li a{
+   color: #666;
+}
+
+/**********收货地址结束*********/
+
+/********编辑收货地址开始**********/
+.editAddress{
+    margin-top: 2rem;
+    padding: 0 3rem;
+}
+.editAddress button{
+    width: 100%;
+    background-color: #CC1B23;
+    line-height: 3.6rem;
+    color: #fff;
+    border-radius: .3rem;
+    border: none;
+}
+
+/********编辑收货地址结束**********/
+
+/*********订单交易成功开始**********/
+
+/****底部导航栏*****/
+.paySuccess-navbar{
+    background: #fff;
+}
+.paySuccess-navbar li a{
+    color: #999;
+}
+/*********订单交易成功结束**********/
+
+
+/**********发票信息页面开始***********/
+/*******选项卡开始*******/
+.invoice .invoice-tabs{
+    margin: 0;
+}
+.invoice .am-tabs-default .am-tabs-nav{
+    background-color: #fff;
+}
+.invoice .am-tabs-default .am-tabs-nav>.am-active a{
+    background:none;
+    color: #D61419;
+    border-bottom: 2px solid #D61419;
+}
+.invoice .am-tabs-bd{
+    border: none;
+}
+.invoice .am-tabs-bd .am-tab-panel{
+    padding: 0;
+}
+
+/***********普票开始*************/
+.invoice-main ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left: 0;
+}
+.invoice-main ul li{
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+/************专票开始**********/
+.invoice-main2 ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left:0;
+    margin-bottom: 0;
+}
+.invoice-main2 ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main2 ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main2 ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+.invoice-main3 ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left:0;
+    margin-bottom: 0;
+}
+.invoice-main3 ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main3 ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main3 ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+.invoice-main3-tishi{
+    margin-top: 1.5rem;
+    text-align: left;
+}
+.invoice-main3-tishi p{
+    padding:.2rem 1rem .2rem 1rem;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #999;
+}
+.invoice-main3-tishi p span{
+    color:#D61419;
+}
+/***********发票信息页面结束*********/
+
+
+/*********线下支付页面开始************/
+/******内容开始*******/
+.offlinePayment{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+
+}
+.offlinePayment-main1{
+    background:#fff url("../img/paycheck_bg.png") repeat-x;
+    width: 100%;
+}
+.offlinePayment-main1-p{
+    margin: 0 10px;
+    padding: 3rem 0;
+    border-bottom: 1px dashed #ddd;
+    color: #62AA22;
+}
+.offlinePayment-main1-jiaoyanma{
+    margin: 0 auto;
+    width: 190px;
+    color: #1266AB;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #1266AB;
+}
+.offlinePayment-main1-jiaoyanma span{
+    color: #666;
+}
+.offlinePayment ul{
+    background: #fff;
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: left;
+    padding-left: .8rem;
+}
+.offlinePayment ul li{
+    border-bottom: 1px solid #EFEFEF;
+    padding:.5rem 0;
+}
+.offlinePayment-kefu{
+    font-size: 1.4rem;
+}
+.offlinePayment-kefu span{
+    color: #FF5E15;
+}
+/****底部导航栏*****/
+.offlinePayment-navbar{
+    background: #fff;
+}
+.offlinePayment-navbar li a{
+    color: #999;
+}
+/*********线下支付页面结束************/

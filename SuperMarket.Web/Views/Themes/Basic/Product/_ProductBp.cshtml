@@ -68,7 +68,7 @@
     </script>
 </head>
 <body><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <div class="hotSale">
 
@@ -83,7 +83,7 @@
             @Html.Partial("controls/_CartBox")
         </header> 
         @{
-            IList<JiChen.Entities.VWProductBaoPinEntity> list = ViewBag.ListProduct; 
+            IList<SuperMarket.Model.VWProductBaoPinEntity> list = ViewBag.ListProduct; 
         }
 
 
@@ -109,7 +109,7 @@
                 @{
                     if (list != null && list.Count > 0)
                     {
-                        foreach (JiChen.Entities.VWProductBaoPinEntity pentity in list)
+                        foreach (SuperMarket.Model.VWProductBaoPinEntity pentity in list)
                         {
                             <li> 
                                 <div data-am-widget="list_news" class="am-list-news am-list-news-default product-list-news am-cf">
@@ -118,7 +118,7 @@
                                             <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                                 <div class="am-u-sm-4 am-list-thumb">
                                                     <a href="/MobileProduct/detail?pd=@(pentity.ProductDetailId)" class="">
-                                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + pentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
+                                                        <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + pentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
                                                     </a>
                                                 </div> 
                                                 <div class="am-u-sm-8 am-list-main">
@@ -164,7 +164,7 @@
                             <div class="am-u-sm-4 am-list-thumb">
                                 <a href="/MobileProduct/detail?pd={{ProductDetailId}}" class="">
                                     {{#with ProductDetail}}
-                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
+                                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
                                     {{/with}}
                                 </a>
                             </div>

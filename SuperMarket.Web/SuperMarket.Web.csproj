@@ -667,6 +667,20 @@
     <Content Include="Views\Themes\Basic\Product\_ProductS.cshtml" />
     <Content Include="Views\Themes\Basic\Product\_Search.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">
+      <Project>{81dbd8d6-519a-4850-a5e4-bc94102572f1}</Project>
+      <Name>SuperMarket.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Core\SuperMarket.Core.csproj">
+      <Project>{141147c2-4822-4f66-84c8-a277ab1d7d51}</Project>
+      <Name>SuperMarket.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
+      <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
+      <Name>SuperMarket.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

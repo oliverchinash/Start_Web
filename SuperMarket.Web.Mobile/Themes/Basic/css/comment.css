@@ -1,0 +1,327 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+/***********我的评论页面开始**********/
+.myComment{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+.myComment-tab{
+    background-color: #fff;
+    padding-left: 0;
+}
+.myComment-tab li{
+    line-height: 42px;
+}
+.myComment-tab li a{
+    color: #666;
+}
+.myComment-tab .myComment-active{
+    border-bottom: 2px solid #D61419;
+}
+.myComment-tab .myComment-active a{
+    color:#D61419;
+}
+/******主要内容开始*****/
+.myComment-main{
+    background: #fff;
+    width: 100%;
+    margin-top: .8rem;
+    text-align: left;
+}
+.myComment-main ul{
+    padding-left: 1rem;
+    margin-bottom: 0;
+}
+.myComment-main ul li{
+    border-bottom: 1px solid #ddd
+}
+.myComment-main p{
+    padding-top: .5rem;
+    margin-bottom: 0;
+}
+/******图文介绍开始********/
+.myComment-main .am-list-news-default .am-list{
+    padding-left: 0;
+    margin-top: .5rem;
+}
+.myComment-main .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.myComment-main .myComment-comment{
+    margin-top: .3rem;
+    border:1px solid #FF532B;
+    display: inline-block;
+    padding: 0 1rem !important;
+    border-radius: .8rem;
+}
+.myComment-main .am-list-main{
+    text-align: left;
+
+}
+.myComment-main .am-list-item-hd{
+    color: #000;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+.myComment-main .am-list-main h3 a{
+    color: #343434;
+}
+.myComment-main .am-list-item-desced a{
+    color: #FF532B;
+}
+.myComment-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 8rem;
+    height:8rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+
+/**********已评论页面开始**********/
+/******主要内容开始*****/
+.haveComments-main{
+    background: #fff;
+    width: 100%;
+    margin-top: .8rem;
+    text-align: left;
+}
+.haveComments-main ul{
+    padding-left: 1rem;
+    margin-bottom: 0;
+}
+.haveComments-main ul li{
+    border-bottom: 1px solid #ddd
+}
+.haveComments-main p{
+    padding-top: .5rem;
+    margin-bottom: 0;
+}
+/******图文介绍开始********/
+.haveComments-main .am-list-news-default .am-list{
+    padding-left: 0;
+    margin-top: .5rem;
+}
+.haveComments-main .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.haveComments-main .myComment-comment{
+    margin-top: .3rem;
+    border:1px solid #FF532B;
+    display: inline-block;
+    padding: 0 1rem !important;
+    border-radius: .8rem;
+}
+.haveComments-main .am-list-main{
+    text-align: left;
+
+}
+.haveComments-main .am-list-item-hd{
+    color: #000;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+.haveComments-main .am-list-main h3 a{
+    color: #343434;
+}
+.haveComments-main .am-list-item-desced a{
+    color: #FF532B;
+}
+.haveComments-main .am-list-item-desced span{
+    color: #FF532B;
+}
+.haveComments-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 8rem;
+    height:8rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/**********已评论页面结束**********/
+
+/**********发表评论开始***********/
+.addComment{
+    text-align: left;
+}
+.addComment-main{
+    border-bottom: 1px solid #DADADA;
+    background-color: #fff;
+}
+.addComment-main img{
+    width: 40px;
+    height: 40px;
+    margin-bottom: .5rem;
+    margin-left: .5rem;
+    float: left;
+    margin-top: .5rem;
+}
+.addComment-main2{
+    background-color: #fff;
+}
+.addComment-main2 textarea{
+    width: 100%;
+    height: 100px;
+    border: none;
+    font-size: 13px;
+    padding: 10px 15px;
+}
+.addComment-main2-div{
+    border-bottom: 1px solid #DADADA;
+    margin:0 1rem auto;
+}
+.addComment-main2-div img{
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1rem;
+    margin-top: .5rem;
+}
+.addComment-main2-niming{
+    margin: 0 1rem;
+}
+.addComment-main2-niming span{
+    padding-top: .8rem;
+    color: #ccc;
+}
+.addComment-main3{
+    padding: .5rem 0 1rem 0;
+    background-color: #fff;
+    margin-top: .7rem;
+}
+/*******星级打分开始*********/
+/* 星级评分 */
+.shop-rating {
+    height: 25px;
+    overflow: hidden;
+    zoom: 1;
+    padding-left: 1rem;
+    position: relative;
+    z-index: 999;
+    margin-top: 1.2rem;
+}
+
+.shop-rating span {
+    height: 23px;
+    display: block;
+    line-height: 23px;
+    float: left;
+}
+
+.shop-rating span.title {
+    width: 70px;
+    text-align: right;
+    margin-right: 2px;
+}
+
+.shop-rating ul {
+    float: left;
+    margin:0;padding:0
+}
+
+.shop-rating .result {
+    margin-left: 20px;
+    padding-top: 2px;
+}
+
+.shop-rating .result span {
+    color: #ff6d02;
+}
+.shop-rating .result em {
+    color: #f60;
+    font-family: arial;
+    font-weight: bold;
+}
+.shop-rating .result strong {
+    color: #666666;
+    font-weight: normal;
+}
+.rating-level,
+.rating-level a {
+    background: url(http://a.tbcdn.cn/app/rc/img/star_v2.png) no-repeat scroll 1000px 1000px;
+}
+.rating-level {
+    background-position: 0px 0px;
+    width: 120px;
+    height: 23px;
+    position: relative;
+    z-index: 1000;
+}
+.rating-level li {
+    display: inline;
+}
+
+.rating-level a {
+    line-height: 23px;
+    height: 23px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-indent: -999em;
+    *zoom: 1;
+    outline: none;
+}
+
+
+.rating-level a.one-star {
+    width: 20%;
+    z-index: 6;
+}
+
+.rating-level a.two-stars {
+    width: 40%;
+    z-index: 5;
+}
+
+.rating-level a.three-stars {
+    width: 60%;
+    z-index: 4;
+}
+
+.rating-level a.four-stars {
+    width: 80%;
+    z-index: 3;
+}
+
+.rating-level a.five-stars {
+    width: 100%;
+    z-index: 2;
+}
+
+.rating-level .current-rating,.rating-level a:hover{background-position:0 -28px;}
+.rating-level a.one-star:hover,.rating-level a.two-stars:hover,.rating-level a.one-star.current-rating,.rating-level a.two-stars.current-rating{background-position:0 -116px;}
+.rating-level .three-stars .current-rating,.rating-level .four-stars .current-rating,.rating-level .five-stars .current-rating{background-position:0 -28px;}
+
+/*******星级打分结束**********/
+/**********发表评论结束***********/

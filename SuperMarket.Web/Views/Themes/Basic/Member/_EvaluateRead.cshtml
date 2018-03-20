@@ -25,7 +25,7 @@
 </head>
 <body> 
     <div style="display:none;">
-        <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+        <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
     </div>
     <!----header开始------>
     <header data-am-widget="header" class="am-header header">
@@ -37,13 +37,13 @@
         </h1> 
     </header>
     @{
-        JiChen.Entities.CommentEntity commententity = ViewBag.CommentEntity;
-        IList<JiChen.Entities.CommentPicEntity> piclist = ViewBag.CommentPicList;
-        JiChen.Entities.VWOrderDetailEntity _product = ViewBag.ProductEntity;
+        SuperMarket.Model.CommentEntity commententity = ViewBag.CommentEntity;
+        IList<SuperMarket.Model.CommentPicEntity> piclist = ViewBag.CommentPicList;
+        SuperMarket.Model.VWOrderDetailEntity _product = ViewBag.ProductEntity;
 
       <div class="addComment">
            <div class="am-cf addComment-main">
-            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _product.PicUrlSmall)">
+            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _product.PicUrlSmall)">
              <div class="shop-rating">
                 <span class="title">产品质量：</span>
                 <ul class="rating-level" id="stars1">
@@ -62,9 +62,9 @@
             <div class="addComment-main2-div" id="divpicbox">
                 @if (piclist != null && piclist.Count > 0)
                 {
-                    foreach (JiChen.Entities.CommentPicEntity picentity in piclist)
+                    foreach (SuperMarket.Model.CommentPicEntity picentity in piclist)
                     { 
-                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + picentity.PicUrl+"."+picentity.PicSuffix)" class="am-img-responsive">
+                        <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + picentity.PicUrl+"."+picentity.PicSuffix)" class="am-img-responsive">
                     }
                 } 
             </div>

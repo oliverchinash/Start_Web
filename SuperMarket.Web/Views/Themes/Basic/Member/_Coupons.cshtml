@@ -16,7 +16,7 @@
     <script src="/themes/basic/js/common.js"></script> 
 </head>
 <body><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header header">
@@ -33,7 +33,7 @@
         </div>
     </header>
     @{ 
-        IList<JiChen.Entities.MemCouponsEntity> list = ViewBag.CouponsList;
+        IList<SuperMarket.Model.MemCouponsEntity> list = ViewBag.CouponsList;
   
                 }
     <!----header结束------->
@@ -53,17 +53,17 @@
                     {
                         <div class="myCoupon-have">
                             <ul class="am-g am-cf">
-                                @foreach (JiChen.Entities.MemCouponsEntity entity in list)
+                                @foreach (SuperMarket.Model.MemCouponsEntity entity in list)
                                 {
                                     if (entity.DicCoupons != null && entity.DicCoupons.Id > 0)
                                     {
                                         <li class="am-u-sm-6">
                                             <div class="myCoupon-have-main">
-                                            @if (entity.DicCoupons.CouponType == (int)JiChen.Entities.CouponTypeEnum.Money)
+                                            @if (entity.DicCoupons.CouponType == (int)SuperMarket.Model.CouponTypeEnum.Money)
                                             {
                                                 <p>￥<span style="font-size:2.5rem">@((int)entity.DicCoupons.CouponValue)</span>优惠券</p>
                                             }
-                                            else if (entity.DicCoupons.CouponType == (int)JiChen.Entities.CouponTypeEnum.DisCount)
+                                            else if (entity.DicCoupons.CouponType == (int)SuperMarket.Model.CouponTypeEnum.DisCount)
                                             {
                                                 <p><span style="font-size:2.5rem">@((int)(entity.DicCoupons.CouponValue * 100))%</span>折扣券</p>
                                             }

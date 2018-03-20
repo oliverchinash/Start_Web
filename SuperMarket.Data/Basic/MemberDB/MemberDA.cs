@@ -130,13 +130,9 @@ namespace SuperMarket.Data.MemberDB
         }
         public VWMemberEntity GetVWMember(int memid)
         {
-            string sql = @"SELECT  b.[HeadPicUrl],a.[Id] as MemId,[MemCode],a.[Email],a.[WeChat],a.[QQ],a.[MobilePhone],[PassWord], [LoginNum], [IsStore],a.[Status],
-[MemGrade],[RecommendCode],a.TimeStampTab,b.MobilePhone AS ContactsMobile,b.Email AS ContactsEmail,c.CompanyName
-,c.Address AS CompanyAddress ,c.ProvinceId AS CompanyProvinceId,c.CityId AS CompanyCityId,
- c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
-							FROM
-							dbo.[Member] a WITH(NOLOCK)	LEFT join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
+            string sql = @"SELECT   a.[Id] as MemId,[MemCode],a.[Email],a.[WeChat],a.[QQ],a.[MobilePhone],
+a.[PassWord],a.MemNikeName, [LoginNum], [IsStore],a.[Status],
+[MemGrade],[RecommendCode],a.TimeStampTab  from				dbo.[Member] a WITH(NOLOCK) 
  WHERE a.[Id]=@MemId
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -148,30 +144,16 @@ namespace SuperMarket.Data.MemberDB
                 if (reader.Read())
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
-                    entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
+                    entity.MemCode = StringUtils.GetDbString(reader["MemCode"]); 
                     entity.Email = StringUtils.GetDbString(reader["Email"]);
                     entity.QQ = StringUtils.GetDbString(reader["QQ"]);  
                     entity.WeChat = StringUtils.GetDbString(reader["WeChat"]);  
-                     entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
+                    entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
+                    entity.MemNikeName = StringUtils.GetDbString(reader["MemNikeName"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.LoginNum = StringUtils.GetDbInt(reader["LoginNum"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);
-                    entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);
-                    entity.RecommendCode = StringUtils.GetDbString(reader["RecommendCode"]);
-                    entity.ContactsMobile = StringUtils.GetDbString(reader["ContactsMobile"]);
-                    entity.CompanyName = StringUtils.GetDbString(reader["CompanyName"]);
-                    entity.CompanyProvinceId = StringUtils.GetDbInt(reader["CompanyProvinceId"]);
-                    entity.CompanyCityId = StringUtils.GetDbInt(reader["CompanyCityId"]);
-                    entity.CompanyAddress = StringUtils.GetDbString(reader["CompanyAddress"]);
-                    entity.ContactsManName = StringUtils.GetDbString(reader["ContactsManName"]);
-                    entity.ContactsEmail = StringUtils.GetDbString(reader["ContactsEmail"]);
-                    entity.CompanyType = StringUtils.GetDbInt(reader["CompanyType"]);
-                    entity.IdentityNo = StringUtils.GetDbString(reader["IdentityNo"]);
-                    entity.HeadPicUrl = StringUtils.GetDbString(reader["HeadPicUrl"]);
-                    entity.TimeStampTab = ByteUtils.GetStringFromByte(reader["TimeStampTab"]);  
-
+                    entity.Status = StringUtils.GetDbInt(reader["Status"]);  
                 }
             }
             return entity;
@@ -179,13 +161,9 @@ namespace SuperMarket.Data.MemberDB
 
         public VWMemberEntity GetVWMemberByPhone(string phone)
         {
-            string sql = @"SELECT  b.[HeadPicUrl],a.[Id] as MemId,[MemCode],a.[Email],a.[QQ],a.WeChat,a.[MobilePhone],[PassWord], [LoginNum], [IsStore],a.[Status],
-[MemGrade],[RecommendCode],b.MobilePhone AS ContactsMobile,b.Email AS ContactsEmail,c.CompanyName
-,c.Address AS CompanyAddress ,c.ProvinceId AS CompanyProvinceId,c.CityId AS CompanyCityId,
- c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
-							FROM
-							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
+            string sql = @"SELECT   a.[Id] as MemId,[MemCode],a.[Email],a.[WeChat],a.[QQ],a.[MobilePhone],
+a.[PassWord],a.MemNikeName, [LoginNum], [IsStore],a.[Status],
+[MemGrade],[RecommendCode],a.TimeStampTab  from				dbo.[Member] a WITH(NOLOCK)  
  WHERE a.[MobilePhone]=@MobilePhone
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -198,41 +176,24 @@ namespace SuperMarket.Data.MemberDB
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
                     entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
                     entity.Email = StringUtils.GetDbString(reader["Email"]);
-                    entity.QQ = StringUtils.GetDbString(reader["QQ"]);  
-                    entity.WeChat = StringUtils.GetDbString(reader["WeChat"]); 
+                    entity.QQ = StringUtils.GetDbString(reader["QQ"]);
+                    entity.WeChat = StringUtils.GetDbString(reader["WeChat"]);
                     entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
+                    entity.MemNikeName = StringUtils.GetDbString(reader["MemNikeName"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.LoginNum = StringUtils.GetDbInt(reader["LoginNum"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);
-                    entity.RecommendCode = StringUtils.GetDbString(reader["RecommendCode"]);
-                    entity.ContactsMobile = StringUtils.GetDbString(reader["ContactsMobile"]);
-                    entity.CompanyName = StringUtils.GetDbString(reader["CompanyName"]);
-                    entity.CompanyProvinceId = StringUtils.GetDbInt(reader["CompanyProvinceId"]);
-                    entity.CompanyCityId = StringUtils.GetDbInt(reader["CompanyCityId"]);
-                    entity.CompanyAddress = StringUtils.GetDbString(reader["CompanyAddress"]);
-                    entity.ContactsManName = StringUtils.GetDbString(reader["ContactsManName"]);
-                    entity.ContactsEmail = StringUtils.GetDbString(reader["ContactsEmail"]);
-                    entity.CompanyType = StringUtils.GetDbInt(reader["CompanyType"]);
-                    entity.IdentityNo = StringUtils.GetDbString(reader["IdentityNo"]);
-                    entity.HeadPicUrl = StringUtils.GetDbString(reader["HeadPicUrl"]);
-
                 }
             }
             return entity;
         }
         public VWMemberEntity GetVWMemberByWeChat(string wechatcode)
         {
-            string sql = @"SELECT  b.[HeadPicUrl],a.[Id] as MemId,[MemCode],a.[Email],a.[QQ],a.WeChat,a.[MobilePhone],[PassWord], [LoginNum], [IsStore],a.[Status],
-[MemGrade],[RecommendCode],b.MobilePhone AS ContactsMobile,b.Email AS ContactsEmail,c.CompanyName
-,c.Address AS CompanyAddress ,c.ProvinceId AS CompanyProvinceId,c.CityId AS CompanyCityId,
- c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
-							FROM
-							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
+            string sql = @"SELECT   a.[Id] as MemId,[MemCode],a.[Email],a.[WeChat],a.[QQ],a.[MobilePhone],
+a.[PassWord],a.MemNikeName, [LoginNum], [IsStore],a.[Status],
+[MemGrade],[RecommendCode],a.TimeStampTab  from				dbo.[Member] a WITH(NOLOCK) 
  WHERE a.[WeChat]=@WeChat
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -245,27 +206,15 @@ namespace SuperMarket.Data.MemberDB
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
                     entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
                     entity.Email = StringUtils.GetDbString(reader["Email"]);
                     entity.QQ = StringUtils.GetDbString(reader["QQ"]);
                     entity.WeChat = StringUtils.GetDbString(reader["WeChat"]);
                     entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
+                    entity.MemNikeName = StringUtils.GetDbString(reader["MemNikeName"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.LoginNum = StringUtils.GetDbInt(reader["LoginNum"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);
-                    entity.RecommendCode = StringUtils.GetDbString(reader["RecommendCode"]);
-                    entity.ContactsMobile = StringUtils.GetDbString(reader["ContactsMobile"]);
-                    entity.CompanyName = StringUtils.GetDbString(reader["CompanyName"]);
-                    entity.CompanyProvinceId = StringUtils.GetDbInt(reader["CompanyProvinceId"]);
-                    entity.CompanyCityId = StringUtils.GetDbInt(reader["CompanyCityId"]);
-                    entity.CompanyAddress = StringUtils.GetDbString(reader["CompanyAddress"]);
-                    entity.ContactsManName = StringUtils.GetDbString(reader["ContactsManName"]);
-                    entity.ContactsEmail = StringUtils.GetDbString(reader["ContactsEmail"]);
-                    entity.CompanyType = StringUtils.GetDbInt(reader["CompanyType"]);
-                    entity.IdentityNo = StringUtils.GetDbString(reader["IdentityNo"]);
-                    entity.HeadPicUrl = StringUtils.GetDbString(reader["HeadPicUrl"]);
 
                 }
             }
@@ -776,22 +725,20 @@ from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.MemStore B WITH(NOLOCK) ON A.Id=B
         /// <param name="member">待更新的实体对象</param>
         public int UpdateMember(MemberEntity entity)
         {
-            string sql = @"  UPDATE dbo.[Member] SET [MemCode]=@MemCode,[Email]=@Email,[QQ]=@QQ,[WeChat]=@WeChat,[MobilePhone]=@MobilePhone,[PassWord]=@PassWord,[CreateTime]=@CreateTime,[LastLoginTime]=@LastLoginTime,[LoginNum]=@LoginNum,[CreateIp]=@CreateIp,[CreateClientType]=@CreateClientType,[IsStore]=@IsStore,[IsSupplier]=@IsSupplier,[IsSysUser]=@IsSysUser,[Status]=@Status,[MemGrade]=@MemGrade,[RecommendCode]=@RecommendCode
+            string sql = @"  UPDATE dbo.[Member] SET [MemCode]=@MemCode,[Email]=@Email,[MemNikeName]=@MemNikeName,[QQ]=@QQ,[WeChat]=@WeChat,[MobilePhone]=@MobilePhone,[PassWord]=@PassWord, [LastLoginTime]=@LastLoginTime,[LoginNum]=@LoginNum, [IsStore]=@IsStore,[IsSupplier]=@IsSupplier,[IsSysUser]=@IsSysUser,[Status]=@Status,[MemGrade]=@MemGrade,[RecommendCode]=@RecommendCode
                        WHERE [Id]=@id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@Id", DbType.Int32, entity.Id);
             db.AddInParameter(cmd, "@MemCode", DbType.String, entity.MemCode);
             db.AddInParameter(cmd, "@Email", DbType.String, entity.Email);
+            db.AddInParameter(cmd, "@MemNikeName", DbType.String, entity.MemNikeName);
             db.AddInParameter(cmd, "@QQ", DbType.String, entity.QQ);
             db.AddInParameter(cmd, "@WeChat", DbType.String, entity.WeChat);
             db.AddInParameter(cmd, "@MobilePhone", DbType.String, entity.MobilePhone);
-            db.AddInParameter(cmd, "@PassWord", DbType.String, entity.PassWord);
-            db.AddInParameter(cmd, "@CreateTime", DbType.DateTime, entity.CreateTime);
+            db.AddInParameter(cmd, "@PassWord", DbType.String, entity.PassWord); 
             db.AddInParameter(cmd, "@LastLoginTime", DbType.DateTime, entity.LastLoginTime);
-            db.AddInParameter(cmd, "@LoginNum", DbType.Int32, entity.LoginNum);
-            db.AddInParameter(cmd, "@CreateIp", DbType.String, entity.CreateIp);
-            db.AddInParameter(cmd, "@CreateClientType", DbType.Int32, entity.CreateClientType);
+            db.AddInParameter(cmd, "@LoginNum", DbType.Int32, entity.LoginNum); 
             db.AddInParameter(cmd, "@IsStore", DbType.Int32, entity.IsStore);
             db.AddInParameter(cmd, "@IsSupplier", DbType.Int32, entity.IsSupplier);
             db.AddInParameter(cmd, "@IsSysUser", DbType.Int32, entity.IsSysUser);
@@ -1032,12 +979,12 @@ WHERE [MemId]=@MemId
         public int BasicMsgUpdate(VWMemberEntity member)
         {
             string sql = @" 
-UPDATE dbo.[MemberInfo] SET [NickName]=@NickName 
+UPDATE dbo.[Member] SET [MemNikeName]=@MemNikeName 
 WHERE [MemId]=@MemId 
 ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@MemId", DbType.Int32, member.MemId);
-            db.AddInParameter(cmd, "@NickName", DbType.String, member.NickName);
+            db.AddInParameter(cmd, "@MemNikeName", DbType.String, member.MemNikeName);
 
             return db.ExecuteNonQuery(cmd);
         }
@@ -1583,9 +1530,9 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
 
         public MemberLoginEntity GetLoginMemByCode(string code)
         {
-            string sql = @"SELECT  a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],b.NickName 
+            string sql = @"SELECT  a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
 							FROM
-							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b on a.id=b.MemId
+							dbo.[Member] a WITH(NOLOCK)	 
 							WHERE [MemCode]=@MemCode";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -1601,7 +1548,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);  
                     entity.StoreType = StringUtils.GetDbInt(reader["StoreType"]); 
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
+                    entity.NickName = StringUtils.GetDbString(reader["MemNikeName"]);
                     entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);  
                     entity.IsSupplier = StringUtils.GetDbInt(reader["IsSupplier"]); 
                     entity.IsSysUser = StringUtils.GetDbInt(reader["IsSysUser"]); 
@@ -1633,9 +1580,9 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                 where += " and a.[TimeStampTab] =@TimeStampTab";
 
             }
-            string sql = @"SELECT  a.[Id] as MemId,[MemCode], WeChat,[PassWord],IsSupplier, IsSysUser,[IsStore],a.StoreType,a.[Status],[MemGrade],b.NickName,TimeStampTab 
+            string sql = @"SELECT  a.[Id] as MemId,[MemCode], WeChat,[PassWord],IsSupplier, IsSysUser,[IsStore],a.StoreType,a.[Status],[MemGrade],MemNikeName,TimeStampTab 
 							FROM
-							dbo.[Member] a WITH(NOLOCK)	left join dbo.MemberInfo b WITH(NOLOCK) on a.id=b.MemId
+							dbo.[Member] a WITH(NOLOCK) 
 							 " + where;
             DbCommand cmd = db.GetSqlStringCommand(sql);
             if (method == LoginMethodEnum.Code)
@@ -1671,7 +1618,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                     entity.WeChat = StringUtils.GetDbString(reader["WeChat"]);
                     entity.StoreType = StringUtils.GetDbInt(reader["StoreType"]);
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
+                    entity.NickName = StringUtils.GetDbString(reader["MemNikeName"]);
                     entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);
                     entity.IsSupplier = StringUtils.GetDbInt(reader["IsSupplier"]); 
                     entity.IsSysUser = StringUtils.GetDbInt(reader["IsSysUser"]); 
@@ -1683,9 +1630,9 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
 
         public MemberLoginEntity GetLoginMemByPhone(string phonecode)
         {
-            string sql = @"SELECT top 1 a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],b.NickName 
+            string sql = @"SELECT top 1 a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
 							FROM
-							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b on a.id=b.MemId
+							dbo.[Member] a WITH(NOLOCK)	 
 							WHERE a.[MobilePhone] =@MobilePhone";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -1701,7 +1648,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);  
                     entity.StoreType = StringUtils.GetDbInt(reader["StoreType"]); 
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);  
+                    entity.NickName = StringUtils.GetDbString(reader["MemNikeName"]);  
                     entity.IsSysUser = StringUtils.GetDbInt(reader["IsSysUser"]); 
                     entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);  
                     entity.IsSupplier = StringUtils.GetDbInt(reader["IsSupplier"]); 

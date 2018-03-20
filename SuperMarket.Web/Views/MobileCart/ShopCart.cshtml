@@ -1,13 +1,13 @@
 ﻿@{
     Layout = null;
 } 
-@if (ViewBag.JiShiSong == (int)JiChen.Entities.JiShiSongEnum.JiShi)
+@if (ViewBag.JiShiSong == (int)SuperMarket.Model.JiShiSongEnum.JiShi)
 {
-    @Html.Partial("../" + JiChen.Core.Globals.SkinPath + "/Cart/_ShopCartXuQiu") 
+    @Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/Cart/_ShopCartXuQiu") 
 }
 else
 {
 
-    @Html.Partial("../" + JiChen.Core.Globals.SkinPath + "/Cart/_ShopCart")
+    @Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/Cart/_ShopCart")
 }
 

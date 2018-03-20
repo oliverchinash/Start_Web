@@ -33,16 +33,16 @@
                 <!----固定元素结束------>
                 @{
                     int _classid = Model;
-                    IList<JiChen.Entities.VWTreeBrandEntity> list = JiChen.BLL.CatograyDB.BrandBLL.Instance.GetTreeBrandAll(_classid);
+                    IList<SuperMarket.Model.VWTreeBrandEntity> list = SuperMarket.BLL.CatograyDB.BrandBLL.Instance.GetTreeBrandAll(_classid);
                     if (list != null && list.Count > 0)
                     {
-                        foreach (JiChen.Entities.VWTreeBrandEntity entity in list)
+                        foreach (SuperMarket.Model.VWTreeBrandEntity entity in list)
                         {
                             <div class="brand-A am-cf" style="margin-top: .6rem">
                                 <p>@entity.PYFirst</p> 
                                 @if (entity.Children != null && entity.Children.Count > 0)
                                 {
-                                    foreach (JiChen.Entities.VWTreeBrandEntity entity2 in entity.Children)
+                                    foreach (SuperMarket.Model.VWTreeBrandEntity entity2 in entity.Children)
                                     {
                                         <div data-am-widget="list_news" class="am-list-news am-list-news-default am-cf">
                                             <ul class="am-list">

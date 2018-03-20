@@ -18,7 +18,7 @@
     <script src="/themes/basic/js/common.js"></script>
 </head>
 <body><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <div class="classify"> 
         <header data-am-widget="header" class="am-header header">
@@ -40,10 +40,10 @@
                         <!------------内容列表的折叠面板开始--------------->
                         <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
                             @{
-                                IList<JiChen.Entities.VWClassesFoundEntity> list = JiChen.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId, (int)ViewBag.ClassMenuType, -1, false);
+                                IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId, (int)ViewBag.ClassMenuType, -1, false);
                                 if (list != null && list.Count > 0)
                                 {
-                                    foreach (JiChen.Entities.VWClassesFoundEntity entity in list)
+                                    foreach (SuperMarket.Model.VWClassesFoundEntity entity in list)
                                     {
                                         <dl class="am-accordion-item">
                                             <dt class="am-accordion-title">
@@ -58,7 +58,7 @@
                                                     </a>
                                                     @if (entity.Children != null && entity.Children.Count > 0)
                                                     {
-                                                        foreach (JiChen.Entities.VWClassesFoundEntity entity2 in entity.Children)
+                                                        foreach (SuperMarket.Model.VWClassesFoundEntity entity2 in entity.Children)
                                                         {
                                                             <a href="/MobileProduct/List?cl=@entity2.Id"   class="classify-list-a">
                                                                 <div class="classify-list">

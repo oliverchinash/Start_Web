@@ -296,7 +296,6 @@
     <Content Include="Views\Themes\Basic\Home\_LogOut.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Reg.cshtml" />
     <Content Include="Views\Themes\Basic\Main\_LoginB_Master.cshtml" />
-    <Content Include="Views\Themes\Basic\Member\_PersonalMsg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">

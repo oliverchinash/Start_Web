@@ -44,17 +44,7 @@ namespace SuperMarket.Web.CommonControllers
                     redirecturl = loginurl + "?wechatcode=" + wechatcode + "&returnUrl=" + System.Web.HttpContext.Current.Server.UrlEncode(returnurl);
                 }
                 filterContext.Result = Redirect(redirecturl);
-            }
-            else if (member.IsStore != 1)
-            {
-                var loginurl = SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl;
-                if (loginurl == null || string.IsNullOrEmpty(loginurl.ToString()))
-                {
-                    loginurl = "";
-                }
-                loginurl = loginurl.TrimEnd('/') + "/Home/HasNoAuth";
-                filterContext.Result = Redirect(loginurl + "?returnUrl=" + System.Web.HttpContext.Current.Server.UrlEncode(System.Web.HttpContext.Current.Request.Url.ToString()));
-            }
+            } 
             else
             {
                 memid = member.MemId;

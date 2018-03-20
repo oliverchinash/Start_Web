@@ -12,32 +12,32 @@
 <div id="divorderlist">
     <ul class="myorder-tab am-g am-cf"> 
         <li class="am-u-sm-3">
-            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)JiChen.Entities.OrderInquiryStatusEnum.Edit)" class="myorder-li @((ViewBag.Status== (int)JiChen.Entities.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.Edit)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
                 <span class="myorder-tex">待提交</span>
             </a>
         </li>
         <li class="am-u-sm-3">
-            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)JiChen.Entities.OrderInquiryStatusEnum.WaitAccept)" class="myorder-li @((ViewBag.Status== (int)JiChen.Entities.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
                 <span class="myorder-tex">待确认</span> 
             </a>
         </li>
         <li class="am-u-sm-3">
-            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)JiChen.Entities.OrderInquiryStatusEnum.WaitDelivery)" class="myorder-li @((ViewBag.Status== (int)JiChen.Entities.OrderInquiryStatusEnum.Finished)? "am-active":"")">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.WaitDelivery)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)? "am-active":"")">
                 <span class="myorder-tex">发货中</span>
             </a>
         </li> 
         <li class="am-u-sm-3">
-        <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)JiChen.Entities.OrderInquiryStatusEnum.Finished)" class="myorder-li @((ViewBag.Status== (int)JiChen.Entities.OrderInquiryStatusEnum.Finished)? "am-active":"")">
+        <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)? "am-active":"")">
         <span class="myorder-tex">已完成</span>
     </a>
 </li> 
     </ul> 
     <div class="orderDetails">
         @{
-            IList<JiChen.Entities.VWInquiryOrderEntity> list = ViewBag.InquiryOrderList;
+            IList<SuperMarket.Model.VWInquiryOrderEntity> list = ViewBag.InquiryOrderList;
             if (list != null && list.Count > 0)
             {
-                foreach (JiChen.Entities.VWInquiryOrderEntity entity in list)
+                foreach (SuperMarket.Model.VWInquiryOrderEntity entity in list)
                 {
                     <ul class="orderDetails-m">
                         <li style="position: relative; padding: .5rem 0;" >
@@ -49,7 +49,7 @@
                         </li> 
                         <li class="am-cf">
                             <div class="orderDetails-bianji am-fl">
-                                @if (entity.Status == (int)JiChen.Entities.OrderInquiryStatusEnum.WaitAccept)
+                                @if (entity.Status == (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)
                                 {
                                     <a href="/MobileInquiryMem/InquirySelect?code=@entity.InquiryOrderCode" class="am-btn am-btn-xs">确认订单</a>
                                 }

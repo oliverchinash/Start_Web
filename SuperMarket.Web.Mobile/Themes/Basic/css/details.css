@@ -1,0 +1,286 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #F3F3F3 repeat;
+    font-size: 1.4rem;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.none{
+    display: none;
+}
+
+/************产品详情页开始************/
+/*******header********/
+.details-header{
+    border-bottom: 1px solid #ccc;
+    background: #EFEFEF;
+    height: 44px;
+    line-height: 44px;
+}
+.details-header .am-header-title{
+    margin: 0;
+    width: 80%;
+}
+.details-header .am-header-title ul li{
+    float: left;
+    font-size: 1.4rem;
+    margin-top: -.1rem;
+}
+.details-header i{
+    color: #ccc;
+}
+#details-table .current_tb{color: #FF5E15; border-bottom:1px solid #FF5E15}
+/*********商品详情开始************/
+.details-table{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    padding-bottom: 60px;
+}
+/******图文介绍开始********/
+.details-table .details-tw{
+    padding:0 1rem .5rem 1rem;
+    background: #fff;
+}
+.details-table .details-tw p{
+    margin:1rem 0 0 0;
+}
+.details-table .details-tw span{
+    font-size: 1.5rem;
+    color: #FF5E15;
+    display: block;
+}
+.details-table .details-tw .details-fuwushang{
+    color: #333;
+    font-size: 1.4rem;
+}
+/********数量开始**********/
+.details-number{
+    background-color: #fff;
+    margin-top: .8rem;
+    padding: .5rem 1rem;
+}
+/******参数介绍*******/
+.details-canshu{
+    margin-top: .8rem;
+    background: #fff;
+    padding-left: 1rem;
+    border-bottom: 4rem;
+}
+.details-canshu li{
+    line-height: 3rem;
+}
+/********收藏购买**********/
+/*
+.details-navbar{
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+.details-navbar .am-navbar-nav{
+    padding: 0;
+}
+.details-navbar ul li a{
+    color: #666;
+}
+.details-navbar .details-navbar-li a{
+    color:#FF5E15;
+}
+
+.details-navbar .details-navbar-li4 a{
+    color:#FF5E15;
+}
+.details-navbar .details-navbar-li2{
+    background: #FD9326;
+    height: 2.8rem;
+    line-height: 2.8rem;
+}
+.details-navbar .details-navbar-li2 a{
+    color: #fff;
+    font-size: 1.4rem;
+    padding-top: -1rem;
+    height: 2.8rem;
+    line-height: 2.8rem;
+    display: inline-block;
+    margin-top: -2rem;
+}
+.details-navbar .details-navbar-li2 a .am-navbar-label{
+        line-height: 2.8rem;
+        font-size: 1.4rem;
+        margin-top: -10px;
+}
+.details-navbar .details-navbar-li3{
+    background: #FF5E15;
+}
+.details-navbar .details-navbar-li3 a{
+    color: #fff;
+    font-size: 1.4rem;
+    height: 2.8rem;
+    display: inline-block;
+    line-height: 2.8rem;
+
+}
+.details-navbar .details-navbar-li3 a .am-navbar-label{
+    line-height: 2.8rem;
+    font-size: 1.4rem;
+    margin-top: -10px;
+}*/
+.details-navbar{
+    background-color: #fff;
+    height: 50px;
+    width: 100%;
+    max-width: 75rem;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 0;
+    line-height: 50px;
+    border-top: 1px solid #eeee;
+}
+.details-navbar .details-navbar-li{
+    border-top: 1px solid #EFEFEF;
+}
+.details-navbar .details-navbar-li4{
+    border-top: 1px solid #EFEFEF;
+}
+.details-navbar .details-navbar-li a{
+    color:#FF5E15;
+}
+.details-navbar .details-navbar-li4 a{
+    color:#FF5E15;
+}
+.details-navbar .details-navbar-li2{
+    background: #FD9326;
+}
+.details-navbar .details-navbar-li2 a{
+    color: #fff;
+    font-size: 1.4rem;
+}
+.details-navbar .details-navbar-li3{
+    background: #FF5E15;
+}
+.details-navbar .details-navbar-li3 a{
+    color: #fff;
+    font-size: 1.4rem;
+
+}
+/*****加入购物车效果******/
+.u-flyer{display: block;width: 50px;height: 50px;border-radius: 50px;position: fixed;z-index: 9999;}
+#msg{
+    position:fixed;
+    top:300px; right:50px;
+    z-index:10000;
+    width:1px;
+    height:52px;
+    line-height:52px;
+    font-size:16px;
+    text-align:center;
+    color:#fff;
+    background:#FF5000;
+    display:none
+}
+/*********商品详情结束************/
+
+/*********规格参数开始*************/
+.parameter{
+    font-size: 1.4rem;
+}
+.parameter p{
+    text-indent: 1rem;
+    line-height: 2.8rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.parameter .am-g{
+    background-color: #fff;
+}
+.parameter ul{
+    padding-left: 1rem;
+}
+.parameter .am-g li{
+    border-bottom: 1px solid #ddd;
+    line-height: 2.8rem;
+}
+.parameter .am-g li label{
+    font-weight: normal;
+}
+/*********规格参数结束*************/
+
+/***********适用车型开始************/
+.apply ul{
+    background-color: #fff;
+}
+.apply ul li{
+    line-height: 4rem;
+    border-bottom: 1px solid #ddd;
+}
+.apply ul li p{
+    margin-top: .5rem;
+    margin-bottom: 0;
+    text-indent: 1rem;
+}
+/***********适用车型结束************/
+
+/***********产品详情页结束*****************/
+
+
+/***********询价页开始***********/
+.enquiry{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.enquiry ul{
+    background-color: #fff;
+    padding: 10px 5px;
+}
+.enquiry ul .am-u-sm-9{
+    padding-left: 0;
+}
+.enquiry ul .am-u-sm-4{
+    padding-left: 0;
+    padding-right: 0;
+}
+.enquiry ul li{
+    line-height: 30px;
+    border-bottom: 1px solid #dddddd;
+}
+.enquiry ul li label{
+    text-align: right;
+}
+.enquiry ul li span{
+    text-align:left;
+}
+.enquiry-ul{
+    margin-top: 10px;
+}
+.enquiry-ul .enquiry-li{
+    border-bottom: none;
+}
+.enquiry input{
+    width: 61%;
+    float: left !important;
+    margin-left: 10px;
+}
+.enquiry textarea{
+    width: 95%;
+    margin-top: 10px;
+    height: 130px;
+}
+.enquiry a{
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    width: 70%;
+    margin: 15px auto;
+    background-color: #BA2022;
+    border-radius: 3px;
+    color: #fff;
+}

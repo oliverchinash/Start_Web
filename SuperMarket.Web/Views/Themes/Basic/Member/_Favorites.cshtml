@@ -28,7 +28,7 @@
 <body><div style="display:none;"> 
     <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
 </div><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header  am-header-fixed  header">
@@ -46,7 +46,7 @@
         </div>*@
     </header>
     @{ 
-        IList<JiChen.Entities.VWMemFavoritesEntity> list = ViewBag.List;
+        IList<SuperMarket.Model.VWMemFavoritesEntity> list = ViewBag.List;
     }
     <!-------header结束-------->
     <!---------内容开始---------->
@@ -54,7 +54,7 @@
 {
     <div class="payHistory" id="divFavoriteBox">
         <ul id="ulFavoriteListBox">
-            @foreach (JiChen.Entities.VWMemFavoritesEntity entity in list)
+            @foreach (SuperMarket.Model.VWMemFavoritesEntity entity in list)
             {
                 <li ProductDetailId="@entity.ProductDetailId">
                     <div data-am-widget="list_news" class="am-list-news am-list-news-default payHistory-list-news am-cf">
@@ -63,7 +63,7 @@
                                 <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left payHistory-list-li">
                                     <div class="am-u-sm-4 am-list-thumb">
                                         <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" class="">
-                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.ProductEntity.PicUrlList)" class="am-img-responsive" />
+                                            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.ProductEntity.PicUrlList)" class="am-img-responsive" />
                                         </a>
                                     </div>
 
@@ -103,7 +103,7 @@
                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left payHistory-list-li">
                             <div class="am-u-sm-4 am-list-thumb">
                                 <a href="javascript:void(0)" class="">
-                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
+                                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
                                 </a>
                             </div>
 

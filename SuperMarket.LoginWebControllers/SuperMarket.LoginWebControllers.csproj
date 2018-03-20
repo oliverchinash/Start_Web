@@ -51,9 +51,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseCommonController.cs" />
     <Compile Include="Base\BaseMemberController.cs" />
-    <Compile Include="CommonController.cs" />
     <Compile Include="HomeController.cs" />
-    <Compile Include="MemberController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

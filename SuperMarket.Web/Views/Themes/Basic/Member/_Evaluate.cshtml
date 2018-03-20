@@ -24,14 +24,14 @@
 
 </head>
 <body>@{
-    JiChen.Entities.VWOrderDetailEntity _detail = ViewBag.OrderDetail;
+    SuperMarket.Model.VWOrderDetailEntity _detail = ViewBag.OrderDetail;
 }<div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始------>
     <header data-am-widget="header" class="am-header header">
         <div style="display:none;">
-            <input id="txtPicServerRootUrl" type="hidden" value="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+            <input id="txtPicServerRootUrl" type="hidden" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
             <input type="text" id="txtOrderDetailId" value="@_detail.Id" />
             <input type="text" id="txtProductId" value="@_detail.ProductId" /> 
             <input type="text" id="txtProductDetailId" value="@_detail.ProductDetailId" />
@@ -53,7 +53,7 @@
     <div class="addComment">
         <!-----商品描述评分开始------->
         <div class="am-cf addComment-main">
-            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _detail.PicUrlSmall)">
+            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _detail.PicUrlSmall)">
             <!-- # 星级评分 # star:value = 分数-->
             <div class="shop-rating">
                 <span class="title">产品质量：</span>

@@ -36,10 +36,10 @@
                                         </dd>
                                     </dl>
                                     @{
-                                        IList<JiChen.Entities.ClassesFoundEntity> list =  ViewBag.ClassList;
+                                        IList<SuperMarket.Model.ClassesFoundEntity> list =  ViewBag.ClassList;
                                         if (list != null && list.Count > 0)
                                         {
-                                            foreach (JiChen.Entities.ClassesFoundEntity entity in list)
+                                            foreach (SuperMarket.Model.ClassesFoundEntity entity in list)
                                             {
                                                 <dl class="am-accordion-item">
                                                     <dt class="am-accordion-title"   onclick="FunSelectNavClass('@entity.Id')">

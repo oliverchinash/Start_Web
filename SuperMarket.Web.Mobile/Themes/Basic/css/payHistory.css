@@ -1,0 +1,200 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+/************我的购买记录开始*************/
+/******头部开始******/
+.payHistory-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+}
+
+.payHistory .am-header .am-header-title{
+    margin: 0;
+}
+.payHistory-header a{
+    color: #5D5F6A;
+}
+.payHistory{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+
+/******产品列表开始******/
+.payHistory ul{
+    padding-left: 0;
+    background-color: #fff;
+    margin-bottom: 0;
+}
+.payHistory ul li{
+    border-bottom: 1px solid #ddd;
+}
+.payHistory ul li span{
+    color: #D85359;
+}
+/****产品图文介绍开始****/
+.payHistory .am-list{
+    margin-bottom: 0rem;
+}
+.payHistory .am-list-news-default .am-list .am-list-item-desced{
+    padding:.6rem 0;
+}
+.payHistory .am-list li{
+    padding: .8rem 0;
+    border-top: none;
+}
+.payHistory .am-list-news-default{
+    margin: 0;
+}
+.payHistory-list-li{
+    padding:0;
+}
+.payHistory .am-list-main{
+    text-align: left;
+
+}
+.payHistory .am-list-news-default .am-list .am-list-item-text{
+    display: inline-block;
+    padding-top: .5rem;
+}
+.payHistory .am-list-news-default .am-list .am-list-item-text a{
+    color: #FF5E15;
+}
+.payHistory-shop{
+    padding:0;
+}
+.payHistory .am-list-item-hd{
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.payHistory .am-list-main h3 a{
+    color: #343434;
+}
+
+.payHistory .am-list-news-default .am-list-item-thumb-left .am-list-thumb img {
+    display: block;
+    width: 9rem;
+    height: 9rem;
+}
+.payHistory-shop a{
+    color: #FF5E15;
+    border: 1px solid #FF5E15;
+    border-radius:.3rem;
+    padding: .2rem .2rem;
+}
+.payHistory-delete{
+    width: 27px;
+    height: 27px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right:.5rem;
+    margin-top: -5px;
+}
+@media only screen and (max-width:640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+
+/**********删除弹出框样式********/
+.layui-layer-btn .layui-layer-btn0{
+    border-color:#FF532B !important;
+    background-color:#FF532B !important;
+    color: #fff;
+}
+.layui-layer-title{
+    padding: 0 !important;
+    text-align: center;
+}
+.layui-layer-dialog .layui-layer-content{
+    text-align: center;
+}
+.layui-layer-btn{
+    text-align: center !important;
+
+}
+
+/*********没有购买记录开始**********/
+.payHistory-no{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+    text-align: center;
+}
+.payHistory-no-p{
+    color: #999;
+    padding: 7rem 0;
+}
+.payHistory-jingxuan-p{
+    margin: 20px;
+    position: relative;
+    padding: 0 15px;
+    height: 1px;
+    background: #c9c9c9;
+    transform: scaleY(.5);
+    -webkit-transform: scaleY(.5);
+}
+.payHistory-jingxuan-p b{
+    position: absolute;
+    left: 55%;
+    top: -11px;
+    margin-left: -54px;
+    background: #efefef;
+    padding: 0 10px;
+    transform: scaleY(2);
+    -webkit-transform: scaleY(2);
+    font-family: "PingFangSC-Regular";
+    font-weight: normal;
+}
+.payHistory-jingxuan{
+    padding-left: 0;
+    margin-top: -.5rem;
+}
+.payHistory-jingxuan img{
+    max-width: 70%;
+}
+.payHistory-jingxuan li{
+    padding:.5rem .5rem;
+
+}
+.payHistory-jingxuan-div{
+    background: #fff;
+    padding-bottom: .5rem;
+    border-radius: .3rem;
+
+}
+.payHistory-jingxuan-div p{
+    font-size: 1.3rem;
+    padding-left: .5rem;
+    margin-bottom: 0;
+    text-align: left;
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.payHistory-jingxuan-div a{
+    color: #666;
+}
+/************我的购买记录结束*************/
+

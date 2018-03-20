@@ -15,9 +15,9 @@
     <script src="/themes/basic/js/common.js"></script> 
 </head>
 <body>@{ 
-    IList<JiChen.Entities.IntegralChangeEntity> _changelist = ViewBag.ChangeList;
+    IList<SuperMarket.Model.IntegralChangeEntity> _changelist = ViewBag.ChangeList;
 }<div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header header">
@@ -39,7 +39,7 @@
             </li>
             @if (_changelist != null && _changelist.Count > 0)
             {
-                foreach (JiChen.Entities.IntegralChangeEntity _integralentity in _changelist)
+                foreach (SuperMarket.Model.IntegralChangeEntity _integralentity in _changelist)
                 {
                     <li class="am-g">
                         <div class="am-u-sm-4">@_integralentity.ChangeTime</div>

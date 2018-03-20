@@ -1,0 +1,86 @@
+@charset"utf-8";
+
+/*******header********/
+.flagship-header{
+    background: #CC1B23;
+    height: 44px;
+    line-height: 44px;
+}
+.flagship-header a{
+    color:#fff;
+}
+.flagship{
+    width:100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+/*******产品分类********/
+.home-list{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.home-list a{
+    color: #343333;
+    font-size: 1.4rem;
+}
+.home-list .am-u-sm-3{
+    padding-top: 1rem;
+}
+.home-list .am-u-sm-3 img{
+    margin: auto;
+    width: 100%;
+    max-width: 65%;
+}
+
+/*******精选********/
+.home-faxian{
+    text-align: center;
+    font-size: 20px;
+    color:#CC1B23;
+    margin-top: .8rem;
+    margin-bottom: .2rem;
+    font-weight: bold;
+    font-family: "STXinwei";
+}
+
+.home-main5{
+    max-width: 710px;
+    margin: 0 auto;
+}
+.home-main5 img{
+    max-width: 70%;
+}
+.home-main5 .home-main5-li{
+    padding:.5rem .5rem;
+
+}
+.home-main5-li .home-main5-li-div{
+    background: #fff;
+    padding: .7rem 1.5rem;
+    font-size: 1.4rem;
+    border-radius: .3rem;
+}
+.home-main5-li .home-main5-li-div a{
+    color: #000;
+    display: block;
+}
+.home-main5 .home-mian5-wz{
+    padding-top: .2rem;
+    text-align: left;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+}
+.home-main5 .home-mian5-wz p{
+    margin-bottom: 0;
+
+}
+.home-mian5-wz a{
+    margin-top: -3rem;
+}

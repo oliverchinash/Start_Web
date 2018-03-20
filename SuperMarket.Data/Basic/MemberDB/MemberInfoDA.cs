@@ -383,7 +383,6 @@ c.GradeLevel,b.HeadPicUrl,c.CompanyName
                 if (reader.Read())
                 {
                     entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
-                    entity.NickName = StringUtils.GetDbString(reader["NickName"]);
                     entity.CreateTime = StringUtils.GetDbDateTime(reader["CreateTime"]);
                     entity.LastLoginTime = StringUtils.GetDbDateTime(reader["LastLoginTime"]);
                     entity.LoginNum = StringUtils.GetDbInt(reader["LoginNum"]);

@@ -247,7 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Common.config" />
     <Content Include="SuperMarket.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,204 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+    font-size: 1.4rem;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.cl{
+    clear: none;
+}
+
+/**********注册页面1开始***********/
+.register{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+
+/******内容开始*****/
+.register-main {
+    border: none;
+
+}
+.register-main i{
+    color: #666;
+}
+.register-main .am-form{
+    padding:1rem;
+	padding-top:0rem;
+}
+.register-main .am-form input{
+    border: none;
+
+}
+.user-ipone{
+    background: #fff;
+    border-bottom: 1px solid #E7E7E7;
+    padding: 1rem;
+}
+.user-ipone2{
+    background: #fff;
+    border-bottom: 1px solid #E7E7E7;
+    padding: 1rem;
+    position: relative;
+}
+.user-ipone-a{
+    display: block;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: .5rem;
+    position: absolute;
+    top:15%;
+    left: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.register-text{
+	text-align:left;
+	}
+
+.register-text a{
+	color:red;
+	} 
+.register-sub{
+    background: #CC1B23;
+    color: #fff;
+    width: 100%;
+
+}
+.register-sub:hover{
+    color: #fff;
+}
+
+/*********门面认证***********/
+.validate{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    background: #F3F3F3 repeat;
+	padding-bottom:30rem;
+}
+.validate-form{
+    padding-top: .8rem;
+    text-align: left;
+    text-indent: .5rem;
+}
+.validate-input{
+    background: #fff;
+    border-bottom: 1px solid #E7E7E7;
+}
+.validate-input span{
+    height: 3rem;
+    line-height: 3rem;
+}
+.validate-input input{
+    border: none;
+    outline: none;
+    height: 3rem;
+    line-height: 3rem;
+}
+.validate-input2 {
+	height: 3rem;
+    line-height: 3rem;
+	background: #fff;
+    border-bottom: 1px solid #E7E7E7;
+	text-align:left;
+	}
+.validate-img{
+    background: #fff;
+    padding: 1rem 0;
+}
+.validate-input-radio{
+    line-height: 3rem;
+    background: #fff;
+}
+.validate-input-radio .am-form-group{
+    margin-bottom: 0;
+}
+
+/***********登录页面***********/
+.login-sub{
+    background: #CC1B23;
+    color: #fff;
+    width: 100%;
+
+}
+.login-sub:hover{
+    color: #fff;
+}
+.login-ul li{
+    text-align: left;
+}
+.login-ul a{
+    color: #666;
+    text-align: left;
+}
+
+/**********账户管理开始************/
+
+/*******内容开始******/
+.account{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+}
+.account ul{
+  background-color: #fff;
+}
+.account ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+}
+.account ul a{
+    color: #666;
+}
+/**********账户管理结束************/
+
+/**********个人信息开始************/
+.information{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+    text-align: left;
+}
+.information ul{
+    background-color: #fff;
+}
+.information ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+}
+.information ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.information ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+/**********个人信息结束************/

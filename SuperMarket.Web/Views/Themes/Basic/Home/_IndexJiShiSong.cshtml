@@ -12,19 +12,19 @@
     <meta name="description" content="易店心是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
     <meta http-equiv="Cache-Control" content="no-siteapp" /> 
     <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css"> 
-    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
-    <link rel="stylesheet" href="/Themes/Basic/css/home.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
-    <link rel="stylesheet" href="/Themes/Basic/css/flagship.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle"> 
-    <link rel="stylesheet" href="/Themes/Basic/css/cssadd.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/home.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/flagship.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/cssadd.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
     <link href="/themes/basic/css/cityselect.css" rel="stylesheet" />
     <link rel="icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
     <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
     <script src="/Themes/Basic/js/amazeui.min.js"></script>
     <script src="/Themes/Basic/js/handlebars.min.js"></script>
     <script src="/Themes/Basic/js/amazeui.widgets.helper.js"></script>
-    <script src="/Themes/Basic/js/Mobileindex.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/Themes/Basic/js/Mobileindex.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
     <script>
         $(function () {
             $(".am-form-group").click(function () {
@@ -37,7 +37,7 @@
     <script src="/themes/basic/js/jquery.marquee.js"></script> 
 </head>
 <body class="am-with-fixed-header am-with-fixed-navbar" ><div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <div style="display:none;"> 
         <img src="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" alt="易店心" title="易店心" >  </div> 
@@ -112,18 +112,18 @@
         <!-----产品分类结束----> 
  
         @{
-            IList<JiChen.Entities.VWProductFineEntity> listjinxuan = ViewBag.ListJinXuan;
+            IList<SuperMarket.Model.VWProductFineEntity> listjinxuan = ViewBag.ListJinXuan;
             if (listjinxuan != null && listjinxuan.Count > 0)
             {
                 <p class="home-faxian">易店心<span>·</span>精选</p>
                     <div class="am-g home-main5" id="divproductjingxuan">
-                        @foreach (JiChen.Entities.VWProductFineEntity entity in listjinxuan)
+                        @foreach (SuperMarket.Model.VWProductFineEntity entity in listjinxuan)
                         { <div class="am-u-sm-6 home-main5-li">
                             <div class="home-main5-li-div">
                                 <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)">
                                     @if (!string.IsNullOrEmpty(entity.ProductDetail.PicUrlList))
                                     {
-                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.ProductDetail.PicUrlList)">
+                                        <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.ProductDetail.PicUrlList)">
                                     }
                                     else
                                     {    <img src="/Themes/Basic/img/ImageError.jpg">

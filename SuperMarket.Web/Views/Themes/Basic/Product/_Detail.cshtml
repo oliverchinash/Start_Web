@@ -9,24 +9,24 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />  
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
-    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
-    <link rel="stylesheet" href="/Themes/Basic/css/details.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/details.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle"> 
     <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
     <script src="/themes/basic/js/amazeui.min.js"></script>
     <script src="/themes/basic/js/handlebars.min.js"></script>
     <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
     <script src="/themes/basic/js/jquery.fly2.min.js"></script>
-    <script src="/themes/basic/js/productbehind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>  
-    <script src="/themes/basic/js/CommonNumInit.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/globalcart.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/productbehind.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>  
+    <script src="/themes/basic/js/CommonNumInit.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/globalcart.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
 </head>
 <body>@{
-    JiChen.Entities.VWProductEntity product = ViewBag.VWProductEntity;
-    JiChen.Entities.VWProductNomalParamEntity productparam = ViewBag.ProductParamEntity;
+    SuperMarket.Model.VWProductEntity product = ViewBag.VWProductEntity;
+    SuperMarket.Model.VWProductNomalParamEntity productparam = ViewBag.ProductParamEntity;
 }<div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header am-header-fixed details-header">
@@ -54,11 +54,11 @@
                 <ul class="am-slides">
                    @if (product != null && product.ProductPics != null && product.ProductPics.Count > 0)
                    {
-                       foreach (JiChen.Entities.ProductStylePicsEntity entity in product.ProductPics)
+                       foreach (SuperMarket.Model.ProductStylePicsEntity entity in product.ProductPics)
                        {
                         <li>
                             <a href="javascript:void(0)">
-                                <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.PicUrlNormal)">
+                                <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.PicUrlNormal)">
                             </a>
                         </li>
                        }
@@ -75,12 +75,12 @@
             </div>
             <!----slider结束---->
             <p>@(product.AdTitle)</p>
-            @if (product.ActualPrice > 0&& product.ActualPrice< JiChen.Entities.CommonKey.MaxPrice)
+            @if (product.ActualPrice > 0&& product.ActualPrice< SuperMarket.Model.CommonKey.MaxPrice)
             {
 
                 <span>￥@(product.ActualPrice)</span>
             }
-            else if (product.ActualPrice >= JiChen.Entities.CommonKey.MaxPrice)
+            else if (product.ActualPrice >= SuperMarket.Model.CommonKey.MaxPrice)
             {
 
                 <span>实时报价</span>
@@ -169,7 +169,7 @@
                 <span>已收藏</span>
             </a>
         </div>
-        @if (product.ActualPrice >= JiChen.Entities.CommonKey.MaxPrice)
+        @if (product.ActualPrice >= SuperMarket.Model.CommonKey.MaxPrice)
         {
             <div class="details-navbar-li3 am-u-sm-4"> 
                 <a  href="tel:400-999-8411" class="" >
@@ -177,7 +177,7 @@
                 </a>
             </div>
         }
-        else if (product.JiShiSong == (int)JiChen.Entities.JiShiSongEnum.JiShi)
+        else if (product.JiShiSong == (int)SuperMarket.Model.JiShiSongEnum.JiShi)
         {
             <div class="details-navbar-li2 addcar am-u-sm-4">
                 <a href="javascript:void(0);" class="clsaddtocart" jishi="@(product.JiShiSong)" ProductDetailId="@(product.ProductDetailId)">

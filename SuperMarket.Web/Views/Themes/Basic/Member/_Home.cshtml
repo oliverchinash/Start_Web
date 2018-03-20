@@ -17,11 +17,11 @@
 </head>
 <body>
     @{ 
-        JiChen.Entities.VWOrderMsgEntity _msgentity = ViewBag.VWOrderMsg;
-        JiChen.Entities.VWMemberEntity _mementity = ViewBag.Member;
+        SuperMarket.Model.VWOrderMsgEntity _msgentity = ViewBag.VWOrderMsg;
+        SuperMarket.Model.VWMemberEntity _mementity = ViewBag.Member;
         }
     <div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header am-header-fixed header">
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _mementity.HeadPicUrl)" />
+                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _mementity.HeadPicUrl)" />
                     }
                 </a>
                 <p>@(string.IsNullOrEmpty(_mementity.NickName) ? _mementity.MemCode : _mementity.NickName)</p>
@@ -139,7 +139,7 @@
                 </a>
             </li>
             <li class="am-cf">
-                <a href="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/InquiryOrderList">
+                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/InquiryOrderList">
                     <span class="am-fl">
                         <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的询价单
                     </span>
@@ -147,7 +147,7 @@
                 </a>
             </li>
             <li class="am-cf">
-                <a href="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/ConfirmOrderList">
+                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryMobileWebUrl)/InquiryMem/ConfirmOrderList">
                     <span class="am-fl">
                         <img src="/themes/basic/img/personal_icon7.png" class="am-img-responsive" style="width: 28px;height:28px;display: inline-block;vertical-align: middle;margin:-.2rem .6rem 0 0;">我的询价确认订单
                     </span>

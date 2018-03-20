@@ -1,0 +1,88 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+
+/********错误页面开始*********/
+.error{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+.error-main{
+    background: #fff;
+    width: 100%;
+    padding-bottom: 3rem;
+}
+
+.error-main a{
+    border: 1px solid #FF5000;
+    color: #FF5000;
+    border-radius: .3rem;
+    padding: .3rem .5rem;
+}
+.error-p{
+   margin: 20px;
+    position: relative;
+    padding: 0 15px;
+    height: 1px;
+    background: #c9c9c9;
+    transform: scaleY(.5);
+    -webkit-transform: scaleY(.5);
+}
+.error-p b{
+    position: absolute;
+    left: 55%;
+    top: -11px;
+    margin-left: -54px;
+    background: #efefef;
+    padding: 0 10px;
+    transform: scaleY(2);
+    -webkit-transform: scaleY(2);
+    font-family: "PingFangSC-Regular";
+    font-weight: normal;
+}
+.error-jingxuan{
+    padding-left: 0;
+    margin-top: -.5rem;
+}
+.error-jingxuan img{
+    max-width: 70%;
+}
+.error-jingxuan li{
+    padding:.5rem .5rem;
+
+}
+.error-jingxuan-div{
+    background: #fff;
+    padding-bottom: .5rem;
+    border-radius: .3rem;
+
+}
+.error-jingxuan-div p{
+    font-size: 1.3rem;
+    padding-left: .5rem;
+    margin-bottom: 0;
+    text-align: left;
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.error-jingxuan-div a{
+    color: #666;
+}
+/********错误页面结束*********/

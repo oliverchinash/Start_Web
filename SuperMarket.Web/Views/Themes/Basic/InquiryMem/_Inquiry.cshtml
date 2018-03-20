@@ -1,6 +1,6 @@
 ﻿@{ 
-    JiChen.Entities.VWInquiryOrderEntity vworder = ViewBag.VWOrder;
-    Dictionary<int, IList<JiChen.Entities.CGQuotedPriceEntity>> productquoteddic = ViewBag.ProductQuoteDic;
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder;
+    Dictionary<int, IList<SuperMarket.Model.CGQuotedPriceEntity>> productquoteddic = ViewBag.ProductQuoteDic;
 }
 <header data-am-widget="header" class="am-header-fixed am-header header">
     @Html.Partial("controls/_HeadBanner")
@@ -25,7 +25,7 @@
     @{
         if (vworder.OrderProducts != null && vworder.OrderProducts.Count > 0)
         {
-            foreach (JiChen.Entities.InquiryProductEntity product in vworder.OrderProducts)
+            foreach (SuperMarket.Model.InquiryProductEntity product in vworder.OrderProducts)
             {
                 <div class="affirm-main">
                     <div class="affirm-w am-g am-cf"> 
@@ -44,10 +44,10 @@
                             bool hasquote = false;
                             if (productquoteddic.ContainsKey(product.Id))
                             {
-                                IList<JiChen.Entities.CGQuotedPriceEntity> pquotelist = productquoteddic[product.Id];
+                                IList<SuperMarket.Model.CGQuotedPriceEntity> pquotelist = productquoteddic[product.Id];
                                 if (pquotelist != null && pquotelist.Count > 0)
                                 {
-                                    foreach (JiChen.Entities.CGQuotedPriceEntity pquoteentity in pquotelist)
+                                    foreach (SuperMarket.Model.CGQuotedPriceEntity pquoteentity in pquotelist)
                                     {
                                         hasquote = true;
                                         <li class="am-u-sm-12">

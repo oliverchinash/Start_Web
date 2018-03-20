@@ -1,0 +1,54 @@
+/* Write your styles */
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    background: #EFEFEF repeat;
+    font-size: 1.4rem;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+/*******header********/
+.header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+    height: 44px;
+    line-height: 44px;
+}
+.header a{
+    color:  #5D5F6A;
+}
+.am-header .am-header-title{
+    font-size: 1.7rem;
+}
+.am-with-fixed-header{
+    padding-top: 44px;
+}
+/****底部导航栏*****/
+.footer-navbar{
+    background: #fff;
+}
+.footer-navbar li a{
+    color: #999;
+}
+.footer-navbar .footer-active a{
+    color: red;
+}
+
+
+/***********购物车样式**********/
+.cart{
+    position: relative;
+}
+.cart span{
+    position:absolute;
+    top:7px;
+    left: 75%;
+    margin-left: -10px;
+    padding: 1px 5px;
+}

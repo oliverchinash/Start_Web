@@ -1,5 +1,5 @@
 ﻿@{
-    JiChen.Entities.VWOrderEntity _order = ViewBag.Order;
+    SuperMarket.Model.VWOrderEntity _order = ViewBag.Order;
 
 } 
 <!doctype html>
@@ -18,7 +18,7 @@
     <script src="/themes/basic/js/common.js"></script>
 </head>
 <body> <div style="display:none;">
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <header data-am-widget="header" class="am-header header">
         @Html.Partial("controls/_HeadBanner")

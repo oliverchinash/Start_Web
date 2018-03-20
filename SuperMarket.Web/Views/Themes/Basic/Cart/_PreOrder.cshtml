@@ -13,26 +13,26 @@
     <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
     <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
     <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
-    <script src="/themes/basic/js/commoncontrolbind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/commoncontrolbind.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
     <script src="/Themes/Basic/Js/amazeui.min.js"></script>
     <script src="/themes/basic/js/handlebars.js"></script>
-    <script src="/Themes/Basic/Js/paycheckbehind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/commonboxadderss.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/commonboxbill.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
-    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/Themes/Basic/Js/paycheckbehind.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/commonboxadderss.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/commonboxbill.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
 </head>
 <body>
     <div style="display:none;">
         <span id="spanjishisong">@ViewBag.JiShiSong</span> 
-    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
  
     </div>
     @{ 
-            IList<JiChen.Entities.OrderDetailPreTempEntity> _listproduc = ViewBag.ProductList;
-            IList<JiChen.Entities.OrderDetailPreTempEntity> _listproducless = ViewBag.ProductListLess;
-            JiChen.Entities.VWOrderEntity _order = ViewBag.Order;
-            JiChen.Entities.IntegralEntity _integral = ViewBag.Integral; 
+            IList<SuperMarket.Model.OrderDetailPreTempEntity> _listproduc = ViewBag.ProductList;
+            IList<SuperMarket.Model.OrderDetailPreTempEntity> _listproducless = ViewBag.ProductListLess;
+            SuperMarket.Model.VWOrderEntity _order = ViewBag.Order;
+            SuperMarket.Model.IntegralEntity _integral = ViewBag.Integral; 
      }
     <div class="paycheck">
         <!----header开始----->
@@ -94,7 +94,7 @@
               @{
                   if (_listproduc != null && _listproduc.Count > 0)
                   {
-                      foreach (JiChen.Entities.OrderDetailPreTempEntity _entitypro in _listproduc)
+                      foreach (SuperMarket.Model.OrderDetailPreTempEntity _entitypro in _listproduc)
                       {
                           if (_entitypro.Status == 1)
                           {     <li class="am-cf"> 
@@ -104,7 +104,7 @@
                       <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                                     <div class="am-u-sm-4 am-list-thumb">
                                                         <a href="/MobileProduct/Detail?pd=@(_entitypro.ProductDetailId)">
-                                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _entitypro.ProductPicList)" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _entitypro.ProductPicList)" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                         </a>
                                                     </div>
                                                     <div class="am-u-sm-8 am-list-main">
@@ -160,7 +160,7 @@
         <!------------footer结束------------>
     </div>
 <div style="display:none;"> 
-    <span id="txtSelectPayType">@((int)JiChen.Entities.PayType.WeChat)</span>
+    <span id="txtSelectPayType">@((int)SuperMarket.Model.PayType.WeChat)</span>
     <input id="txtSelectAddressId" type="hidden" value="0" />
     <input id="txtSelectAccepterName" type="hidden" value="" />
     <input id="txtSelectProvince" type="hidden" value="" />

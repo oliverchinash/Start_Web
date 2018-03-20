@@ -151,6 +151,12 @@ namespace SuperMarket.Core
             get;
             set;
         }
+        public string MemMobileWebUrl
+        {
+            get;
+            set;
+        }
+        
         /// <summary>
         /// 帮助中心主域名
         /// </summary>

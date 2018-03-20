@@ -316,6 +316,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Member\Address.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Address.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

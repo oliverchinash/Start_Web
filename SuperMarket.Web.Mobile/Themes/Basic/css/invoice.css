@@ -1,0 +1,181 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.cl{
+    clear: none;
+}
+
+/**********发票信息页面开始***********/
+.invoice{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+
+}
+/*******选项卡开始*******/
+.invoice .invoice-tabs{
+    margin: 0;
+}
+.invoice .am-tabs-default .am-tabs-nav{
+    background-color: #fff;
+}
+.invoice .am-tabs-default .am-tabs-nav>.am-active a{
+    background:none;
+    color: #D61419;
+    border-bottom: 2px solid #D61419;
+}
+.invoice .am-tabs-bd{
+    border: none;
+}
+.invoice .am-tabs-bd .am-tab-panel{
+    padding: 0;
+}
+
+/***********普票开始*************/
+.invoice-main ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left: 0;
+}
+.invoice-main ul li{
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+/************专票开始**********/
+.invoice-main2 ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left:0;
+    margin-bottom: 0;
+}
+.invoice-main2 ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main2 ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main2 ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+.invoice-main3 ul{
+    font-size: 1.4rem;
+    background-color: #fff;
+    margin-top: .8rem;
+    text-align: left;
+    padding-left:0;
+    margin-bottom: 0;
+}
+.invoice-main3 ul li{
+    border-bottom: 1px solid #ddd;
+    padding-right: 1rem;
+    line-height:3.5rem;
+    color: #666;
+    text-indent: 1rem;
+}
+.invoice-main3 ul li label{
+    font-weight: normal;
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.invoice-main3 ul li input{
+    line-height: 3.5rem;
+    padding-left: 0;
+    border: none;
+}
+
+.invoice-main3-tishi{
+    margin-top: 1.5rem;
+    text-align: left;
+}
+.invoice-main3-tishi p{
+    padding:.2rem 1rem .2rem 1rem;
+    margin: 0;
+    font-size: 1.3rem;
+    color: #999;
+}
+.invoice-main3-tishi p span{
+    color:#D61419;
+}
+
+
+/**********意见反馈页面开始*********/
+.feedDack{
+    text-align: left;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    font-size: 1.4rem;
+
+}
+.feedDack-main{
+     background-color: #fff;
+    margin-top: .8rem;
+ }
+.feedDack-main p{
+    padding-top: .6rem;
+    margin-bottom:0;
+    color: #999;
+    padding-left: 1rem;
+}
+.feedDack-main ul{
+    margin:0;
+    padding-left:1rem;
+}
+.feedDack-main ul li{
+    line-height: 4rem;
+    border-bottom: 1px solid #E4E3E6;
+    padding-right: 1rem;
+}
+.feedDack-jianyi{
+    color: #999;
+    margin-top: .8rem;
+}
+.feedDack-jianyi textarea{
+    width: 100%;
+    height: 168px;
+    border: none;
+    font-size: 13px;
+    padding: 10px 15px;
+}
+/**********意见反馈页面结束*********/
