@@ -1,0 +1,165 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    SuperMarket.Model.CommentEntity entity = ViewBag.entity;
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selStatus {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    #txtCommentContent{
+        margin-left:8px;
+        width:394px;
+        height:200px
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+
+
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>评价详情</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">产品名称：</div>
+                <div class="Backstage_td2"><input id="txtProductName" value="@entity.ProductName" readonly="readonly" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">产品质量星级：</div>
+                <div class="Backstage_td2"><input id="txtProductStar" value="@(entity.ProductStar+"星")" readonly="readonly" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">服务星级：</div>
+                <div class="Backstage_td2"><input id="txtSeviceStar" value="@(entity.SeviceStar+"星")" readonly="readonly" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">产品包装星级：</div>
+                <div class="Backstage_td2"><input id="txtPackStar" value="@(entity.PackStar+"星")" readonly="readonly" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">物流星级：</div>
+                <div class="Backstage_td2"><input id="txtTrafficStar" value="@(entity.TrafficStar+"星")" readonly="readonly" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">评论内容：</div>
+                <div class="Backstage_td2"><textarea id="txtCommentContent"   readonly="readonly">@entity.CommentContent</textarea></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">评论图片：</div>
+                <div class="Backstage_td2"><img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.PicUrl+"."+entity.PicSuffix)" style="width:400px;height:300px;padding:30px"/></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否可发表：</div>
+                <div class="Backstage_td2">
+                    <select id="selStatus" onchange="FunIsPublish()">
+                        <option value="0" @(entity.Status==0?"selected=selected":"")>未审核</option>
+                        <option value="1" @(entity.Status==1?"selected=selected":"")>审核发表</option>
+                        <option value="2" @(entity.Status==2?"selected=selected":"")>审核不发表</option>
+                    </select>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    @{
+
+        if (entity.Status == 0)
+        {
+            <div class="deserve" style="cursor:pointer;margin-left:140px" onclick="FunAuditPublised(@entity.Id)" id="divPublish">发表</div>
+            
+            <div class="deserve" style="cursor:pointer;margin-left:140px" onclick="FunAuditNotPublised(@entity.Id)" id="divNotPublish">不发表</div>
+        }
+        else if (entity.Status == 1)
+        {
+            <div class="deserve" style="width:300px;margin-left:0px;margin-left:40px" >（状态）审核发表</div>
+        }
+        else if (entity.Status == 2)
+        {
+            <div class="deserve" style="width:300px;margin-left:0px;margin-left:40px" >（状态）审核不发表</div>
+        }
+
+    }
+
+    <input type="hidden" id="hidStatus" value="@entity.Status"/>
+
+</div>
+
+<script type="text/javascript">
+
+
+    function FunIsPublish() {
+        if ($("#hidStatus").val() == 0) {
+            if ($("#selStatus").val()==1) {
+                $("#divPublish").show();
+                $("#divNotPublish").hide();
+            }
+            else if ($("#selStatus").val() == 2) {
+                $("#divPublish").hide();
+                $("#divNotPublish").show();
+            }
+            else {
+                $("#divPublish").show();
+                $("#divNotPublish").show();
+            }
+        }
+    }
+
+
+    function FunAuditPublised(id) {
+
+        debugger
+
+        var _id=id;
+        $.post("/Order/AdoptEvaluation",{id:_id},function (data) {
+            if(data>0){
+                alert("审核发表!");
+            }else{
+                alert("审核失败");
+            }
+        })
+    }
+
+    function FunAuditNotPublised(id) {
+
+        debugger
+
+        var _id=id;
+        $.post("/Order/RejectEvaluation",{id:_id},function(data){
+            if(data>0){
+                alert("审核不发表!");
+            }else{
+                alert("审核失败");
+            }
+        })
+    }
+
+</script>

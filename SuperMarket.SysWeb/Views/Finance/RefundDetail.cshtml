@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selHasCommmnt {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+</style>
+
+<div class="main">
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>退款确认</span></div>
+    </div>
+    @using (Html.BeginForm("RebackFundPage", "Finance", FormMethod.Post))
+    {
+        <div class="title_main">
+
+            退款批次号: <span>@ViewBag.RebackBatchNo</span>
+            <input type="text" style="display:none;" id="hidBatchNo" name="bno" value="@ViewBag.RebackBatchNo" />
+            <button type="submit" id="submit">确认退款</button>
+
+        </div>
+    }
+    <div id="detail_main">
+        <div class="admin_title">
+            <ul>
+                <li style="width:15%;">订单号</li>
+                <li style="width:25%;">交易编号</li>
+                <li style="width:20%;">退款金额</li>
+                <li style="width:20%;">退款状态</li>
+                <li style="width:20%;">备注</li>
+            </ul>
+        </div>
+        @{
+            IList<SuperMarket.Model.PayRebackEntity> list = ViewBag.List;
+            if (list != null && list.Count > 0)
+            {
+                foreach (SuperMarket.Model.PayRebackEntity entity in list)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm" style="width:15%;" title="@entity.OrderCode">
+                                @entity.OrderCode
+                            </li>
+                            <li class="li_iterm" style="width:25%;" title="@entity.TradeNoLog">@entity.TradeNoLog</li>
+                            <li class="li_iterm" style="width:20%;" title="@entity.RebackFee">@entity.RebackFee</li>
+                            <li class="li_iterm" style="width:20%;" title="@entity.Status">@(entity.Status == 1 ? "已退款" : "待退款")</li>
+                            <li class="li_iterm" style="width:20%;" title="@entity.Remack">@(entity.Remack)</li>
+
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <div>
+                        @Html.Raw(ViewBag.PageStr)
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="product-main-detail">
+                    没有找到该记录!
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+
+    });
+
+    function AddToRebackList() {
+
+    }
+
+</script>
+
+
+
+

@@ -17,7 +17,7 @@ namespace SuperMarket.Model
             get;
             set;
         }
-        public IList<ShoppCarEntity> CartItemsL
+        public IList<MemShoppCarEntity> CartItemsL
         {
             get;
             set;
@@ -30,7 +30,7 @@ namespace SuperMarket.Model
             get
             {
                 decimal dTotalAmount = 0;
-                foreach (ShoppCarEntity m in CartItemsL)
+                foreach (MemShoppCarEntity m in CartItemsL)
                 {
                     if (m.Check)
                     {

@@ -1,0 +1,322 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+    IList<SuperMarket.Model.ProductCarTypeEntity> entityList = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCarType, #selCarBrand, #selCarSeries, #selCarModel, #SearchClass {
+        width: 150px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    #selLevel > option {
+        text-align: center;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 20% !important;
+    }
+
+    .li_iterm {
+        width: 20% !important;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>车型管理</span>><span>产品名称:</span>@(ViewBag.ProductName == null ? "" : ViewBag.ProductName)</div>
+        <div class="add_admin">
+        </div>
+    </div>
+
+
+    <div class="title_main">
+
+        选择适用车型:
+        <select id="selCarType">
+
+            <option value="0">-全部车型-</option>
+            <option value="1">商用车</option>
+            <option value="2">乘用车</option>
+
+        </select>
+
+        <select id="selCarBrand">
+            <option value="0">-全部品牌-</option>
+        </select>
+
+        <select id="selCarSeries">
+            <option value="0">-全部车系-</option>
+        </select>
+
+        <select id="selCarModel">
+            <option value="0">-全部型号-</option>
+        </select>
+
+
+        <button id="SearchClass" onclick="AddCarType()">添加</button>
+
+        <div class="add_admin">
+
+
+        </div>
+    </div>
+
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>车型名称</li>
+                <li>品牌名称</li>
+                <li>车系名称</li>
+                <li>型号名称</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+
+            if (entityList != null && entityList.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductCarTypeEntity entity in entityList)
+                {
+                    <div id="divCarType">
+                        <div class="admin_detail">
+                            <ul>
+                                <li class="li_iterm">@entity.CarType1Name</li>
+                                <li class="li_iterm">@entity.CarType2Name</li>
+                                <li class="li_iterm">@entity.CarType3Name</li>
+                                <li class="li_iterm">@entity.CarType4Name</li>
+                                <li class="li_iterm"><a href="#" onclick="FunDeletePCarType(@entity.Id,this)">删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+
+
+
+
+        <input id="txtProductId" value="@ViewBag.PId" type="hidden" />
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#selCarType").bind("change", function () {
+
+                if ($(this).val() != 0) {
+
+                    $.ajax({
+                        url: "/Common/GetCarTypeList",
+                        type: "POST",
+                        data: { pid: $(this).val() },
+                        //dataType:'json',
+                        success: function (data) {
+
+
+                            var _jsonList = eval("(" + data + ")");
+                            if (_jsonList != null && _jsonList != undefined && _jsonList != "") {
+
+                                $("#selCarBrand option:not(:first)").remove();
+                                $("#selCarModel option:not(:first)").remove();
+                                $("#selCarSeries option:not(:first)").remove();
+
+
+                                for (var i = 0; i < _jsonList.length; i++) {
+                                    var _str = "<option value=" + _jsonList[i].Code + ">" + _jsonList[i].Name + "</option>";
+                                    $("#selCarBrand").append(_str);
+                                }
+                            }
+
+                        }
+
+                    })
+
+                }
+
+            })
+            $("#selCarBrand").bind("change", function () {
+
+                if ($(this).val() != 0) {
+
+                    $.ajax({
+                        url: "/Common/GetCarTypeList",
+                        type: "POST",
+                        data: { pid: $(this).val() },
+                        //dataType:'json',
+                        success: function (data) {
+
+
+                            var _jsonList = eval("(" + data + ")");
+                            if (_jsonList != null && _jsonList != undefined && _jsonList != "") {
+
+                                $("#selCarSeries option:not(:first)").remove();
+                                $("#selCarModel option:not(:first)").remove();
+
+                                for (var i = 0; i < _jsonList.length; i++) {
+                                    var _str = "<option value=" + _jsonList[i].Code + ">" + _jsonList[i].Name + "</option>";
+                                    $("#selCarSeries").append(_str);
+                                }
+                            }
+
+                        }
+
+                    })
+
+                }
+
+            })
+            $("#selCarSeries").bind("change", function () {
+
+                if ($(this).val() != 0) {
+
+                    $.ajax({
+                        url: "/Common/GetCarTypeList",
+                        type: "POST",
+                        data: { pid: $(this).val() },
+                        //dataType:'json',
+                        success: function (data) {
+
+
+                            var _jsonList = eval("(" + data + ")");
+                            if (_jsonList != null && _jsonList != undefined && _jsonList != "") {
+
+                                $("#selCarModel option:not(:first)").remove();
+
+                                for (var i = 0; i < _jsonList.length; i++) {
+                                    var _str = "<option value=" + _jsonList[i].Code + ">" + _jsonList[i].Name + "</option>";
+                                    $("#selCarModel").append(_str);
+                                }
+                            }
+
+                        }
+
+                    })
+
+                }
+
+            })
+
+        })
+
+        function FunDeletePCarType(id, obj) {
+            var _id = id;
+            $.post("/Store/DeletePCarType", { id: _id }, function (data) {
+                if (data > 0) {
+                    $(obj).parent().parent().parent().remove();
+                } else {
+                    alert("删除失败");
+                }
+            })
+        }
+
+        function AddCarType() {
+
+            var _pid = $("#txtProductId").val();
+            var _cartype1 = $("#selCarType").val();
+            var _cartype2 = $("#selCarBrand").val();
+            var _cartype3 = $("#selCarSeries").val();
+            var _cartype4 = $("#selCarModel").val();
+
+            $.post("/Store/ProductCarTypeAdd", {
+                _pid: _pid, _cartype1: _cartype1, _cartype2: _cartype2,
+                _cartype3: _cartype3, _cartype4: _cartype4
+            }, function (data) {
+
+                var obj = eval("(" + data + ")");
+                if (obj != null && obj != undefined && obj != "" && obj.Id != 0) {
+
+                    var _str = "<div class=admin_detail>" +
+                            "<ul>" +
+                                "<li class=li_iterm>" + obj.CarType1Name+ "</li>" +
+                                "<li class=li_iterm>" + obj.CarType2Name+ "</li>" +
+                                "<li class=li_iterm>" + obj.CarType3Name + "</li>" +
+                                "<li class=li_iterm>" + obj.CarType4Name + "</li>" +
+                                "<li class=li_iterm><a href='#' onclick='FunDeletePCarType(obj, this)'>删除</a></li>" +
+                            "</ul>" +
+                        "</div>";
+
+
+                    $("#divCarType").append(_str);
+                }
+
+                else {
+                    alert("该型号已存在");
+                }
+            })
+        }
+
+
+
+    </script>
+
+
+

@@ -1,0 +1,218 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/product.css"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/hotSale.css"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/amazeui.widgets.helper.js"></script> 
+    <script src="/themes/basic/js/jquery.fly2.min.js"></script>
+    <script src="/themes/basic/js/CommonNumInit.js"></script>
+    <script src="/themes/basic/js/globalcart.js"></script>
+    <script src="/Themes/Basic/js/dropload.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>  
+    
+</head>
+<body>
+    @{ 
+        JiChen.Entities.ProductSpecialEntity special = ViewBag.ProductSpecialEntity;
+        IList<JiChen.Entities.VWProductSpecialDetailsEntity> speciallist = ViewBag.SpecialDetailList;
+    }
+<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div style="display:none;">
+        <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
+        <span id="spanspecialid">@special.Id</span> 
+    </div>
+    <div class="hotSale"> 
+        <!----头部开始------>
+        <header data-am-widget="header" class="am-header am-header-fixed header">
+            @Html.Partial("controls/_HeadBanner")
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                    @(special.ShortName)
+                </a>
+            </h1>
+            @Html.Partial("controls/_CartBox")
+           
+        </header>  
+        @if (!string.IsNullOrEmpty(special.ExPicUrl))
+        {
+            <div>
+                <img src="@(special.ExPicUrl+"."+ special.ExPicSuffix)" class="am-img-responsive">
+            </div>
+        }
+     
+        <!----------热卖产品列表开始----------->
+        <div class="hotSale-main">
+            <ul id="ulProductbpbox"> 
+                @{
+                    if (speciallist != null && speciallist.Count > 0)
+                    {
+                        foreach (JiChen.Entities.VWProductSpecialDetailsEntity pentity in speciallist)
+                        {
+                            <li> 
+                                <div data-am-widget="list_news" class="am-list-news am-list-news-default product-list-news am-cf">
+                                    <div class="am-list-news-bd">
+                                        <ul class="am-list"> 
+                                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                                <div class="am-u-sm-4 am-list-thumb">
+                                                    <a href="/MobileProduct/detail?pd=@(pentity.ProductDetailId)" class="">
+                                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + pentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
+                                                    </a>
+                                                </div> 
+                                                <div class="am-u-sm-8 am-list-main">
+                                                    <h3 class="am-list-item-hd"><a href="/MobileProduct/detail?pd=@(pentity.ProductDetailId)" class="">@(pentity.ProductDetail.AdTitle)</a></h3>
+                                                    <div class="am-list-item-desced am-cf hotSale-main-huiyuan">
+                                                        @if (pentity.Price == 0)
+                                                        {
+                                                            <a href="" class="am-fl" style="color:#FF532B">会员可见</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="" class="am-fl" style="color:#FF532B">@pentity.Price.ToString("0.00")</a> 
+                                                        }  
+                                                    </div>
+                                                    <div class="am-list-item-desced">
+                                                        <div class="am-fl" style="margin-top: .5rem">
+                                                            <input id="txtProductNum@(pentity.ProductDetailId)" hascreate="0"  style="width:100px;" class="alignment" value="1" />
+                                                        </div>
+                                                        <div class="am-fr clsaddtocart"  ProductDetailId="@(pentity.ProductDetailId)"  style="background-color: #CC1B23; border-radius: .3rem;padding: .3rem .5rem; color:#fff">加入购物车</div>
+                                                    </div>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> 
+                            </li> 
+                        } 
+                    }
+                } 
+            </ul>
+        </div> 
+    </div> 
+
+    <script id="divhotsalesList-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <li>
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default product-list-news am-cf">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                            <div class="am-u-sm-4 am-list-thumb">
+                                <a href="/MobileProduct/detail?pd={{ProductDetailId}}" class="">
+                                    {{#with ProductDetail}}
+                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
+                                    {{/with}}
+                                </a>
+                            </div>
+                            <div class="am-u-sm-8 am-list-main">
+                                {{#with ProductDetail}}
+                                <h3 class="am-list-item-hd"><a href="/MobileProduct/detail?pd={{ProductDetailId}}" class="">{{AdTitle}}</a></h3>
+                                {{/with}}
+                                <div class="am-list-item-desced am-cf hotSale-main-huiyuan">
+                                    {{#if ProductDetailId}}
+                                    {{#compare Price 0}} 
+                                    <a href="" class="am-fl" style="color:#FF532B">{{transformat Price}} </a>
+                                    {{else}}
+                                    <a href="" class="am-fl" style="color:#FF532B">会员可见</a>
+                                    {{/compare}}
+                                    {{/if}}
+                                </div>
+                                <div class="am-list-item-desced">
+                                    <div class="am-fl" style="margin-top: .5rem">
+                                        <input id="txtProductNum{{ProductDetailId}}" hascreate="0" style="width:100px;" class="alignment" value="1" />
+                                    </div>
+                                    <div class="am-fr clsaddtocart" ProductDetailId="{{ProductDetailId}}" style="background-color: #CC1B23; border-radius: .3rem;padding: .3rem .5rem; color:#fff">加入购物车</div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>  
+        {{/each}}
+    </script>
+
+    <script> 
+        $(function () {
+            offsetcart = $(".am-icon-shopping-cart").offset();
+            GetCartCount();
+            AddToCartClick();
+            // 页数
+            var page = 1;
+            var maxpage = $("#spanmaxpageindex").html(); 
+            var sid = $("#spanspecialid").html(); 
+            
+            // dropload
+            $(".hotSale-main").dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中....</div>',
+                    domNoData: '<div class="dropload-noData">没有更多数据了</div>'
+                },
+                loadDownFn: function (me) {
+                    page++;
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/MobileProduct/GetProductSList',
+                        data: { pageindex: page, sid: sid },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (page <= maxpage) {
+                                var objlist = data.List;
+                                var myTemplate = Handlebars.compile($("#divhotsalesList-template").html());
+                                //注册一个比较大小的Helper,判断v1是否大于v2
+                                Handlebars.registerHelper("compare", function (v1, v2, options) {
+                                    if (parseFloat(v1) > parseFloat(v2)) {
+                                        return options.fn(this);
+                                    } else {
+                                        return options.inverse(this);
+                                    }
+                                });
+                                Handlebars.registerHelper("transformat", function (value) {
+                                    return value.toFixed(2);
+                                });
+                                $('#ulProductbpbox').append(myTemplate(objlist)); 
+                                Create_Num();
+                                AddToCartClick();
+                                me.resetload();
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                                me.resetload();
+                            } 
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 50
+            });
+        })
+    </script>
+    @Html.Partial("controls/_BodyBefore")
+</body>
+</html>

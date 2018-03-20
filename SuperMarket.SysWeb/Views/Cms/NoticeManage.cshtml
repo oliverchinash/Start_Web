@@ -1,0 +1,235 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.B2BNoticeEntity> _entitylist = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCmsType, #selIsActive, #selSortPrinciple {
+        width: 150px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 20%;
+    }
+
+    .admin_detail > ul > li {
+        width: 20%;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>模板管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Cms/NoticeEdit" target="_blank"><img src="~/Themes/Img/Add.png" />添加</a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+
+            名称:
+            <input value="@Request["k"]" id="txtSearchKey" />
+
+            &nbsp;&nbsp;&nbsp;
+
+        所属系统：
+            <select id="selSysType">
+
+                <option value="-1">选择所属系统</option>
+                <option @(Request["st"] =="1"?"selected=selected":"") value="1">B2B平台</option>
+                <option @(Request["st"] =="2"?"selected=selected":"") value="2">采购平台</option> 
+
+            </select>
+        状态：
+        <select id="selStatus"> 
+            <option value="-1">状态</option>
+            <option @(Request["s"] == "1" ? "selected=selected" : "")  value="1">有效</option>
+            <option @(Request["s"] == "0" ? "selected=selected" : "") value="0">无效</option>
+         </select>
+        通知类型：
+        <select id="selNoticeType">
+            <option value="-1">类型</option>
+            <option @(Request["nt"] == "1" ? "selected=selected" : "")  value="1">普通通知</option>
+            <option @(Request["nt"] == "2" ? "selected=selected" : "") value="2">特殊通知</option>
+        </select>
+        <button id="btnCmsTempletSearch" onclick="FunCmsTempletSearch()">查询</button>
+
+            <div class="add_admin">
+
+            </div>
+
+        </div> 
+
+    <div id="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>公告标题</li>
+                <li>创建时间</li>
+                <li>上架时间</li>
+                <li>是否有效</li> 
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+
+                foreach (SuperMarket.Model.B2BNoticeEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">
+                                @entity.Title
+                            </li>
+                            <li class="li_iterm">@entity.CreateTime.ToShortDateString()</li>
+                            <li class="li_iterm">@entity.ShowTime.ToShortDateString()</li>
+                            <li class="li_iterm">@(entity.IsActive == 1 ? "有效" : "无效")</li>
+                            <li class="li_iterm">
+                                <a href="/Cms/NoticeEdit?id=@entity.Id">编辑模板</a>&nbsp;&nbsp;
+                                <a href="#" style="color:red" onclick="CmsTempletDisable(this)" value="@entity.Id">失效</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                }
+
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $("body").bind("keydown", function (e) {
+            if (e.which == 13) {
+                $("#btnCmsTempletSearch").click();
+            }
+        });
+    })
+ 
+
+    function CmsTempletDisable(obj) {
+        debugger;
+
+        var _result = confirm("是否使该选项失效?");
+        if (_result == true) {
+            var _templetId = $(obj).attr("value");
+            $.post("/Cms/CmsTempletDisable", { templetId: _templetId }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    $(obj).parent().parent().parent().remove();
+                }
+                else {
+                    alert("修改失败!");
+                }
+            }, "json");
+        }
+        else {
+            return;
+        }
+
+    }
+
+    function CmsTempletEnable(obj) {
+        debugger;
+
+        var _result = confirm("是否使该选项生效?");
+        if (_result == true) {
+            var _templetId = $(obj).attr("value");
+            $.post("/Cms/CmsTempletEnable", { templetId: _templetId }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    $(obj).text("失效");
+                    $(obj).css({ "color": "red" });
+                    $(obj).attr("onclick", "CmsTempletDisable(this)");
+                    $(obj).parent().prev().text("有效");
+                }
+                else {
+                    alert("修改失败!");
+                }
+            }, "json");
+        }
+        else {
+            return;
+        }
+
+    }
+
+    function FunCmsTempletSearch() { 
+        var _searchkey = $("#txtSearchKey").val();
+        var _systype = $("#selSysType option:selected").val();
+        var _isactive = $("#selStatus option:selected").val(); 
+        var _nt= $("#selNoticeType option:selected").val();  
+        location.href = "/Cms/NoticeManage?k=" + _searchkey + "&st=" + _systype + "&s=" + _isactive + "&nt=" + _nt;
+    }
+ 
+
+</script>

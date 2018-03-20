@@ -118,7 +118,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             order.Code = InquiryOrderDA.Instance.InquiryOrderEdit1(order);
             if(needmember)
             {
-                StoreEntity stor = StoreBLL.Instance.GetStoreByMemId(order.MemId);
+                MemStoreEntity stor = StoreBLL.Instance.GetStoreByMemId(order.MemId);
                 InquiryOrderMemberEntity memen = new InquiryOrderMemberEntity();
                 memen.MemId = order.MemId;
                 memen.InquiryOrderCode = order.Code;
@@ -279,7 +279,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
                 {
                     if (en.CGMemId > 0)
                     {
-                        StoreEntity store = StoreBLL.Instance.GetStoreByMemId(en.CGMemId);
+                        MemStoreEntity store = StoreBLL.Instance.GetStoreByMemId(en.CGMemId);
                         en.CGCompanyName = store.CompanyName;
                         en.CGMemName = store.ContactsManName;
                     }

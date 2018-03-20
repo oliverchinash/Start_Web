@@ -136,7 +136,7 @@ namespace SuperMarket.Data.MemberDB
  c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)	LEFT join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.Store c  WITH(NOLOCK) ON a.Id=c.MemId
+							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
  WHERE a.[Id]=@MemId
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -185,7 +185,7 @@ namespace SuperMarket.Data.MemberDB
  c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.Store c  WITH(NOLOCK) ON a.Id=c.MemId
+							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
  WHERE a.[MobilePhone]=@MobilePhone
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -232,7 +232,7 @@ namespace SuperMarket.Data.MemberDB
  c.StoreType AS CompanyType ,b.MemName AS ContactsManName,b.NickName ,b.IdentityNo 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)	inner join dbo.MemberInfo b  WITH(NOLOCK)
-							ON a.id=b.MemId LEFT JOIN dbo.Store c  WITH(NOLOCK) ON a.Id=c.MemId
+							ON a.id=b.MemId LEFT JOIN dbo.MemStore c  WITH(NOLOCK) ON a.Id=c.MemId
  WHERE a.[WeChat]=@WeChat
  ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
@@ -446,10 +446,10 @@ namespace SuperMarket.Data.MemberDB
 						(SELECT ROW_NUMBER() OVER (ORDER BY a.Id desc) AS ROWNUMBER,
 						 a.[Id] AS MemId,b.Id AS StoreId,[MemCode],[Email],[QQ],[WeChat],a.[MobilePhone] ,a.[CreateTime],[LastLoginTime],[LoginNum],[CreateIp],[CreateClientType],[IsStore],a.[Status],[MemGrade],[RecommendCode] 
 				,[StoreName]  ,[CompanyName],[LegalName],[LegalMobilePhone], [ContactsManName]
-      ,[Country],[ProvinceId],b.[StoreType],[CityId],[District],[Address],  [GradeLevel],a.TimeStampTab 	from dbo.[Member] a WITH(NOLOCK) INNER JOIN dbo.Store b ON a.id=b.MemId  "+ brandstr+ where + @" ) as temp 
+      ,[Country],[ProvinceId],b.[StoreType],[CityId],[District],[Address],  [GradeLevel],a.TimeStampTab 	from dbo.[Member] a WITH(NOLOCK) INNER JOIN dbo.MemStore b ON a.id=b.MemId  "+ brandstr+ where + @" ) as temp 
 						where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
 
-            string sql2 = @"Select count(1) from dbo.[Member]   a WITH(NOLOCK) INNER JOIN dbo.Store b ON a.id=b.MemId " + brandstr   + where;
+            string sql2 = @"Select count(1) from dbo.[Member]   a WITH(NOLOCK) INNER JOIN dbo.MemStore b ON a.id=b.MemId " + brandstr   + where;
             IList<VWMemberEntity> entityList = new List<VWMemberEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
@@ -586,7 +586,7 @@ namespace SuperMarket.Data.MemberDB
                 where += " and b.CompanyName like @CompanyName ";
             }
             string sql = @"SELECT    A.[Id] AS MemId, A.[MobilePhone],b.CompanyName,b.Address,b.ContactsManName
-from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.Store B WITH(NOLOCK) ON A.Id=B.MemId  "+ where;
+from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.MemStore B WITH(NOLOCK) ON A.Id=B.MemId  "+ where;
             IList<VWMemAutoTemplete> entityList = new List<VWMemAutoTemplete>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
             if (!string.IsNullOrEmpty(contactname))
@@ -647,9 +647,9 @@ from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.Store B WITH(NOLOCK) ON A.Id=B.Me
             }
             string sql = @"SELECT MemId,MobilePhone,CompanyName, Address, ContactsManName    FROM
 						(SELECT ROW_NUMBER() OVER (ORDER BY a.Id desc) AS ROWNUMBER,   A.[Id] AS MemId, A.[MobilePhone],b.CompanyName,b.Address,b.ContactsManName
-from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.Store B WITH(NOLOCK) ON A.Id=B.MemId  " + where + @" ) as temp 
+from dbo.[Member] A WITH(NOLOCK) LEFT JOIN dbo.MemStore B WITH(NOLOCK) ON A.Id=B.MemId  " + where + @" ) as temp 
 						where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
-            string sql2 = @"Select count(1) from dbo.[Member] a with (nolock) LEFT JOIN dbo.Store B WITH(NOLOCK) ON A.Id=B.MemId  " + where;
+            string sql2 = @"Select count(1) from dbo.[Member] a with (nolock) LEFT JOIN dbo.MemStore B WITH(NOLOCK) ON A.Id=B.MemId  " + where;
             IList<VWMemAutoTemplete> entityList = new List<VWMemAutoTemplete>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -944,10 +944,10 @@ INSERT INTO [JcMemberDB].[dbo].[StoreLog]
            ,[CheckTime]
           ,'修改基础信息'
            ,getdate()
-           ,@MemId FROM dbo.Store WITH(NOLOCK) WHERE MemId=@MemId
+           ,@MemId FROM dbo.MemStore WITH(NOLOCK) WHERE MemId=@MemId
 UPDATE dbo.[MemberInfo] SET [Status]=@NewStatus,MemName=@MemName,MobilePhone=@MobilePhone,Email=@Email
 WHERE [MemId]=@MemId
-update dbo.Store set CompanyName=@CompanyName,StoreType=@StoreType,ProvinceId=@ProvinceId,CityId=@CityId,Address=@Address WHERE [MemId]=@MemId
+update dbo.MemStore set CompanyName=@CompanyName,StoreType=@StoreType,ProvinceId=@ProvinceId,CityId=@CityId,Address=@Address WHERE [MemId]=@MemId
 ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@MemId", DbType.Int32, member.MemId);
@@ -1068,7 +1068,7 @@ WHERE [MemId]=@MemId
 
         }
 
-        public int RegisterProc(MemberEntity mem, MemberInfoEntity meminfo, StoreEntity store)
+        public int RegisterProc(MemberEntity mem, MemberInfoEntity meminfo, MemStoreEntity store)
         {
             string sql = @"  BEGIN TRAN  
  UPDATE  dbo.Member SET Status=@MemStatus,MemCode=@MemCode WHERE   id = @MemId
@@ -1126,9 +1126,9 @@ begin
 	                  )
 	                 
 end 
- IF EXISTS ( SELECT  1  FROM  dbo.Store  WHERE   MemId = @MemId ) 
+ IF EXISTS ( SELECT  1  FROM  dbo.MemStore  WHERE   MemId = @MemId ) 
                     BEGIN
-                        UPDATE  dbo.Store
+                        UPDATE  dbo.MemStore
                         SET     StoreName = @CompanyName ,
                                 CompanyName = @CompanyName ,
                                 MobilePhone = @ContactsMobile ,
@@ -1141,7 +1141,7 @@ end
                     END
                 ELSE 
                     BEGIN 
-                        INSERT  INTO dbo.Store
+                        INSERT  INTO dbo.MemStore
                                 ( MemId ,
                                   StoreName ,
                                   CompanyName ,
@@ -1264,7 +1264,7 @@ end
         {
             string sql = @" 
 UPDATE dbo.Member SET  Status=@MemStatus WHERE  Id=@MemId 
-UPDATE dbo.Store SET  LicensePath=@LicensePath  WHERE MemId=@MemId   ";
+UPDATE dbo.MemStore SET  LicensePath=@LicensePath  WHERE MemId=@MemId   ";
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             db.AddInParameter(cmd, "@LicensePath", DbType.String, path);
             db.AddInParameter(cmd, "@MemId", DbType.Int32, memid); 
@@ -1757,7 +1757,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
  
 		                    BEGIN
 		
-			                    UPDATE DBO.Store SET Status=@StoreStatus,CheckTime=GETDATE(),CheckManId=@CheckManId WHERE Id=@StoreId;
+			                    UPDATE dbo.MemStore SET Status=@StoreStatus,CheckTime=GETDATE(),CheckManId=@CheckManId WHERE Id=@StoreId;
 			                    UPDATE DBO.Member SET Status=@MemberStatus WHERE Id=@MemId;
 			                    UPDATE DBO.MemBillVAT SET Status=@BillStatus WHERE Id=@BillId;
 			 

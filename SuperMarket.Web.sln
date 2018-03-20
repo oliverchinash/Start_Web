@@ -25,6 +25,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.LoginWeb", "Sup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.StaticWeb", "SuperMarket.StaticWeb\SuperMarket.StaticWeb.csproj", "{0A95A52D-11AB-4938-9C11-0340E245EF3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Web.CommonControllers", "SuperMarket.Web.CommonControllers\SuperMarket.Web.CommonControllers.csproj", "{6F37FF76-46BF-41B6-BF06-05F1F1B3F9D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Pay", "SuperMarket.Pay\SuperMarket.Pay.csproj", "{2F312844-4F15-4F5A-A4E2-F0A5AF5BDAF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.MemPersonWeb", "SuperMarket.MemPersonWeb\SuperMarket.MemPersonWeb.csproj", "{089CA9A3-199B-4929-B3D9-E4F216237E71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.MemPersonWebControllers", "SuperMarket.MemPersonWebControllers\SuperMarket.MemPersonWebControllers.csproj", "{F88DED28-A7B0-46B9-91B6-A3D65AA77D12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +83,22 @@ Global
 		{0A95A52D-11AB-4938-9C11-0340E245EF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A95A52D-11AB-4938-9C11-0340E245EF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A95A52D-11AB-4938-9C11-0340E245EF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F37FF76-46BF-41B6-BF06-05F1F1B3F9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F37FF76-46BF-41B6-BF06-05F1F1B3F9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F37FF76-46BF-41B6-BF06-05F1F1B3F9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F37FF76-46BF-41B6-BF06-05F1F1B3F9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F312844-4F15-4F5A-A4E2-F0A5AF5BDAF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F312844-4F15-4F5A-A4E2-F0A5AF5BDAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F312844-4F15-4F5A-A4E2-F0A5AF5BDAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F312844-4F15-4F5A-A4E2-F0A5AF5BDAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{089CA9A3-199B-4929-B3D9-E4F216237E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{089CA9A3-199B-4929-B3D9-E4F216237E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{089CA9A3-199B-4929-B3D9-E4F216237E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{089CA9A3-199B-4929-B3D9-E4F216237E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88DED28-A7B0-46B9-91B6-A3D65AA77D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88DED28-A7B0-46B9-91B6-A3D65AA77D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88DED28-A7B0-46B9-91B6-A3D65AA77D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88DED28-A7B0-46B9-91B6-A3D65AA77D12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

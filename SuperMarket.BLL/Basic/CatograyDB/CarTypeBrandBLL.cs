@@ -277,7 +277,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <param name="parentid"></param>
         /// <returns></returns>
-        public IList<CarTypeBrandEntity> GetCarTypeBrandAll(int parentid,bool cache=true)
+        public IList<CarTypeBrandEntity> GetCarTypeBrandAll(int parentid,bool cache=false)
         {
             IList<CarTypeBrandEntity> list = null;
             if (cache)

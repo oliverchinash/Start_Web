@@ -266,7 +266,7 @@ namespace SuperMarket.LoginWebControllers
                 _meminfo.MemName = contractmanname;
                 _meminfo.MobilePhone = mobile;
                 MemberInfoBLL.Instance.AddMemberInfo(_meminfo);
-                StoreEntity _store = new StoreEntity();
+                MemStoreEntity _store = new MemStoreEntity();
                 _store.Address = address;
                 _store.CityId = city;
                 _store.CompanyName = companyname;
@@ -332,7 +332,7 @@ namespace SuperMarket.LoginWebControllers
             int memid = CookieBLL.GetRegisterCookie();
             if (memid > 0)
             {
-                StoreEntity _en = StoreBLL.Instance.GetStoreByMemId(memid);
+                MemStoreEntity _en = StoreBLL.Instance.GetStoreByMemId(memid);
                 if (_en != null)
                 {
                     MemberEntity _mementity = MemberBLL.Instance.GetMember(memid);
@@ -845,27 +845,14 @@ namespace SuperMarket.LoginWebControllers
                     {
                         System.Web.HttpContext.Current.Session[CommonKey.MobileSending] = true;
                         Random _r = new Random();
-                        string mycode = _r.Next(100000, 999999).ToString();
+                        string mycode = "111111";// _r.Next(100000, 999999).ToString();
                         string datenowstr = DateTime.Now.ToString("yyyyMMddHHmmss");
                         string _regMsgBody = ConfigCore.Instance.ConfigCommonEntity.MobileRegMsgBody;
                         string msgbody = string.Format(_regMsgBody, mycode);
                         _entity.MessageContent = msgbody;
-                        MobileMessageEntity smsresult = ConfigSmsProviderBLL.Instance.SendSms(_entity);
+                        //MobileMessageEntity smsresult = ConfigSmsProviderBLL.Instance.SendSms(_entity);
+                        MobileMessageEntity smsresult =  _entity;
 
-
-
-
-                        //Hashtable _Pars = new Hashtable();
-                        //_Pars.Add("username", _config.UserCode);
-                        //_Pars.Add("password", CryptMD5.Encrypt(CryptMD5.Encrypt(_config.PassWord.Trim()).ToLower() + datenowstr).ToLower());
-                        //_Pars.Add("mobile", mobilestr);
-                        //_Pars.Add("content", msgbody);
-                        //_Pars.Add("tkey", datenowstr);
-                        //_Pars.Add("productid", _config.AppId);
-                        //_Pars.Add("xh", "");
-
-                        //WebServiceClient.QueryPostWebService(_config.Url, _Pars);
-                        //System.Web.HttpContext.Current.Response.Cookies.Add(new HttpCookie(CommonKey.MobileYZCode, mycode));
                         System.Web.HttpContext.Current.Session[CommonKey.MobileSendPreTime] = DateTime.Now;
                         System.Web.HttpContext.Current.Session[CommonKey.MobileYZCode] = mycode;
                         System.Web.HttpContext.Current.Session[CommonKey.MobileNo] = mobilestr;

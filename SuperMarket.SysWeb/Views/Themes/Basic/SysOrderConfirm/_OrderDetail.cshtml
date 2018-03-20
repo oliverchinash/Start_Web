@@ -1,0 +1,102 @@
+﻿@{ 
+    SuperMarket.Model.VWConfirmOrderEntity vworder = ViewBag.VWOrder;
+    //SuperMarket.Model.CGMemQuotedEntity quotecg = ViewBag.CGMemQuote;
+    Dictionary<int,   SuperMarket.Model.VWMemberEntity> cgmemdic = ViewBag.CGMemberDic;
+    //Dictionary<int, IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic= ViewBag.ProductSubDic;
+    //SuperMarket.Model.StoreEntity store= ViewBag.CGMemStore;
+    //SuperMarket.Model.CGMemQuotedEntity quotecg= ViewBag.CGMemQuote ;
+    //Dictionary<int, SuperMarket.Model.CGQuotedPriceEntity> pricedic= ViewBag.ProductCGMemDic ;
+}
+
+<div class="list-top">
+    <div class="list-top-main">
+        <img src="../img/index-icon.png" style="vertical-align: middle"> 
+        <span>订单详情</span>
+    </div>
+</div> 
+<table class="listDetail-table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th class="listDetail-td">用户名称</th>
+        <th class="listDetail-td3">用户联系方式</th>
+        <th class="listDetail-td">所属公司</th> 
+        <th class="listDetail-td2">用户地址</th>
+    </tr>
+    <tr>
+        <td>@vworder.MemName</td>
+        <td>@vworder.MemPhone</td>
+        <td>@vworder.CompanyName</td>
+        <td>@vworder.CompanyAddress</td> 
+    </tr>
+</table>
+<!------供应商和用户信息------>
+<!-------订单明细开始-------->
+<h3>订单明细</h3>
+<div class="listDetail-main">
+    <ul class="listDetail-cont">
+        <li>订单号：@vworder.InquiryOrderCode</li>
+        <li>下单时间:@vworder.CreateTime</li>
+        <li>订单状态：@vworder.StatusName</li>
+        <li>品牌：@vworder.CarBrandName</li>
+        <li>车型：@vworder.CarSeriesName</li>
+        <li>年款：@vworder.CarTypeModelName</li>
+        <li>车架号：@vworder.VinNo</li>
+        <li>车架号图：@if (!string.IsNullOrEmpty(vworder.VinPic))
+        {
+             <img  class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.VinPic)" />
+        }
+</li>
+    </ul>
+    <div class="clear"></div>
+    <ul class="listDetail-cont2"> 
+        <li>
+            @if (vworder.OrderPics != null && vworder.OrderPics.Count > 0)
+            {
+                foreach (SuperMarket.Model.InquiryOrderPicsEntity pic in vworder.OrderPics)
+                { 
+                    <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+pic.PicUrl)" target="_blank">
+                        <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+pic.PicUrl)" />
+                    </a> 
+                }
+            } 
+        </li>
+    </ul>
+    <!-----零件号---->
+    <table class="listDetail-table2" cellpadding="0" cellspacing="0">
+        <tr>
+            <th style="width: 30%">零件名称</th>
+            <th>零件数量</th>
+            <th>零件直供单价</th>
+            <th>零件零售单价</th>
+            <th>毛利</th>
+            <th>备注</th> 
+            <th>供应商</th>
+        </tr>
+        @if (vworder.OrderProducts != null && vworder.OrderProducts.Count > 0)
+        {
+            foreach (SuperMarket.Model.ConfirmOrderProductEntity pro in vworder.OrderProducts)
+            {
+               
+                            <tr>
+                                <td>@pro.ProductName</td>
+                                <td>@pro.ProductNum</td> 
+                                <td>@pro.CGPrice.ToString("0.00")</td>
+                                <td>@pro.Price.ToString("0.00")</td>
+                                <td class="red">@((pro.Price-pro.CGPrice).ToString("0.00"))</td> 
+                                <td>@pro.Remark</td>
+                                <td>
+                                    @if(pro.CGMemId>0&& cgmemdic.ContainsKey(pro.CGMemId))
+                                    {
+                                        SuperMarket.Model.VWMemberEntity member = cgmemdic[pro.CGMemId];
+                                        <a href="/SysMemHome/MemberDetail?memid=@pro.CGMemId">@member.CompanyName</a>
+                                    }
+                                </td>  
+                            </tr>
+                    
+            }
+        }
+
+
+      
+    </table>
+
+</div>

@@ -1,0 +1,195 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-待评论</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/basic.css">
+    <link rel="stylesheet" href="/themes/basic/css/comment.css"> 
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/dropload.min.js"></script> 
+    <script src="/themes/basic/js/common.js"></script>
+</head>
+<body>
+    @{ 
+        IList<JiChen.Entities.VWOrderCommentEntity> list = ViewBag.OrderCommentList;
+    }<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始------>
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                我的评论
+            </a>
+        </h1>
+    </header>
+    <div class="myComment">
+        <div style="display:none;">
+            <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span></div>
+        <ul class="am-g myComment-tab">
+            <li class="myComment-active am-u-sm-4"><a href="javascript:void(0);">待评论</a></li>
+            <li class="am-u-sm-4"><a href="/MobileMember/Evaluated">已评论</a></li> 
+        </ul> 
+        <div class="myComment-list"><div id="divordercommentbox">
+    @if (list != null && list.Count > 0)
+    {
+        foreach (JiChen.Entities.VWOrderCommentEntity commententity in list)
+        {
+            <div class="myComment-main">
+                <ul class="am-cf">
+                    <li>
+                        <p>订单号:@commententity.OrderCode</p>
+                        <span style="color: #999;">下单时间:@commententity.CreateTime</span>
+                    </li>
+                    @if (commententity.OrderDetails != null && commententity.OrderDetails.Count > 0)
+                    {
+                        foreach (JiChen.Entities.VWOrderDetailEntity orderdetailentity in commententity.OrderDetails)
+                        {
+                            <li>
+                                <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                                    <div class="am-list-news-bd">
+                                        <ul class="am-list">
+                                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                                <div class="am-u-sm-4 am-list-thumb">
+                                                    <a href="/MobileProduct/Detail?pd=@(orderdetailentity.ProductDetailId)">
+                                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + orderdetailentity.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                    </a>
+                                                </div>
+                                                <div class="am-u-sm-8 am-list-main">
+                                                    <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(orderdetailentity.ProductDetailId)" class="">@orderdetailentity.ProductName</a></h3>
+                                                    <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
+                                                        <a href="javascript:void(1)" class="am-fl">￥@orderdetailentity.TotalPrice.ToString()</a>
+                                                        <span class="am-fr">x@(orderdetailentity.Num)</span>
+                                                    </div>
+                                                    <div class="am-list-item-desced"><a href="/MobileMember/Evaluate?odid=@(orderdetailentity.OrderDetailId)" class="myComment-comment am-fr">评论</a></div>
+                                                </div>
+                                            </li> 
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        } 
+                    } 
+                </ul>
+            </div>
+        }
+
+    }
+
+</div>
+</div>
+
+   </div>
+
+    <script id="divOrderCList-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="myComment-main">
+            <ul class="am-cf">
+                <li>
+                    <p>订单号:{{OrderCode}}</p>
+                    <span style="color: #999;">下单时间:{{CreateTime}}</span>
+                </li>
+                {{#each OrderDetails}}
+                          <li>
+                            <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                                <div class="am-list-news-bd">
+                                    <ul class="am-list">
+                                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                            <div class="am-u-sm-4 am-list-thumb">
+                                                <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                </a>
+                                            </div>
+                                            <div class="am-u-sm-8 am-list-main">
+                                                <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                                <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
+                                                    <a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="am-fl">￥{{transformat Price}}</a>
+                                                    <span class="am-fr">x{{Num}}</span>
+                                                </div>
+                                                <div class="am-list-item-desced"><a href="javascript:void(0)" class="myComment-comment am-fr">评论</a></div>
+                                            </div>
+                                        </li> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                {{/each}} 
+            </ul>
+        </div> 
+        {{/each}}
+    </script>
+    <script>
+        $(function () {
+
+            // 页数
+            var page = 1;
+            var maxpage = $("#spanmaxpageindex").html(); 
+
+            // dropload
+            $(".myComment-list").dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中....</div>',
+                    domNoData: '<div class="dropload-noData">没有更多数据了</div>'
+                },
+                loadDownFn: function (me) {
+                    page++;
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Member/GetEvaluateWaitJson',
+                        data: {  pageindex: page },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (page <= maxpage) {
+                                var objlist = data.List;
+                                var myTemplate = Handlebars.compile($("#divOrderCList-template").html());
+                                //注册一个比较大小的Helper,判断v1是否大于v2
+                                Handlebars.registerHelper("compare", function (v1, v2, options) {
+                                    if (v1 == v2) {
+                                        return options.fn(this);
+                                    } else {
+                                        return options.inverse(this);
+                                    }
+                                });
+                                Handlebars.registerHelper("transformat", function (value) {
+                                    return value.toFixed(2);
+                                });
+                                 
+                                    // 插入数据到页面，放到最后面
+                                    $('#divordercommentbox').append(myTemplate(objlist));
+                                    // 每次数据插入，必须重置
+                                    me.resetload(); 
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                                me.resetload();
+                            }
+
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 50
+            });
+        })
+    </script>
+</body>
+</html>

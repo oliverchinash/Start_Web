@@ -1,0 +1,229 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-商品详情</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" />  
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/details.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle"> 
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/themes/basic/js/jquery.fly2.min.js"></script>
+    <script src="/themes/basic/js/productbehind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>  
+    <script src="/themes/basic/js/CommonNumInit.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/globalcart.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body>@{
+    JiChen.Entities.VWProductEntity product = ViewBag.VWProductEntity;
+    JiChen.Entities.VWProductNomalParamEntity productparam = ViewBag.ProductParamEntity;
+}<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header am-header-fixed details-header">
+        <div style="display: none"><input id="txtProductDetailId" value="@product.ProductDetailId" />
+            <span id="spanjishisong">@product.JiShiSong</span>  </div>
+        <h1 style="display: none">头部</h1>
+        @Html.Partial("controls/_HeadBanner")
+        <div class="am-header-title">
+            <ul id="details-table" class="am-g">
+                <li class="current_tb am-u-sm-6">商品详情</li>
+                <li class="am-u-sm-6">商品参数</li>
+            </ul>
+        
+        </div>
+        @Html.Partial("controls/_CartBox")
+    </header>
+
+    <!----header结束----->
+    <!------商品详情开始------->
+    <div class="details-table">
+        <!------图文介绍结束------->
+        <div class="details-tw">
+            <!---slider开始----->
+            <div data-am-widget="slider" class="am-slider am-slider-a1 home-slider" data-am-slider='{&quot;directionNav&quot;:false}'>
+                <ul class="am-slides">
+                   @if (product != null && product.ProductPics != null && product.ProductPics.Count > 0)
+                   {
+                       foreach (JiChen.Entities.ProductStylePicsEntity entity in product.ProductPics)
+                       {
+                        <li>
+                            <a href="javascript:void(0)">
+                                <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.PicUrlNormal)">
+                            </a>
+                        </li>
+                       }
+                   }
+                   else
+                   {
+                    <li>
+                        <a href="javascript:void(0)">
+                            <img src="/Themes/Basic/img/ImageError.jpg">
+                        </a>
+                    </li>
+                   }
+                </ul>
+            </div>
+            <!----slider结束---->
+            <p>@(product.AdTitle)</p>
+            @if (product.ActualPrice > 0&& product.ActualPrice< JiChen.Entities.CommonKey.MaxPrice)
+            {
+
+                <span>￥@(product.ActualPrice)</span>
+            }
+            else if (product.ActualPrice >= JiChen.Entities.CommonKey.MaxPrice)
+            {
+
+                <span>实时报价</span>
+            }
+            else
+            {
+                <span>价格会员可见</span>
+            } 
+        </div>
+        <!------图文介绍结束------->
+        <!-----数量开始------>
+        <div class="details-number am-cf">
+            <span class="am-fl">数量</span>
+            <div class="details-input am-fr" style="line-height: 1.8rem">
+                <input id="txtProductNum@(product.ProductDetailId)"  style="width:100px;" class="alignment" hascreate="0" maxlimit="@product.StockNum" value="1" />
+            </div>
+        </div>
+        <!-----数量结束------>
+        <!-----商品参数开始------>
+        <ul class="details-canshu am-g am-cf">
+            <li class="am-u-sm-6"><span>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</span><span style="margin-left:20px;">@(product.UnitName)</span></li>
+            <li class="am-u-sm-6"><span>库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</span><span style="margin-left:20px;">@(product.StockNum)</span></li>
+            <li class="am-u-sm-12"><span>包装规格</span><span style="margin-left:20px;">@(productparam.SpecPacking)</span></li>
+            <li class="am-u-sm-12"><span>规格型号</span><span style="margin-left:20px;">@(productparam.SpecModel)</span></li>
+        </ul>
+        <!-----商品参数结束------>
+        <!------图片详情------>
+        <div class="details-tp">
+        </div>
+        <!------图片详情结束------>
+
+    </div>
+    <!-----------商品详情结束------------->
+    <!-----------规格参数开始------------->
+    <div class="details-table none">
+        <div class="parameter">
+            <p>基本参数</p>
+            <ul class="am-g am-cf"> 
+                <li class="am-cf">
+                    <label class="am-u-sm-3">商品品牌</label>
+                    <span class="am-u-sm-9">@productparam.BrandName</span>
+                </li>
+                <li class="am-cf">
+                    <label class="am-u-sm-3">生产厂家</label>
+                    <span class="am-u-sm-9">@productparam.Factory</span>
+                </li>
+                <li class="am-cf">
+                    <label class="am-u-sm-3">规格型号</label>
+                    <span class="am-u-sm-9">@productparam.SpecModel</span>
+                </li>
+                <li class="am-cf">
+                    <label class="am-u-sm-3">计量单位</label>
+                    <span class="am-u-sm-9">@productparam.UnitName</span>
+                </li>
+                <li class="am-cf">
+                    <label class="am-u-sm-3">包装规格</label>
+                    <span class="am-u-sm-9">@productparam.SpecPacking</span>
+                </li>
+                <li class="am-cf">
+                    <label class="am-u-sm-3">出厂编码</label>
+                    <span class="am-u-sm-9">@(productparam.FacCode)</span>
+                </li> 
+            </ul> 
+        </div>
+    </div>
+
+    <!-----------规格参数结束------------->
+    <!-------------适用车型开始-------------->
+    <div class="details-table none">
+        <div class="apply">
+           @Html.Raw(productparam.APPModels)
+        </div>
+    </div>
+    <!-------------适用车型结束-------------->
+    <!-------收藏购买开始--------->
+    <div class="details-navbar am-g am-cf">
+        <div class="details-navbar-li am-u-sm-4">
+            <a href="javascript:void(0)" class="" onclick="FunFavoritesAdd('@(product.ProductDetailId)')">
+                <i class="am-icon am-icon-star-o"></i>
+                <span>收藏</span>
+            </a>
+        </div>
+        <div class="details-navbar-li4 am-u-sm-4" style="display: none">
+            <a href="javascript:void(0)" class="" onclick="FunFavoritsCancel('@(product.ProductDetailId)')">
+                <i class="am-icon am-icon-star"></i>
+                <span>已收藏</span>
+            </a>
+        </div>
+        @if (product.ActualPrice >= JiChen.Entities.CommonKey.MaxPrice)
+        {
+            <div class="details-navbar-li3 am-u-sm-4"> 
+                <a  href="tel:400-999-8411" class="" >
+                    <p>400-999-8411</p>
+                </a>
+            </div>
+        }
+        else if (product.JiShiSong == (int)JiChen.Entities.JiShiSongEnum.JiShi)
+        {
+            <div class="details-navbar-li2 addcar am-u-sm-4">
+                <a href="javascript:void(0);" class="clsaddtocart" jishi="@(product.JiShiSong)" ProductDetailId="@(product.ProductDetailId)">
+                    <p>加入需求清单</p>
+                </a>
+            </div>
+            <div class="details-navbar-li3 am-u-sm-4">
+                <a href="javascript:void(0);" class="" onclick="FunBuyImmediateXuQiu()">
+                    <p>立即下单</p>
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="details-navbar-li2 addcar am-u-sm-4">
+                <a href="javascript:void(0);" class="clsaddtocart" ProductDetailId="@(product.ProductDetailId)">
+                    <p>加入购物车</p>
+                </a>
+            </div>
+            <div class="details-navbar-li3 am-u-sm-4">
+                <a href="javascript:void(0);" class="" onclick="FunBuyImmediate()">
+                    <p>立即购买</p>
+                </a>
+            </div>
+        }
+        
+    </div>
+     
+     
+   <script>
+    $(function(){
+            webTab("#details-table li", "details-table", 'current_tb');//商品详情选项卡
+            offsetcart = $(".am-icon-shopping-cart").offset();
+            GetCartCount();
+            AddToCartClick();
+
+            AddClickLog();
+
+        });
+    function AddClickLog() {
+        var pdid = $("#txtProductDetailId").val();
+        $.post("/Home/MsgProductClickAdd", {
+            pdid: pdid, sysid: 4 //手机网站
+        }, function (data) {
+        });
+    }
+    </script> @Html.Partial("controls/_BodyBefore")
+</body>
+</html>

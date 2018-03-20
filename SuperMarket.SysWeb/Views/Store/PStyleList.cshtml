@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.ProductStyleEntity> _entitylist = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    button {
+        width: 150px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 25%;
+        height: 100%;
+        line-height: 100%;
+ 
+    }
+
+    .admin_detail > ul > li {
+        width: 25%;
+    }
+
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>款式管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Store/PClass?type=1"><img src="~/Themes/Img/Add.png" /></a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+
+        按款式名称查询:
+        <input value="@Request["stylename"]" id="txtStyleName" />
+
+        <button onclick="FunSearchStyle()">查询</button>
+
+        <button onclick="window.location.href = '/Store/PClass?type=3'">按分类品牌查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>款式名称</li>
+                <li>品牌</li>
+                <li>分类</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductStyleEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">
+                              @entity.AdTitle
+                            </li>
+                            <li class="li_iterm">@entity.BrandName</li>
+                            <li class="li_iterm">@entity.ClassName</li>
+                            <li class="li_iterm">
+                                <a href="/Store/PStyleEdit?styleid=@entity.Id"> 编辑款式</a>
+                                <a href="/Store/ProductList?styleid=@entity.Id">管理产品</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到该记录!!!
+                </div>
+            }
+        }
+
+    </div>
+
+
+
+</div>
+
+<script>
+
+    function FunSearchStyle() {
+        var stylename = $("#txtStyleName").val();
+        window.location.href = "/Store/PStyleList?stylename=" + stylename;
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != 'all') {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 1)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        } else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i > 0; i--) {
+            if (obj[i].checked == true) {
+                obj[i].parentElement.parentElement.parentElement.remove();
+            }
+        }
+    }
+
+</script>

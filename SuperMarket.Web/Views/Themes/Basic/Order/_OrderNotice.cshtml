@@ -1,0 +1,55 @@
+﻿@{
+    JiChen.Entities.VWOrderEntity _order = ViewBag.Order;
+
+} 
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>收银台</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/paycheck.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script> 
+    <script src="/themes/basic/js/common.js"></script>
+</head>
+<body> <div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner")
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                线下支付
+            </a>
+        </h1>
+    </header> 
+    <div class="offlinePayment">
+        <div class="offlinePayment-main1">
+            <div class="offlinePayment-main1-p">
+                <p>
+                    <span class="am-icon am-icon-check-square"></span>
+                    <span>您选择的是线下支付，请在付款备注标注校验码，您的支付校验码是：</span>
+                </p>
+                <p class="offlinePayment-main1-jiaoyanma"><span>校验码：</span>@_order.PayConfirmCode</p>
+            </div>
+        </div>
+        <ul>
+            <li>易店心转账支付宝账号：20718505@qq.com</li>
+            <li>易店心转账建设银行账号：</li>
+            <li>公司名称：上海基城网络科技有限公司</li>
+            <li>纳税识别号：91310105MA1FW2YJ4R</li>
+            <li>地址：上海市长宁区广顺路33号8栋5层5186室</li>
+            <li>电话：021-53198310</li>
+            <li>开户行：中国建设银行股份有限公司上海水城路支行</li>
+            <li>账号：31050174370000000105</li>
+        </ul>
+        <p class="offlinePayment-kefu">有疑问请联系客服：<span>400-999-8411</span></p>
+    </div>
+    @Html.Partial("controls/_FootBanner")
+</body>
+</html>

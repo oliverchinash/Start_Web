@@ -1,0 +1,152 @@
+﻿@{ 
+    IList<SuperMarket.Model.VWInquiryOrderEntity> list = ViewBag.InquiryOrderList;
+}
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main"> 
+            <span>询价订单管理</span>
+        </div>
+    </div>
+    <!------top结束------>
+    <!------搜索开始------>
+    <div class="list-search"> 
+        <div class="list-search-main">
+            <div class="list-search-wrap">
+                <label class="fl">订单状态：</label>
+                <div class="list-search-input">
+                   <select id="selStatus">
+                        <option value="-1" selected="selected">全部</option> 
+                       @{
+                           IList<SuperMarket.Core.Enums.EnumUnitEntity> producttypelist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.OrderInquiryStatusEnum>();
+                           if (producttypelist != null && producttypelist.Count > 0)
+                           {
+                               foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in producttypelist)
+                               {
+                                   <option value="@entity.EnumValue" @(ViewBag.Status == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                               }
+                           }
+                       }
+                   </select>
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">订单编号：</label>
+                <div class="list-search-input">
+                    <input type="text" id="txtKey">
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button onclick="Fun_SearchOrder()">搜索订单</button>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main"> 
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0" class="dispatch-table">
+                <tr> 
+                    <th>订单号</th>
+                    <th>提交时间</th>
+                    <th>订单状态</th>
+                    <th>品牌</th> 
+                    <th>总价格</th>
+                    <th>操作</th>
+                </tr>
+                @{
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.VWInquiryOrderEntity entity in list)
+                        {
+                            <tr> 
+                                <td><a href="/SysOrderInquiry/OrderDetail?code=@entity.InquiryOrderCode">@entity.InquiryOrderCode</a></td>
+                                <td>@entity.CreateTime</td>
+                                <td>@entity.StatusName</td>
+                                <td>@entity.CarBrandName</td>
+                                <td>@entity.TotalPrice</td>
+                                <td>
+                                    <a onclick="FunShowCGMemTab('@entity.InquiryOrderCode')">派遣</a>&nbsp;&nbsp;<a  onclick="FunFindInquiryCG('@entity.InquiryOrderCode')">查看已派遣</a>
+                                    &nbsp;&nbsp;<a href="/SysOrderInquiry/CGMemSelect?code=@entity.InquiryOrderCode">选择供应商</a>
+                                    &nbsp;&nbsp;<a href="/SysOrderInquiry/ProductPriceSet?code=@entity.InquiryOrderCode">报价确认</a>
+                                </td> 
+                            </tr>
+                        } 
+                    }
+                }
+            </table>
+
+        </div>
+        <div class="list-page">
+            <ul>
+                @Html.Raw(ViewBag.PageStr)
+            </ul>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hidSelectedOrderCode" /> 
+<div class="All_popcontent"></div>
+<div class="list-modal none" id="divselectcgmembox">
+    @Html.Partial("controls/_SelectCGMem")
+</div>
+<div class="list-modal none" id="divfindcgmembox">
+    @Html.Partial("controls/_FindInquiryCGMem")
+</div>
+    <!---------询价模态框开始---------->
+    <script>
+        function Fun_SearchOrder() {
+            var status = $("#selStatus").val();
+            var key = $("#txtKey").val();
+            location = "/SysOrderInquiry/OrderList?s=" + status + "&key=" + key;
+        }
+       $(function() {
+        
+       })
+       function Fun_ShowCGMemSelectBox() {
+           $("#divselectcgmembox").show();
+           $(".All_popcontent").show();
+       }
+       function Fun_CloseCGMemSelectBox() {
+           $("#divselectcgmembox").hide();
+           $(".All_popcontent").hide();
+       }
+
+       function FunShowCGMemTab(ordercode) {
+           Fun_ShowCGMemSelectBox();
+           $("#hidSelectedOrderCode").val(ordercode);
+           
+       }
+
+        //已派遣查看控制器
+       function Fun_ShowFindCGMemSelectBox() {
+           $("#divfindcgmembox").show();
+           $(".All_popcontent").show();
+       }
+       function Fun_CloseFindCGMemSelectBox() {
+           $("#divfindcgmembox").hide();
+           $(".All_popcontent").hide();
+       }
+        //派遣供应商回调
+       function Fun_SelectedCGMemCallBack(memids)
+       {
+           var ordercode = $("#hidSelectedOrderCode").val();
+           Fun_CloseCGMemSelectBox();
+           $.post("/SysCommon/InquiryToCGMemQuote", { ordercode: ordercode, memids: memids  }, function (data) {
+               var _returncode = eval("(" + data + ")");
+               var _returnStatus = -_returncode.Status;
+               if (_returnStatus == _TheArray[0]) {
+                   alert("成功指派给" + _returncode.Obj + "个供应商");
+               }
+           })
+       }
+        //查找已派遣
+       function FunFindInquiryCG(ordercode)
+       {
+           Fun_ShowFindCGMemSelectBox();
+           $("#hidSelectedOrderCode").val(ordercode);
+           if(typeof(Fun_FindInquiryPreCall)=="function")
+           { 
+               Fun_FindInquiryPreCall(ordercode);
+           }
+       }
+    </script>

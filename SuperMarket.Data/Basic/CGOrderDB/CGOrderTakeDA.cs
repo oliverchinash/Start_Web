@@ -393,7 +393,7 @@ mem.StoreName,mem.ContactsManName,mem.MobilePhone,mem.Address,mem.ProvinceId,mem
  FROM dbo.B2BOrder  a WITH(NOLOCK) INNER JOIN dbo.CGOrder b  WITH(NOLOCK)  
 ON a.Code=b.SourceCode  INNER JOIN dbo.CGOrderDetail c  WITH(NOLOCK)  ON b.Code=
 c.CGOrderCode INNER JOIN dbo.CGOrderTake d  WITH(NOLOCK)  ON c.CGOrderCode=d.CGOrderCode
-INNER JOIN  JcCGMember.dbo.Store mem  WITH(NOLOCK)  ON d.CGMemId=mem.MemId
+INNER JOIN  JcCGMember.dbo.MemStore mem  WITH(NOLOCK)  ON d.CGMemId=mem.MemId
 left JOIN dbo.CGReturn cgr  WITH(NOLOCK) ON d.CGMemId=cgr.CGMemId  AND B.cODE=cgr.CGOrderCode
 " + where;
 
@@ -402,7 +402,7 @@ left JOIN dbo.CGReturn cgr  WITH(NOLOCK) ON d.CGMemId=cgr.CGMemId  AND B.cODE=cg
             string sql2 = @"Select count(1) FROM dbo.B2BOrder  a WITH(NOLOCK) INNER JOIN dbo.CGOrder b  WITH(NOLOCK)  
 ON a.Code=b.SourceCode  INNER JOIN dbo.CGOrderDetail c  WITH(NOLOCK)  ON b.Code=
 c.CGOrderCode INNER JOIN dbo.CGOrderTake d  WITH(NOLOCK)  ON c.CGOrderCode=d.CGOrderCode
-INNER JOIN  JcCGMember.dbo.Store mem  WITH(NOLOCK)  ON d.CGMemId=mem.MemId  " + where;
+INNER JOIN  JcCGMember.dbo.MemStore mem  WITH(NOLOCK)  ON d.CGMemId=mem.MemId  " + where;
 
             IList<VWCGOrderReturnEntity> entityList = new List<VWCGOrderReturnEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);

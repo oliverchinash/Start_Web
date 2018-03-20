@@ -1,0 +1,914 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "退换货订单审核";
+    IList<SuperMarket.Model.ReturnXSEntity> entitylist = ViewBag.entitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selReturnType, #selStatus {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 10%;
+    }
+
+    .admin_detail > ul > li {
+        width: 10%;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>退换货订单审核</span></div>
+    </div>
+
+    <div class="title_main">
+
+        请选择退换货：
+        <select id="selReturnType">
+
+            <option value="0">-----请选择退换货----</option>
+            <option value="1" @(Request["returntype"] == "1" ? "selected=selected" : "")>-----退货----</option>
+            <option value="2" @(Request["returntype"] == "2" ? "selected=selected" : "")>-----换货----</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+
+        请选择状态：
+        <select id="selStatus">
+
+            <option value="-1">-----请选择状态----</option>
+            <option value="0" @(Request["status"] == "0" ? "selected=selected" : "")>-----待审核----</option>
+            <option value="1" @(Request["status"] == "1" ? "selected=selected" : "")>-----已通过----</option>
+            <option value="2" @(Request["status"] == "2" ? "selected=selected" : "")>-----已拒绝----</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+
+        订单编号:
+        <input value="" id="txtOrderCode" />
+
+        <button onclick="SearchReturnInfo()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:10%">退换货订单号</li>
+                <li>买家ID</li>
+                <li style="width:20%">货物名称</li>
+                <li>数量</li>
+                <li style="width:20%">退货原因</li>
+                <li style="width:20%">操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.ReturnXSEntity entity in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+
+                            <li class="li_iterm" style="width:10%">
+                                @entity.ReturnOrderCode
+                            </li>
+                            <li class="li_iterm">@entity.MemId</li>
+                            <li class="li_iterm" style="width:20%">@entity.ProductName</li>
+                            <li class="li_iterm">@entity.Num</li>
+                            <li class="li_iterm" style="width:20%">@entity.ReturnReason</li>
+
+                            <li class="li_iterm" style="width:30%" id="@("li"+entity.Id)">
+
+                                @if (entity.Status == (int)SuperMarket.Model.ReturnOrderStatus.Applying)
+                                {
+                                    <a href="javascript:void(0)" onclick="AcceptReback(this)" id="@entity.Id" receiveType="@entity.AahamaReciveType"
+                                       AccepterName="@entity.AcceptName" AccepterPhone="@entity.AcceptPhone"
+                                       ReturnId="@entity.Id" returnType="@entity.ReturnType"
+                                       provinceId="@entity.ProvinceId" cityId="@entity.CityId" Address="@entity.GetAddress" MemId="@entity.MemId">通过</a>
+                                    <a href="javascript:void(0)" onclick="RefuseReturnApply(this)" id="@entity.Id">拒绝</a>
+                                    <a href="/Order/SuppliersReceiving?returnXSId=@entity.Id" target="_blank">分配收货供应商</a>
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.ReturnOrderStatus.Adopt)
+                                {
+                                    @*<a style="color:black;cursor:pointer" returnId="@entity.Id" receiveType="@entity.AahamaReciveType"
+                                       onclick="FunReceiveGoods(this)" returnType="@entity.ReturnType">收货</a>*@
+                                    <a onclick="NoteMsgToCGMem(this)"  returnId="@entity.Id">通知供应商</a>
+                                    <a href="/Order/SuppliersReceiving?returnXSId=@entity.Id" target="_blank">分配收货供应商</a>
+
+                                }
+
+                                else if (entity.Status == (int)SuperMarket.Model.ReturnOrderStatus.Reject)
+                                {
+                                    <a style="color:black" onclick="FunSendMsg()">审核拒绝</a>
+                                }
+
+                                else if (entity.Status == (int)SuperMarket.Model.ReturnOrderStatus.WaitForRefund)
+                                {
+                                    <a style="color:black" onclick="">待退款</a>
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.ReturnOrderStatus.WaitForDelivery)
+                                {
+                                    <a style="cursor:pointer" onclick="FunDelivery(this)" returnId="@entity.Id" href="#">待换货重发</a>
+                                }
+                                else if (entity.Status==(int)SuperMarket.Model.ReturnOrderStatus.HadDeliveried)
+                                {
+                                    <a style="cursor:pointer" href="#" id="@entity.MemId">货物已发</a>
+                                }
+
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到该记录!
+                </div>
+            }
+        }
+
+    </div>
+
+    <div id="divRejectReason" style="width:400px;height:350px;border:2px solid #ccc;position:absolute;z-index:10;background:#fff;left:400px;top:345px;display:none">
+        <span style="position:absolute;top:0px;left:0px">请输入原因:</span>
+        <textarea type="text" id="txtRejectReason" style="width:380px;height:200px;position:absolute;top:30px;left:10px"></textarea>
+        <button style="position:absolute;top:250px;right:6px" onclick="FunConfirm(this)" id="btnConfirm">确定</button>
+        <button style="position:absolute;top:250px;left:6px" onclick="$('#divRejectReason').hide()" id="btnCancel">取消</button>
+    </div>
+
+    <div class="detail_mainPop PickUp" style="top:300px">
+        <div class="cancel" onclick="$('.PickUp').hide(); $('.all').hide();"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:100px">退换货信息</th>
+                <th style="color:red">该退换货订单为上门取件，请联系收货人，确定退换货事宜</th>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="取件省份：" readonly="readonly" /></td>
+                <td>
+                    <select id="selGetProvince" style="float:left;width:130px">
+                        <option value="0">请选择省份</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="取件城市：" readonly="readonly" /></td>
+                <td>
+                    <select id="selGetCity" style="float:left;width:130px">
+                        <option value="0">请选择城市</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="取件地点：" readonly="readonly" /></td>
+                <td><input type="text" id="txtGetAddress" readonly/></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="收货人姓名：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAccepterName" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="收货人电话：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAccepterPhone" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货订单Id：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnId" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="MemId：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtMemIdofPickUp" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退/换货：" readonly="readonly" /></td>
+                <td><input type="text" id="txtReturnTypeOfPickUp" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunAllowToReturnByPickUp(this)" receiveType="2">准予退换货</div>
+    </div>
+
+    <div class="detail_mainPop Express" style="top:200px">
+        <div class="cancel" onclick="$('.Express').hide(); $('.all').hide();"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:150px">待添加信息</th>
+                <th>内容</th>
+            </tr>
+            <tr>
+                <td><input type="text" value="易店心收货人：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAahamaName" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="易店心收货电话：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAahamaPhone" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="易店心收货省份：" readonly="readonly" /></td>
+                <td>
+                    <select id="selProvince" style="float:left;width:130px">
+                        <option value="0">请选择省份</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="易店心收货城市：" readonly="readonly" /></td>
+                <td>
+                    <select id="selCity" style="float:left;width:130px">
+                        <option value="0">请选择城市</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="易店心收货地址：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAahamaAddress" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="易店心收货邮编：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAahamaPost" /></td>
+            </tr>
+           
+            <tr>
+                <td><input type="text" value="备注：" readonly="readonly" /></td>
+                <td><input type="text" id="txtRemark" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退换货Id：" readonly="readonly" /></td>
+                <td><input type="text" id="txtReturnID" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退换货Id：" readonly="readonly" /></td>
+                <td><input type="text" id="txtMemIdofExpress" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退/换货：" readonly="readonly" /></td>
+                <td><input type="text" id="txtReturnTypeOfExpress" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunAllowToReturnByExpress(this)" receiveType="1">准予退换货</div>
+    </div>
+
+    <div class="detail_mainPop PickUpInfoAudit" style="top:300px">
+        <div class="cancel" onclick="$('.PickUpInfoAudit').hide(); $('.all').hide();"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:100px">退换货信息</th>
+                <th>内容</th>
+            </tr>
+            <tr>
+                <td><input type="text" value="收货人姓名：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAccepterNameOfPickUp" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="收货人电话：" readonly="readonly" /></td>
+                <td><input type="text" id="txtAccepterPhoneOfPickUp" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货订单Id：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnIdOfPickUp" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货/换货：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnTypeOfPickUp" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunAuditReturnInfoOfPickUp(this)">完成收货</div>
+    </div>
+
+    <div class="detail_mainPop ExpressInfoAudit" style="top:300px">
+        <div class="cancel" onclick="$('.ExpressInfoAudit').hide(); $('.all').hide();"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:120px">退换货信息</th>
+                <th>内容</th>
+            </tr>
+            <tr>
+                <td><input type="text" value="物流编号：" readonly="readonly" /></td>
+                <td><input type="text" id="txtWLCodeOfExpress" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" value="物流公司名称：" readonly="readonly" /></td>
+                <td><input type="text" id="txtWLComNameOfExpress" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货订单Id：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnIdOfExpress" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货/换货：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnTypeOfExpress" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunAuditReturnInfoOfExpress(this)">完成收货</div>
+    </div>
+
+    <div class="detail_mainPop CreateNewOrder" style="top:200px">
+        <div class="cancel" onclick="$('.CreateNewOrder').hide(); $('.all').hide();"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:100px">退换货信息</th>
+                <th>内容</th>
+            </tr>
+            <tr>
+                <td><input type="text" value="新订单编号：" readonly="readonly" /></td>
+                <td><input type="text" id="txtNewOrderCode" /></td>
+            </tr>
+
+            <tr style="display:none">
+                <td><input type="text" value="退货订单Id：" readonly="readonly" /></td>
+                <td><input type="text" readonly="readonly" id="txtReturnIdOfCreateNewOrder" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunSaveNewOrderCode()">保存新订单号</div>
+    </div>
+
+</div>
+
+<script>
+
+    function FunDelivery(obj) {
+        $('.CreateNewOrder').show();
+        $('.all').show();
+        $('#txtReturnIdOfCreateNewOrder').val($(obj).attr('returnId'));
+    }
+
+    function FunSaveNewOrderCode() {
+        var _returnId = $('#txtReturnIdOfCreateNewOrder').val();
+        var _newCode = $('#txtNewOrderCode').val();
+        $.post("/Order/SaveNewOrderCode", { returnId: _returnId,newCode:_newCode }, function (data) {
+            if (data > 0) {
+                $('.CreateNewOrder').hide();
+                $('.all').hide();
+                alert("保存新订单号成功");
+                location.reload();
+            }
+            else {
+                $('.CreateNewOrder').hide();
+                $('.all').hide();
+                alert("保存新订单号失败");
+            }
+        })
+    }
+
+    //收货
+    function FunReceiveGoods(obj) {
+
+        if ($(obj).attr("receiveType") == 1) {
+            $('.PickUpInfoAudit').show();
+            $('.all').show();
+            $('#txtReturnIdOfPickUp').val($(obj).attr("returnId"));
+            $('#txtReturnTypeOfPickUp').val($(obj).attr('returnType'));
+        }
+        else if ($(obj).attr("receiveType") == 2) {
+            $('.ExpressInfoAudit').show();
+            $('.all').show();
+            $('#txtReturnIdOfExpress').val($(obj).attr("returnId"));
+            $('#txtReturnTypeOfExpress').val($(obj).attr('returnType'));
+        }
+        else {
+            alert("系统错误");
+            return;
+        }
+    }
+    //收货时完善上门取件人的信息
+    function FunAuditReturnInfoOfPickUp(obj) {
+
+        //alert("nima")
+        var _accepterName = $("#txtAccepterNameOfPickUp").val();
+        var _accepterPhone = $("#txtAccepterPhoneOfPickUp").val();
+        var _returnId = $("#txtReturnIdOfPickUp").val();
+        $.post("/Order/AuditReturnInfoOfPickUp", {
+            accepterName: _accepterName,
+            accepterPhone: _accepterPhone, returnId: _returnId
+        }, function (data) {
+            if (data > 0) {
+
+                //alert($('#txtReturnTypeOfPickUp').val());
+
+                if ($('#txtReturnTypeOfPickUp').val() == 1) {
+                    $.post("/Order/AddFinanceRefundInfo", { returnId: _returnId }, function (data) {
+                        if (data > 0) {
+
+                            $('.PickUpInfoAudit').hide();
+                            $('.all').hide();
+                            alert("成功");
+                            location.reload();
+
+
+                        }
+                        else {
+                            $('.PickUpInfoAudit').hide();
+                            $('.all').hide();
+                            alert("加入退款列表失败");
+                        }
+                    })
+                }
+                else if ($('#txtReturnTypeOfPickUp').val() == 2) {
+                    $.post("/Order/UpdateReturnXSStatus", { returnId: _returnId }, function (data) {
+                        if (data > 0) {
+
+                            $('.PickUpInfoAudit').hide();
+                            $('.all').hide();
+                            alert("成功");
+                            location.reload();
+
+
+
+                        }
+                        else {
+                            $('.PickUpInfoAudit').hide();
+                            $('.all').hide();
+                            alert("换货失败");
+                        }
+                    })
+                }
+            }
+            else {
+                alert("失败")
+            }
+        })
+    }
+    //收货时完善邮寄的信息
+    function FunAuditReturnInfoOfExpress(obj) {
+
+
+        var _WLCode = $("#txtWLCodeOfExpress").val();
+        var _WLComName = $("#txtWLComNameOfExpress").val();
+        var _returnId = $("#txtReturnIdOfExpress").val();
+         
+        //alert(_returnId)
+
+        $.post("/Order/AuditReturnInfoOfExpress", {
+            WLCode: _WLCode,
+            WLComName: _WLComName, returnId: _returnId
+        }, function (data) {
+            if (data > 0) {
+
+                //alert($('#txtReturnTypeOfPickUp').val());
+
+                if ($('#txtReturnTypeOfExpress').val() == 1) {
+                    $.post("/Order/AddFinanceRefundInfo", { returnId: _returnId }, function (data) {
+                        if (data > 0) {
+
+                            $('.ExpressInfoAudit').hide();
+                            $('.all').hide();
+                            alert("成功");
+                            location.reload();
+
+
+                        }
+                        else {
+                            $('.ExpressInfoAudit').hide();
+                            $('.all').hide();
+                            alert("加入退款列表失败");
+                        }
+                    })
+                }
+                else if ($('#txtReturnTypeOfExpress').val() == 2) {
+                    $.post("/Order/UpdateReturnXSStatus", { returnId: _returnId }, function (data) {
+                        if (data > 0) {
+
+                            $('.PickUpInfoAudit').hide();
+                            $('.all').hide();
+                            alert("成功");
+                            location.reload();
+
+
+
+                        }
+                        else {
+                            $('.ExpressInfoAudit').hide();
+                            $('.all').hide();
+                            alert("退货失败");
+                        }
+                    })
+                }
+            }
+            else {
+                alert("失败")
+            }
+        })
+
+    }
+
+    $(function () {
+        BindDropParent($("#selProvince"), "/Common/GetProvinceJson", "", $("#hidProvinceId").val(), "");
+        BindDropParent($("#selCity"), "/Common/GetCityJson", { pcode: $("#hidProvinceId").val() }, $("#hidCityId").val(), "");
+
+        $("#selProvince").change(function () {
+            $("#hidProvinceId").val($(this).find("option:selected").val());
+            $("#hidCityId").val("");
+            var param = { pcode: $(this).val() }
+            BindDropParent($("#selCity"), "/Common/GetCityJson", param);
+        });
+        $("#selCity").change(function () {
+            $("#hidCityId").val($(this).find("option:selected").val());
+        });
+
+
+        for (var i = new Date().getFullYear() ; i < 2050; i++) {
+            $("#selYear").append("<option value=" + i + ">" + i + "年</option>");
+        }
+        for (var i = 1; i < 13; i++) {
+            $("#selMonth").append("<option value=" + i + ">" + i + "月</option>");
+        }
+
+        $("#selYear").bind("change", function () {
+            FillDay();
+        });
+        $("#selMonth").bind("change", function () {
+            FillDay();
+        });
+
+    })
+
+    function FillDay() {
+
+
+        var _dayArrofLeapYear = new Array(0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        var _dayArrofNoLeapYear = new Array(0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+        $("#selDay option:not(:first)").remove();
+        if ($("#selYear").val() % 400 == 0 || $("#selYear").val() % 4 == 0 && $("#selYear").val() % 100 != 0) {
+            for (var i = 1; i <= _dayArrofLeapYear[$("#selMonth").val()]; i++) {
+                $("#selDay").append("<option value=" + i + ">" + i + "日</option>");
+            }
+        }
+        else {
+            for (var i = 1; i <= _dayArrofNoLeapYear[$("#selMonth").val()]; i++) {
+                $("#selDay").append("<option value=" + i + ">" + i + "日</option>");
+            }
+        }
+
+    }
+
+    function SearchReturnInfo() { 
+        var _ordercode = $("#txtOrderCode").val();
+        var _returntype = $("#selReturnType").val();
+        var _status = $("#selStatus option:selected").val();
+        location.href = "/Order/ReturnOrderCheck/?code=" + _ordercode + "&returntype=" + _returntype + "&status=" + _status;
+
+    }
+    //通过退换货审核
+    function AdoptReturnApply(obj) {
+
+        //上门取件
+        if ($(obj).attr("receiveType") == 2) {
+            $("#txtReturnTypeOfPickUp").val($(obj).attr("returnType"));
+            $("#txtAccepterName").val($(obj).attr("AccepterName"));
+            $("#txtAccepterPhone").val($(obj).attr("AccepterPhone"));
+            $("#txtReturnId").val($(obj).attr("ReturnId"));
+            $("#txtMemIdofPickUp").val($(obj).attr("MemId"));
+
+            var _getProvinceId = $(obj).attr("provinceId");
+            var _getCityId = $(obj).attr("cityId");
+            var _getAddress = $(obj).attr("Address");
+
+            BindDropParent($("#selGetProvince"), "/Common/GetProvinceJson", "", _getProvinceId, "");
+            BindDropParent($("#selGetCity"), "/Common/GetCityJson", { pcode: _getProvinceId }, _getCityId, "");
+
+            $("#selGetProvince").change(function () {
+                var param = { pcode: $(this).val() }
+                BindDropParent($("#selGetCity"), "/Common/GetCityJson", param);
+            });       
+            $("#txtGetAddress").val(_getAddress);
+
+
+            $(".PickUp").show();
+            $(".all").show();
+            return;
+        }
+        //邮寄给指定地点
+        else if ($(obj).attr("receiveType") == 1) {
+            $("#txtReturnTypeOfExpress").val($(obj).attr("returnType"));
+            $("#txtReturnID").val($(obj).attr("ReturnId"));
+            $("#txtMemIdofExpress").val($(obj).attr("MemId"));
+            $(".Express").show();
+            $(".all").show();
+            return;
+        }
+
+        else {
+            alert("系统出错");
+            return;
+        }
+
+    }
+    //上门取件
+    function FunAllowToReturnByPickUp(obj) {
+         
+        var _returnType = $("#txtReturnTypeOfPickUp").val();
+        var _receiveType = $(obj).attr("receiveType");
+
+        var _accepterName = $("#txtAccepterName").val();
+        var _accepterPhone = $("#txtAccepterPhone").val();
+  
+        var _returnId = $(obj).parent().find("#txtReturnId").val();
+        var _MemId = $("#txtMemIdofPickUp").val();
+        var _SMSContent="亲,您选择退换货方式的是上门取件,以下是详细信息:1.收货人:"+_accepterName+";2.收货人电话:"+_accepterPhone;
+
+        $.post("/Order/AdoptReturnApply", { returnId: _returnId, accepterName: _accepterName, accepterPhone: _accepterPhone }, function (data) {
+            if (data > 0) {
+                alert("审核成功");
+                $(".PickUp").hide();
+                $(".all").hide();
+                location.href = "/Message/SendMsgEdit/?memid=" + _MemId + "&SMSContent=" + _SMSContent;
+
+            }
+            else {
+                $(".PickUp").hide();
+                $(".all").hide();
+                alert("审核失败");
+            }
+
+        })
+    }
+    //快递
+    function FunAllowToReturnByExpress(obj) {
+          
+        var _returnType = $("#txtReturnTypeOfExpress").val();
+        var _receiveType = $(obj).attr("receiveType");
+        var _isValid = true;
+
+        var _AahamaName = $("#txtAahamaName").val();
+        //alert(_AahamaName)
+        if (_AahamaName == "" || _AahamaName == undefined || _AahamaName == null) {
+            _isValid = false
+        }
+        var _AahamaPhone = $("#txtAahamaPhone").val();
+        //alert(_AahamaPhone)
+
+        if (_AahamaPhone == "" || _AahamaPhone == undefined || _AahamaPhone == null) {
+            _isValid = false
+        }
+        var _Province = $("#selProvince").val();
+        var _ProvinceName = $("#selProvince option:selected").text();
+        //alert(_Province)
+
+        if (_Province == 0 || _Province == undefined || _Province == null) {
+            _isValid = false
+        }
+        var _City = $("#selCity").val();
+        var _CityName = $("#selCity option:selected").text();
+        
+        //alert(_City)
+
+        if (_City == 0 || _City == undefined || _City == null) {
+            _isValid = false
+        }
+        var _AahamaAddress = $("#txtAahamaAddress").val();
+        //alert(_AahamaAddress)
+
+        if (_AahamaAddress == "" || _AahamaAddress == undefined || _AahamaAddress == null) {
+            _isValid = false
+        }
+        var _AahamaPost = $("#txtAahamaPost").val();
+
+        if (_isValid == false) {
+            alert("信息有误,请检查无误后确认");
+            return;
+        }
+
+
+        var _Remark = $("#txtRemark").val();
+        var _returnId = $("#txtReturnID").val();
+
+        var _memid = $("#txtMemIdofExpress").val();
+        var _SMSContent="亲，您选择的退换货方式是邮寄至易店心，以下是邮寄详细信息:1.易店心收货人:"+_AahamaName+";2.易店心收货电话:"+_AahamaPhone+";3.易店心收货地址:"+_ProvinceName+_CityName+_AahamaAddress;
+
+        $.post("/Order/AddReturnXSWLInfo", {
+            AahamaName: _AahamaName, AahamaPhone: _AahamaPhone, Province: _Province,
+            City: _City, AahamaAddress: _AahamaAddress, AahamaPost: _AahamaPost, Remark: _Remark, returnId: _returnId
+
+        }, function (data) {
+            if (data > 0) {
+
+                alert("审核成功");
+                $(".Express").hide();
+                $(".all").hide();
+                ////location.href = "/Message/SendMsgEdit/?memid=" + _memid + "&SMSContent=" + _SMSContent;
+
+            }
+            else {
+                $(".Express").hide();
+                $(".all").hide();
+                alert("审核失败");
+            }
+            $("#txtAahamaName").val("");
+            $("#txtAahamaPhone").val("");
+            $("#selProvince").val(0);
+            $("#selCity").val(0);
+            $("#txtAahamaAddress").val("");
+            $("#txtAahamaPost").val("");
+            $("#txtRemark").val("");
+
+        })
+
+    }
+
+    function AcceptReback(obj)
+    {
+        if (confirm("确定通过该退换货？"))
+        {
+            var _returnId = $(obj).attr("ReturnId");
+            $.post("/Order/AcceptReturnXSApp", {
+                returnId: _returnId
+            }, function (data) {
+                if (data > 0) {
+                    alert("审核通过成功");
+                }
+                else { 
+                    alert("审核通过失败");
+                }
+            })
+        }
+       
+    }
+
+    function RefuseReturnApply(obj) {
+
+        $("#divRejectReason").show();
+        var _id = $(obj).attr("id");
+        $("#btnConfirm").val(_id);
+
+    }
+
+    function FunConfirm(obj) {
+
+        debugger
+
+        if ($("#txtRejectReason").val() == "") {
+            alert("需要输入原因!");
+            return false;
+        }
+
+        $("#divRejectReason").hide();
+
+        var _id = $(obj).val();
+
+        $.post("/Order/RefuseReturnApply", { id: _id, rejectreason: $("#txtRejectReason").val() }, function (data) {
+             
+            if (data > 0) {
+                $("#" + _id).siblings().remove();
+                $("#" + _id).text("审核拒绝");
+                $("#" + _id).css({ color: "black" });
+                $("#" + _id).attr("onclick", null);
+                $("#txtRejectReason").val(null);
+                alert("审核拒绝!");
+
+            } else {
+                alert("审核失败!");
+                $("#txtRejectReason").val(null);
+            }
+
+        }
+        );
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != "all") {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 2)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        }
+        else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+    function NoteMsgToCGMem(obj)
+    {
+        var _returnId = $(obj).attr("returnId");
+        $.post("/Order/NoteMsgToCGMem", {
+            returnId: _returnId
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                alert("成功!");
+                return false;
+            }
+            else {
+                alert(_TheArray[status]);
+                return false;
+            }
+        })
+    }
+</script>

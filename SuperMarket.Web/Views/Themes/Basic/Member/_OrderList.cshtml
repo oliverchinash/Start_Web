@@ -1,0 +1,295 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-订单</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" />  
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/dropload.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/myorder.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/cssadd.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script> 
+    <script src="/Themes/Basic/js/dropload.min.js"></script>
+    <script src="/themes/basic/js/myorderbehind.js"></script> 
+    <script src="/themes/basic/js/common.js"></script> 
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+</head>
+<body>
+    <div style="display:none;">
+        <input id="txtKey" value="@ViewBag.Key" />
+        <input id="txtOrderStyle" value="@ViewBag.OrderStyle" />
+        <input id="txtStatus" value="@ViewBag.Status" />
+        <input id="txtTerm" value="@ViewBag.Term" />
+        <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
+    </div><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始------>
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner")
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                我的@((ViewBag.OrderStyle==(int)JiChen.Entities.OrderStyleEnum.XuQiu)?"需求":"")订单
+            </a>
+        </h1> 
+    </header>
+    <!----header结束------>
+    <!-------主要内容开始-------->
+    <div class="myorder">
+        @{  
+            JiChen.Entities.VWOrderMsgEntity _msgentity = ViewBag.VWOrderMsg;
+            IList<JiChen.Entities.VWOrderEntity> _orderlist = ViewBag.Orderlist;
+            int status = ViewBag.Status;
+        }
+        <!---------页头选项卡开始----------->
+        <div data-am-widget="tabs" class="am-tabs am-tabs-default myorder-tabs">
+            <ul class="am-tabs-nav am-cf">
+                <li class="@(status==0?"am-active":"")" status="0" onclick="FunSearchOrderList(this)"><a>全部</a></li>
+                @if (ViewBag.OrderStyle == (int)JiChen.Entities.OrderStyleEnum.XuQiu)
+                {
+                    <li class="@((status==(int)JiChen.Entities.OrderStatus.XuQiuSubmit)?"am-active":"")" status="@((int)JiChen.Entities.OrderStatus.XuQiuSubmit)" onclick="FunSearchOrderList(this)">
+                        <a class="myorder-li">
+                            <span>待发货</span> 
+                        </a>
+                    </li>
+                    <li class="@((status== (int)JiChen.Entities.OrderStatus.Delivering )? "am-active":"")" status="@((int)JiChen.Entities.OrderStatus.Delivering)" onclick="FunSearchOrderList(this)">
+                        <a class="myorder-li">
+                            <span>发货中</span> 
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@(status==1?"am-active":"")" status="1" onclick="FunSearchOrderList(this)">
+                        <a class="myorder-li">
+                            <span>待付款</span>
+                            <span class="am-badge am-badge-danger am-round">@(_msgentity.WaitPayNum)</span>
+                        </a>
+                    </li>                <li class="@(status==4?"am-active":"")" status="4" onclick="FunSearchOrderList(this)">
+                    <a class="myorder-li">
+                        <span>待收货</span>
+                        <span class="am-badge am-badge-danger am-round">@(_msgentity.WaitReciveNum)</span>
+                    </a>
+                </li>
+                } 
+               
+                <li class="@(status==7?"am-active":"")"  status="7"  onclick="FunSearchOrderList(this)" ><a>已取消</a></li>
+                @*<li class="myorder-tuihuo"  status="1" ><a href="[data-tab-panel-3]">退货/售后</a></li>*@
+            </ul>
+            <div class="am-tabs-bd " >
+                <div data-tab-panel-0 class="am-tab-panel am-active myorder-all-jiazai dicOrderListDropUp">
+                    <div class="myorder-all">
+                        <!------第一个内容开始------->
+                        @if (_orderlist != null && _orderlist.Count > 0)
+                        {
+                            foreach (JiChen.Entities.VWOrderEntity _entity in _orderlist)
+                            {
+                                string pids = "";
+                                string nums = "";
+                                if (_entity.Details != null && _entity.Details.Count > 0)
+                                {
+                                    <div class="myorder-all-main" OrderCode="@_entity.Code" OrderStyle="@_entity.OrderStyle" >
+                                        <ul class="am-cf">
+                                            <li style="position: relative; padding: .5rem 0;">
+                                                <p>订单号:@_entity.Code</p>
+                                                <span style="color: #999;">下单时间:@_entity.CreateTime.ToString("yyyy-MM-dd")</span>
+                                                <span style="position: absolute; left: 80%;top: 2rem;color:#FF532B">@_entity.StatusName</span>
+                                            </li>
+                                            @for (var i = 0; i < _entity.Details.Count; i++)
+                                            {
+                                                JiChen.Entities.VWOrderDetailEntity _orderdetail = _entity.Details[i];
+                                                <li class="liproduct" prodetailid="@_orderdetail.ProductDetailId" num="@_orderdetail.Num" >
+                                                    <div  data-am-widget="list_news" class="am-list-news am-list-news-default">
+                                                        <div class="am-list-news-bd">
+                                                            <ul class="am-list">
+                                                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                                                    <div class="am-u-sm-4 am-list-thumb">
+                                                                        <a href="/MobileProduct/Detail?pd=@(_orderdetail.ProductDetailId)">
+                                                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _orderdetail.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="am-u-sm-8 am-list-main">
+                                                                        <h3 class="am-list-item-hd"><a href="javascript:void(0)" class="">@_orderdetail.ProductName</a></h3>
+                                                                        <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
+                                                                            <a href="/MobileProduct/Detail?pd=@(_orderdetail.ProductDetailId)" class="am-fl">￥@_orderdetail.ActualPrice</a>
+                                                                            <span class="am-fr">x@_orderdetail.Num</span>
+                                                                        </div>
+                                                                        <div class="am-list-item-desced">
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                            <li class="am-cf" style="padding:.5rem 1rem .5rem 0">
+                                                <span class="am-fl" style="color:#FF532B">订单金额：￥@_entity.ActPrice</span>
+                                                <div class="am-fr">
+                                                    @if (_entity.Status != (int)JiChen.Entities.OrderStatus.Cancel && _entity.Status != (int)JiChen.Entities.OrderStatus.CancelApp && _entity.Status != (int)JiChen.Entities.OrderStatus.Close && _entity.Status != (int)JiChen.Entities.OrderStatus.Finished)
+                                                    {
+                                                        <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="FunOrderCancelOpen('@_entity.Code')">取消订单</button>
+                                                    }
+                                                    @if (_entity.Status == (int)JiChen.Entities.OrderStatus.Cancel)
+                                                    {
+                                                        <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="BugFromOrder('@_entity.Code')">继续购买</button>
+                                                    }
+                                                    else if (_entity.Status == (int)JiChen.Entities.OrderStatus.WaitPay)
+                                                    {
+                                                        <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none" onclick="FunOrderPayForword('@_entity.Code')">付款</button>
+                                                    }
+                                                    else if (_entity.Status == (int)JiChen.Entities.OrderStatus.WaitRecive)
+                                                    {
+                                                        <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none" onclick="OrderRecivedFun('@_entity.Code')"> 确认收货 </button>
+                                                    }
+                                                </div>
+</li>
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    @Html.Partial("controls/_FootBanner", "myorder")
+
+    <div class="divCanvasContainer">
+        @Html.Partial("controls/_OrderCancelReasonBox")
+    </div>
+</body>
+</html>
+
+<script id="divOrderList-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <div class="myorder-all-main" OrderCode="{{Code}}"  OrderStyle="{{OrderStyle}}">
+        <ul class="am-cf">
+            <li style="position: relative; padding: .5rem 0;">
+                <p>订单号:{{Code}}</p>
+                <span style="color: #999;">下单时间:{{CreateTime}}</span>
+                <span style="position: absolute; left: 80%;top: 2rem;color:#FF532B">{{StatusName}}</span>
+            </li>
+            {{#each Details}}
+            <li  class="liproduct" prodetailid="{{ProductDetailId}}" num="{{Num}}">
+                <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                    <div class="am-list-news-bd">
+                        <ul class="am-list"> 
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                    <div class="am-u-sm-4 am-list-thumb">
+                                        <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                        </a>
+                                    </div>
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                        <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
+                                            <a href="javascript:void(0)" class="am-fl">￥{{transformat ActualPrice}}</a>
+                                            <span class="am-fr">x{{Num}}</span>
+                                        </div>
+                                        <div class="am-list-item-desced">
+                                        </div>
+                                    </div>
+                                </li> 
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+            <li class="am-cf" style="padding:.5rem 1rem .5rem 0">
+                <span class="am-fl" style="color:#FF532B">订单金额：￥{{transformat ActPrice}}</span>
+                <div class="am-fr">
+                    {{#if Code}}
+                    {{#compare Status @((int)JiChen.Entities.OrderStatus.Cancel)}}
+                    <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="BugFromOrder('{{Code}}')">继续购买</button>
+                    {{/compare}}
+                    {{/if}}
+                    {{#if Code}}
+                    {{#compare Status @((int)JiChen.Entities.OrderStatus.WaitPay)}}
+                    <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="FunOrderCancelOpen('{{Code}}')">取消订单</button>
+                    <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none" onclick="FunOrderPayForword('{{Code}}')"> 付款 </button>
+                    {{/compare}}
+                    {{/if}}
+                    {{#if Code}}
+                    {{#compare Status @((int)JiChen.Entities.OrderStatus.WaitRecive)}}
+                    <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="FunOrderCancelOpen('{{Code}}')">取消订单</button>
+                    <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none" onclick="OrderRecivedFun('{{Code}}')"> 确认收货 </button>
+                    {{/compare}}
+                    {{/if}}
+                    </div>
+</li>
+        </ul>
+    </div>
+    {{/each}}
+</script>
+
+
+<script id="divOrderSub-template" type="text/x-handlebars-template">
+     <div class="myorder-all-main" OrderCode="{{Code}}" OrderStyle="{{OrderStyle}}">
+        <ul class="am-cf">
+            <li style="position: relative; padding: .5rem 0;">
+                <p>订单号:{{Code}}</p>
+                <span style="color: #999;">下单时间:{{CreateTime}}</span>
+                <span style="position: absolute; left: 80%;top: 2rem;color:#FF532B">{{StatusName}}</span>
+            </li>
+            {{#each Details}}
+            <li  class="liproduct" prodetailid="{{ProductDetailId}}" num="{{Num}}" >
+                <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                    <div class="am-list-news-bd">
+                        <ul class="am-list">
+                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                <div class="am-u-sm-4 am-list-thumb">
+                                    <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                        <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                    </a>
+                                </div>
+                                <div class="am-u-sm-8 am-list-main">
+                                    <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                    <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
+                                        <a href="javascript:void(0)" class="am-fl">￥{{transformat ActualPrice}}</a>
+                                        <span class="am-fr">x{{Num}}</span>
+                                    </div>
+                                    <div class="am-list-item-desced">
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+            <li class="am-cf" style="padding:.5rem 1rem .5rem 0">
+                <span class="am-fl" style="color:#FF532B">订单金额：￥{{transformat ActPrice}}</span>
+                {{#if Code}}
+                {{#compare Status @((int)JiChen.Entities.OrderStatus.Cancel)}}
+                <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="BugFromOrder('{{Code}}')">继续购买</button>
+                {{/compare}}
+                {{/if}}
+                {{#if Code}}
+                {{#compare Status @((int)JiChen.Entities.OrderStatus.WaitPay)}}
+                <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="FunOrderCancelOpen('{{Code}}')">取消订单</button>
+                <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none"  onclick="FunOrderPayForword('{{Code}}')"> 付款 </button>
+                {{/compare}}
+                {{/if}}
+                {{#if Code}}
+                {{#compare Status @((int)JiChen.Entities.OrderStatus.WaitRecive)}}
+                <button style="background: #fff; border: 1px solid #ddd; border-radius: .3rem;margin-right: .5rem" onclick="FunOrderCancelOpen('{{Code}}')">取消订单</button>
+                <button style="background:#FF532B; border-radius: .3rem; color: #fff; border: none"  onclick="OrderRecivedFun('{{Code}}')"> 确认收货 </button>
+                {{/compare}}
+                {{/if}}
+            </li>
+        </ul>
+    </div>
+    
+</script>

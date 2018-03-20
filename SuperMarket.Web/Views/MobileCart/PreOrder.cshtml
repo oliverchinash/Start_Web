@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+
+@if (ViewBag.JiShiSong == (int)JiChen.Entities.JiShiSongEnum.JiShi)
+{ 
+    @Html.Partial("../" + JiChen.Core.Globals.SkinPath + "/Cart/_PreOrderXuQiu")
+}
+else
+{
+    @Html.Partial("../" + JiChen.Core.Globals.SkinPath + "/Cart/_PreOrder")
+}
+

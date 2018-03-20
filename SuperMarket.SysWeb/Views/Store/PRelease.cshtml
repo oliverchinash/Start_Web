@@ -1,0 +1,586 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "发布产品";
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+
+}
+@{SuperMarket.Model.VWProductStyleEntity _styleentity = ViewBag.ProductStyle;}
+
+
+
+<div style="display: none;">
+
+    <input id="txtMemId" value="@ViewBag.MemId" />
+    <input type="text" id="txtClassId" value="@ViewBag.ClassId" />
+    <input id="txtStyleId" value="@_styleentity.StyleId" />
+    <input id="txtProductId" value="@_styleentity.ProductId" />
+    <input id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+
+    <ul id="ulStylePics" class="hidpicuploaddiy" bindfield="StylePics" pictype="3" btntext="上传图片">
+        @{
+            if (_styleentity.StylePics != null && _styleentity.StylePics.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductStylePicsEntity _picentity in _styleentity.StylePics)
+                {
+                    <li liitemcode="StylePics@_picentity.Id" hascompress="@_picentity.HasCompress">@_picentity.PicUrl</li>
+                }
+            }
+        }
+    </ul>
+
+    <ul id="ulProductStylePro" class="hidProductStylePro" bindfield="ProductStylePro">
+        @* {
+            if (_styleentity.StylePropertys != null && _styleentity.StylePropertys.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductStyleProEntity _proentity in _styleentity.StylePropertys)
+                {
+                    <li propertyId="@_proentity.PropertyId">@_proentity.PropertyDetailId</li>
+                }
+            }
+        }*@
+    </ul>
+</div>
+
+<div class="tip-title">产品管理<span style="color:#f4934e">></span>发布产品</div>
+<div class="product-main">
+    <div class="product-main-search">
+        <div class="product-main-search-l">产品类别：</div>
+        <div class="product-main-search-r">
+            @ViewBag.ClassNamePath
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品名称：</div>
+        <input type="text" id="txtAdTitle" value="@_styleentity.AdTitle" autofocus="autofocus" style="width:300px;" />
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品说明：</div>
+        <input type="text" id="txtTitle" value="@_styleentity.Title" autofocus="autofocus" style="width:300px;" />
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l">OE编码：</div>
+        <input type="text" id="txtOECode" value="@_styleentity.OECode" autofocus="autofocus" style="width:200px;" />
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>品牌：</div>
+        <input type="hidden" id="hidBrandId" value="@_styleentity.BrandId" />
+        <select id="selBrandId" onchange="BrandSelectFun(this)">
+            <option value="">--请选择品牌--</option>
+        </select>
+    </div>
+    <div class="product-main-search" id="divClassProperty" style="display:none;">
+        <div class="product-main-search-l">产品属性：</div>
+        <div class="product-main-search-r">
+
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>选择适用车型：</div>
+        <div class="product-main-search-r">
+            <div class="product-main-search-r-t">
+                <input type="hidden" id="hidBrandCar1" value="-1" />
+                <input type="hidden" id="hidBrandCar2" value="-1" />
+                <input type="hidden" id="hidBrandCar3" value="-1" />
+                <input type="hidden" id="hidBrandCar4" value="-1" />
+                <select id="selBrandCar1" class="clsbrandcar" level="1" isend="0" objcolumnid="BrandCar1" url="/Common/GetBrandCarList" nextcolumnid="BrandCar2">
+                    <option value="-1">--全部车型--</option>
+                </select>
+                <select id="selBrandCar2" class="clsbrandcar" level="2" isend="0" objcolumnid="BrandCar2" url="/Common/GetBrandCarList" precolumnid="BrandCar1" nextcolumnid="BrandCar3">
+                    <option value="-1">--全部品牌--</option>
+                </select>
+                <select id="selBrandCar3" class="clsbrandcar" level="3" isend="0" objcolumnid="BrandCar3" url="/Common/GetBrandCarList" precolumnid="BrandCar2" nextcolumnid="BrandCar4">
+                    <option value="-1">--全部车系--</option>
+                </select>
+                <select id="selBrandCar4" class="clsbrandcar" level="4" isend="1" objcolumnid="BrandCar4" url="/Common/GetBrandCarList" precolumnid="BrandCar3">
+                    <option value="-1">--全部型号--</option>
+                </select>
+                <input type="button" value="添加" onclick="AddBrandCarItem()" />
+            </div>
+            <div class="product-main-search-r-b" style="background:#f5f5f5;">
+                <span>已选车型：</span>
+                <div class="product-Models" id="divcontainerBrandCar">
+                     @*{
+                        if (_styleentity.ProductStyleCars != null && _styleentity.ProductStyleCars.Count > 0)
+                        {
+                            foreach (SuperMarket.Model.ProductStyleCarEntity _carentity in _styleentity.ProductStyleCars)
+                            {
+                                <div class='product-Models-item divbrandcaritem' itemvalue='@(_carentity.BrandCar1.ToString() + "_" + _carentity.BrandCar2.ToString() + "_" + _carentity.BrandCar3.ToString() + "_" + _carentity.BrandCar4.ToString())'>
+                                    <ul>
+                                        <li>@_carentity.BrandCarName1</li>
+                                        <li>@_carentity.BrandCarName2</li>
+                                        <li>@_carentity.BrandCarName3</li>
+                                        <li>@_carentity.BrandCarName4</li>
+                                        <li class="delete"><a href='javascript:void(0)' ; onclick='DelBrandCarItem(this)'>删除</a></li>
+                                    </ul>
+                                </div>
+                            }
+                        }
+                    }*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>所选图片：</div>
+        <div class="product-main-search-r">
+            <div class="Upload">
+
+                <div id="divcontainerProductPic" btntext="上传图片"><div></div></div>
+
+                <div style="float:left; width:100%;">
+                    <div id="divProductPicList" bindfield="StylePics"></div>
+                </div>
+
+                <div style="float:left;  color:#f00; font-size:10px; line-height:30px;">请控制在500K以内，支持格式为bmp、jpg、png.</div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search" id="divProductSpec" style="display:none;">
+        <div class="product-main-search-l">产品规格：</div>
+        <div class="product-main-search-r" style="background:#f5f5f5;">
+            <div class="product-main-search-rb itemdivproductspec">
+                <span style="width:50px;">款式：</span>
+                <div class="product-main-search-r_col">
+                    <div class="product-main-search-r_col-t">
+                        <span>
+                            <input class="chkclassproductspec" type="checkbox" />
+                            <span>款式一</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l">库存数量：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtNum" value="@_styleentity.Num" style="float:left; " />
+        </div>
+    </div>
+
+    <div style="display:none">
+        <div class="product-main-search">
+            <div class="product-main-search-l">零售价：</div>
+            <div class="product-main-search-r">
+                <input type="text" id="txtPrice" value="@_styleentity.Price" style="float:left; " />
+            </div>
+        </div>
+        <div class="product-main-search">
+            <div class="product-main-search-l">批发价：</div>
+            <div class="product-main-search-r">
+                <input type="text" id="txtTradePrice" value="@_styleentity.TradePrice" style="float:left; " />
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l">市场价：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtMarketPrice" value="@_styleentity.MarketPrice" style="float:left; " />
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l">成本价：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtCost" value="@_styleentity.Cost" style="float:left; " />
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>运费：</div>
+        <div class="product-main-search-r">
+            <div class="product-main-search-r_bottom-top" style="float:left;">
+                <input type="hidden" id="hidIsFreeShipping" value="@_styleentity.TransFeeType" />
+                <input type="radio" name="radIsFreeShipping" value="1" />
+                包邮，免运费
+                <input type="radio" name="radIsFreeShipping" value="0" />
+                买家承担运费
+            </div>
+            <div class="product-main-search-r_bottom-top" style="float:left;">
+                <span>统一运费</span>
+                <input type="text" id="txtFreightFee" value="@_styleentity.TransFee" />元
+            </div>
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品介绍：</div>
+        <div class="product-main-search-r">
+            <ul>
+                <li class="item item_editor clearfix">
+                    <div class="dt"><span class="star">*</span>产品介绍：</div>
+                    <div class="dd">
+                        <div class="editor-temp clearfix" id="selectTemp">
+                            <span class="select-tit fl">选择模板</span>
+                            <span class="temp temp-none">空白</span>
+                            <span class="m-follow-msg temp temp-hover">
+                                <span class="m-follow-msg-hd temp-ok">通用模板</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div style="" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:300px;">
+                        </div>
+                    </div>
+                    <div class="tip_error no_dt undis" style="clear: both;">请填写产品介绍</div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="product-footer">
+        <div class="product-footer-l"><img src="/Themes/Member/img/fabu1.png" onclick="ReleaseProductSubmit()" /></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+    $(function () {
+
+        $("input[name=radIsFreeShipping][value=" + $("#hidIsFreeShipping").val() + "]").attr("checked", true);//选中*
+
+        var arrimagespath = new Array();
+        if ($.trim($("#ulStylePics").children().length > 0) != "") {
+            $("#ulStylePics").children().each(function () {
+                arrimagespath.push({
+                    imageid: $(this).attr("liitemcode"),
+                    imagepath: $("#txtPicServerRootUrl").val() + $(this).text()
+                });
+            });
+        }
+
+        $('#divProductPicList').diyUpload({
+            url: "/Store/UploadProductImages",
+            buttonText: $("#divcontainerProductPic").attr("btntext"),
+            imagedefaultpath: arrimagespath,
+            fileNumMax: 6,
+            formData: {
+            },
+            success: function (fileid, data) {
+                if (data != "" && data._raw != "") {
+                    var listr = "<li liitemcode='" + fileid + "' hascompress='0'>" + data._raw + "</li>";
+                    $("#ulStylePics").append(listr);
+                    //alert(fileid);
+                    //alert(data._raw);
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+        //绑定品牌
+        BindDropParent($("#selBrandId"), "/Common/GetBrandByClass", { classid: $("#txtClassId").val() }, $("#hidBrandId").val());
+
+        //显示属性
+        BindProperties($("#txtClassId").val(), 0);
+
+        //显示车型
+        BindSelectData($("#selBrandCar1"), {});
+
+        $("#selBrandId").change(function () {  //*
+            $("#hidBrandId").val($(this).val());
+        });
+
+        $(".clsbrandcar").each(function () {
+            $(this).bind("change", function () {
+                ChangeSelectData($(this), {});
+            });
+        });
+
+        //编辑器
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 600,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+        ue.on('ready', function () {
+            proTemplate.init(ue);
+            BindStyleContent();
+        });
+    });
+
+    function ReleaseProductSubmit() {
+
+        var _memId = $("#txtMemId").val();
+        var _styleId = $("#txtStyleId").val();
+        var _classId = $("#txtClassId").val();
+        var _adTitle = $("#txtAdTitle").val();
+        var _title = $("#txtTitle").val();
+        var _oECode = $("#txtOECode").val();
+        var _brandId = $("#hidBrandId").val();
+        var _picUrl = "";
+
+        var _isort = 100;
+        //产品属性
+        var _stylePropertys = "";
+        $("#ulProductStylePro li").each(function () {
+            if (_stylePropertys == "") {
+                _stylePropertys = _isort + "_" + $(this).attr("propertyId") + "_" + $(this).text();
+            }
+            else {
+                _stylePropertys = _stylePropertys + "|" + _isort + "_" + $(this).attr("propertyId") + "_" + $(this).text();
+            }
+            _isort = _isort - 1;
+        });
+
+        _isort = 100;
+        //所选车品牌
+        var _brandCar = "";
+        $(".divbrandcaritem").each(function () {
+            if (_brandCar == "") {
+                _brandCar = _isort + "_" + $(this).attr("itemvalue");
+            }
+            else {
+                _brandCar = _brandCar + "|" + _isort + "_" + $(this).attr("itemvalue");
+            }
+            _isort = _isort - 1;
+        });
+
+        _isort = 100;
+        //所选图片
+        var _stylePics = "";
+        $("#ulStylePics li").each(function () {
+            if (_stylePics == "") {
+                _stylePics = _isort + "_" + $(this).text() + "_" + $(this).attr("hascompress");
+                _picUrl = $(this).text();
+            }
+            else {
+                _stylePics = _stylePics + "|" + _isort + "_" + $(this).text() + "_" + $(this).attr("hascompress");
+            }
+            _isort = _isort - 1;
+        });
+        var _num = $("#txtNum").val();
+        var _price = $("#txtPrice").val();
+        var _tradePrice = $("#txtTradePrice").val();
+        var _marketPrice = $("#txtMarketPrice").val();
+        var _cost = $("#txtCost").val();
+
+        var _isFreeShipping = $("input[name=radIsFreeShipping]:checked").val();
+        var _freightFee = $("#txtFreightFee").val();
+        var _contentcms = ue.getContent();
+
+        $.post("/Store/ReleaseProductSubmit", {
+            memid: _memId
+            , styleId: _styleId,
+            classId: _classId, adTitle: _adTitle, title: _title, oECode: _oECode, brandId: _brandId,
+            stylePropertys: _stylePropertys, brandCar: _brandCar, stylePics: _stylePics, num: _num,
+            price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice, cost: _cost, isFreeShipping: _isFreeShipping,
+            contentcms: _contentcms, freightFee: _freightFee, picUrl: _picUrl
+        }, function (data) {
+            var _returncode = (-data);
+            if (_returncode == _TheArray[0]) {
+                alert(_TheArray[_returncode]);
+            }
+            else {
+                alert(_TheArray[_returncode]);
+                return false;
+            }
+
+        });
+    }
+
+    function BrandSelectFun(brandobj) {
+        $(".selclassproperty option:not(:first)").each(function () {
+
+            if ($(this).attr("brandid") != null && $(this).attr("brandid") != "" && $(this).attr("brandid") != "0" && $(this).attr("brandid") != $(brandobj).val() && $(brandobj).val() != "" && $(brandobj).val() != "0") {
+                $(this).hide();
+            }
+            else {
+
+                $(this).show();
+            }
+        });
+    }
+
+
+
+    //绑定属性列表
+    function BindProperties(_classid, _pid) {
+        $.post("/Common/GetPropertyByClass", { classid: _classid, pid: _pid }, function (data) {
+            var jsonobj = eval(data);
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                if (_pid == "" || _pid == 0) {
+                    $("#divClassProperty").show();
+                    var divattributeobj = $("#divClassProperty").children(":last");
+                    for (var i = 0; i < jsonobj.length; i++) {
+                        var str = "<div class='Attributes'><span>" + jsonobj[i].Name + "</span><select class='selclassproperty' propertyId='" + jsonobj[i].Id + "' bindfield='ProductStylePro' isend='" + jsonobj[i].IsEnd + "' objid='PropertyId" + jsonobj[i].Id + "' id='selPropertyId" + jsonobj[i].Id + "'><option value='0'>--请选择--</option></select></div>";
+                        $(divattributeobj).append(str);
+                        var objul = $("#ulProductStylePro li[propertyId=" + jsonobj[i].Id + "]");
+                        if (objul == null || objul == undefined || objul.length == 0) {
+                            var listr = "<li   propertyId='" + jsonobj[i].Id + "'>0</li>";
+                            $("#ulProductStylePro").append(listr);
+                        }
+
+                    }
+                    $(".selclassproperty").each(function () {
+                        var objid = $(this).attr("objid");
+                        $(this).bind("change", function () {
+                            $("#ulProductStylePro li[propertyId=" + $("#sel" + objid).attr("propertyId") + "]").text($("#sel" + objid).val());
+                            if ($(this).attr("isend") == "0") {
+                                BindProperties(_classid, $("#sel" + objid).val());
+                            }
+                        });
+                        BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
+                    });
+                }
+                else {
+                    var divattributeobj = $("#divClassProperty").children(":last").children(":last");
+                    for (var i = 0; i < jsonobj.length; i++) {
+                        var str = "<select class='selclassproperty'  pid='" + _pid + "'  isend='" + jsonobj[i].IsEnd + "' propertyId='" + jsonobj[i].Id + "' objid='PropertyId" + jsonobj[i].Id + "'  bindfield='ProductStylePro' id='selPropertyId" + jsonobj[i].Id + "'><option value=''>--请选择--</option></select>";
+                        $(divattributeobj).append(str);
+                    }
+                    $(divattributeobj).find(".selclassproperty:last").bind("change", function () {
+                        $("#hid" + objid).val($("#sel" + objid).val());
+                        if ($(this).attr("isend") == "0") {
+                            BindProperties(_classid, $("#sel" + objid).val());
+                        }
+                    });
+                    BindPropertiesValue($(divattributeobj).find(".selclassproperty:last"), $(divattributeobj).find(".selclassproperty:last").attr("propertyId"), 0);
+
+                }
+            }
+        });
+    }
+
+    //绑定属性值
+    function BindPropertiesValue(obj, _propertyId, _pid) {
+
+        var param = { propertyId: _propertyId, pid: _pid };
+        BindDropParent(obj, "/Common/GetPropertyValueList", param, $("#ulProductStylePro li[propertyId=" + $(obj).attr("propertyId") + "]").text());
+    }
+
+    //绑定属性列表
+    function BindSpec(_classid, _pid) {
+        $.post("/Common/GetSpecByClass", { classid: _classid, pid: _pid }, function (data) {
+            var jsonobj = eval(data);
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                $("#divProductSpec").show();
+                var contianer = $("#divProductSpec div:last");
+                for (var i = 0; i < jsonobj.length; i++) {
+                    var str = "<div class='product-main-search-rb itemdivproductspec' specid='" + jsonobj[i].SpecId + "'><span>" + jsonobj[i].Name + "：</span><div class='product-main-search-r_col'><div class='product-main-search-r_col-t divchkcontainer'  specid='" + jsonobj[i].SpecId + "'></div></div></div>";
+                    $(contianer).append(str);
+                }
+                $("#divProductSpec.itemdivproductspec").each(function () {
+                    var specid = $(this).attr("specid");
+                    BindPropertiesValue($(this).find(".divchkcontainer"), $(this).attr("propertyId"), 0);
+                });
+            }
+        });
+    }
+
+
+    function BindSpecValue(chkcontainer, _specid, _classid) {
+        $.post("/Store/GetSpecValueList", { specid: _specid, pid: 0 }, function (data) {
+            var jsonobj = eval(data);
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                for (var i = 0; i < jsonobj.length; i++) {
+                    var str = "<span><input class='chkclassproductspec' onclick='SelectSpecCheck()' type='checkbox' specvalue=" + jsonobj[i].Id + "   specname=" + jsonobj[i].Name + " /><span>" + jsonobj[i].Name + "  </span></span> ";
+                    $(chkcontainer).append(str);
+                }
+            }
+        });
+    }
+
+
+    function AddBrandCarItem() {
+        if ($("#hidBrandCar1").val() != "") {
+            var hasbrandcar = false;
+            var itemvalue = "";
+            for (var i = 1; i < 5; i++) {
+                if ($("#hidBrandCar" + i).val() != "" && $("#hidBrandCar" + i).val() != 0) {
+                    if (itemvalue == "") {
+                        itemvalue = $("#hidBrandCar" + i).val();
+                    }
+                    else {
+                        itemvalue = itemvalue + "_" + $("#hidBrandCar" + i).val();
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            var itemvalue = $("#hidBrandCar1").val() + "_" + $("#hidBrandCar2").val() + "_" + $("#hidBrandCar3").val() + "_" + $("#hidBrandCar4").val();
+            $(".divbrandcaritem").each(function () {
+                var itemvaluetemp = $(this).attr("itemvalue");
+                if (itemvaluetemp == itemvalue) {
+                    hasbrandcar = true;
+                    return false;
+                }
+                var fdStart = itemvaluetemp.indexOf(itemvalue);
+                if (fdStart == 0) {
+                    $(this).remove();
+                }
+            });
+            if (hasbrandcar) {
+                alert("该型号包含在选中列表中！");
+            }
+            else {
+                var itemtext = "<ul>";
+                for (var i = 1; i < 5; i++) {
+                    if ($("#selBrandCar" + i).val() != "" && $("#selBrandCar" + i).val() != 0) {
+                        itemtext = itemtext + "<li>" + $("#selBrandCar" + i).find("option:selected").text(); +"</li>";
+                    }
+                    else {
+                        break;
+                    }
+                }
+                itemtext = itemtext + "<li class='delete'><a href='javascript:void(0);' onclick='DelBrandCarItem(this);'>删除</a></li></ul>";
+                $("#selBrandCar1").find("option:selected").text();
+                var str = "  <div class='product-Models-item divbrandcaritem'  itemvalue='" + itemvalue + "' >" + itemtext + "</div> ";
+                $("#divcontainerBrandCar").append(str);
+            }
+        }
+
+    }
+
+
+    function DelBrandCarItem(obj) {
+        $(obj).closest("div").remove();
+    }
+
+    //选中规格后触发事件-未完成
+    function SelectSpecCheck() {
+        $("#divProductSpec div:last.divchkcontainer").each(function () {
+            var specid = $(this).attr("specid");
+            BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
+        });
+    }
+
+
+    function BindStyleContent() {
+        var _styleId = $("#txtStyleId").val();
+        $.post("/Common/GetContentCmsByStyleId", { styleId: _styleId }, function (data) {
+            var jsonobj = eval("(" + data + ")");
+            if (jsonobj != null && jsonobj != undefined) {
+                ue.setContent(jsonobj.ContentCms);
+            }
+        });
+    }
+
+</script>

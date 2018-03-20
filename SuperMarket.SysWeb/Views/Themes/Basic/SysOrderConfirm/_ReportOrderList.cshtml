@@ -1,0 +1,134 @@
+﻿@{ 
+    IList<SuperMarket.Model.ReportInquiryOrderEntity> list = ViewBag.ReportList;
+}
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main"> 
+            <span>询价订单日报表</span>
+        </div>
+    </div> 
+    <div class="list-search"> 
+        <div class="list-search-main">
+            <div class="list-search-wrap">
+                <label class="fl">订单状态：</label>
+                <div class="list-search-input">
+                   <select id="selStatus">
+                        <option value="-1" selected="selected">全部</option> 
+                       @{
+                           IList<SuperMarket.Core.Enums.EnumUnitEntity> producttypelist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.OrderConfirmStatusEnum>();
+                           if (producttypelist != null && producttypelist.Count > 0)
+                           {
+                               foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in producttypelist)
+                               {
+                                   <option value="@entity.EnumValue" @(ViewBag.Status == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                               }
+                           }
+                       }
+                   </select>
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">排序方式：</label>
+                <div class="list-search-input">
+                    <select id="selOrderBy">
+                        @{
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity>  OrderBylist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ReportConfirmOrderEnum>();
+                            if (OrderBylist != null && OrderBylist.Count > 0)
+                            {
+                                foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in OrderBylist)
+                                {
+                                    <option value="@entity.EnumValue" @(ViewBag.OrderBy == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                                }
+                            }
+                        }    </select>
+                </div>
+            </div> 
+            <div class="list-search-wrap">
+                <label class="fl">报表类型：</label>
+                <div class="list-search-input">
+                    <select id="selReportType">
+                        @{
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> ReportTypelist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ReportInquiryTypeEnum>();
+                            if (ReportTypelist != null && ReportTypelist.Count > 0)
+                            {
+                                foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in ReportTypelist)
+                                {
+                                    <option value="@entity.EnumValue" @(ViewBag.ReportType == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                                }
+                            }
+                        } 
+                     </select>
+                </div>
+            </div> 
+            <div class="list-search-wrap">
+                <label class="fl">开始日期：</label>
+                <div class="list-search-input">
+                    <input type="text" id="txtStartDate" value="@(ViewBag.StartDate)" />
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">结束日期：</label>
+                <div class="list-search-input">
+                    <input type="text" id="txtEndDate" value="@(ViewBag.EndDate)" />
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button onclick="Fun_SearchReport()">搜索</button>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main"> 
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0" class="dispatch-table">
+                <tr>  <th>提交日期</th>
+                 @if (ViewBag.ReportType == (int)SuperMarket.Model.ReportInquiryTypeEnum.Mem || ViewBag.ReportType == (int)SuperMarket.Model.ReportInquiryTypeEnum.MemMonth)
+                 {
+                        <th>公司名称</th>
+                        <th> 联系人 </th> 
+                    }  
+                    <th>订单总数</th>
+                    <th>采购金额</th>
+                    <th>销售金额</th>
+                    <th>毛利</th>
+                </tr>
+                @{
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.ReportInquiryOrderEntity entity in list)
+                        {
+                            <tr> <td>@entity.CreateDate</td>
+                     @if (ViewBag.ReportType == (int)SuperMarket.Model.ReportInquiryTypeEnum.Mem || ViewBag.ReportType == (int)SuperMarket.Model.ReportInquiryTypeEnum.MemMonth)
+                     {
+                                    <td>@entity.CompanyName</td>
+                                    <td> @entity.MemName </td>
+                                } 
+                                  
+                               
+                                <td>@entity.TotalNum</td>
+                                <td>@entity.CGTotalPrice</td>
+                                <td>@entity.TotalPrice</td>
+                                <td>@entity.Profit</td>
+                            </tr>
+                        } 
+                    }
+                }
+            </table> 
+        </div> 
+    </div>
+</div>
+ 
+    <!---------询价模态框开始---------->
+    <script>
+        function Fun_SearchReport() {
+            var status = $("#selStatus").val(); 
+            var orderby = $("#selOrderBy").val();
+            var reporttype = $("#selReportType").val();
+            var startdate = $("#txtStartDate").val();
+            var enddate = $("#txtEndDate").val();  
+            location = "/SysOrderConfirm/ReportOrderList?s=" + status + "&orderby=" + orderby + "&reporttype=" + reporttype + "&startdate=" + startdate + "&enddate=" + enddate;
+        }
+        
+    </script>

@@ -1,0 +1,82 @@
+﻿
+@{
+    SuperMarket.Model.VWConfirmOrderEntity _order = ViewBag.VWOrder; 
+    decimal totalprice = 0;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>询价单打印</title>
+    <!-------引入公共样式-------->
+    <link rel="stylesheet" href="/themes/basic/css/basic.css"> 
+    <link href="/themes/basic/css/print.css" rel="stylesheet" /> 
+</head>
+<body>
+    <div class="print">
+        <div class="print-title">
+            <h2>销售清单(电子版)</h2><img title="易店心" alt="易店心" src="/Themes/Basic/img/index-logo.png" />
+        </div>
+        <ul class="print-ul">
+            <li>公司名称：@_order.CompanyName</li>
+            <li>收货人姓名：@_order.MemName</li>
+            <li>收货人电话：@_order.MemPhone</li>
+            <li>订单编号：@_order.InquiryOrderCode</li>
+            <li>下单日期：@_order.CreateTime.ToShortDateString()</li>
+            <li>收货人地址：@_order.CompanyAddress</li>
+            <li>品牌：@_order.CarBrandName</li>
+            <li>车型：@_order.CarTypeModelName</li>
+            <li>发动机型号：@_order.CarTypeModelName</li>
+        </ul>
+        <div class="clear"></div>
+        <table class="print-table" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>序号</th>
+                <th>产品名称</th>
+                <th>品质</th>
+                <th>数量</th> 
+                <th>单价</th>
+                <th>合计</th>
+            </tr>
+            @if (_order.OrderProducts != null && _order.OrderProducts.Count > 0)
+            {
+                int xh = 0;
+                foreach (SuperMarket.Model.ConfirmOrderProductEntity pro in _order.OrderProducts)
+                { 
+                                    xh++; 
+                                    totalprice += pro.Price * pro.ProductNum;
+                                    <tr>
+
+                                        <td>@xh</td>
+
+                                        <td>@pro.ProductName</td>
+
+                                        <td>@pro.ProductTypeName</td>
+
+                                        <td>@pro.ProductNum</td> 
+                                        <td>@pro.Price.ToString("0.00")</td>
+                                        <td>@((pro.Price * pro.ProductNum).ToString("0.00"))</td>
+
+                                    </tr>
+                                
+                }
+            }
+
+            <tr>
+                <td colspan="5" style="text-align: left; padding-left: 10px;">订单合计金额：</td>
+                <td colspan="2">￥@_order.TotalPrice.ToString("0.00")</td>
+            </tr>
+            <tr>
+                <td colspan="7" style="text-align: left; padding-left: 10px;">大写合计金额：@SuperMarket.Core.DigitalConversion.DigitalConvert(_order.TotalPrice.ToString("0.00"))</td>
+            </tr>
+        </table>
+        <ul class="print-ul print-qianshou">
+            <li>客户签收：</li>
+            <li>送货人：</li>
+        </ul>
+        <div class="clear"></div>
+        <p class="print-tishi">温馨提示：收到货后发现质量问题或者数量不符，请速与易店心客服联系，客服电话：400-999-8411。</p>
+    </div>
+
+</body>
+</html>

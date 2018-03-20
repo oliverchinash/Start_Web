@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    SuperMarket.Model.BrandEntity entity = ViewBag.entity;
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selIsActive, #selIsHot {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>品牌@(entity.Id==0?"添加":"修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">品牌编码：</div>
+                <div class="Backstage_td2"><input id="txtCode" value="@entity.Code" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">品牌名称：</div>
+                <div class="Backstage_td2"><input id="txtName" value="@entity.Name" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">品牌标题：</div>
+                <div class="Backstage_td2"><input id="txtTitle" value="@entity.Title" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">短拼：</div>
+                <div class="Backstage_td2"><input id="txtPYShort" value="@entity.PYShort" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">全拼：</div>
+                <div class="Backstage_td2"><input id="txtPYFull" value="@entity.PYFull" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">序号：</div>
+                <div class="Backstage_td2"><input id="txtSort" value="@entity.Sort" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">生产商：</div>
+                <div class="Backstage_td2"><input id="txtManufacturer" value="@entity.Manufacturer" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否有效：</div>
+                <div class="Backstage_td2">
+                    <select id="selIsActive">
+                        <option value="-1">
+                            -----------请选择是否有效-------------
+                        </option>
+                        <option value="1" @(entity.IsActive == 1 ? "selected=selected" : "")>
+                            --------------- 有效----------------
+                        </option>
+                        <option value="0" @(entity.IsActive == 0 ? "selected=selected" : "")>
+                            ----------------无效----------------
+                        </option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否热门：</div>
+                <div class="Backstage_td2">
+                    <select id="selIsHot">
+                        <option value="-1">
+                            -----------请选择是否热门-------------
+                        </option>
+                        <option value="1" @(entity.IsHot == 1 ? "selected=selected" : "")>
+                            --------------- 热门----------------
+                        </option>
+                        <option value="0" @(entity.IsHot == 0 ? "selected=selected" : "")>
+                            ----------------冷门----------------
+                        </option>
+                    </select>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    @{
+        if (entity.Id == 0)
+        {
+            <div class="deserve" style="cursor:pointer" id="BrandAdd">添加</div>
+        }
+        else
+        {
+            <div class="deserve" style="cursor:pointer" id="BrandUpdate">修改</div>
+        }
+    }
+
+    <input value="@entity.Id" style="display:none" id="hidId" />
+    
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#BrandAdd").bind("click", function () {
+
+            debugger
+            var _code = $("#txtCode").val();
+            var _name = $("#txtName").val();
+            var _title = $("#txtTitle").val();
+            var _pyshort = $("#txtPYShort").val();
+            var _pyfull = $("#txtPYFull").val();
+            var _sort = $("#txtSort").val();
+            var _isactive = $("#selIsActive").val();
+            var _ishot = $("#selIsHot").val();
+            var _manu = $("#txtManufacturer").val();
+
+            $.post("/Brand/BrandInfoAdd", { code: _code, name: _name, title: _title, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, ishot: _ishot, manu: _manu }, function (data) {
+                if (data > 0) {
+                    alert("添加成功!");
+                    window.location.href = "/Brand/BrandManage";
+                } else {
+                    alert("添加失败!");
+                }
+            })
+        });
+
+
+    });
+
+    $(function () {
+
+        $("#BrandUpdate").bind("click", function () {
+            debugger
+
+            var _id = $("#hidId").val();
+            var _code = $("#txtCode").val();
+            var _name = $("#txtName").val();
+            var _title = $("#txtTitle").val();
+            var _pyshort = $("#txtPYShort").val();
+            var _pyfull = $("#txtPYFull").val();
+            var _sort = $("#txtSort").val();
+            var _isactive = $("#selIsActive").val();
+            var _ishot = $("#selIsHot").val();
+            var _manu = $("#txtManufacturer").val();
+
+            $.post("/Brand/BrandInfoUpdate", { id: _id, code: _code, name: _name, title: _title, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, ishot: _ishot, manu: _manu }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    window.location.href = "/Brand/BrandManage";
+                } else {
+                    alert("修改失败!");
+                }
+            })
+        });
+
+    });
+
+</script>

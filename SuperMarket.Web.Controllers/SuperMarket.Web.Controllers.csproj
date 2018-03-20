@@ -35,20 +35,68 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeChatJsSdk.SdkCore">
+      <HintPath>..\Lib\WeChatJsSdk.SdkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="WeChatJsSdk.Utility">
+      <HintPath>..\Lib\WeChatJsSdk.Utility.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminController.cs" />
+    <Compile Include="CashierController.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="CommentController.cs" />
+    <Compile Include="CommonController.cs" />
+    <Compile Include="DiscussController.cs" />
+    <Compile Include="ErrorController.cs" />
+    <Compile Include="HelpController.cs" />
+    <Compile Include="HomeController.cs" />
+    <Compile Include="MemberController.cs" />
+    <Compile Include="Mobile\MobileCartController.cs" />
+    <Compile Include="Mobile\MobileCashierController.cs" />
+    <Compile Include="Mobile\MobileHomeController.cs" />
+    <Compile Include="Mobile\MobileMemberController.cs" />
+    <Compile Include="Mobile\MobileOrderController.cs" />
+    <Compile Include="Mobile\MobilePayController.cs" />
+    <Compile Include="Mobile\MobileProductController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">
+      <Project>{81dbd8d6-519a-4850-a5e4-bc94102572f1}</Project>
+      <Name>SuperMarket.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Core\SuperMarket.Core.csproj">
+      <Project>{141147c2-4822-4f66-84c8-a277ab1d7d51}</Project>
+      <Name>SuperMarket.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
+      <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
+      <Name>SuperMarket.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Pay\SuperMarket.Pay.csproj">
+      <Project>{2f312844-4f15-4f5a-a4e2-f0a5af5bdaf1}</Project>
+      <Name>SuperMarket.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Web.CommonControllers\SuperMarket.Web.CommonControllers.csproj">
+      <Project>{6f37ff76-46bf-41b6-bf06-05f1f1b3f9d9}</Project>
+      <Name>SuperMarket.Web.CommonControllers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

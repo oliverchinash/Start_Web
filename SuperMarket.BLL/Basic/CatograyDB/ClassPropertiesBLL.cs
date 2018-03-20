@@ -123,7 +123,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <returns>ClassProperties实体</returns>
         /// <param name="columns">要返回的列</param>
-        public ClassPropertiesEntity GetClassProperties(int id,bool cache=true)
+        public ClassPropertiesEntity GetClassProperties(int id,bool cache=false)
         {
             ClassPropertiesEntity list = null;
             if (cache)
@@ -185,7 +185,7 @@ namespace SuperMarket.BLL.CatograyDB
                /// <param name="classid"></param>
                /// <param name="pid"></param>
                /// <returns></returns> 
-        public IList<ClassPropertiesEntity> GetListByClassId(int classid,int parentid,bool cache=true)
+        public IList<ClassPropertiesEntity> GetListByClassId(int classid,int parentid,bool cache=false)
         {
             IList<ClassPropertiesEntity> _objlistall = null;
             if (cache)
@@ -216,7 +216,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="classid"></param>
         /// <param name="pid"></param>
         /// <returns></returns> 
-        public IList<ClassPropertiesEntity> GetPropertiesByClassId(int classid, bool cache=true )
+        public IList<ClassPropertiesEntity> GetPropertiesByClassId(int classid, bool cache=false )
         {
             IList<ClassPropertiesEntity> list= GetListByClassId(classid, 0, cache);
             var objlist = list.Where(p => p.IsSpec == 0);

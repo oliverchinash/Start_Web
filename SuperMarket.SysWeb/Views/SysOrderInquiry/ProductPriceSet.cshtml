@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "询价订单列表";
+    Layout = "~/Views/" + SuperMarket.Core.Globals.SkinPath + "/Main/_MainSys_Master.cshtml";
+}
+@section Head{  
+    <link rel="stylesheet" href="@SuperMarket.Core.Globals.SkinPath/css/select.css">
+}
+@Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/SysOrderInquiry/_ProductPriceSet")
+

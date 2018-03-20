@@ -1,0 +1,287 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+
+}
+
+@{
+    SuperMarket.Model.VWProductStyleEntity _styleentity = ViewBag.ProductStyle;
+    }
+
+<div style="display: none;">
+
+    <input id="txtMemId" value="@ViewBag.MemId" />
+    <input type="text" id="txtClassId" value="@ViewBag.ClassId" />
+    <input type="text" id="txtBrandId" value="@ViewBag.BrandId" />
+    <input id="txtStyleId" value="@_styleentity.StyleId" />
+    <input id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+
+    <ul id="ulStylePics" class="hidpicuploaddiy" bindfield="StylePics" pictype="3" btntext="上传图片">
+        @{
+            if (_styleentity.StylePics != null && _styleentity.StylePics.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductStylePicsEntity _picentity in _styleentity.StylePics)
+                {
+                    <li liitemcode="StylePics@_picentity.Id" hascompress="@_picentity.HasCompress">@(_picentity.PicUrl + "." + _picentity.PicSuffix)</li>
+                }
+            }
+        }
+    </ul>
+</div>
+
+<div class="tip-title">产品管理<span style="color:#f4934e">></span>款式编辑</div>
+
+<div class="product-main">
+    <div class="product-main-search">
+        <div class="product-main-search-l">产品类别：</div>
+        <div class="product-main-search-r">
+            @ViewBag.ClassNamePath
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l">品牌：</div>
+        <div class="product-main-search-r">
+            @ViewBag.BrandName
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品名称：</div>
+        <input type="text" id="txtAdTitle" value="@_styleentity.AdTitle" autofocus="autofocus" style="width:300px;" />
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品备注说明：</div>
+        <input type="text" id="txtTitle" value="@_styleentity.Title" autofocus="autofocus" style="width:300px;" />
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>所选图片：</div>
+        <div class="product-main-search-r">
+            <div class="Upload">
+                <div id="divcontainerProductPic" btntext="上传图片"><div></div></div>
+                <div style="float:left; width:100%;">
+                    <div id="divProductPicList" bindfield="StylePics"></div>
+                </div>
+                <div style="float:left;  color:#f00; font-size:10px; line-height:30px;">请控制在500K以内，支持格式为bmp、jpg、png.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search" id="divProductSpec" style="display:none;">
+        <div class="product-main-search-l">产品规格：</div>
+        <div class="product-main-search-r" style="background:#f5f5f5;">
+            <div class="product-main-search-rb itemdivproductspec">
+                <span style="width:50px;">款式：</span>
+                <div class="product-main-search-r_col">
+                    <div class="product-main-search-r_col-t">
+                        <span>
+                            <input class="chkclassproductspec" type="checkbox" />
+                            <span>款式一</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>运费：</div>
+        <div class="product-main-search-r">
+            <div class="product-main-search-r_bottom-top" style="float:left;">
+                <input type="hidden" id="hidTransFeeType" value="@_styleentity.TransFeeType" />
+                <input type="radio" name="radTransFeeType" value="1" onclick="SelectTransFeeType(this)" style="width:auto; height:auto; " />
+                普通件，适用包邮政策
+                <input type="radio" name="radTransFeeType" value="2" onclick="SelectTransFeeType(this)" style="width:auto; height:auto; " />
+                大件产品，按件收取
+                <input type="radio" name="radTransFeeType" value="3" onclick="SelectTransFeeType(this)" style="width:auto; height:auto; " />
+                特殊产品，自主设置
+            </div>
+            <div class="product-main-search-r_bottom-top" id="divTransFee" style="float:left;  display:none;">
+                <input type="text" id="txtTransFee" value="@_styleentity.TransFee" />元
+            </div>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品介绍：</div>
+        <div class="product-main-search-r">
+            <ul>
+                <li class="item item_editor clearfix">
+                    <div class="dd">
+                        <div class="editor-temp clearfix" id="selectTemp">
+                            <span class="select-tit fl" style="margin-left:10px">选择模板</span>
+                            <span class="temp temp-none">空白</span>
+                            <span class="m-follow-msg temp temp-hover">
+                                <span class="m-follow-msg-hd temp-ok">通用模板</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div style="" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:300px;">
+                        </div>
+                    </div>
+                    <div class="tip_error no_dt undis" style="clear: both;">请填写产品介绍</div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="product-footer">
+        <div class="product-footer-l" onclick="StyleSubmit()" style="cursor:pointer">确认</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+    $(function () {
+        var transfeetype = $("#hidTransFeeType").val();
+        $("input[name=radTransFeeType][value=" + transfeetype + "]").attr("checked", true);
+        if (transfeetype == 3) {
+            $("#divTransFee").show();
+        }
+        else {
+            $("#divTransFee").hide();
+        }
+        var arrimagespath = new Array();
+        if ($.trim($("#ulStylePics").children().length > 0) != "") {
+            $("#ulStylePics").children().each(function () {
+                arrimagespath.push({
+                    imageid: $(this).attr("liitemcode"),
+                    imagepath: $("#txtPicServerRootUrl").val() + $(this).text()
+                });
+            });
+        }
+
+        $('#divProductPicList').diyUpload({
+            url: "/Store/UploadProductImages",
+            buttonText: $("#divcontainerProductPic").attr("btntext"),
+            imagedefaultpath: arrimagespath,
+            fileNumMax: 6,
+            formData: {
+            },
+            success: function (fileid, data) {
+                if (data != "" && data._raw != "") {
+                    var listr = "<li liitemcode='" + fileid + "' hascompress='0'>" + data._raw + "</li>";
+                    $("#ulStylePics").append(listr);
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+        //编辑器
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 600,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+        ue.on('ready', function () {
+           proTemplate.init(ue);
+           BindStyleContent();
+        });
+    });
+
+    function StyleSubmit() {
+
+        var _memId = $("#txtMemId").val();
+        var _styleId = $("#txtStyleId").val();
+        var _classId = $("#txtClassId").val();
+        var _adTitle = $("#txtAdTitle").val();
+        var _title = $("#txtTitle").val();
+
+        var _brandId = $("#txtBrandId").val();
+        var _picUrl = "";
+
+        var _isort = 100;
+
+        var _stylePropertys = "";
+        _isort = 100;
+
+        var _stylePics = "";
+        $("#ulStylePics li").each(function () {
+            if (_stylePics == "") {
+                _stylePics = _isort + "_" + $(this).text() + "_" + $(this).attr("hascompress");
+                _picUrl = $(this).text();
+            }
+            else {
+                _stylePics = _stylePics + "|" + _isort + "_" + $(this).text() + "_" + $(this).attr("hascompress");
+            }
+            _isort = _isort - 1;
+        });
+
+        var _TransFeeType = $("input[name=radTransFeeType]:checked").val();
+        var _TransFee = $("#txtTransFee").val();
+        var _contentcms = ue.getContent();
+
+        $.post("/Store/StyleSubmit", {
+            memid: _memId
+            , styleId: _styleId,
+            classId: _classId, adTitle: _adTitle, title: _title,  brandId: _brandId,
+            stylePics: _stylePics,
+            transfeetype: _TransFeeType,
+            contentcms: _contentcms, transfee: _TransFee, picUrl: _picUrl
+        }, function (data) {
+            var _returncode = (-data);
+            if (_returncode == _TheArray[0]) {
+                alert(_TheArray[_returncode]);
+                window.location = "/Store/PStyleList";
+            }
+            else {
+                alert(_TheArray[_returncode]);
+                return false;
+            }
+
+        });
+    }
+
+    //选择邮费类型
+    function SelectTransFeeType(obj)
+    {
+        var transfeetype = $("input[name=radIsFreeShipping]:checked").val();
+        $("#hidTransFeeType").val(transfeetype);
+        if (transfeetype == 3) {
+            $("#divTransFee").show();
+        }
+        else {
+            $("#divTransFee").hide();
+        }
+    }
+
+
+    function BindStyleContent() {
+        var _styleId = $("#txtStyleId").val();
+        $.post("/Common/GetContentCmsByStyleId", { styleId: _styleId }, function (data) {
+            var jsonobj = eval("(" + data + ")");
+            if (jsonobj != null && jsonobj != "undefined" && jsonobj.ContentCms != null && jsonobj.ContentCms != "") {
+                ue.setContent(jsonobj.ContentCms);
+            }
+        });
+    }
+
+</script>

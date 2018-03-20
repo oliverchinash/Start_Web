@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="suggestDealLog">要添加的SuggestDealLog数据实体对象</param>
-		public   int AddSuggestDealLog(SuggestDealLogEntity suggestDealLog)
+		public   int AddSuggestDealLog(MemSuggestDealLogEntity suggestDealLog)
 		{
 			  if (suggestDealLog.Id > 0)
             {
@@ -57,7 +57,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return SuggestDealLogDA.Instance.AddSuggestDealLog(suggestDealLog);
+                return MemSuggestDealLogDA.Instance.AddSuggestDealLog(suggestDealLog);
             }
 	 	}
 
@@ -67,16 +67,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <param name="suggestDealLog">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateSuggestDealLog(SuggestDealLogEntity suggestDealLog)
+		public   int UpdateSuggestDealLog(MemSuggestDealLogEntity suggestDealLog)
 		{
-			return SuggestDealLogDA.Instance.UpdateSuggestDealLog(suggestDealLog);
+			return MemSuggestDealLogDA.Instance.UpdateSuggestDealLog(suggestDealLog);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteSuggestDealLogByKey(int id)
         {
-            return SuggestDealLogDA.Instance.DeleteSuggestDealLogByKey(id);
+            return MemSuggestDealLogDA.Instance.DeleteSuggestDealLogByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -84,7 +84,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteSuggestDealLogDisabled()
         {
-            return SuggestDealLogDA.Instance.DeleteSuggestDealLogDisabled();
+            return MemSuggestDealLogDA.Instance.DeleteSuggestDealLogDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -97,7 +97,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return SuggestDealLogDA.Instance.DeleteSuggestDealLogByIds(idstr); 
+            return MemSuggestDealLogDA.Instance.DeleteSuggestDealLogByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
@@ -110,7 +110,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return SuggestDealLogDA.Instance.DisableSuggestDealLogByIds(idstr);
+            return MemSuggestDealLogDA.Instance.DisableSuggestDealLogByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个SuggestDealLog实体记录。
@@ -118,16 +118,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>SuggestDealLog实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   SuggestDealLogEntity GetSuggestDealLog(int id)
+		public   MemSuggestDealLogEntity GetSuggestDealLog(int id)
 		{
-			return SuggestDealLogDA.Instance.GetSuggestDealLog(id);			
+			return MemSuggestDealLogDA.Instance.GetSuggestDealLog(id);			
 		}
 		  ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<SuggestDealLogEntity> GetSuggestDealLogList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemSuggestDealLogEntity> GetSuggestDealLogList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return SuggestDealLogDA.Instance.GetSuggestDealLogList(pageSize, pageIndex, ref recordCount);
+            return MemSuggestDealLogDA.Instance.GetSuggestDealLogList(pageSize, pageIndex, ref recordCount);
         }
 		
 		public async Task GetSuggestDealLogAll()
@@ -138,8 +138,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<SuggestDealLogEntity> list = null;
-                    list = SuggestDealLogDA.Instance.GetSuggestDealLogAll();
+                    IList<MemSuggestDealLogEntity> list = null;
+                    list = MemSuggestDealLogDA.Instance.GetSuggestDealLogAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -149,9 +149,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(SuggestDealLogEntity suggestDealLog)
+        public bool IsExist(MemSuggestDealLogEntity suggestDealLog)
         {
-            return SuggestDealLogDA.Instance.ExistNum(suggestDealLog)>0;
+            return MemSuggestDealLogDA.Instance.ExistNum(suggestDealLog)>0;
         }
 		
 	}

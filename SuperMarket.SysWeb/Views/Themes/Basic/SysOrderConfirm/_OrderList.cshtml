@@ -1,0 +1,102 @@
+﻿@{ 
+    IList<SuperMarket.Model.VWConfirmOrderEntity> list = ViewBag.OrderList;
+}
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main"> 
+            <span>询价后确认订单管理</span>
+        </div>
+    </div>
+    <!------top结束------>
+    <!------搜索开始------>
+    <div class="list-search"> 
+        <div class="list-search-main">
+            <div class="list-search-wrap">
+                <label class="fl">订单状态：</label>
+                <div class="list-search-input">
+                   <select id="selStatus">
+                        <option value="-1" selected="selected">全部</option> 
+                       @{
+                           IList<SuperMarket.Core.Enums.EnumUnitEntity> producttypelist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.OrderConfirmStatusEnum>();
+                           if (producttypelist != null && producttypelist.Count > 0)
+                           {
+                               foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in producttypelist)
+                               {
+                                   <option value="@entity.EnumValue" @(ViewBag.Status == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                               }
+                           }
+                       }
+                   </select>
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">订单编号：</label>
+                <div class="list-search-input">
+                    <input type="text" id="txtKey" value="@ViewBag.KeyWord">
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button onclick="Fun_SearchOrder()">搜索订单</button>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main"> 
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0" class="dispatch-table">
+                <tr> 
+                    <th>订单号</th>
+                    <th>询价单号</th>
+                    <th>提交时间</th>
+                    <th>订单状态</th>
+                    <th>总价格</th> 
+                    <th>操作</th>
+                </tr>
+                @{
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.VWConfirmOrderEntity entity in list)
+                        {
+                            <tr> 
+                                <td><a href="/SysOrderConfirm/OrderDetail?code=@entity.ConfirmOrderCode">@entity.ConfirmOrderCode</a></td>
+                                <td><a href="/SysOrderInquiry/OrderDetail?code=@entity.InquiryOrderCode">@entity.InquiryOrderCode</a></td>
+                                <td>@entity.CreateTime</td>
+                                <td>@entity.StatusName</td>
+                                <td>@entity.TotalPrice</td>
+                                <td>
+                                    @if (entity.Status == (int)SuperMarket.Model.OrderConfirmStatusEnum.WaitSelectCGMem)
+                                    {
+                                        <a href="/SysOrderConfirm/CGMemSelect?code=@entity.ConfirmOrderCode">选择采购供应商</a>
+                                    }
+                                    <a href="/SysOrderConfirm/OrderConfirmPrint?code=@entity.ConfirmOrderCode">打印</a>
+
+                                 </td> 
+                            </tr>
+                        } 
+                    }
+                }
+            </table>
+
+        </div>
+        <div class="list-page">
+            <ul>
+                @Html.Raw(ViewBag.PageStr)
+            </ul>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hidSelectedOrderCode" />  
+    <!---------询价模态框开始---------->
+    <script>
+        function Fun_SearchOrder() {
+            var status = $("#selStatus").val();
+            var key = $("#txtKey").val();
+            location = "/SysOrderConfirm/OrderList?s=" + status + "&key=" + key;
+        }
+       $(function() {
+        
+       }) 
+          
+    </script>

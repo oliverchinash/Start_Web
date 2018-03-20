@@ -1,0 +1,220 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "编辑公告";
+    SuperMarket.Model.B2BNoticeEntity _noticeEntity = ViewBag.Entity;
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+
+
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selIsActive, #IsActive {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div style="display:none;" id="divcmstemplet">
+    @Html.Raw(_noticeEntity.NoticeContent)
+</div>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>公告@(_noticeEntity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">模板标题：</div>
+                <div class="Backstage_td2"><input id="txtTitle" value="@_noticeEntity.Title" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板内容：</div>
+                <div class="Backstage_td2">
+                    <div class="clear" style="float:left"></div>
+                    <div style="float:left;margin-left:10px" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:50px;">
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">序号：</div>
+                <div class="Backstage_td2"><input id="txtSort" value="@_noticeEntity.Sort" /></div>
+            </li> 
+            <li>
+                <div class="Backstage_td1">是否有效：</div>
+                <div class="Backstage_td2">
+                    <select id="selIsActive">
+
+                        <option value="1">--有效--</option>
+                        <option value="0">--无效--</option>
+
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="Backstage_td1">所属系统：</div>
+                <div class="Backstage_td2">
+                    <select id="selSystemType"> 
+                        <option value="1">--B2B平台--</option>
+                        <option value="2">--采购平台--</option> 
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="Backstage_td1">通知类型：</div>
+                <div class="Backstage_td2">
+                    <select id="selNoticeType"> 
+                        <option value="1">--普通通知--</option>
+                        <option value="2">--特殊通知--</option> 
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="Backstage_td1">创建时间：</div>
+                <div class="Backstage_td2">
+                       <input id="txtCreateTime" value="@_noticeEntity.CreateTime.ToString("yyyy/MM/dd")" placeholder="例如2016/12/12"/>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">上架时间：</div>
+                <div class="Backstage_td2">
+                    <input id="txtShowTime" value="@_noticeEntity.ShowTime.ToString("yyyy/MM/dd")" placeholder="例如2016/12/12"/>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">下线时间：</div>
+                <div class="Backstage_td2">
+                    <input id="txtEndTime" value="@_noticeEntity.EndTime.ToString("yyyy/MM/dd")" placeholder="例如2016/12/12"/>
+                </div>
+            </li>
+      
+         
+
+        </ul>
+    </div>
+
+    <div class="product-main-search">
+
+        <div class="product-main-search-l"><span style="color:#f00"></span></div>
+
+        <div class="product-main-next" style="margin-left:140px" onclick="CmsReserveSubmit()"><span style="cursor:pointer;">保存</span></div>
+
+    </div>
+
+    <div style="display:none">
+        <input id="hidCmsId" value="@_noticeEntity.Id" />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+
+    $(function () {
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 300,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+
+        ue.on('ready', function () {
+            proTemplate.init(ue);
+        });
+
+        ue.addListener("ready", function () {
+            ue.setContent($("#divcmstemplet").html());
+        })
+
+    });
+   
+    function CmsReserveSubmit() {
+
+        var _id = $("#hidCmsId").val();
+        var _title = $("#txtTitle").val();
+        var _content = ue.getContent();
+        var _sort = $("#txtSort").val();
+        var _isactive = $("#selIsActive option:selected").val();
+        var _systemtype = $("#selSystemType option:selected").val();
+        var _noticetype = $("#selNoticeType option:selected").val();
+        var _isactive = $("#selIsActive option:selected").val();
+        var _creatime = $("#txtCreateTime").val();
+        var _showtime = $("#txtShowTime").val();
+        var _endtime = $("#txtEndTime").val();
+
+        //var _reg = new RegExp("^2[0-9]{3}/[0-9]{2}/[0-9]{2}$");
+        //if(!_reg.test(_creatime)||!_reg.test(_showtime)||!_reg.test(_endtime)){
+        //    alert("时间填写有误");
+        //    return;
+        //}
+
+        $.post("/Cms/NoticeSubmit", {
+            _id: _id, _title: _title, _content: _content, _sort: _sort, _isactive: _isactive, _creatime: _creatime, _showtime: _showtime,
+            _endtime: _endtime, _systemtype: _systemtype, _noticetype: _noticetype
+        }, function (data) {
+            if (data > 0) {
+                alert("成功");
+                location.href = "/Cms/NoticeManage";
+            }
+            else {
+                alert("失败");
+                location.href = "/Cms/NoticeManage";
+
+            }
+        }
+         )
+
+    }
+
+
+</script>

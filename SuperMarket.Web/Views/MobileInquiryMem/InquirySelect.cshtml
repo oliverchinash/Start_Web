@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "询价订单列表";
+    Layout = "~/Views/" + JiChen.Core.Globals.SkinPath + "/Master/_Member_Master.cshtml";
+} 
+@section Head{   
+<link rel="stylesheet" href="@JiChen.Core.Globals.SkinPath/css/affirm.css">
+<script src="@JiChen.Core.Globals.SkinPath/Js/layer/layer.js"></script>
+}
+@Html.Partial("../" + JiChen.Core.Globals.SkinPath + "/InquiryMem/_InquirySelect")
+

@@ -1,0 +1,271 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+    SuperMarket.Model.ClassBrandEntity entity = ViewBag.entity;
+
+}
+
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selBrand, #txtBrand {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    .Backstage_td2 > input {
+        width: 200px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+
+    #ShowArea > input {
+        width: 200px;
+        height: 20px;
+        background: #ccc;
+        margin-left: 0px;
+        padding: 0px 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>分类@(entity.Id == 0 ? "添加" : "修改")</span></div>
+
+    </div>
+
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">请输入品牌：</div>
+                <div class="Backstage_td2" style="position:relative">
+                    @*<select id="selBrand">
+                            <option value="-1">
+                                -----------请选择品牌-------------
+                            </option>
+                        </select>*@
+                    <input id="txtBrand"   oninput="FunSearchBrand()" value="@ViewBag.BrandName" />
+                    <div style="position:absolute;top:38px;left:8px;height:auto;width:200px;background:#ccc;display:none" id="ShowArea">
+                        @*<input value="hah" onclick="FunExit(this)"id="1000" />*@
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="Backstage_td1">序号：</div>
+                <div class="Backstage_td2"><input id="txtSort" value="@entity.Sort" /></div>
+            </li>
+
+
+        </ul>
+    </div>
+
+    @{
+        if (entity.Id == 0)
+        {
+            <div class="deserve" style="cursor:pointer" id="ClassBrandAdd">添加</div>
+        }
+        else
+        {
+            <div class="deserve" style="cursor:pointer" id="ClassBrandUpdate">修改</div>
+        }
+    }
+
+
+    <input value="@entity.Id" style="display:none" id="hidId" />
+    <input value="@entity.BrandId" style="display:none" id="hidBrandId" />
+    <input value="@ViewBag.classid" style="display:none" id="hidClassId" />
+    <input value="@entity.BrandId" style="display:none" id="hidStoreValue" />
+
+
+</div>
+
+<script type="text/javascript">
+
+    function FunSearchBrand() {
+
+        debugger
+
+        if ($("#txtBrand").val() != "") {
+            $("#ShowArea").css({ "display": "block" });
+            var _brand = $("#txtBrand").val();
+            $.post("/Brand/GetBrandListByBrand", { brand: _brand }, function (data) {
+
+                if (data != null && data != undefined) {
+                    $("#ShowArea").html("");
+                    var jsonobj = eval("(" + data + ")");
+                    for (var i = 0; i < jsonobj.length; i++) {
+
+                        //alert(jsonobj[i].Id);
+                        //alert(jsonobj[i].Name);
+
+                        $("#ShowArea").append("<input " + " onclick=FunExit(this)" + " id=" + jsonobj[i].Id + " value=" + jsonobj[i].Name + ">");
+                    }
+                }
+                else {
+                    $("#ShowArea").css({ "display": "none" });
+                }
+
+            });
+        }
+        if ($("#txtBrand").val() == "") {
+            $("#ShowArea").css({ "display": "none" });
+            var _brand = $("#txtBrand").val();
+        }
+    }
+
+    function FunExit(obj) {
+        if ($(obj).attr("id") != 0) {
+            $("#txtBrand").val($(obj).val());
+            $("#ShowArea").css({ "display": "none" });
+            $("#hidStoreValue").val($(obj).attr("id"));
+            //alert($(obj).attr("id"));
+            //alert($("#hidStoreValue").val());
+        }
+    }
+
+    $(function () {
+        //$.post("/Common/GetBrandList", {}, function (data) {
+        //    if (data != null && data != undefined) {
+        //        var jsonobj = eval("(" + data + ")");
+        //        $("#selBrand not:first").remove();
+        //        for (var i = 0; i < jsonobj.length; i++) {
+        //            $("#selBrand").append("<option value=" + jsonobj[i].Id + ">" + jsonobj[i].Name + "</option>");
+        //        }
+        //        if ($("#hidBrandId").val() > 0) {
+        //            $("#selBrand").val($("#hidBrandId").val());
+        //        }
+        //    }
+        //});
+    });
+
+    $(function () {
+        $("#ClassBrandAdd").bind("click", function () {
+
+            debugger
+
+            var _classid = $("#hidClassId").val();
+            var _brandid = $("#hidStoreValue").val();
+            var _sort = $("#txtSort").val();
+
+
+            $.post("/Class/ClassBrandInfoAdd", {
+                classid: _classid, brandid: _brandid, sort: _sort
+
+            }, function (data) {
+                if (data > 0) {
+                    alert("添加成功!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                } else if (data == -1003) {
+                    alert("该对应关系已存在!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                } else {
+                    alert("添加失败!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                }
+
+            })
+        });
+
+
+    });
+
+    $(function () {
+        $("#ClassBrandUpdate").bind("click", function () {
+
+            debugger
+
+            var _id = $("#hidId").val();
+            var _classid = $("#hidClassId").val();
+            var _brandid = $("#hidStoreValue").val();
+            var _sort = $("#txtSort").val();
+
+
+            $.post("/Class/ClassBrandInfoUpdate", {
+                id: _id, classid: _classid, brandid: _brandid, sort: _sort
+
+            }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                } else if (data == -1003) {
+                    alert("该对应关系已存在!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                } else {
+                    alert("修改失败!");
+                    window.location.href = "/Class/ClassBrandManage?classid=" + _classid;
+                }
+            })
+        });
+
+
+    });
+
+    $(function () {
+        if ($("#hidHasProduct").val() == 1) {
+            $("#liProductNum").show();
+        } else {
+            $("#liProductNum").hide();
+        }
+    });
+
+    $(function () {
+        if ($("#hidHasProperties").val() == 2) {
+            $("#liPropertiesClassId").show();
+        } else {
+            $("#liPropertiesClassId").hide();
+        }
+    });
+
+    $(function () {
+        $("#selHasProduct").bind("change", function () {
+            if ($("#selHasProduct").val() == 1) {
+                $("#liProductNum").show();
+            } else {
+                $("#liProductNum").hide();
+            }
+        })
+    });
+
+    $(function () {
+        $("#selHasProperties").bind("change", function () {
+            if ($("#selHasProperties").val() == 2) {
+                $("#liPropertiesClassId").show();
+            } else {
+                $("#liPropertiesClassId").hide();
+            }
+        })
+    });
+
+
+</script>
+
+
+
+

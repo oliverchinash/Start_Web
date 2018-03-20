@@ -186,7 +186,7 @@ namespace SuperMarket.BLL.CatograyDB
         public SMSNoticeEntity SendSmsBehind(SMSNoticeEntity sendentity, int smstype = 2)
         {
             string mobile = sendentity.MobilePhone;
-            string smsbody = sendentity.SMSContent.EndsWith("【阿哈马】")? sendentity.SMSContent: sendentity.SMSContent+ "【阿哈马】";
+            string smsbody = sendentity.SMSContent.EndsWith("【易店心】")? sendentity.SMSContent: sendentity.SMSContent+ "【易店心】";
             sendentity.ReturnMsg = "";
             int isactive = 1;
             IList<ConfigSmsProviderEntity> list = GetConfigSmsProviderAll(smstype, isactive, false);//获取所有有效的短信提供商
@@ -286,8 +286,9 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="smstype">通道类型：1注册，2营销</param>
         /// <param name="isactive"></param>
         /// <returns></returns>
-		public IList<ConfigSmsProviderEntity> GetConfigSmsProviderAll(int smstype,int isactive,bool cache=true)
-        {    IList<ConfigSmsProviderEntity> list = null;
+		public IList<ConfigSmsProviderEntity> GetConfigSmsProviderAll(int smstype,int isactive,bool cache=false)
+        {
+            IList<ConfigSmsProviderEntity> list = null;
             if (cache)
             {
                 string _cachekey = "GetConfigSmsProviderAll_" + smstype + "_" + isactive;// SysCacheKey.ConfigSmsProviderListKey;

@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+
+}
+
+@{ 
+    SuperMarket.Model.ProductExtEntity entity = ViewBag.Entity;
+    SuperMarket.Model.ProductEntity productEntity = ViewBag.ProductEntity;
+    
+}
+
+<div style="display: none;">
+
+    <input id="txtProductExtId" value="@entity.Id" />
+    <input id="txtPid" value="@productEntity.Id" />
+    <input id="txtDetailDescrip" value="@entity.DetailDescrip" />
+     
+</div>
+
+<div class="tip-title">产品管理<span style="color:#f4934e">></span>详情图片编辑</div>
+
+<div class="product-main">
+    <div class="product-main-search">
+        <div class="product-main-search-l">产品名称：</div>
+        <div class="product-main-search-r">
+            @productEntity.Name
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l">标题广告：</div>
+        <div class="product-main-search-r">
+            @productEntity.AdTitle
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>产品详情：</div>
+        <div class="product-main-search-r">
+            <ul>
+                <li class="item item_editor clearfix">
+                    <div class="clear"></div>
+                    <div style="" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:300px;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="product-footer">
+        <div class="product-footer-l" onclick="PDetailPicsSubmit()" style="cursor:pointer">确认</div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var ue = null;
+    $(function () {
+
+        //编辑器
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 600,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+        ue.on('ready', function () {
+           proTemplate.init(ue);
+           ue.setContent($("#txtDetailDescrip").val())
+        });
+
+    });
+
+    function PDetailPicsSubmit() {
+        
+        debugger
+
+        var _productExtId = $("#txtProductExtId").val();
+        var _pid = $("#txtPid").val();
+        var _detailDes = ue.getContent();
+        $.post("/Store/ProductDetailPicsAdd", { productExtId: _productExtId, pid: _pid, detailDes: _detailDes }, function (data) {
+
+            if (data > 0) {
+                alert("编辑成功");
+            }
+            else {
+                alert("编辑失败");
+            }
+
+            window.location.href = "/Store/ProductList";
+
+
+        })
+
+    }
+
+    
+
+
+    
+
+</script>

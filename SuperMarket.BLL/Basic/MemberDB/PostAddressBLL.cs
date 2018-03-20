@@ -47,7 +47,7 @@ namespace SuperMarket.BLL.MemberDB
         /// 该方法提供给界面等UI层调用
         /// </summary>
         /// <param name="postAddress">要添加的PostAddress数据实体对象</param>
-        public int AddPostAddress(PostAddressEntity postAddress)
+        public int AddPostAddress(MemPostAddressEntity postAddress)
         {
             if (postAddress.Id > 0)
             {
@@ -55,7 +55,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return PostAddressDA.Instance.AddPostAddress(postAddress);
+                return MemPostAddressDA.Instance.AddMemPostAddress(postAddress);
             }
         }
 
@@ -65,16 +65,16 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="postAddress">待更新的实体对象</param>
         /// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-        public int UpdatePostAddress(PostAddressEntity postAddress)
+        public int UpdatePostAddress(MemPostAddressEntity postAddress)
         {
-            return PostAddressDA.Instance.UpdatePostAddress(postAddress);
+            return MemPostAddressDA.Instance.UpdateMemPostAddress(postAddress);
         }
         /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeletePostAddressByKey(int id,int memid)
         {
-            return PostAddressDA.Instance.DeletePostAddressByKey(id, memid);
+            return MemPostAddressDA.Instance.DeleteMemPostAddressByKey(id, memid);
         }
         /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -82,7 +82,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeletePostAddressDisabled()
         {
-            return PostAddressDA.Instance.DeletePostAddressDisabled();
+            return MemPostAddressDA.Instance.DeleteMemPostAddressDisabled();
         }
         /// <summary>
         /// 做失效处理
@@ -95,7 +95,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return PostAddressDA.Instance.DeletePostAddressByIds(idstr);
+            return MemPostAddressDA.Instance.DeleteMemPostAddressByIds(idstr);
         }
         /// <summary>
         /// 做失效处理
@@ -108,7 +108,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return PostAddressDA.Instance.DisablePostAddressByIds(idstr);
+            return MemPostAddressDA.Instance.DisableMemPostAddressByIds(idstr);
         }
         /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -116,11 +116,11 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int SetDefaultPostAddress(int id)
         {
-            return PostAddressDA.Instance.SetDefaultPostAddress(id);
+            return MemPostAddressDA.Instance.SetDefaultMemPostAddress(id);
         }
-        public PostAddressEntity GetDefaultAddress(int memid)
+        public MemPostAddressEntity GetDefaultAddress(int memid)
         {
-            PostAddressEntity _entity = PostAddressDA.Instance.GetDefaultAddress(memid);
+            MemPostAddressEntity _entity = MemPostAddressDA.Instance.GetDefaultAddress(memid);
                _entity.CityName = GYCityBLL.Instance.GetGYCityByCode(_entity.CityId.ToString()).Name;
 
             return _entity;
@@ -131,16 +131,16 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <returns>PostAddress实体</returns>
         /// <param name="columns">要返回的列</param>
-        public PostAddressEntity GetPostAddress(int id)
+        public MemPostAddressEntity GetPostAddress(int id)
         {
-            PostAddressEntity _entity= PostAddressDA.Instance.GetPostAddress(id);
+            MemPostAddressEntity _entity= MemPostAddressDA.Instance.GetMemPostAddress(id);
             //_entity.ProvinceName = GYProvinceBLL.Instance.GetGYProvinceByCode(_entity.ProvinceId.ToString()).Name;
             _entity.CityName = GYCityBLL.Instance.GetGYCityByCode(_entity.CityId.ToString()).Name;
             return _entity;
         }
-        public PostAddressEntity GetDefaultPostAddress(int memid)
+        public MemPostAddressEntity GetDefaultPostAddress(int memid)
         {
-            PostAddressEntity _entity = PostAddressDA.Instance.GetDefaultPostAddress(memid);
+            MemPostAddressEntity _entity = MemPostAddressDA.Instance.GetDefaultMemPostAddress(memid);
             //_entity.ProvinceName = GYProvinceBLL.Instance.GetGYProvinceByCode(_entity.ProvinceId.ToString()).Name;
             _entity.CityName = GYCityBLL.Instance.GetGYCityByCode(_entity.CityId.ToString()).Name;
             return _entity;
@@ -148,7 +148,7 @@ namespace SuperMarket.BLL.MemberDB
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<PostAddressEntity> GetPostAddressList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
+        public IList<MemPostAddressEntity> GetPostAddressList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
         {
             int _memid = 0;
             foreach (ConditionUnit entity in wherelist)
@@ -162,8 +162,8 @@ namespace SuperMarket.BLL.MemberDB
                         break;
                 }
             }
-            IList<PostAddressEntity> list= PostAddressDA.Instance.GetPostAddressList(pageSize, pageIndex, ref recordCount, _memid);
-            foreach(PostAddressEntity _entity in list)
+            IList<MemPostAddressEntity> list= MemPostAddressDA.Instance.GetMemPostAddressList(pageSize, pageIndex, ref recordCount, _memid);
+            foreach(MemPostAddressEntity _entity in list)
             {
                 //_entity.ProvinceName = GYProvinceBLL.Instance.GetGYProvinceByCode(_entity.ProvinceId.ToString()).Name;
                 _entity.CityName = GYCityBLL.Instance.GetGYCityByCode(_entity.CityId.ToString()).Name;
@@ -171,9 +171,9 @@ namespace SuperMarket.BLL.MemberDB
             return list;
         }
 
-        public IList<PostAddressEntity> NewGetPostAddressList(int pagesize, int pageindex, ref int recordCount, int _memid)
+        public IList<MemPostAddressEntity> NewGetPostAddressList(int pagesize, int pageindex, ref int recordCount, int _memid)
         {
-            return PostAddressDA.Instance.GetPostAddressList(pagesize, pageindex, ref recordCount, _memid);
+            return MemPostAddressDA.Instance.GetMemPostAddressList(pagesize, pageindex, ref recordCount, _memid);
         }
 
         public async Task GetPostAddressAll()
@@ -184,8 +184,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<PostAddressEntity> list = null;
-                    list = PostAddressDA.Instance.GetPostAddressAll();
+                    IList<MemPostAddressEntity> list = null;
+                    list = MemPostAddressDA.Instance.GetMemPostAddressAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -195,23 +195,23 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(PostAddressEntity postAddress)
+        public bool IsExist(MemPostAddressEntity postAddress)
         {
-            return PostAddressDA.Instance.ExistNum(postAddress) > 0;
+            return MemPostAddressDA.Instance.ExistNum(postAddress) > 0;
         }
       public int  GetNumForAddress(int memid)
         {
-            return PostAddressDA.Instance.GetNumForAddress(memid) ;
+            return MemPostAddressDA.Instance.GetNumForAddress(memid) ;
 
         }
-        public IList<PostAddressEntity> GetPostListByMemId(int memid)
+        public IList<MemPostAddressEntity> GetPostListByMemId(int memid)
         {
-            return PostAddressDA.Instance.GetPostListByMemId(memid);
+            return MemPostAddressDA.Instance.GetPostListByMemId(memid);
         }
 
         public int SetDefault(int addressid,int memid)
         {
-            return PostAddressDA.Instance.SetDefault(addressid, memid);
+            return MemPostAddressDA.Instance.SetDefault(addressid, memid);
         }
 
     }

@@ -171,7 +171,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             }
             return list;
         }
-        public IList<DicInquiryOrderEntity> GetInquiryDicAllByMenuCode(string menucode,bool cache=true)
+        public IList<DicInquiryOrderEntity> GetInquiryDicAllByMenuCode(string menucode,bool cache=false)
         {
             IList<DicInquiryOrderEntity> list = null;
         if(cache)

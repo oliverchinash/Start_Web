@@ -60,7 +60,7 @@ namespace SuperMarket.BLL.MemberDB
                 {
                     IList<ShoppCookie> listcookie = new List<ShoppCookie>();
 
-                    IList<ShoppCarEntity> list = new List<ShoppCarEntity>();
+                    IList<MemShoppCarEntity> list = new List<MemShoppCarEntity>();
                     string cookieval = WZShopCartBLL.Instance.GetXuQiuCookie(member.MemId);
                     if (cookieval != "")
                     {
@@ -367,7 +367,7 @@ namespace SuperMarket.BLL.MemberDB
                     MemberLoginEntity member = CookieBLL.GetLoginCookie();
                     if (member != null && member.MemId > 0 && jsonRst != "")
                     {
-                        WZShopCartEntity model = new WZShopCartEntity();
+                        MemWZShopCartEntity model = new MemWZShopCartEntity();
                         model.AddDate = DateTime.Now;
                         model.BuyDate = DateTime.Now.Date;
                         model.EndDate = DateTime.Now.Date.AddDays(15);

@@ -168,7 +168,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             {
                 foreach(VWCGQuotedPriceEntity entity in list)
                 {
-                    StoreEntity store = StoreBLL.Instance.GetStoreByMemId(entity.CGMemId);
+                    MemStoreEntity store = StoreBLL.Instance.GetStoreByMemId(entity.CGMemId);
                     entity.CGComName = store.CompanyName; 
                     entity.CGMemName = store.ContactsManName; 
                     entity.CGMemPhone = store.MobilePhone;  

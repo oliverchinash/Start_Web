@@ -1,0 +1,73 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心品牌查找</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/product.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/themes/basic/js/common.js"></script>
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div class="brand"> 
+        <div class="brand-top" data-am-sticky> 
+            <header data-am-widget="header" class="am-header header">
+                @Html.Partial("controls/_HeadBanner")
+                <h1 class="am-header-title">
+                    <a href="javascript:void(0)">
+                        品牌
+                    </a>
+                </h1>
+            </header>  
+        </div>
+        @{
+            int _classid = -1;
+            IList<JiChen.Entities.VWTreeBrandEntity> list = JiChen.BLL.CatograyDB.BrandBLL.Instance.GetTreeBrandAll(_classid);
+            if (list != null && list.Count > 0)
+            {
+                foreach (JiChen.Entities.VWTreeBrandEntity entity in list)
+                {
+                    <div class="brand-A am-cf" style="margin-top: .6rem">
+                        <p>@entity.PYFirst</p>
+                        @if (entity.Children != null && entity.Children.Count > 0)
+                        {
+                            foreach (JiChen.Entities.VWTreeBrandEntity entity2 in entity.Children)
+                            {
+                                <div data-am-widget="list_news" class="am-list-news am-list-news-default am-cf">
+                                    <ul class="am-list">
+                                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                            <a href="/MobileProduct/List?bd=@entity2.Id"  >
+                                                <div class="am-u-sm-2 am-list-thumb"> 
+                                                </div>
+                                                <div class="am-u-sm-10 am-list-main">
+                                                    @entity2.Name
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                }
+
+            }
+        } 
+    </div>
+
+     
+    @Html.Partial("controls/_BodyBefore")
+</body>
+</html>

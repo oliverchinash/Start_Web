@@ -1,0 +1,70 @@
+﻿   <!-- 油品侧边栏内容开始 -->
+<div id="divClassCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <!----分类页面开始------>
+            <div class="classify">
+                <!----头部开始------>
+                <header data-am-widget="header" class="am-header header">
+                    <div class="am-header-left am-header-nav">
+                        <a href="javascript:void(0)" class="" onclick="FunCloseCanvas('divClassCanvas')">
+                            <i class="am-header-icon am-icon-angle-right am-icon-md">返回</i>
+                        </a>
+                    </div>
+                    <h1 class="am-header-title">
+                        <a href="javascript:void(0)">
+                            分类
+                        </a>
+                    </h1>
+                </header>
+                <!-----头部结束------->
+                <!-----------主体内容开始------------->
+                <div class="classify-main">
+                    <div data-am-widget="tabs" class="am-tabs am-tabs-default">
+                      
+                        <!--------选项卡内容列表--------->
+                        <div class="am-tabs-bd">
+                            <div data-tab-panel-0 class="am-tab-panel am-active">
+                                <!------------内容列表的折叠面板开始--------------->
+                                <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
+                                    <dl class="am-accordion-item">
+                                        <!--------油品开始----------->
+                                        <dt class="am-accordion-title"  onclick="FunSelectNavClass('0')">
+                                            查询全部
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse"> 
+                                        </dd>
+                                    </dl>
+                                    @{
+                                        IList<JiChen.Entities.ClassesFoundEntity> list =  ViewBag.ClassList;
+                                        if (list != null && list.Count > 0)
+                                        {
+                                            foreach (JiChen.Entities.ClassesFoundEntity entity in list)
+                                            {
+                                                <dl class="am-accordion-item">
+                                                    <dt class="am-accordion-title"   onclick="FunSelectNavClass('@entity.Id')">
+                                                        @entity.Name
+                                                    </dt>
+                                                    <dd class="am-accordion-bd am-collapse"> 
+                                                         
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        }
+                                    } 
+                                </section> 
+                                <!------------内容列表的折叠面板结束--------------->
+                            </div> 
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-----------主体内容结束------------->
+            </div>
+
+            <!----分类页面结束----->
+        </div>
+    </div>
+</div>
+<div style="display:none;"><span id="spannavclass" spanval="" spanname="" >@ViewBag.SelectClassId</span></div>

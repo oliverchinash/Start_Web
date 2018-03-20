@@ -1,0 +1,155 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.WeChatNavigationEntity> _entitylist = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCmsType, #selIsActive, #selSortPrinciple {
+        width: 150px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 14%;
+    }
+
+    .admin_detail > ul > li {
+        width: 14%;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>微信直接导航</span></div>
+        <div class="add_admin">
+            <span><a href="/Cms/WeiXinUrlEdit" target="_blank"><img src="~/Themes/Img/Add.png" />添加</a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+        名称:
+        <input value="@Request["k"]" id="txtSearchKey" /> 
+        <button id="btnCmsTempletSearch" onclick="FunCmsTempletSearch()">查询</button>
+
+            <div class="add_admin">
+
+            </div>
+
+        </div> 
+
+    <div id="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:5%">序号</li>
+                <li style="width:50%">链接地址</li>
+                <li style="width:40%">微信导航链接</li>
+                <li style="width:20%">备注</li>
+                <li style="width:15%">操作</li>  
+            </ul>
+        </div> 
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+
+                foreach (SuperMarket.Model.WeChatNavigationEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul><li class="li_iterm" style="width:5%">
+                                @entity.Id
+                            </li>
+                            <li class="li_iterm" style="width:20%">
+                                @entity.RedirectUrl
+                            </li>
+                            <li class="li_iterm"  style="width:40%"><input style="width:100%" value="@entity.WeChatUrl" /></li> 
+                            <li class="li_iterm" style="width:20%">@entity.Remark</li>
+                            <li class="li_iterm" style="width:15%"><a href="/Cms/WeiXinUrlEdit?id=@entity.Id">编辑</a></li> 
+                        </ul>
+                    </div>
+
+
+                }
+
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $("body").bind("keydown", function (e) {
+            if (e.which == 13) {
+                $("#btnCmsTempletSearch").click();
+            }
+        });
+    }) 
+     
+    function FunCmsTempletSearch() { 
+        var _searchkey = $("#txtSearchKey").val(); 
+        location.href = "/Cms/WeiXinUrlManage?k=" + _searchkey  ;
+    }
+ 
+
+</script>

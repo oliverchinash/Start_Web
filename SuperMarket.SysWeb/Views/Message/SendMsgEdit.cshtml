@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+    SuperMarket.Model.SMSNoticeEntity entity = ViewBag.entity;
+    
+}
+
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 290px;
+    }
+
+    #selSendStaus, #selSystemType, #selHasProduct, #selHasProperties {
+        width: 250px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    .Backstage_td2 > input {
+        width: 250px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+
+    </div>
+
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">手机号码：</div>
+                <div class="Backstage_td2"><input id="txtMobilePhone" value="@(entity.Id > 0 ? entity.MobilePhone:ViewBag.MobilePhone)" autocomplete="off"/></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">短信内容：</div>
+                <div class="Backstage_td2"><textarea id="txtSMSContent" value="@(entity.Id > 0 ? entity.SMSContent:ViewBag.SMSContent) " style="height:100px;margin-left:8px">
+                    @(entity.Id > 0 ? entity.SMSContent : ViewBag.SMSContent)
+                    </textarea></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">发送状态：</div>
+                <div class="Backstage_td2">
+                    <select id="selSendStaus">
+                        <option value="-1">
+                            -----------请选择发送状态-------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SMSNoticeStatus.WaitSend)" selected="@(entity.Status==(int)SuperMarket.Model.SMSNoticeStatus.WaitSend?"selected":"")">
+                            ---------------未发送----------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SMSNoticeStatus.HasSend)" selected="@(entity.Status==(int)SuperMarket.Model.SMSNoticeStatus.HasSend?"selected":"")">
+                            ---------------已发送----------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SMSNoticeStatus.SendError)" selected="@(entity.Status==(int)SuperMarket.Model.SMSNoticeStatus.SendError?"selected":"")">
+                            ---------------发送失败----------------
+                        </option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">系统类型：</div>
+                <div class="Backstage_td2">
+                    <select id="selSystemType">
+                        <option value="-1">
+                            -----------请选择系统类型-------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SystemType.B2B)" selected="@(entity.SystemType==(int)SuperMarket.Model.SystemType.B2B?"selected":"")">
+                            ---------------B2B----------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SystemType.B2BBehind)" selected="@(entity.SystemType==(int)SuperMarket.Model.SystemType.B2BBehind?"selected":"")" >
+                            ---------------B2B后台----------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SystemType.Purchase)" selected="@(entity.SystemType==(int)SuperMarket.Model.SystemType.Purchase?"selected":"")">
+                            ---------------易店心汽配采购网----------------
+                        </option>
+                        <option value="@(SuperMarket.Model.SystemType.PurchaseBehind)" selected="@(entity.SystemType==(int)SuperMarket.Model.SystemType.PurchaseBehind?"selected":"")">
+                            ---------------易店心汽配采购网后台----------------
+                        </option>
+                    </select>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    @{
+        if (entity.Id ==0)
+        {
+            <div class="deserve" style="cursor:pointer" id="MsgAdd">添加</div>
+        }
+        else
+        {
+            <div class="deserve" style="cursor:pointer" id="MsgUpdate">修改</div>
+        }
+    }
+    
+    <input type="hidden" value="@entity.Id" id="hidNoticeId"/> 
+
+</div>
+
+<script type="text/javascript">
+
+    
+
+    $(function () {
+        $("#MsgAdd").bind("click", function () {
+             
+            var _mobilePhone = $("#txtMobilePhone").val();
+            var _SMSContent = $("#txtSMSContent").val();
+            var _sendStatus = $("#selSendStaus").val();
+            var _systemType = $("#selSystemType").val();
+
+            $.post("/Message/AddSendMsg", {
+                mobilePhone: _mobilePhone, SMSContent: _SMSContent, sendStatus: _sendStatus, systemType: _systemType
+            }, function (data) {
+                if (data > 0) {
+                    alert("添加成功!");
+                    window.location.href = "/Message/SendMsgList";
+                } else {
+                    alert("添加失败!");
+                }
+            })
+        });
+
+
+    });
+
+    $(function () {
+        $("#MsgUpdate").bind("click", function () {
+
+            debugger
+
+            var _mobilePhone = $("#txtMobilePhone").val();
+            var _SMSContent = $("#txtSMSContent").val();
+            var _sendStatus = $("#selSendStaus").val();
+            var _systemType = $("#selSystemType").val();
+            var _id = $("#hidNoticeId").val();
+
+            $.post("/Message/UpdateSendMsg", {
+                id:_id,mobilePhone: _mobilePhone, SMSContent: _SMSContent, sendStatus: _sendStatus, systemType: _systemType
+            }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    window.location.href = "/Message/SendMsgList";
+                } else {
+                    alert("修改失败!");
+                }
+            })
+        });
+
+
+    });
+
+</script>
+
+
+

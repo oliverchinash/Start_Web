@@ -123,7 +123,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <returns>Brand实体</returns>
         /// <param name="columns">要返回的列</param>
-        public BrandEntity GetBrand(int id, bool iscache=true)
+        public BrandEntity GetBrand(int id, bool iscache=false)
         {
             if (iscache == true)
             {

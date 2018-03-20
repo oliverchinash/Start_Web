@@ -243,7 +243,7 @@ namespace SuperMarket.BLL.CGOrderDB
             {
                 foreach(ReportCGOrderEntity entity in list)
                 {
-                    StoreEntity storeen = MemberDB.StoreBLL.Instance.GetStoreByMemId(entity.CgMemId);
+                    MemStoreEntity storeen = MemberDB.StoreBLL.Instance.GetStoreByMemId(entity.CgMemId);
                     entity.CgMemName = storeen.ContactsManName;
                     entity.CgMemPhone = storeen.MobilePhone;
                     entity.CgCompanyName = storeen.CompanyName;

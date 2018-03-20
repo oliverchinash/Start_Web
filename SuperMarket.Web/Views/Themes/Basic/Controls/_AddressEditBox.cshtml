@@ -1,0 +1,67 @@
+﻿<div  id="divAddressEditCanvas"  class="newAddress" style="display: none"> 
+    <header data-am-widget="header" class="am-header header">
+        <div class="am-header-left am-header-nav newAddress-tuichu">
+            <a href="javascript:void(0)"    onclick="FunAddressEditBoxhide()">
+                <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                编辑收货地址
+            </a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="javascript:void(0)" onclick="FunSaveAddressEdit()">
+                保存
+            </a>
+        </div>
+    </header> 
+    <div class="newAddress-main">
+         <p id="Addresserrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p>
+         <ul>
+            <li class="am-g am-cf">
+                <span class="am-u-sm-3">收货人</span>
+                <input type="text" id="txtAddressEditAccepterName" class="am-u-sm-9">
+            </li>
+            <li class="am-g am-cf">
+                <span class="am-u-sm-3">联系电话</span>
+                <input type="text" id="txtAddressEditMobilePhone" class="am-u-sm-9">
+            </li>
+            <li class="am-g am-cf">
+                <span class="am-fl" style="margin-left: 1rem">所在地区</span>
+                <div class="newAddress-diqu am-fl"> 
+                    <select id="selAddressEditProvince" style="border: none;  margin-left:1rem;">
+                        <option value="0">选择省份</option>
+                    </select>
+                    <select id="selAddressEditCity" style="border: none;  margin-left:1rem;">
+                        <option value="0">选择城市</option>
+                    </select>
+                </div>
+            </li>  
+            <li>
+                <textarea id="txtAddressEditAddress" placeholder="请填写详细地址"></textarea>
+            </li>
+        </ul>
+    </div> 
+    <ul class="newAddress-moren" style="display:none;">
+        <li class="am-g">
+            <span class="am-fl" style="padding-left: 1rem">设为默认</span>
+            <div class="am-fr" style="padding-right: 1rem"> 
+                <span class="am-icon am-icon-toggle-off am-icon-lg"  value="0"   style="color:#CDCDCD;"></span>
+                <span class="am-icon am-icon-toggle-on am-icon-lg"  value="1"  style="display: none; color:#4CD964;"></span>
+            </div>
+        </li>
+    </ul> 
+</div> 
+<div style="display:none;"> 
+    <input id="txtAddressEditMemId" type="hidden" />
+    <input id="txtAddressEditAddressId" type="hidden" />
+    <input id="hidAddressEditProvince" type="hidden" />
+    <input id="hidAddressEditCity" type="hidden" />
+    <input id="hidAddressEditIsDefault" type="hidden" />
+    <input id="txtAddressEditCountryName" type="hidden" value="中国" />
+    <input id="txtAddressEditCtType" type="hidden" value="0" />
+    <input id="txtAddressEditEmail" type="hidden" value="" /></div>
+
+
+

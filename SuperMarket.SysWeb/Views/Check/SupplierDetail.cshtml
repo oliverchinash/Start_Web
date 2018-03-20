@@ -1,0 +1,411 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "商家资格申请详情页";
+}
+
+@section Head{
+    <link rel="stylesheet" type="text/css" href="~/Js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="~/Js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="~/Js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="~/Js/diyUpload/js/diyUpload.js"></script>
+}
+
+@{
+    SuperMarket.Model.MemberEntity _mementity = ViewBag.mementity;
+    SuperMarket.Model.MemberInfoEntity _meminfoentity = ViewBag.meninfoentity;
+    SuperMarket.Model.MemBillVATEntity _membill = ViewBag.membill;
+    SuperMarket.Model.StoreEntity _storeentity = ViewBag.storentity;
+}
+
+
+<div style="display:none;">
+
+    <input id="txtMemId" value="@_storeentity.MemId" />
+
+    <input id="hidCertificateRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+
+    @{
+        if (_storeentity.LicensePath != null && _storeentity.LicensePath != "")
+        {
+            <ul id="ulLicensePath" class="hidpicuploaddiy" bindfield="LicensePath" pictype="3" btntext="上传营业执照"><li liitemcode="LicensePath">@_storeentity.LicensePath</li></ul>
+        }
+        else
+        {
+            <ul id="ulLicensePath" class="hidpicuploaddiy" bindfield="LicensePath" pictype="3" btntext="上传营业执照"><li liitemcode="LicensePath">/Certifacate/3/2016/09/24/291e3287-5d38-4d70-a1d1-603bed133de9.png</li></ul>
+        }
+    }
+
+</div>
+
+
+<div class="tip-title" style="width:18%;"></div>
+
+
+<style type="text/css">
+    .supregist-main-r > div {
+        width: 30%;
+        height: auto;
+        background: #fff;
+        margin: 20px 1%;
+        float: left;
+        min-height: 500px;
+        opacity: 1;
+        position: relative;
+    }
+
+        .supregist-main-r > div > ul {
+            list-style: none;
+            height: 25px;
+        }
+
+        .supregist-main-r > div > h3 {
+            text-align: center;
+            width: auto;
+            height: auto;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .supregist-main-r > div > ul > li {
+            margin: 12px 10px;
+        }
+
+            .supregist-main-r > div > ul > li > span {
+                width: 100px;
+                height: 30px;
+                line-height: 30px;
+                text-align: right;
+            }
+
+            .supregist-main-r > div > ul > li > input {
+                height: 30px;
+                width: 210px;
+                padding: 5px;
+                float: right;
+            }
+
+    .webuploader-container {
+        display: none;
+    }
+
+    #Reserve {
+        width: 1128px;
+        height: 50px;
+        line-height: 50px;
+        min-height: unset;
+        margin-top: -10px;
+        text-align: right;
+    }
+ 
+        #Reserve > button {
+            width: 150px;
+            height: 35px;
+            margin: 0px 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+     #Reserve > span {
+            width: 150px;
+            height: 35px;
+            margin: 0px 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+            #Reserve > button:hover {
+                background: #3385ff;
+            }
+
+        #Reserve > #Accptted {
+            width: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 7.5px;
+        }
+
+        #Reserve > #Aduiting {
+            width: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 7.5px;
+        }
+
+        #Reserve > #Refuse {
+            width: 150px;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+            margin-top: 7.5px;
+        }
+        .supregist-main-r{
+            height:600px;background:#fff;margin-top:220px;position:absolute
+        }
+        .title_main{
+            margin:8px 0 0;
+            background:#fff
+        }
+</style>
+
+<div class="title_main">
+    <img src="~/Themes/Img/home.png" />
+    <div class="title_text">您当前的位置：后台管理系统><span>供应商详情</span></div>
+</div>
+
+<div class="supregist">
+   
+    <div class="supregist-main">
+      
+        <div>
+
+            
+
+            <div class="supregist-main-r">
+
+                    <div>
+                        <h3>账户及联系人信息</h3>
+                        <ul>
+                            <li>
+                                <span>用户名:</span>
+                                <input value="@_mementity.MemCode" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>联系人姓名:</span>
+                                <input value="@_meminfoentity.MemName" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>联系人电话:</span>
+                                <input value="@_meminfoentity.Telephone" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>联系人邮箱:</span>
+                                <input value="@_meminfoentity.Email" readonly="readonly" />
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>公司信息</h3>
+                        <ul>
+                            <li>
+                                <span>公司名称:</span>
+                                <input value="@_storeentity.CompanyName" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>公司所在地:</span>
+                                <input value="@ViewBag.AddressofStore" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>公司地址:</span>
+                                <input value="@_storeentity.Address" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>企业类型:</span>
+                                <input value="@_storeentity.StoreType" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>联系人手机:</span>
+                                <input value="@_storeentity.MobilePhone" readonly="readonly" />
+                            </li>
+
+                            <li>
+
+                                <span>企业营业执照:</span>
+
+                                <div style="float:right;">
+                                    <div id="divLicensePath" bindfield="LicensePath"></div>
+                                </div>
+
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>发票及收票信息</h3>
+                        <ul>
+                            <li>
+                                <span>单位名称:</span>
+                                <input value="@_membill.CompanyName" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>纳税人识别码:</span>
+                                <input value="@_membill.BankAccount" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>注册地址:</span>
+                                <input value="@_membill.CompanyAddress" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>注册电话:</span>
+                                <input value="@_membill.CompanyPhone" readonly="readonly" />
+                            </li>
+                            <li>
+                                <span>开户银行:</span>
+                                <input value="@_membill.CompanyBank" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>银行账户:</span>
+                                <input value="@_membill.BankAccount" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>收票人姓名:</span>
+                                <input value="@_membill.ReceiverName" readonly="readonly" />
+                            </li>
+
+                            <li>
+                                <span>收票人手机:</span>
+                                <input value="@_membill.ReceiverPhone" readonly="readonly" />
+                            </li>
+                            <li>
+                                <span>收票人地址:</span>
+                                <input value="@ViewBag.AddressofBill" readonly="readonly" />
+                            </li>
+                            <li>
+                                <span>收票人详细地址:</span>
+                                <input value="@_membill.ReceiverAddress" readonly="readonly" />
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="Reserve">
+                        @{
+                        if (_storeentity.Status == (int)SuperMarket.Model.MemberStatus.WaitCheck||_mementity.Status==(int)SuperMarket.Model.MemberStatus.WaitCheck||_membill.Status==(int)SuperMarket.Model.MemBillStatus.WaitToAudit)
+                        {
+                                <span>请审核:</span>
+                                <button   storeid="@_storeentity.Id" onclick="AcceptStore(this)" memid="@_storeentity.MemId"
+                                        billId="@_membill.Id">通过</button>
+                                <button   storeid="@_storeentity.Id" onclick="RefuseStore(this)" memid="@_storeentity.MemId" 
+                                        billId="@_membill.Id">拒绝</button>
+                                        
+
+                        }
+                        else if (_storeentity.Status == (int)SuperMarket.Model.MemberStatus.Active)
+                        {
+                                <span>当前状态:</span>
+                                <button id="Accptted">已通过</button>
+
+                        }
+                        else if (_storeentity.Status == (int)SuperMarket.Model.MemberStatus.OnChecking)
+                        {
+                                <span>当前状态:</span>
+                                <button id="Aduiting">审核中...</button>
+
+                        }
+                        else if (_storeentity.Status == (int)SuperMarket.Model.MemberStatus.Rejected)
+                        {
+                                <span>当前状态:</span>
+                                <button id="Refuse">已拒绝</button>
+
+                        }
+
+                        }
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+<div style="position:absolute;width:50%;height:50%;left:25%;top:25%;display:none;background-image:url()" id="zoomDiv"></div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $(".parentFileBox").css({ "width": "210px" });
+    })
+
+    function AcceptStore(obj) {
+         
+        if (confirm("确定通过此申请么?") == false) {
+            return false;
+        }
+
+        var _StoreId = $(obj).attr("storeid");
+        var _MemberId = $(obj).attr("memid");
+        var _billId = $(obj).attr("billId"); 
+        $.post("/Check/AcceptStore", { StoreId: _StoreId, MemberId: _MemberId ,billId:_billId}, function (data) {
+
+            if (data > 0) {
+                alert("审核通过!");
+                window.location.href = "/Message/SendMsgEdit/?memid=" + $(obj).attr("MemId") + "&SMSContent="+"亲,您注册的企业号已经审批通过。";
+            }
+            else {
+                alert("审核失败!");
+            }
+        });
+    }
+
+    function RefuseStore(obj) {
+         
+        if (confirm("确定拒绝此申请么?") == false) {
+            return false;
+        }
+
+        var _StoreId = $(obj).attr("storeid");
+        var _MemberId = $(obj).attr("memid");
+        var _billId = $(obj).attr("billId");
+        $.post("/Check/RefuseStore", { StoreId: _StoreId, MemberId: _MemberId, billId: _billId }, function (data) {
+
+            if (data > 0) {
+                alert("审核拒绝!");
+                window.location.href = "/Message/SendMsgEdit/?memid=" + $(obj).attr("MemId") + "&SMSContent=" + "亲,您注册的企业号未通过审批。";
+            }
+            else {
+                alert("审核失败!");
+            }
+
+        }
+        );
+    }
+
+    $(function () {
+
+        $('.hidpicuploaddiy').each(function () {
+            var objselect = this;
+            var field = $(objselect).attr("bindfield");
+            var arrimagespath = new Array();
+            if ($.trim($(objselect).children().length > 0) != "") {
+                arrimagespath.push({
+                    imageid: $(objselect).children().first().attr("liitemcode"),
+                    imagepath: $("#hidCertificateRootUrl").val() + $(objselect).children().first().text()
+                });
+            }
+            $('#div' + field).diyUpload({
+                url: '/Member/UploadFile',
+                buttonText: null,
+                imagedefaultpath: arrimagespath,
+                fileNumMax: 1,
+                formData: {
+                    pictype: $(objselect).attr("pictype")
+                },
+                success: function (fileid, data) {
+                    if (data != "" && data._raw != "") {
+                        var listr = "<li liitemcode='" + fileid + "'>" + data._raw + "</li>";
+                        $(objselect).append(listr);
+                    }
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        });
+    }); 
+ 
+
+</script>
+

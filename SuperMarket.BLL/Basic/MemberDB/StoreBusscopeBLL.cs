@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="supplierBusscope">要添加的StoreBusscope数据实体对象</param>
-		public   int AddStoreBusscope(StoreBusscopeEntity supplierBusscope)
+		public   int AddStoreBusscope(MemStoreBusscopeEntity supplierBusscope)
 		{
 			  if (supplierBusscope.Id > 0)
             {
@@ -57,7 +57,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return StoreBusscopeDA.Instance.AddStoreBusscope(supplierBusscope);
+                return MemSupplierBusscopeDA.Instance.AddStoreBusscope(supplierBusscope);
             }
 	 	}
 
@@ -67,16 +67,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <param name="supplierBusscope">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateStoreBusscope(StoreBusscopeEntity supplierBusscope)
+		public   int UpdateStoreBusscope(MemStoreBusscopeEntity supplierBusscope)
 		{
-			return StoreBusscopeDA.Instance.UpdateStoreBusscope(supplierBusscope);
+			return MemSupplierBusscopeDA.Instance.UpdateStoreBusscope(supplierBusscope);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteStoreBusscopeByKey(int id)
         {
-            return StoreBusscopeDA.Instance.DeleteStoreBusscopeByKey(id);
+            return MemSupplierBusscopeDA.Instance.DeleteStoreBusscopeByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -84,7 +84,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteStoreBusscopeDisabled()
         {
-            return StoreBusscopeDA.Instance.DeleteStoreBusscopeDisabled();
+            return MemSupplierBusscopeDA.Instance.DeleteStoreBusscopeDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -97,20 +97,20 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return StoreBusscopeDA.Instance.DeleteStoreBusscopeByIds(idstr); 
+            return MemSupplierBusscopeDA.Instance.DeleteStoreBusscopeByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DisableStoreBusscopeByIds(string ids)
+        public int DisableStoreBusscopeDAByIds(string ids)
         {
             int[] intArray;
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return StoreBusscopeDA.Instance.DisableStoreBusscopeByIds(idstr);
+            return MemSupplierBusscopeDA.Instance.DisableStoreBusscopeByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个StoreBusscope实体记录。
@@ -118,16 +118,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>StoreBusscope实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   StoreBusscopeEntity GetStoreBusscope(int id)
+		public   MemStoreBusscopeEntity GetStoreBusscope(int id)
 		{
-			return StoreBusscopeDA.Instance.GetStoreBusscope(id);			
+			return MemSupplierBusscopeDA.Instance.GetStoreBusscope(id);			
 		}
 		  ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<StoreBusscopeEntity> GetStoreBusscopeList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemStoreBusscopeEntity> GetStoreBusscopeList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return StoreBusscopeDA.Instance.GetStoreBusscopeList(pageSize, pageIndex, ref recordCount);
+            return MemSupplierBusscopeDA.Instance.GetStoreBusscopeList(pageSize, pageIndex, ref recordCount);
         }
 		
 		public async Task GetStoreBusscopeAll()
@@ -138,8 +138,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<StoreBusscopeEntity> list = null;
-                    list = StoreBusscopeDA.Instance.GetStoreBusscopeAll();
+                    IList<MemStoreBusscopeEntity> list = null;
+                    list = MemSupplierBusscopeDA.Instance.GetStoreBusscopeAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -149,9 +149,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(StoreBusscopeEntity supplierBusscope)
+        public bool IsExist(MemStoreBusscopeEntity supplierBusscope)
         {
-            return StoreBusscopeDA.Instance.ExistNum(supplierBusscope)>0;
+            return MemSupplierBusscopeDA.Instance.ExistNum(supplierBusscope)>0;
         }
 		
 	}

@@ -1,0 +1,129 @@
+﻿@{ 
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder;
+    IList<SuperMarket.Model.InquiryProductEntity> productlist = vworder.OrderProducts;
+    //SuperMarket.Model.VWMemberEntity vwmember =ViewBag.CGMember;
+    Dictionary<int, IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic = ViewBag.ProductSubDic;
+    Dictionary<int, SuperMarket.Model.CGQuotedPriceEntity> productquotedic = ViewBag.PriceDic;
+}
+<div class="select">
+    <div class="list-top">
+        <div class="list-top-main">
+            <img src="../img/index-icon.png" style="vertical-align: middle">
+            <a  >询价订单管理</a><span>></span> 
+            <span>选择供应商</span>
+        </div>
+    </div>  
+
+    <div class="select-list">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>产品名称</th> 
+                <th>产品类型</th>
+                <th>已报销售价</th>
+                <th>采购价</th>
+                <th>销售价</th>
+                <th>备注</th>
+            </tr>
+       @if (productlist != null && productlist.Count > 0)
+       {
+           foreach (SuperMarket.Model.InquiryProductEntity product in productlist)
+           {
+               int pro_i = 0;
+               if (productsubdic != null && productsubdic.ContainsKey(product.ProductId))
+               {
+                   IList<SuperMarket.Model.InquiryProductSubEntity> prosublist = productsubdic[product.ProductId];
+                   if (prosublist != null && prosublist.Count > 0)
+                   {
+                       foreach (SuperMarket.Model.InquiryProductSubEntity prosubentity in prosublist)
+                       {
+                           pro_i++;
+                        <tr class="uldoprice">
+                            @if (pro_i == 1)
+                            {
+                                <td width="260"  rowspan="@(prosublist.Count)">@product.ProductName</td>
+                            } 
+                            <td>@prosubentity.InquiryProductTypeName</td> 
+                            <td width="50">@prosubentity.Price.ToString("0.00")</td>
+    @if (productquotedic != null && productquotedic.ContainsKey(prosubentity.Id))
+                            {
+                                SuperMarket.Model.CGQuotedPriceEntity quoteprice = productquotedic[prosubentity.Id];
+                                
+                                if (quoteprice != null )
+                                { 
+                                    <td class="best">￥@(quoteprice.CGPrice>0?quoteprice.CGPrice.ToString("0.00"):"未报价")</td>
+                                    <td width="220"><input type="text" class="clstxtPrice" priceid="@quoteprice.Id" cgmemid="@(quoteprice.CGMemId)" productsubid="@(quoteprice.InquiryProductSubId)"   value="@(quoteprice.Price>0?quoteprice.Price.ToString("0"):quoteprice.CGPrice.ToString("0"))"   ></td>
+                                    <td width="220"><input type="text" class="clstxtRemark" value="@(string.IsNullOrEmpty(quoteprice.Remark)?quoteprice.InquiryProductDes:quoteprice.Remark)"></td>
+                                }
+                                else
+                                {
+                                    <td class="best">未报价</td>
+                                    <td width="220"><input type="text" readonly class="clstxtPrice" priceid="@quoteprice.Id"   productsubid="@(prosubentity.Id)"   value="" ></td>
+                                    <td width="220"><input type="text" readonly class="clstxtRemark" value="@(string.IsNullOrEmpty(quoteprice.Remark)?quoteprice.InquiryProductDes:quoteprice.Remark)"></td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="best">未报价</td>
+                                <td width="220"><input type="text" readonly class="clstxtPrice"   productsubid="@(prosubentity.Id)" value=""></td>
+                                <td width="220"><input type="text" readonly class="clstxtRemark" value=""></td>
+                            }
+                          
+                        </tr>
+                       }
+                   }
+               }
+           }
+       }   
+        </table>
+        <!------选择供应商---->
+        <div class="select-button">
+            <button class="fr" onclick="QuotePriceSetSubmit()">审核提交</button>
+        </div>
+    </div>
+</div>
+<div style="display:none;">
+    <input type="hidden" id="hidSelectedOrderCode" value="@ViewBag.Code" />
+</div> 
+<script>
+    function QuotePriceSetSubmit() {
+        var prices = "";
+        var ordercode = $("#hidSelectedOrderCode").val();
+        var quehuonum = 0;
+        $(".uldoprice").each(function () {
+            var priceobj = $(this).find(".clstxtPrice");
+            var remarkobj = $(this).find(".clstxtRemark");
+            var pricevalue = $.trim($(priceobj).val());
+            var remarkvalue = $.trim($(remarkobj).val());
+            if (pricevalue != "") {
+                //最后一位表示缺货
+                prices += $(priceobj).attr("cgmemid") + "_" + $(priceobj).attr("productsubid") + "_" + $(priceobj).val() + "_" + remarkvalue + "_1|";
+            }
+            else {
+                quehuonum++;
+                prices += $(priceobj).attr("cgmemid") + "_" + $(priceobj).attr("productsubid") + "_0_" + remarkvalue + "_0|";
+            }
+        })
+        if (quehuonum > 0)
+        {
+            if(!confirm("有"+quehuonum+"个产品没有报价，将作为暂时缺货处理"))
+            {
+                return false;
+            }
+        }
+        $.post("/SysOrderInquiry/QuotePriceSetSubmit", {
+            code: ordercode, prices: prices
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var _returnStatus = -_returncode.Status;
+            if (_returnStatus == _TheArray[0]) {
+                alert("价格设置成功");
+                location.href = "/SysOrderInquiry/OrderDetail?code=" + ordercode;
+            }
+            else {
+                alert(_TheArray[_returnStatus]);
+                return false;
+            }
+        });
+    }
+
+</script>

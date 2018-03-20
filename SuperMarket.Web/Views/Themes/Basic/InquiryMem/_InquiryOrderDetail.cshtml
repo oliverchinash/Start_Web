@@ -1,0 +1,61 @@
+﻿<!----头部开始------>
+@{
+    JiChen.Entities.VWInquiryOrderEntity order = ViewBag.VWInquiryOrder;
+}
+<header data-am-widget="header" class="am-header-fixed am-header header" style="padding: 0;">
+    @Html.Partial("controls/_HeadBanner")
+    <h1 class="am-header-title">
+        <a>
+            订单详情
+        </a>
+    </h1>
+</header>
+<!----头部结束------>
+<!----内容开始------>
+<div class="orderDetails2">
+    <div class="orderDetails2-shouhuo">
+        <div class="delivery-kehu">
+            <p> 收货人：@order.MemName
+                <span style="padding-left: 2rem">@order.MemPhone</span>
+            </p>
+            <p style="padding-top: .3rem">收货公司：@(order.CompanyName)</p>
+            <p style="padding-top: .3rem">收货地址：@(order.CompanyAddress)</p>
+            <p style="padding-top: .3rem">客户备注：@(order.Remark)</p>
+            <p style="padding-top: .3rem">送货备注：@(order.WLRemark)</p>
+        </div>
+        <ul class="delivery-price">
+            <li class="am-cf" style="font-size: 1.4rem">
+                <span class="am-fl">订单状态</span>
+                <span class="am-fr" style="color:#FF532B;">@(order.StatusName)</span>
+            </li>
+        </ul>
+    </div>
+    <ul class="orderDetails-m">
+        <li style="position: relative; padding: .5rem 0;">
+            <p>订单号：@(order.InquiryOrderCode)</p>
+            <span style="color: #999">下单时间:@(order.CreateTime.ToShortDateString())</span>
+        </li>
+        @{
+            if (order.OrderProducts != null && order.OrderProducts.Count > 0)
+            {
+                foreach (JiChen.Entities.InquiryProductEntity product in order.OrderProducts)
+                {
+                    <li class="orderDetails2-chanpin am-g am-cf" style="position: relative; padding: .5rem 0;">
+                        <span class="am-u-sm-9">@product.ProductName</span>
+                        <span class="orderDetails2-span">x@(product.ProductNum + product.ProductUnitName)</span>
+                    </li>
+                }
+
+            }
+        }
+    </ul>
+    @{
+        if (order.Status == (int)JiChen.Entities.OrderInquiryStatusEnum.Submit || order.Status == (int)JiChen.Entities.OrderInquiryStatusEnum.Checked)
+        {
+            <button class="am-btn am-btn-danger am-u-sm-10 am-u-sm-centered demand-next" onclick="FunInquiryOrderToQuote()">提交报价</button>
+        }
+    }
+    <div style="display:none;">
+        <input type="hidden" id="txtInquiryCode" value="@order.InquiryOrderCode" />
+    </div>
+</div>

@@ -148,7 +148,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
         /// <param name="code"></param>
         /// <param name="cache"></param>
         /// <returns></returns>
-		public IList<ConfirmOrderProductEntity> GetConfirmProductAllByCode(string code,int cgmemid,bool cache=true)
+		public IList<ConfirmOrderProductEntity> GetConfirmProductAllByCode(string code,int cgmemid,bool cache=false)
         {
             IList<ConfirmOrderProductEntity> list = null;
             if (cache)

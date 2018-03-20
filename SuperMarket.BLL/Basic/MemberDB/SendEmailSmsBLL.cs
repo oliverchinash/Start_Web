@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="sendEmailSms">要添加的SendEmailSms数据实体对象</param>
-		public   int AddSendEmailSms(SendEmailSmsEntity sendEmailSms)
+		public   int AddSendEmailSms(MemSendEmailSmsEntity sendEmailSms)
 		{
 			  if (sendEmailSms.Id > 0)
             {
@@ -57,7 +57,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return SendEmailSmsDA.Instance.AddSendEmailSms(sendEmailSms);
+                return MemSendEmailSmsDA.Instance.AddMemSendEmailSms(sendEmailSms);
             }
 	 	}
 
@@ -67,16 +67,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <param name="sendEmailSms">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateSendEmailSms(SendEmailSmsEntity sendEmailSms)
+		public   int UpdateSendEmailSms(MemSendEmailSmsEntity sendEmailSms)
 		{
-			return SendEmailSmsDA.Instance.UpdateSendEmailSms(sendEmailSms);
+			return MemSendEmailSmsDA.Instance.UpdateMemSendEmailSms(sendEmailSms);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteSendEmailSmsByKey(int id)
         {
-            return SendEmailSmsDA.Instance.DeleteSendEmailSmsByKey(id);
+            return MemSendEmailSmsDA.Instance.DeleteMemSendEmailSmsByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -84,7 +84,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteSendEmailSmsDisabled()
         {
-            return SendEmailSmsDA.Instance.DeleteSendEmailSmsDisabled();
+            return MemSendEmailSmsDA.Instance.DeleteMemSendEmailSmsDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -97,7 +97,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return SendEmailSmsDA.Instance.DeleteSendEmailSmsByIds(idstr); 
+            return MemSendEmailSmsDA.Instance.DeleteMemSendEmailSmsByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
@@ -110,7 +110,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return SendEmailSmsDA.Instance.DisableSendEmailSmsByIds(idstr);
+            return MemSendEmailSmsDA.Instance.DisableMemSendEmailSmsByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个SendEmailSms实体记录。
@@ -118,16 +118,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>SendEmailSms实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   SendEmailSmsEntity GetSendEmailSms(int id)
+		public   MemSendEmailSmsEntity GetSendEmailSms(int id)
 		{
-			return SendEmailSmsDA.Instance.GetSendEmailSms(id);			
+			return MemSendEmailSmsDA.Instance.GetMemSendEmailSms(id);			
 		}
 		  ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<SendEmailSmsEntity> GetSendEmailSmsList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemSendEmailSmsEntity> GetSendEmailSmsList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return SendEmailSmsDA.Instance.GetSendEmailSmsList(pageSize, pageIndex, ref recordCount);
+            return MemSendEmailSmsDA.Instance.GetMemSendEmailSmsList(pageSize, pageIndex, ref recordCount);
         }
 		
 		public async Task GetSendEmailSmsAll()
@@ -138,8 +138,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<SendEmailSmsEntity> list = null;
-                    list = SendEmailSmsDA.Instance.GetSendEmailSmsAll();
+                    IList<MemSendEmailSmsEntity> list = null;
+                    list = MemSendEmailSmsDA.Instance.GetMemSendEmailSmsAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -149,9 +149,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(SendEmailSmsEntity sendEmailSms)
+        public bool IsExist(MemSendEmailSmsEntity sendEmailSms)
         {
-            return SendEmailSmsDA.Instance.ExistNum(sendEmailSms)>0;
+            return MemSendEmailSmsDA.Instance.ExistNum(sendEmailSms)>0;
         }
 		
 	}

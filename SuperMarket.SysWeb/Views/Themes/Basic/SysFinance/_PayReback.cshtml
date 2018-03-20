@@ -1,0 +1,84 @@
+﻿@{
+    SuperMarket.Model.VWPayOrderEntity entity = ViewBag.Entity;
+}
+<div class="property"> 
+    <div class="property-top">
+        <h3 class="fl">退款页</h3>
+    </div>
+    <div class="clear"></div> 
+    <div class="property-right fl">
+        <h3>1.基本信息</h3>
+        <div class="property-main">
+            <div class="property-title">
+                <span>支付单号：</span>
+                <span>@(entity.PayOrderCode)</span>
+            </div>
+            <div class="property-title">
+                <span>订单编号：</span>
+                <span>@(entity.SysOrderCode)</span>
+            </div>  
+            <div class="property-title">
+                <span>系统类别：</span> 
+                <span>@(entity.SysTypeName)</span>
+            </div> 
+            <div class="property-title">
+                <span>支付方式：</span>
+                <span>@(entity.PayMethodName)</span>
+            </div> 
+            <div class="property-title">
+                <span>支付金额：</span>
+                <span>@(entity.PayPrice.ToString("0.00"))</span>
+            </div> 
+            <div class="property-title">
+                <span>已退款金额：</span>
+                <span>0</span>
+            </div>
+            <div class="property-title">
+                <span>本次退款金额：</span> 
+                <input type="text" id="txtRebackPrice" value="0"> 
+            </div> 
+            <div class="property-title">
+                <span>退款说明：</span>
+                <input type="text" id="txtRebackRemark" value="">
+            </div> 
+            <div class="property-shop">
+                <button onclick="Fun_PayRebackEntity()">退款</button>
+            </div> 
+        </div>
+    </div> 
+    <div class="clear"></div>
+</div> 
+<div style="display:none;"> 
+    <input id="txtId" value="@entity.Id" />
+    <input id="txtPayOrderCode" value="@entity.PayOrderCode" />
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+    var arrimagespath = new Array();
+    $(function () {
+      
+    });
+    function Fun_PayRebackEntity() {
+        var enid = $("#txtId").val();
+        var rebackprice = $("#txtRebackPrice").val();
+        var paycode = $("#txtPayOrderCode").val();
+        var rebackremark = $("#txtRebackRemark").val();
+
+        $.post("/SysFinance/PayRebackSubmit", {
+            enid: enid, paycode: paycode, rebackprice: rebackprice, rebackremark: rebackremark
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var _returnStatus = -_returncode.Status;
+            if (_returnStatus == _TheArray[0]) {
+                alert("操作成功"); 
+            }
+            else {
+                alert(_TheArray[_returnStatus]);
+                cliki = 0;
+                return false;
+            }
+        });
+    }
+</script>

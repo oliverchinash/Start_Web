@@ -1,0 +1,370 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selBatchNo {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+</style>
+
+<div class="main">
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>支付管理</span></div>
+    </div>
+    <div class="title_main">
+        退款批次号:
+        <select id="selBatchNo">
+            @{
+                IList<string> batchl = ViewBag.BatchList;
+                if (batchl != null && batchl.Count > 0)
+                {
+
+                    <option value="@ViewBag.RebackBatchNo" selected="selected">@ViewBag.RebackBatchNo</option>
+
+                    foreach (string batch in batchl)
+                    {
+
+                        <option value="@batch">@batch</option>
+
+                    }
+                }
+                else
+                {
+                    <option value="@ViewBag.RebackBatchNo" selected="selected">@ViewBag.RebackBatchNo</option>
+                }
+            }
+        </select>
+        <input type="hidden" id="hidBatchNo" value="@ViewBag.RebackBatchNo" />
+        <button onclick="btnRefundDetail()">退款明细</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        订单号:
+        <input value="@(ViewBag.OrderCode!=0?ViewBag.OrderCode:"")" id="txtOrderCode" />
+        <button onclick="btnSearch()">查询</button>
+    </div>
+
+    <div id="detail_main">
+        <div class="admin_title">
+            <ul>
+                <li style="width:10%;">订单号</li>
+                <li style="width:20%;">交易编号</li>
+                <li style="width:15%;">退款说明</li>
+                <li style="width:5%;">订单总金额</li>
+                <li style="width:5%;">付款金额</li>
+                <li style="width:5%;">已退款金额</li>
+                <li style="width:5%;">积分</li>
+                <li style="width:5%;">建议退款金额</li>
+                <li style="width:5%;">实际退款金额</li>
+                <li style="width:5%;">实际退款积分</li>
+                <li style="width:10%;">操作</li>
+            </ul>
+        </div>
+        @{
+            IList<SuperMarket.Model.VWFinanceRefundEntity> list = ViewBag.List;
+            if (list != null && list.Count > 0)
+            {
+                foreach (SuperMarket.Model.VWFinanceRefundEntity entity in list)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm" style="width:10%;" >@entity.OrderCode</li>
+                            <li class="li_iterm" style="width:20%;" >@entity.PayTradeNo</li>
+                            <li class="li_iterm" style="width:15%;" >@entity.Description</li>
+                            <li class="li_iterm" style="width:5%;" >@entity.OrderPrice</li>
+                            <li class="li_iterm" style="width:5%;">@entity.PayPrice</li>
+                            <li class="li_iterm" style="width:5%;">@entity.HasReBackFee</li>
+                            <li class="li_iterm" style="width:5%;">@entity.Integral</li>
+                            <li class="li_iterm" style="width:5%;">@entity.RebackFee</li>
+                            <li class="li_iterm" style="width:5%;">@entity.ActRebackFee</li>
+                            <li class="li_iterm" style="width:5%;" >@entity.ActReBackIntegral</li>  
+                            <li class="li_iterm" style="width:10%;">
+                                @if (entity.Status == (int)SuperMarket.Model.RefundStatus.Wait)
+                                {
+                                    if (entity.RebackFee - entity.ActRebackFee > 0)
+                                    {
+                                     <a href="javascript:void(0);" class="rebackcheck"  refundid="@entity.Id"  reason="@entity.Description" code="@entity.OrderCode" tradecode="@entity.PayTradeNo" totalfee="@entity.OrderPrice" payfee="@entity.PayPrice" hasbackfee="@entity.HasReBackFee" rebackfee="@entity.RebackFee">加入退款列表</a>
+                                    }
+                                    if (entity.Integral - entity.ActReBackIntegral > 0)
+                                    {
+                                        <a href="javascript:void(0);" class="rebackintegralcheck" integral="@entity.Integral" hasreturnintegral="@entity.ActReBackIntegral"  refundid="@entity.Id"  reason="@entity.Description" code="@entity.OrderCode" tradecode="@entity.PayTradeNo"   >退回积分</a>
+                                    }
+                                }
+                            </li>
+
+                          
+
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <div>
+                        @Html.Raw(ViewBag.PageStr)
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="product-main-detail">
+                    没有找到该记录!
+                </div>
+            }
+        }
+
+    </div>
+
+    <!--修改弹出框-->
+    <div class="detail_mainPop" type="fee">
+        <div class="cancel"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:100px">待添加信息</th>
+                <th>内容</th> 
+            </tr>
+            <tr>
+                <td><input type="text" value="退款批次号：" readonly="readonly" /></td>
+                <td><input type="text" id="txtBatchNo" readonly="readonly" /></td>
+            </tr> 
+            <tr>
+                <td><input type="text" value="订单号：" readonly="readonly" /></td>
+                <td><input type="text" id="txtOrderCode2" readonly="readonly" /></td>
+            </tr> 
+            <tr>
+                <td><input type="text" value="交易编号：" readonly="readonly" /></td>
+                <td><input type="text" id="txtTradeCode" readonly="readonly" /></td>
+            </tr> 
+            <tr>
+                <td><input type="text" value="退款金额：" readonly="readonly" /></td>
+                <td><input type="text" id="txtReturnFee" /></td>
+            </tr> 
+            <tr>
+                <td><input type="text" value="退款原因：" readonly="readonly" /></td>
+                <td><input type="text" id="txtReturnReason" /></td>
+            </tr>
+
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunConfirmAdd()">确认添加</div>
+    </div>
+
+    <div class="detail_mainPop" type="integral">
+        <div class="cancel2"><img src="~/Images/bg_thickbox.png" /></div>
+        <table cellspacing="0">
+            <tr>
+                <th style="width:100px">退回积分</th>
+                <th>内容</th> 
+            </tr> 
+            <tr>
+                <td><input type="text" value="使用积分："  /></td>
+                <td><input type="text" id="txtAllIntegral" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="已退回积分：" /></td>
+                <td><input type="text" id="txtHasIntegral" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="退回积分值：" /></td>
+                <td><input type="text" id="txtReturnIntegral" /></td>
+            </tr> 
+        </table>
+        <div class="Confirm_Check Confirm_Add" onclick="FunReturnIntegral()">确认退回</div>
+    </div>
+
+</div>
+
+
+
+<script>
+
+    $(function () {
+
+
+        $(".cancel").bind("click", function () {
+            $(".detail_mainPop[type=fee]").hide();
+            $(".all").hide();
+        });
+        $(".cancel2").bind("click", function () {
+            $(".detail_mainPop[type=integral]").hide();
+            $(".all").hide();
+        });
+        $(".rebackcheck").bind("click", function () {
+
+            $(".detail_mainPop[type=fee]").show();
+            $(".all").show();
+            $("#txtReturnFee").val("");
+            $("#txtReturnReason").val("");
+
+            var _batchno = $("#selBatchNo option:selected").val();
+            var _ordercode = $(this).attr("code");
+            var _tradecode = $(this).attr("tradecode");
+            var _totalfee = $(this).attr("totalfee"); 
+            var _payfee = $(this).attr("payfee");  
+            var _rebackfee = $(this).attr("rebackfee");
+            var _hasbackfee = $(this).attr("hasbackfee");
+            var _refundId = $(this).attr("refundid");
+            var limitreturnprice = _payfee - _hasbackfee;
+            limitreturnprice = limitreturnprice.toFixed(2);
+
+            $("#txtReturnFee").attr({ "placeholder": "最多可退款￥" + (limitreturnprice), "returnFeeLimit": (limitreturnprice), "refundId": _refundId, "hasbackfee": _hasbackfee });
+
+
+            $("#txtBatchNo").val(_batchno);
+            $("#txtOrderCode2").val(_ordercode);
+            $("#txtTradeCode").val(_tradecode);
+
+        });
+        $(".rebackintegralcheck").bind("click", function () {
+
+            $(".detail_mainPop[type=integral]").show();
+            $(".all").show();
+         
+            var _batchno = $("#selBatchNo option:selected").val();
+            var _ordercode = $(this).attr("code");
+            var _tradecode = $(this).attr("tradecode");
+           
+            var _refundId = $(this).attr("refundid"); 
+            var _allintegral = $(this).attr("integral");
+            var _hasrintegral = $(this).attr("hasreturnintegral");
+            $("#txtAllIntegral").val(_allintegral);
+            $("#txtHasIntegral").val(_hasrintegral);
+            var limitreintegral = _allintegral - _hasrintegral;
+            limitreintegral = limitreintegral.toFixed(2);
+
+            $("#txtReturnIntegral").attr({ "placeholder": "最多可退" + (limitreintegral), "batchno": _batchno, "tradecode": _tradecode, "integralLimit": (limitreintegral), "refundId": _refundId, "hasreback": _hasrintegral, "ordercode": _ordercode });
+
+             
+
+        });
+    });
+
+
+    function FunConfirmAdd() {
+
+        var _batchno = $("#txtBatchNo").val();
+        var _ordercode = $("#txtOrderCode2").val();
+        var _tradecode = $("#txtTradeCode").val();
+        var _rebackfee = $("#txtReturnFee").val();
+        var _actrebackfee = $("#txtReturnFee").attr("returnFeeLimit");
+        var _refundId = $("#txtReturnFee").attr("refundId");
+        var _hasbackfee = $("#txtReturnFee").attr("hasbackfee");
+
+
+        if ((_rebackfee - _actrebackfee) > 0) {
+            alert("退款超过限度!");
+            $(".detail_mainPop[type=fee]").hide();
+            $(".all").hide();
+            return;
+        }
+
+        var _returnreason = $("#txtReturnReason").val();
+
+        $.post("/Finance/AddPayReback", { refundid:_refundId, batchno: _batchno, ordercode: _ordercode, tradecode: _tradecode, rebackfee: _rebackfee, returnreason: _returnreason }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var status = -_returncode.Status;
+                if (status == _TheArray[0]) { 
+                    alert("成功!");
+                    $("#" + refundId).attr("rebackfee", parseFloat($("#" + _refundId).attr("rebackfee")) + parseFloat(_rebackfee));//实时更新已退款金额
+                    return false;
+                }
+                else {
+                    alert(_TheArray[status]);
+                    $(".detail_mainPop[type=fee]").hide();
+                    $(".all").hide();
+                    return false;
+                } 
+        })
+    }
+    
+    function FunReturnIntegral() {
+         
+        var _returnintegral = $("#txtReturnIntegral").val();
+        var _integrallimit = $("#txtReturnIntegral").attr("integralLimit");
+        var _refundId = $("#txtReturnIntegral").attr("refundId");
+        var _hasreback = $("#txtReturnIntegral").attr("hasreback");  
+        var _ordercode = $("#txtReturnIntegral").attr("ordercode");
+        var _batchno = $("#txtReturnIntegral").attr("batchno");
+        var _tradecode = $("#txtReturnIntegral").attr("tradecode");
+ 
+        if ((_returnintegral - _integrallimit) > 0) {
+            alert("退回积分超过限度!");
+            $(".detail_mainPop[type=integral]").hide();
+            $(".all").hide();
+            return;
+        }
+
+        var _returnreason = "";
+
+        $.post("/Finance/AddPayRebackIntegral", { refundid: _refundId, batchno: _batchno, ordercode: _ordercode, tradecode: _tradecode, returnintegral: _returnintegral, returnreason: _returnreason }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                alert("成功!");
+                location.reload();
+                return false;
+            }
+            else {
+                alert(_TheArray[status]);
+                $(".detail_mainPop[type=integral]").hide();
+                $(".all").hide();
+                return false;
+            }
+        })
+    }
+    function btnSearch() {
+        var _bacthno = $("#selBatchNo option:selected").val();
+        var _ordercode = $("#txtOrderCode").val();
+        window.location.href = "/Finance/DoRefundManage/?bno=" + _bacthno + "&code=" + _ordercode;
+    }
+
+    function btnRefundDetail() {
+        var batchno = $("#selBatchNo").val();
+        window.location.href = "/Finance/RefundDetail?bno=" + batchno;
+    }
+
+</script>
+
+
+
+

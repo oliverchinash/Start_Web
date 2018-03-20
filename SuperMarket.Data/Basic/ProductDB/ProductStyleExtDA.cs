@@ -20,7 +20,7 @@ namespace SuperMarket.Data.ProductDB
 	/// ProductStyleExtEntity的数据访问操作
 	/// </summary>
 	public partial class ProductStyleExtDA: BaseSuperMarketDB
-	{
+    {
         #region 实例化
         public static ProductStyleExtDA Instance
         {

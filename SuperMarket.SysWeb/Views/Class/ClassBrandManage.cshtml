@@ -1,0 +1,124 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+    SuperMarket.Model.ClassesFoundEntity entity = ViewBag.entity;
+    IList<SuperMarket.Model.ClassBrandEntity> entitylist = ViewBag.entitylist;
+
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .admin_title > ul > li, .admin_detail > ul > li {
+        width: 25%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>分类品牌绑定管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Class/ClassBrandInfo?classid=@entity.Id"><img src="~/Themes/Img/Add.png" /></a></span>
+        </div>
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>品牌名称</li>
+                <li>生产厂家</li>
+                <li>序号</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.ClassBrandEntity item in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">@item.BrandName</li>
+                            <li class="li_iterm">@item.Manufacturer</li>
+                            <li class="li_iterm">@item.Sort</li>
+                            <li class="check">
+                                <span><a href="/Class/ClassBrandInfo?id=@item.Id&classid=@entity.Id" target="_blank">修改</a></span>
+                                <img src="~/Themes/Img/bj.png" />
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <span><a href="#" onclick="FunClassBrandDelete(this)" id="@item.Id">删除</a></span>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    function FunClassBrandDelete(obj) {
+
+        if(confirm("确定删除该对应关系?")==false){
+            return false;
+        }
+
+        $.post("/Class/ClassBrandInfoDelete", { id: $(obj).attr("id")}, function (data) {
+            if (data > 0) {
+                alert("删除成功!");
+                $(obj).parent().parent().parent().remove();
+            }
+            else {
+                alert("删除失败!")
+            }
+        })
+    }
+</script>
+

@@ -1,0 +1,245 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.StoreEntity> _entitylist = ViewBag.entitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCheckStatus {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+        #selIsActive > option {
+            text-align: center;
+        }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 13%;
+    }
+
+    .admin_detail > ul > li {
+        width: 13%;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>供应商资格审核</span></div>
+    </div>
+
+    <div class="title_main">
+
+        请选择审核状态：
+        <select id="selCheckStatus">
+
+            <option value="-1" @(Request["checkStatus"]=="-1"?"selected=selected":"")>-----选择状态-------</option>
+            <option value="0" @(Request["checkStatus"] == "0" ? "selected=selected":"")>-----注册中-------</option>
+            <option value="10" @(Request["checkStatus"]=="10"?"selected=selected":"")>-----待审核-------</option>
+            <option value="1" @(Request["checkStatus"]=="1"?"selected=selected":"")>-----审核通过-------</option>
+            <option value="2" @(Request["checkStatus"]=="2"?"selected=selected":"")>-----审核中-------</option>
+            <option value="4" @(Request["checkStatus"]=="4"?"selected=selected":"")>-----审核拒绝-------</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        法人姓名:
+        <input value="@Request["legalName"]" id="txtLegalName" />
+         &nbsp;&nbsp;&nbsp;
+        公司名称:
+        <input value="@Request["companyName"]" id="txtCompanyName" />
+
+         
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+    <div class="title_main">
+
+         
+        &nbsp;&nbsp;&nbsp;
+        联系人姓名:
+        <input value="@Request["contractname"]" id="txtContractName" />
+        联系人电话:
+        <input value="@Request["contractphone"]" id="txtContractPhone" />
+
+        账号:
+        <input value="@Request["memcode"]" id="txtMemCode" />
+
+
+        <button id="btnSearchDetail" onclick="SearchDetail()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+
+        <div class="admin_title">
+            <ul>
+                <li>账号</li>
+                <li>联系人</li>
+                <li>店铺名称</li>
+                <li>联系电话</li>
+                <li>申请时间</li>
+                <li>审核状态</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.StoreEntity _entity in _entitylist)
+                {
+                    <div class=admin_detail>
+                        <ul><li class="li_iterm">
+                                @_entity.MemCode
+                            </li>
+                            <li class="li_iterm"> @_entity.ContactsManName </li>
+                            <li class="li_iterm">
+                                @_entity.CompanyName
+                            </li>
+                            <li class="li_iterm"> @_entity.MobilePhone </li>
+                            <li class="li_iterm"> @_entity.CreateTime.ToLongDateString()</li>
+                            <li class="li_iterm">
+                                   @(_entity.Status ==
+                        (int)SuperMarket.Model.MemberStatus.WaitCheck ? "待审核" : 
+                        (_entity.Status == (int)SuperMarket.Model.MemberStatus.Active ? "通过审核" : 
+                        (_entity.Status == (int)SuperMarket.Model.MemberStatus.OnChecking ? "审核中" : "审核拒绝")))
+                            </li>
+                            <li class="li_iterm">
+                                <a href="/Check/SupplierDetail?MemId=@_entity.MemId" target="_blank">详情</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    暂时没有供应商申请
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
+<script>
+
+     
+
+    function SearchDetail() {
+        var _legalName = $.trim($("#txtLegalName").val());
+        var _companyName = $.trim($("#txtCompanyName").val());
+        var _checkStatus = $("#selCheckStatus option:selected").val();
+        var contractname = $("#txtContractName").val();
+        var contractphone = $("#txtContractPhone").val();
+        var memcode = $("#txtMemCode").val();
+        window.location.href = "/Check/CheckSupplier?memcode=" + memcode + "&contractname=" + contractname + "&contractphone=" + contractphone + "&legalName=" + _legalName + "&companyName=" + _companyName + "&checkStatus=" + _checkStatus;
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != "all") {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 2)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        }
+        else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+
+
+</script>
+
+
+
+
+

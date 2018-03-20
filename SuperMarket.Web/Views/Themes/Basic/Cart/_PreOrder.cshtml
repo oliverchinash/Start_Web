@@ -1,0 +1,200 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-订单核对</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/paycheck.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/commoncontrolbind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.js"></script>
+    <script src="/Themes/Basic/Js/paycheckbehind.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/commonboxadderss.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/commonboxbill.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body>
+    <div style="display:none;">
+        <span id="spanjishisong">@ViewBag.JiShiSong</span> 
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+ 
+    </div>
+    @{ 
+            IList<JiChen.Entities.OrderDetailPreTempEntity> _listproduc = ViewBag.ProductList;
+            IList<JiChen.Entities.OrderDetailPreTempEntity> _listproducless = ViewBag.ProductListLess;
+            JiChen.Entities.VWOrderEntity _order = ViewBag.Order;
+            JiChen.Entities.IntegralEntity _integral = ViewBag.Integral; 
+     }
+    <div class="paycheck">
+        <!----header开始----->
+        <header data-am-widget="header" class="am-header header">
+            @Html.Partial("controls/_HeadBanner")
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                     核对订单
+                </a>
+            </h1>
+        </header>
+        @*<p id="errormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p>*@ 
+        <!----header结束----->
+        <!----------收货地址开始------------>
+        <div class="paycheck-dizhi"  onclick="FunOpenCanvas('divAddressListCanvas')">
+            <div class="paycheck-dizhi-top"></div>
+            <ul class="am-list am-list-static paycheck-dizhi-ul">
+                <li class="am-g">
+                    <div class="paycheck-dizhi-main am-u-sm-10" id="divSelectAddress"> 
+                    </div>
+                    <span class="am-icon am-icon-angle-right am-icon-sm am-u-sm-2" style="padding-top: 1rem"></span>
+                </li>
+            </ul>
+        </div>
+        <!----------收货地址结束------------>
+        <!----------支付配送方式开始----------->
+        <div class="paycheck-pay">
+            <ul> 
+                <li class="am-cf"   onclick="FunOpenCanvas('divPayMethodCanvas')">
+                    <p class="am-fl">支付方式</p>
+                    <span class="am-fr" style="color:#FF532B;" id="spanSelectPayTypeName">支付宝</span>
+                </li>  
+                <li class="am-cf"  onclick="FunOpenCanvas('divLogisticsCanvas')">
+                    <p class="am-fl">配送方式</p>
+                    <span class="am-fr" style="color:#FF532B;">普通配送</span>
+                </li>  
+                <!------------优惠券选择开始------------>
+                <li class="am-cf"  onclick="FunOpenCanvas('divCoupsCanvas')">
+                    <p class="am-fl">优惠券</p>
+                    <span class="am-fr" id="spanselectcoupon">请选择<i class="am-icon am-icon-angle-right" style="padding-left: .5rem"></i></span>
+                </li>
+                <li class="am-cf" onclick="FunOpenCanvas('divBillCanvas')" id="liSelectBill">
+                    <p class="am-fl">发票类型</p>
+                    <span class="am-fr" id="spanselectbill">请选择<i class="am-icon am-icon-angle-right" style="padding-left: .5rem"></i></span>
+                </li>
+                @*@if (_integral != null && _integral.AvailableIntegral > 100)
+                {
+                    <li class="am-cf">
+                        <p class="am-fl">使用积分</p>
+                        <input placeholder="您有@(_integral.AvailableIntegral)积分可使用" id="txtUseintegral"  />
+                    </li>
+                }
+                else
+                {
+                    <li class="am-cf" style="display:none;"> 
+                        <input placeholder="您有0积分可使用" id="txtUseintegral" value="0" />
+                    </li> 
+                }*@
+              @{
+                  if (_listproduc != null && _listproduc.Count > 0)
+                  {
+                      foreach (JiChen.Entities.OrderDetailPreTempEntity _entitypro in _listproduc)
+                      {
+                          if (_entitypro.Status == 1)
+                          {     <li class="am-cf"> 
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                        <div class="am-list-news-bd">
+                            <ul class="am-list"> 
+                      <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                                    <div class="am-u-sm-4 am-list-thumb">
+                                                        <a href="/MobileProduct/Detail?pd=@(_entitypro.ProductDetailId)">
+                                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _entitypro.ProductPicList)" class="am-img-responsive" style="border: 1px solid #ddd" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="am-u-sm-8 am-list-main">
+                                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(_entitypro.ProductDetailId)" class="">@_entitypro.ProductName</a></h3> 
+                                                        <div class="am-list-item-desced am-cf" style="margin-top: 1rem">
+                                                            <a href="javascript:void(0)" class="am-fl">￥@_entitypro.ActualPrice</a> 
+                                                        </div>
+                                                        <div class="am-list-item-desced am-cf" style="margin-top: 1rem">
+                                                            数量：<span>@_entitypro.Num</span>
+                                                        </div> 
+                                                    </div>
+                                                </li>
+                                         
+                             </ul>
+                        </div>
+                    </div>
+                </li>  
+                }
+
+                                        }
+                                    }
+
+                      }
+                <!------图文介绍结束------>
+                <!------------图文介绍结束------------>
+                <!-------------优惠开始-------------->
+                <li style="line-height: 2.8rem">
+                    <div class="am-cf">
+                        <p class="am-fl">订单金额</p>
+                        <span class="am-fr">￥<span id="spanallproductamt">@_order.TotalPrice.ToString("0.00")</span></span>
+                    </div>
+                    <div class="am-cf">
+                        <p class="am-fl">折扣优惠</p>
+                        <span class="am-fr">￥-<span id="spanzhekouamt">0.00</span></span>
+                    </div>
+                    <div class="am-cf"  style="display:@(_order.DisCountFee >   0?"block":"none");">
+                        <p class="am-fl">活动优惠</p>
+                        <span class="am-fr">￥-<span id="spanhuodongamt">0.00</span></span>
+                    </div>
+                    <div class="am-cf" style="display:none;">
+                        <p class="am-fl">积分抵扣</p>
+                        <span class="am-fr">￥-<span id="spanusejifenAmt">0.00</span></span>
+                    </div> 
+                </li> 
+            </ul>
+        </div> 
+        <div class="paycheck-money">
+            <div class="paycheck-money-div">
+                实付款：￥<span  id="spanneedpayamt">@_order.ActPrice.ToString("0.00")</span>
+                <a href="javascript:void(0)" onclick="OrderSubmit()">提交订单</a>
+            </div> 
+        </div>
+        <!------------footer结束------------>
+    </div>
+<div style="display:none;"> 
+    <span id="txtSelectPayType">@((int)JiChen.Entities.PayType.WeChat)</span>
+    <input id="txtSelectAddressId" type="hidden" value="0" />
+    <input id="txtSelectAccepterName" type="hidden" value="" />
+    <input id="txtSelectProvince" type="hidden" value="" />
+    <input id="txtSelectCity" type="hidden" value="" />
+    <input id="txtSelectAddress" type="hidden" value="" />
+    <input id="txtSelectMobilePhone" type="hidden" value="" />  
+    <input id="txtBillSelectBillType" value="0" /> 
+    <input id="txtBillSelectBillId" value="" />
+    <input id="txtBillSelectBillCompanyName" value="" />   
+    <input id="txtPreOrderCode" type="hidden" value="@ViewBag.PreOrderCode" />
+    <span id="spanhidMemCouponId">0</span>
+    <span id="spanhidUseintegral">0</span>
+    <span id="spanhidallproductamt">@_order.TotalPrice.ToString("0.00")</span>
+    <span id="spanhidhuodongamt">@_order.DisCountFee.ToString("0.00")</span>
+    <span id="spanhidalltransfeeamt">@_order.TransFee.ToString("0.00")</span></div>
+    <div class="divCanvasContainer">
+        @Html.Partial("controls/_AddressListBox")
+        @Html.Partial("controls/_PayMethodBox")
+        @Html.Partial("controls/_MemCoupsBox")
+        @Html.Partial("controls/_LogisticsBox") 
+        @Html.Partial("controls/_BillListBox") 
+    </div>
+
+    @Html.Partial("controls/_AddressEditBox")
+    @Html.Partial("controls/_BillEditBox")
+    @Html.Partial("controls/_BodyBefore")
+</body>
+</html>
+
+<script id="AddressSelectBox-template" type="text/x-handlebars-template">
+      <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
+      <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
+</script>
+ <script id="BillSelectBox-template" type="text/x-handlebars-template">
+     <p class="am-fl">{{BillTypeName}}</p>
+     <span class="am-fr" id="spanselectbill">{{CompanyName}}</span> 
+</script>

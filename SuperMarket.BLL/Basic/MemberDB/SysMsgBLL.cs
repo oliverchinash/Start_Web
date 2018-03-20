@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="sysMsg">要添加的SysMsg数据实体对象</param>
-		public   int AddSysMsg(SysMsgEntity sysMsg)
+		public   int AddSysMsg(MemSysMsgEntity sysMsg)
 		{
 			  if (sysMsg.Id > 0)
             {
@@ -57,7 +57,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return SysMsgDA.Instance.AddSysMsg(sysMsg);
+                return MemSysMsgDA.Instance.AddSysMsg(sysMsg);
             }
 	 	}
 
@@ -67,16 +67,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <param name="sysMsg">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateSysMsg(SysMsgEntity sysMsg)
+		public   int UpdateSysMsg(MemSysMsgEntity sysMsg)
 		{
-			return SysMsgDA.Instance.UpdateSysMsg(sysMsg);
+			return MemSysMsgDA.Instance.UpdateSysMsg(sysMsg);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteSysMsgByKey(int id)
         {
-            return SysMsgDA.Instance.DeleteSysMsgByKey(id);
+            return MemSysMsgDA.Instance.DeleteSysMsgByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -84,7 +84,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteSysMsgDisabled()
         {
-            return SysMsgDA.Instance.DeleteSysMsgDisabled();
+            return MemSysMsgDA.Instance.DeleteSysMsgDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -97,7 +97,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return SysMsgDA.Instance.DeleteSysMsgByIds(idstr); 
+            return MemSysMsgDA.Instance.DeleteSysMsgByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
@@ -110,7 +110,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return SysMsgDA.Instance.DisableSysMsgByIds(idstr);
+            return MemSysMsgDA.Instance.DisableSysMsgByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个SysMsg实体记录。
@@ -118,20 +118,20 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>SysMsg实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   SysMsgEntity GetSysMsg(int id)
+		public MemSysMsgEntity GetSysMsg(int id)
 		{
-			return SysMsgDA.Instance.GetSysMsg(id);			
+			return MemSysMsgDA.Instance.GetSysMsg(id);			
 		}
         public int GetNoReadNumByMemId(int memid)
         {
-            return SysMsgDA.Instance.GetNoReadNumByMemId(memid);
+            return MemSysMsgDA.Instance.GetNoReadNumByMemId(memid);
         }
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<SysMsgEntity> GetSysMsgList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemSysMsgEntity> GetSysMsgList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return SysMsgDA.Instance.GetSysMsgList(pageSize, pageIndex, ref recordCount);
+            return MemSysMsgDA.Instance.GetSysMsgList(pageSize, pageIndex, ref recordCount);
         }
 		
 		public async Task GetSysMsgAll()
@@ -142,8 +142,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<SysMsgEntity> list = null;
-                    list = SysMsgDA.Instance.GetSysMsgAll();
+                    IList<MemSysMsgEntity> list = null;
+                    list = MemSysMsgDA.Instance.GetSysMsgAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -153,9 +153,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(SysMsgEntity sysMsg)
+        public bool IsExist(MemSysMsgEntity sysMsg)
         {
-            return SysMsgDA.Instance.ExistNum(sysMsg)>0;
+            return MemSysMsgDA.Instance.ExistNum(sysMsg)>0;
         }
 		
 	}

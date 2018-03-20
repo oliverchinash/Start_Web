@@ -1,0 +1,56 @@
+﻿
+<div id="divCancelReasonCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip" style="background-color: #F7F7F7">
+        <div class="am-offcanvas-content">
+            <!-------头部开始-------->
+            <header data-am-widget="header" class="am-header header">
+                <div class="am-header-left am-header-nav waitpay-offcanvas-fanhui">
+                    <a href="javascript:void(0)" class=""  onclick="FunCloseCanvas('divCancelReasonCanvas')">
+                        <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+                    </a>
+                </div>
+                <h1 class="am-header-title">
+                    退订理由
+                </h1>
+                <div class="am-header-right am-header-nav">
+                    <a href="javascript:void(0)" class="" onclick="FunOrderCancel()">
+                        提交
+                    </a>
+                </div>
+            </header>
+            <p id="ordercancelerrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p>
+            <!-------头部结束--------->
+            <ul class="am-list waitpay-pay-ul" id="ulcancelreason">
+                <li  name="商品不好">
+                    <a href="javascript:void(0)" >
+                        商品不好
+                    </a>
+                </li>
+                <li  name="价格太贵">
+                    <a href="javascript:void(0)" >
+                        价格太贵
+                    </a>
+                </li>
+                <li  name="服务不好">
+                    <a href="javascript:void(0)">
+                        服务不好
+                    </a>
+                </li>
+                <li  name="不想买了">
+                    <a href="javascript:void(0)">
+                        不想买了
+                    </a>
+                </li>
+                <li  name="买重复了">
+                    <a href="javascript:void(0)">
+                        买重复了
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="display:none;">
+        <input id="divCancelOrderCode" value="" />
+        <input id="divCancelReason" value="" />
+    </div>
+</div>

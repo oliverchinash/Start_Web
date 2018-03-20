@@ -1,0 +1,170 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.Basic.VW.Product.VWSpeProductEntity> entityList = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selOrderStatus, #selOrderTerm {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 15%;
+    }
+
+    .admin_detail > ul > li {
+        width: 15%;
+    }
+
+    .li_iterm > span {
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>特价产品管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Store/ProductList?ptype=2" target="_blank"><img src="~/Themes/Img/Add.png" /></a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+
+        按产品名称查询:
+        <input value="@Request["productName"]" id="txtProductName" />
+
+        <button onclick="FunSearchProduct()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+
+        <div class="admin_title">
+            <ul>
+                <li>产品名称</li>
+                <li>产品标题</li>
+                <li>库存数量</li>
+                <li>销量</li>
+                <li>批发价格</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+
+
+        @{
+            if (entityList != null && entityList.Count > 0)
+            {
+                foreach (SuperMarket.Model.Basic.VW.Product.VWSpeProductEntity entity in entityList)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">@entity.Name </li>
+                            <li class="li_iterm">@entity.Title</li>
+                            <li class="li_iterm">@entity.StockNum</li>
+                            <li class="li_iterm">@entity.SaleNum</li>
+                            <li class="li_iterm">@entity.TradePrice</li>
+                            <li class="li_iterm">
+                                <a href="/Store/ReleaseProduct?pdid=@entity.Id&pid=@entity.ProductId&ptype=2" target="_blank">编辑</a>&nbsp;&nbsp;&nbsp;
+                                @if (entity.Status==1)
+                                {
+                                    <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,0)">下架</a>
+                                }
+                                else
+                                {
+                                    <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,1)" style="color:red">上架</a>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <ul> @Html.Raw(ViewBag.PageStr)</ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到该记录!!!
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
+
+<script>
+ 
+
+    function FunSearchProduct() {
+        debugger
+        var _productName = $("#txtProductName").val();
+        window.location.href = "/Store/ConventionalPList?productType=0&productName=" + _productName;
+    }
+
+    function FunChangeProductStatus(id,status) {
+        $.post("/Store/OnorOffShelf", { id: id, status: status }, function (data) {
+            if (data > 0) {
+                alert("操作成功!");
+            }else{
+
+            }
+        })
+    }
+  
+
+</script>

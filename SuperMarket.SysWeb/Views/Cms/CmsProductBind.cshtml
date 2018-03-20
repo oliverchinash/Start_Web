@@ -1,0 +1,381 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "模板产品绑定";
+    SuperMarket.Model.CmsContentEntity _entity = ViewBag.ContentEntity;
+    IList<SuperMarket.Model.VWProductEntity> _styles = ViewBag.ContentStyles;
+    IList<SuperMarket.Model.CmsTempletEntity> _cmstempliet = ViewBag.CmsTemplets;
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+        min-height: 1150px;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+
+    #ulDataStyles {
+        margin-left: 120px;
+        width: 198px;
+    }
+</style>
+
+<div style="display:none;" id="divComentTemplet"></div>
+
+<div style="display:none;">
+
+    <input id="hidCmsId" value="@_entity.Id" />
+    <input id="hidSelectCmsTempletId" value="@(_entity.CmsTempletId)" />
+    <input id="hidSelectCmsTypeId" value="@(_entity.CMSType)" />
+    <input id="hidSelectCmsTempletNum" value="@ViewBag.StyleNum" />
+    <input id="txtPicServerRootUrl" value=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl />
+
+    <ul id="ulDataStyles">
+        @if (_styles != null && _styles.Count > 0)
+            {
+                foreach (SuperMarket.Model.VWProductEntity _styleentity in _styles)
+                {
+                <li id=@("liDataStyles"+_styleentity.StyleId) ProductId=@(_styleentity.ProductId) AdTitle=@(_styleentity.Title) BrandId=@(_styleentity.BrandId) Price=@(_styleentity.Price)
+                    MarketPrice=@(_styleentity.MarketPrice) PicUrl=@(_styleentity.PicUrlOld) ClassId=@(_styleentity.ClassId) TradePrice=@(_styleentity.TradePrice) Src="@(_styleentity.PicUrlOld)">
+                    @_styleentity.StyleId
+                </li>
+            }
+        }
+    </ul>
+
+</div>
+
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>模板产品绑定</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">内容标题：</div>
+                <div class="Backstage_td2"><input id="txtContentTitle" value="@_entity.Title" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板类型：</div>
+                <div class="Backstage_td2">
+                    <select id="selCmsType" onchange="CmsTempletBind()" style="width:200px;height:30px;float:left;margin-left:10px">
+                        <option value="0" @(_entity.CMSType == 0 ?"selected=selected" : "")>--请选择模板类型--</option>
+                        <option value="1" @(_entity.CMSType == 1 ?"selected=selected" : "")>首页导航</option>
+                        <option value="2" @(_entity.CMSType == 2 ?"selected=selected" : "")>左侧导航</option>
+                        <option value="3" @(_entity.CMSType == 3 ?"selected=selected" : "")>首页中部广告</option>
+                        <option value="4" @(_entity.CMSType == 4 ?"selected=selected" : "")>--分类导航--</option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">产品ID：</div>
+                <div class="Backstage_td2">
+                    <input id="txtProductId" style="width:196px;height:30px" placeholder="请依次输入产品ID并点击添加" />
+                    <input type="button" style="width:87px;height:30px;margin-left:5px;background:#fff;cursor:pointer" value="添加" onclick="AddProduct()" />
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否显示价格：</div>
+                <div class="Backstage_td2">
+                      是<input name="radioSwitch" value="1" checked="checked" type="radio" />
+                      否<input name="radioSwitch" value="0" type="radio" />
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板标题列表：</div>
+                <div class="Backstage_td2">
+                    <div id="CategorySelector">
+
+                        <ul id="ulCmsTitle" style="margin-left:8px;width:198px;">
+
+                            @if (_cmstempliet != null && _cmstempliet.Count > 0)
+                            {
+                                foreach (SuperMarket.Model.CmsTempletEntity _cmstempentity in _cmstempliet)
+                                {
+                                    <li value="@(_cmstempentity.Id)" class="@(_cmstempentity.Id==_entity.CmsTempletId?"Selected":"")" ProductNum="@_cmstempentity.ProductNum" onclick="CmsTempletIdSelected(this)">@(_cmstempentity.Title)(@(_cmstempentity.ProductNum))</li>
+                                }
+                            }
+
+                        </ul>
+
+                        <ul id="ulProductbox" style="margin:10px 0px 10px 8px;width:800px;">
+
+                            @if (_styles != null && _styles.Count > 0)
+                            {
+                                foreach (SuperMarket.Model.VWProductEntity _styleentity in _styles)
+                                {
+                                    <li style="height:65px;width:800px" id="liProductbox@_styleentity.ProductId">
+                                        <ul style="width:800px;height:62px">
+                                            <li style="width:50px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px"><a onclick="DeleteYourself(@_styleentity.ProductId)" style="color:red">删</a></li>
+                                            <li style="width:100px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px">@_styleentity.Title</li>
+                                            <li style="width:400px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px">@_styleentity.Price</li>
+                                            <li style="width:200px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px"><img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+_styleentity.PicUrl)" style="width:45px;height:45px;float:left;margin-left:45px;margin-top:8px;margin-bottom:8px"></li>
+                                        </ul>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+
+
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板内容：</div>
+                <div class="Backstage_td2">
+                    <div style="float:left;margin-left:10px" class="editor-wrap">
+                        <script id="ulCmsContent" type="text/plain" style="width:600px;height:200px;">
+                             @Html.Raw(_entity.CmsContent)
+                        </script>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">确认生成：</div>
+                <div class="Backstage_td2">
+                    <input type="button" style="cursor:pointer;background:#fff" value="生成内容" onclick="CreateCms()" />
+                    <input type="button" style="cursor:pointer;background:#fff" value="确认" onclick="BindCmsContent()" />
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+
+    $(function () {
+
+        ue = UE.getEditor('ulCmsContent', {
+            zIndex: 1,
+            initialFrameHeight: 300,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+
+        ue.on('ready', function () {
+            proTemplate.init(ue);
+        });
+
+        //ue.on('ready', function () {
+        //    ue.setContent($("#hidCmsContent").val());
+        //});
+
+        
+        
+
+
+    })//初始化
+
+    function CmsTempletBind() {
+
+        debugger
+        $("#hidSelectCmsTempletId").val("0");
+        $("#hidSelectCmsTempletNum").val("0");
+        $("#txtProductId").val("");
+        $("#ulCmsTitle").find("li").remove();
+        $("#ulProductbox").find("li").remove();
+        $("#hidSelectCmsTypeId").val($("#selCmsType option:selected").val());
+        $.post("/Cms/GetCmsTempletTitles", { cmstype: $("#selCmsType option:selected").val() }, function (data) {
+
+            var jsonobj=eval("("+data+")");
+            var str = "";
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                for (var i = 0; i < jsonobj.length; i++) {
+                    str = "<li value=" + jsonobj[i].Id + " ProductNum= " + jsonobj[i].ProductNum + " onclick='CmsTempletIdSelected(this)'>" + jsonobj[i].Title + "(" + jsonobj[i].ProductNum + ")" + "</li>";
+                    $("#ulCmsTitle").append(str);
+                }
+            }
+        })
+    }//列表绑定
+
+    function CmsTempletIdSelected(obj) {
+
+        debugger
+        $(obj).siblings().removeClass('Selected');
+        $(obj).addClass("Selected");
+        cmstempletid = $(obj).val();
+        $.post("/Cms/GetCmsTemplet", { cmstempletid: cmstempletid }, function (data) {
+            if (data != null && data != undefined) {
+
+                var jsonobj = eval("(" + data + ")");
+
+                $("#divComentTemplet").html(jsonobj.TempletContent);
+                $("#hidSelectCmsTempletNum").val($(obj).attr("ProductNum"));
+                $("#hidSelectCmsTempletId").val($(obj).val());
+            }
+        });
+
+        $("#ulProductbox").find("li").remove();
+        $("#ulDataStyles").find("li").remove();
+        $("#txtProductId").val("");
+        ue.setContent("");
+    }//点击触发
+
+    function AddProduct() {
+
+        var strPicUrl = $("#txtPicServerRootUrl").val();
+        $.post("/Common/GetProductDetails", { productid: $("#txtProductId").val() }, function (data) {
+
+            if (data != null && data != undefined) {
+                var jsonobj = eval("(" + data + ")");
+                var str = "<li id='liDataStyles" + jsonobj.ProductId + "' ProductId='" + jsonobj.ProductId + "' AdTitle='" + jsonobj.AdTitle + "' BrandId='" + jsonobj.BrandId + "'  Price='" + jsonobj.Price + "'" +
+                              "  MarketPrice='" + jsonobj.MarketPrice + "' PicUrl='" + jsonobj.PicUrl + "'  ClassId='" + jsonobj.ClassId + "'  TradePrice='" + jsonobj.TradePrice + "' >" + $("#txtProductId").val() + "</li>";
+                $("#ulDataStyles").append(str);
+
+                str = "<li id='liProductbox" + jsonobj.ProductId + "' style=height:65px;width:800px><ul style=width:800px;height:62px;overflow:hidden><li style=width:50px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px>" +
+                          "<a onclick='DeleteYourself(\"" + jsonobj.ProductId + "\")'  style=color:red>删除</a></li>" +
+                          "<li style='width:100px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px'>" + $("#txtProductId").val() +
+                          "</li><li style='width:400px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px'>" + jsonobj.AdTitle +
+                          "</li><li style='width:200px;height:60px;margin-left:4px;float:left;text-align:center;line-height:60px'>" +
+                          "<img style='width:45px;height:45px;float:left;margin-left:45px;margin-top:8px;margin-bottom:8px' src= '" + strPicUrl + jsonobj.PicUrl + "'/></li></ul></li>";
+
+                $("#ulProductbox").append(str);
+                $("#txtProductId").val("");
+            }
+        })
+
+        var num = $("#hidSelectCmsTempletNum").val();
+        var length = 1;
+        $("#ulProductbox li ul").each(function () {
+            length++;
+        });
+        if (num == length) {
+            alert("模板所需产品数量已达到,请停止添加!!!");
+        }
+    }//添加产品
+
+    function DeleteYourself(styleid) {
+        $("#liProductbox" + styleid).remove();
+        $("#liDataStyles" + styleid).remove();
+    }//删除记录
+
+    function CreateCms() {
+
+        var _switch = $("input[type=radio][name=radioSwitch]:checked").val();
+
+        debugger
+        var _cmstempletid = $("#hidSelectCmsTempletId").val();
+        var _cmstempletnum = $("#hidSelectCmsTempletNum").val();
+        var _sort = 100;
+        var _str = "";
+        var _num = 0;
+        if (_cmstempletnum == $("#ulDataStyles li").length) {
+
+            var content = $("#divComentTemplet").html();
+            var i = 0;
+
+            $("#ulDataStyles li").each(function () {
+                i++;
+                content = content.replace("_AdTitle" + i + "_", $(this).attr("AdTitle"));
+                if(_switch==1){
+                    content = content.replace("_TradePrice" + i + "_", $(this).attr("TradePrice"));
+                }
+                else if(_switch==0){
+                    content = content.replace("_TradePrice" + i + "_", "");
+                 }
+                content = content.replace("_PicUrl" + i + "_", $(this).attr("PicUrl"));
+                content = content.replace("_pid" + i + "_", $(this).attr("ProductId"));
+                content = content.replace("_TopTitle_", $("#txtContentTitle").val().trim());
+               
+
+                if (i == _cmstempletnum) {
+                    alert("生成完毕!");
+                    return;
+                }
+
+            });
+
+            ue.setContent(content, false);
+
+        }
+        else {
+            alert("产品数量不匹配");
+        }
+    }//生成内容
+
+    function BindCmsContent() {
+
+        debugger
+        var _cmstempletnum = $("#hidSelectCmsTempletNum").val();
+        if (_cmstempletnum == $("#ulDataStyles li").length) {
+
+            var _cmsid = $("#hidCmsId").val();
+            var _cmstempletid = $("#hidSelectCmsTempletId").val();
+            var _cmstyleid = $("#hidSelectCmsTypeId").val();
+            var _title = $("#txtContentTitle").val();
+            var _cmscontent = ue.getContent();
+
+            var _sort = 100;
+            var _str = "";
+            $("#ulDataStyles li").each(function () {
+                if (_str == "")
+                    _str = _cmstyleid + "_" + $(this).text().trim() + "_" + _sort;
+                else
+                    _str = _str + "|" + _cmstyleid + "_" + $(this).text().trim() + "_" + _sort;
+                _sort--;
+            })
+
+
+            $.post("/Cms/CmsComtentAdd", { str: _str, cmsid: _cmsid, cmstyleid: _cmstyleid, cmstempletid: _cmstempletid, title: _title, cmscontent: _cmscontent }, function (data) {
+                debugger
+                var _returncode = (-data);
+                if (_returncode == _TheArray[0]) {
+                    alert(_TheArray[_returncode]);
+                    window.location.href = "/Cms/CMSContentManage";
+                }
+                else {
+                    alert(_TheArray[_returncode]);
+                    return false;
+                }
+            })
+        }
+        else {
+            alert("产品数量不匹配");
+        }
+    }//提交内容
+
+</script>

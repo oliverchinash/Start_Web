@@ -45,8 +45,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -81,14 +81,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -256,9 +248,6 @@
     <Content Include="Themes\Basic\Js\diyUpload\js\webuploader.min.js" />
     <Content Include="Themes\Basic\Js\jquery-1.11.1.min.js" />
     <Content Include="Themes\Basic\Js\JsGlobalEnum.js" />
-    <Content Include="Views\Themes\Basic\Home\register.js" />
-    <Content Include="Views\Themes\Basic\Home\register2.html" />
-    <Content Include="Views\Themes\Basic\Home\register3.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -275,7 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Shared\Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -295,11 +283,6 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Logout.cshtml" />
     <Content Include="Views\Home\Reg.cshtml" />
-    <Content Include="Views\Home\Reg2.cshtml" />
-    <Content Include="Views\Home\Reg3.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\RegisterAgree.cshtml" />
-    <Content Include="Views\Home\RegMsg.cshtml" />
     <Content Include="Views\Member\PersonalMsg.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -311,15 +294,34 @@
     <Content Include="Views\Themes\Basic\Home\_HasNoAuth.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Login.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_LogOut.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_Reg - 复制.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Reg.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_Reg2.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_Reg3.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_Register.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_RegisterAgree.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_RegMsg.cshtml" />
     <Content Include="Views\Themes\Basic\Main\_LoginB_Master.cshtml" />
     <Content Include="Views\Themes\Basic\Member\_PersonalMsg.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">
+      <Project>{81dbd8d6-519a-4850-a5e4-bc94102572f1}</Project>
+      <Name>SuperMarket.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Core\SuperMarket.Core.csproj">
+      <Project>{141147c2-4822-4f66-84c8-a277ab1d7d51}</Project>
+      <Name>SuperMarket.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.LoginWebControllers\SuperMarket.LoginWebControllers.csproj">
+      <Project>{ff924d13-0a49-4acf-b473-6bf8e7c10def}</Project>
+      <Name>SuperMarket.LoginWebControllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
+      <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
+      <Name>SuperMarket.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SuperMarket.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_BodyBefore.cshtml" />
+    <Content Include="Views\Shared\Controls\_HeadLeftBanner.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "_Index"; 
+}  
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-注册</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" /> 
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link href="/themes/basic/css/basic.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Themes/Basic/css/relogin.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div class="register">
+        <!----头部开始------>
+        <header data-am-widget="header" class="am-header header">
+         @Html.Partial("controls/_HeadBanner")
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                    会员注册
+                </a>
+            </h1>
+        </header>
+        <!----头部结束------>
+        <!---注册开始---->
+        <div class="register-main">
+            <div class="am-g" style="padding-top:1rem">
+                <p class="am-u-sm-12 am-center" style="margin-bottom: .8rem">1,验证手机>2 填写资料>3等待审核</p>
+            </div>
+            <p id="perrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;">@ViewBag.ErrorTitle</p> 
+            <form action="" class="am-form am-form-inline">
+                <div class="am-form-icon user-ipone">
+                    <i class="am-icon-mobile-phone"></i>
+                    <input type="text" class="am-form-field" id="txtMobile" placeholder="请输入手机号码">
+                </div> 
+                <div class="am-form-icon user-ipone2">
+                    <i class="am-icon-mobile-phone"></i>
+                    <input type="text" class="am-form-field"  id="txtMobileYZCode"  placeholder="请输入手机验证码">
+                    <a href="javascript:void(0)" id="divTime" style="display:none;" class="user-ipone-a"></a>
+                    <a href="javascript:void(0)" id="divGetCode" onclick="GetMobileYzCode()"  class="user-ipone-a">获取验证码</a>
+                </div> 
+                <!---同意加盟---->
+                <div class="register-text">
+                    <i class="am-icon-check-circle am-fl" style="padding-top:1.5rem; color:red;"></i>
+                    <p class="am-fl">我同意<a href="/MobileHome/HelpContent?title=易店心注册协议" style="color:red">易店心协议</a></p>
+                </div>
+            </form>
+            <div style="padding: 1rem 2rem">
+                <a class="am-btn register-sub" href="javascript:Register();" type="submit">下一步</a>
+            </div>
+        </div>
+    </div> @Html.Partial("controls/_BodyBefore")
+</body>
+</html>
+<script>
+        function GetMobileYzCode() {
+            var mobile = $.trim($("#txtMobile").val());
+            if (mobile == "") {
+                alert("请输入手机号码！")
+                return;
+            }
+            if (!mobile.isHandSet()) {
+                alert("你输入的手机号码不符合规范！")
+                return;
+            }
+            FunCountDown();
+            $.post("/Home/CheckHasMemPhone", { mobilePhone: mobile }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var _returnStatus = -_returncode.Status;
+                if (_returnStatus == _TheArray[0]) {  
+                    $.ajax({
+                        url: "/Home/SendRegisterMobileMessage",
+                        type: "GET",
+                        dataType: 'json',
+                        data: { mobile: mobile },
+                        success: function (data) {
+                            var _returncode =  data  ;
+                           //var _returncode = eval("(" + data + ")");
+                            var _returnStatus = -_returncode.Status;
+                            if (_returnStatus == _TheArray[0]) {
+                            }
+                            else {
+                                alert(_TheArray[_returnStatus]);
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert("Http status: " + xhr.status + " " + xhr.statusText + "\najaxOptions: " + ajaxOptions + "\nthrownError:" + thrownError + "\n" + xhr.responseText);
+                        },
+                        complete: function (data, status) {
+                        }
+                    });
+                }
+                else {
+                    alert(_TheArray[_returnStatus]);
+                    _max = 0;
+                }
+
+            })
+        }
+        var _max = 60;
+        var _interval;
+
+        function FunCountDown() {
+            $("#divGetCode").hide();
+            $("#divTime").show();
+            _interval = setInterval("ChangeText()", 1000);
+            _max = _max - 1;
+            $("#divTime").html(_max + "S"); 
+        }
+        function ChangeText() {
+
+            _max = _max - 1;
+            if (_max <= 0) {
+                $("#divGetCode").show();
+                $("#divTime").hide();
+                clearInterval(_interval);
+                _max = 60;
+            }
+            $("#divTime").html(_max + "S");
+        }
+        function CheckLogin() {
+            var usercode = $.trim($("#txtUserName").val());
+            var isex = $.ajax({ url: "/Home/CheckMemberCode", async: false, data: "useraccount=" + usercode }).responseText;
+            if (isex == 1) {
+                $("#divUserNameMsg").html("亲，您输入的账号名已存在，请更改！");
+                $("#txtUserName").focus();
+                return false;
+            }
+            else {
+                $("#divUserNameMsg").html("");
+
+            }
+        }
+
+        function Register() { 
+             var txtMobile = $.trim($("#txtMobile").val());
+            var txtMobileYZCode = $.trim($("#txtMobileYZCode").val());
+             
+            var jiaoyan = true;
+            if (txtMobile == "") {
+                $("#perrormsg").html("手机号码不能为空"); $("#txtMobile").focus();
+                jiaoyan = false;
+            } 
+            else if (txtMobileYZCode == "") {
+                $("#perrormsg").html("手机验证码不能为空"); $("#txtMobileYZCode").focus();
+                jiaoyan = false;
+            }  
+            if (!jiaoyan) {
+                return;
+            } 
+            if (!txtMobile.isHandSet()) {
+                $("#perrormsg").html("你输入的手机号码不符合规范！")
+                $("#txtMobile").focus();
+                return;
+            } 
+            location.href = "/MobileHome/RegMsg?mobile=" + txtMobile + "&vCode=" + txtMobileYZCode;
+
+            return false;
+        }
+</script>

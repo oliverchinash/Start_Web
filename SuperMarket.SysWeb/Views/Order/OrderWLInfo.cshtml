@@ -1,0 +1,160 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    SuperMarket.Model.WLPsOrderDetailEntity entity = ViewBag.entity;
+
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selWLCompany, #selHasBill {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>订单物流信息@(entity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">物流单号码：</div>
+                <div class="Backstage_td2"><input id="txtTransferCode" value="@entity.TransferCode" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">请选择物流公司：</div>
+                <div class="Backstage_td2">
+                    <select id="selWLCompany">
+
+                        <option value="0">-----------------物流公司---------------</option>
+                        <option value="1"  @(entity.WLCompanyId == 1 ? "selected=selected" : "")>--顺丰--</option>
+                        <option value="2"  @(entity.WLCompanyId == 2 ? "selected=selected" : "")>--圆通--</option>
+                        <option value="3"  @(entity.WLCompanyId == 3 ? "selected=selected" : "")>--韵达--</option>
+                        <option value="4"  @(entity.WLCompanyId == 4 ? "selected=selected" : "")>--中通--</option>
+                        <option value="5"  @(entity.WLCompanyId == 5 ? "selected=selected" : "")>--申通--</option> 
+
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">请选择是否携带发票：</div>
+                <div class="Backstage_td2">
+                    <select id="selHasBill">
+                        <option value="-1">---------------是否携带发票-----------</option>
+                        <option value="1" @(entity.HasBill == 1 ? "selected=selected" : "")>------------------是------------------</option>
+                        <option value="0" @(entity.HasBill == 0 ? "selected=selected" : "")>------------------否------------------</option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">送货人名称：</div>
+                <div class="Backstage_td2"><input id="txtSendManName" value="@entity.SendManName" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">送货人号码：</div>
+                <div class="Backstage_td2"><input id="txtSendManPhone" value="@entity.SendManPhone" /></div>
+            </li>
+
+
+        </ul>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"></div>
+        <div class="deserve" onclick="OrderWLInfoEdit()"><span style="cursor:pointer;">@(entity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+</div>
+
+<div style="display:none">
+
+    <input type="hidden" value="@ViewBag.orderdetailid" id="hidOrderDetailId" />
+    <input type="hidden" value="@ViewBag.ordercode" id="hidOrderCode" />
+    <input type="hidden" value="@entity.Id" id="hidId" />
+
+</div>
+
+<script type="text/javascript">
+
+    function OrderWLInfoEdit() {
+
+        if ($("#txtTransferCode").val() == "") {
+            alert("物流单号码!");
+            return false;
+        }
+
+        if ($("#selWLCompany").val() == 0) {
+            alert("请选择配流公司!");
+            return false;
+        }
+
+        if ($("#selHasBill").val() == 0) {
+            alert("请选择是否携带发票!");
+            return false;
+        }
+
+        if ($("#txtSendManName").val() == "") {
+            alert("请输入送货人名称!");
+            return false;
+        }
+
+        if ($("#txtSendManPhone").val() == "") {
+            alert("请输入送货人手机号码!");
+            return false;
+        }
+
+        var _id = $("#hidId").val();
+        var _orderdetailid = $("#hidOrderDetailId").val();
+        var _ordercode = $("#hidOrderCode").val();
+        var _transfercode = $("#txtTransferCode").val();
+        var _wlcompany = $("#selWLCompany").val();
+        var _hasbill = $("#selHasBill").val();
+        var _sendmanname = $("#txtSendManName").val();
+        var _sendmanphone = $("#txtSendManPhone").val();
+
+
+        $.post("/Order/SubmitOrderWLInfo", {
+            transfercode: _transfercode, wlcompany: _wlcompany, hasbill: _hasbill,
+            sendmanname: _sendmanname, sendmanphone: _sendmanphone, orderdetailid: _orderdetailid, ordercode: _ordercode, id: _id
+        }, function (data) {
+            debugger;
+            if (data > 0) {
+                alert("成功!");
+                window.location.href = "/Order/OrderManage?status=3";
+            }
+            else {
+                alert("失败!该订单信息已存在!");
+            }
+        });
+
+    }
+
+
+</script>

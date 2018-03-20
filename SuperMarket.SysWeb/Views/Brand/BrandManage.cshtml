@@ -1,0 +1,206 @@
+﻿
+@{
+    Layout = "../Main/_Member_Master.cshtml";
+}
+
+@{
+
+    IList<SuperMarket.Model.BrandEntity> entitylist = ViewBag.entitylist;
+    //int _classid = ViewBag.classid;
+    //string _op = ViewBag.op;
+
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .admin_title > ul > li, .admin_detail > ul > li {
+        width: 25%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+</style>
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selIsHot {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+        #selLevel > option {
+            text-align: center;
+        }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>品牌管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Brand/BrandInfo"><img src="~/Themes/Img/Add.png" /></a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+
+        请选择层级:
+        <select id="selIsHot">
+
+            <option value="-1">请选择是否热门</option>
+
+            <option value="1" @(Request["ishot"]=="1"?"selected=selected":"")>热门</option>
+
+            <option value="0" @(Request["ishot"]=="0"?"selected=selected":"")>冷门</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        品牌名称:
+        <input value="@Request["name"]" id="txtName" />
+
+        <button id="SearchClass" onclick="FunSearchBrand()">查询</button>
+
+        <div class="add_admin">
+
+
+        </div>
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>品牌名称</li>
+                <li>是否热门</li>
+                <li>生产厂家</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.BrandEntity entity in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">@entity.Name</li>
+                            <li class="li_iterm">@(entity.IsHot == 1 ? "热门" : "冷门")</li>
+                            <li class="li_iterm">@entity.Manufacturer</li>
+                            <li class="check">
+                                <span><a href="/Brand/BrandInfo?id=@entity.Id">修改</a></span>
+                                <img src="~/Themes/Img/bj.png" />
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <span><a href="#" onclick="FunBrandDelete(this)" id="@entity.Id">删除</a></span>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function FunSearchBrand() {
+        var _ishot = $("#selIsHot").val();
+        var _name = $("#txtName").val();
+        window.location.href = "/Brand/BrandManage?ishot="+_ishot+"&name="+_name;
+    }
+
+
+    function FunBrandDelete(obj) {
+        
+        if(confirm("确定删除该品牌?")==false){
+            return false;
+        } 
+        $.post("/Brand/BrandInfoDelete", { id: $(obj).attr("id")}, function (data) {
+            if (data > 0) {
+                alert("删除成功!");
+                $(obj).parent().parent().parent().remove();
+            }
+            else {
+                alert("删除失败!")
+            }
+        })
+    }
+</script>

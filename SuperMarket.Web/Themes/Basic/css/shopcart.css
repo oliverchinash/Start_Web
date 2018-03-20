@@ -1,0 +1,191 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.cl{
+    clear: none;
+}
+
+/**********购物车页面1开始***********/
+.shopcart{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+/**********内容开始**********/
+.shopcart-main{
+    width: 100%;
+    margin-top:20%;
+    color: #ccc;
+}
+.shopcart-main p{
+    color: #999;
+    font-size: 1.4rem;
+    margin: 1rem 0 .6rem 0;
+}
+.shopcart-main .am-btn{
+    padding: .4rem .8rem;
+    border-radius: .3rem;
+}
+.shopcart-main .shopcart-soucang{
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.shopcart-main .shopcart-soucang a{
+    color: #666;
+}
+.shopcart-main .shopcart-shoping{
+    background: #FF532B;
+    margin-left: 1rem;
+}
+.shopcart-main .shopcart-shoping a{
+    color: #fff;
+}
+
+/**********购物车页面1结束************/
+
+/**********购物车页面2开始************/
+.shoping{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+}
+
+/******内容开始******/
+.shoping-main{
+    background: #fff;
+    padding-bottom: 5rem;
+}
+
+
+.shoping-main .am-checkbox, .am-radio{
+    margin: 0;
+}
+.shoping-main .am-list-news-default .am-list{
+    margin-bottom: 0;
+}
+.shoping-main .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+    line-height: 2rem;
+}
+.shoping-main .am-list-main{
+    text-align: left;
+
+}
+.shoping-main .am-list-item-hd{
+    color: #000;
+    height: 45px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+
+.shoping-main .am-list-main h3 a{
+    color: #343434;
+}
+.shoping-main .am-list-item-text a{
+    color: #FF532B;
+}
+.shoping-main .am-list-item-desced{
+    margin-top: .5rem;
+}
+.shoping-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 8rem;
+    height: 8rem;
+}
+[class*=am-u-]{
+    padding-right: .5rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/*********全选结算开始*********/
+.shoping-navbar .am-navbar-nav{
+    padding: 0;
+
+}
+.shoping-navbar ul .am-navbar-nav a .am-navbar-label{
+    font-size: 1.4rem;
+}
+
+.shoping-navbar-li2{
+    width: 35%;
+    background: #FF532B;
+    float: right;
+    text-align: center;
+}
+.shoping-navbar-li2 a{
+    color:#fff;
+}
+
+.shoping-navbar-li3{
+    float: right;
+    background-color: #fff;
+    padding-right: .5rem;;
+}
+.shoping-navbar-li3 .shoping-navbar-btn1{
+    margin-top: -.5rem;
+    background-color: #EFEFEF;
+    font-size: 1.4rem;
+}
+.shoping-navbar-li3 .shoping-navbar-btn2{
+    font-size: 1.4rem;
+    margin-top: -.5rem;
+    background-color: #FF532B;
+    color: #fff;
+}
+/*******底部提交订单*******/
+.shoping-money{
+    background: #fff;
+    height: 45px;
+    width: 100%;
+    max-width: 75rem;
+    position: fixed;
+    bottom: 0;
+    line-height: 45px;
+    text-align: left;
+}
+.shoping-money-div{
+    padding-left: 1rem;
+}
+.shoping-money span{
+    color: #FF532B;
+}
+/**********删除框样式********/
+.am-dimmer.am-active{
+    opacity: 0;
+}
+/**********删除弹出框样式********/
+.layui-layer-btn .layui-layer-btn0{
+    border-color:#FF532B !important;
+    background-color:#FF532B !important;
+    color: #fff;
+}
+.layui-layer-title{
+    padding: 0 !important;
+}
+.layui-layer-btn{
+    text-align: center !important;
+}
+/**********购物车页面2结束************/
+
+

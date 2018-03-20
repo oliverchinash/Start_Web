@@ -121,7 +121,7 @@ namespace SuperMarket.BLL.CatograyDB
 		/// </summary>
 		/// <returns>ClassProDetails实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   ClassProDetailsEntity GetClassProDetails(int id,bool cache=true)
+		public   ClassProDetailsEntity GetClassProDetails(int id,bool cache=false)
 		{     ClassProDetailsEntity list = null;
             if (cache)
             {

@@ -1,0 +1,208 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+
+    IList<SuperMarket.Model.SMSNoticeEntity> entitylist = ViewBag.entitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selPlatform,#selSendStatus{
+        width:200px;
+        height:32px;
+        margin-top:9px;
+        margin-left:12px;
+    }
+       #selLevel>option{
+        text-align:center
+    }
+
+       button{
+           width:100px;
+           height:32px;
+           margin-left:20px
+       }
+
+       .title_main>input{
+           width:200px;
+           height:32px
+       }
+
+       .add_admin>span{
+           width:100px;
+           margin-left:-100px
+       }
+        .add_admin>span>a{
+           color:blue;
+       }
+
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>分类管理</span></div>
+        <div class="add_admin">
+            @*<span><a href="/Class/ClassEdit?id=0&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加待发送信息</a></span>*@
+        </div>
+    </div>
+
+
+    <div class="title_main">
+
+        请选择平台
+        <select id="selPlatform">
+
+            <option value="-1">请选择平台</option>
+            <option value="@((int)SuperMarket.Model.SystemType.B2B)">B2B平台</option>
+            <option value="@((int)SuperMarket.Model.SystemType.B2BBehind)">B2B平台后台</option>
+            <option value="@((int)SuperMarket.Model.SystemType.Purchase)">易店心汽配采购网</option>
+            <option value="@((int)SuperMarket.Model.SystemType.PurchaseBehind)">易店心汽配采购网后台</option>
+
+        </select>
+
+        请选择发送状态:
+        <select id="selSendStatus">
+
+            <option value="-1">请选择发送状态</option>
+            <option value="@((int)SuperMarket.Model.SMSNoticeStatus.WaitSend)">待发送</option>
+            <option value="@((int)SuperMarket.Model.SMSNoticeStatus.HasSend)">已发送</option>
+            <option value="@((int)SuperMarket.Model.SMSNoticeStatus.SendError)">发送失败</option>
+
+        </select>
+
+        <button id="btnSearchClass" onclick="FunSearchNotice()">查询</button>
+
+    </div>
+
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:20%">待发送手机号码</li>
+                <li style="width:20%">发送状态</li>
+                <li style="width:20%">创建时间</li>
+                <li style="width:40%">操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.SMSNoticeEntity entity in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm" style="width:20%">@entity.MobilePhone</li>
+                            <li class="li_iterm" style="width:20%">@(entity.Status == 0 ? "待发送" : (entity.Status == 1 ? "已发送" : "发送失败"))</li>
+                            <li class="li_iterm" style="width:20%">@entity.CreateTime.ToLongDateString()</li>
+                            <li class="check" style="width:40%">
+                                <span>
+                                    <a href="/Message/SendMsgEdit?id=@entity.Id" target="_blank">修改</a>
+                                </span>
+                                <img src="~/Themes/Img/bj.png" />
+
+                                <span>
+                                    <a href="http://www.baidu.com" target="_blank" onclick="FunDelSendMsg(this); return false;" MsgId="@entity.Id">删除</a>
+                                </span>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+
+    </div>
+
+    <input type="hidden" value="@Request["status"]" id="hidStatus"/>
+    <input type="hidden" value="@Request["systemType"]" id="hidSystemType"/>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var _systemType = $("#hidSystemType").val();
+        if (_systemType != ""&&_systemType!=null) {
+            $("#selPlatform option[value=" + _systemType + "]").attr("selected", true);
+        }
+        else {
+            $("#selPlatform").val(0);
+        }
+
+        var _status = $("#hidStatus").val();
+        if (_status != ""&&_status!=null) {
+            $("#selSendStatus option[value=" + _status + "]").attr("selected", true);
+        }
+        else {
+            $("#selSendStatus").val(-1);
+        }
+
+    })
+
+    function FunSearchNotice() {
+
+        var _systemType = $("#selPlatform").val();
+        var _sendStatus = $("#selSendStatus").val();
+        location.href = "/Message/SendMsgList?systemType=" + _systemType + "&status=" + _sendStatus;
+
+    }
+
+    function FunDelSendMsg(obj) {
+        var _id = $(obj).attr("MsgId");
+        $.post("/Message/DelSendMsg", {id:_id}, function (data) {
+            if (data > 0) {
+                alert("删除成功!");
+                location.reload(true);
+            }
+            else {
+                alert("删除失败!");
+            }
+        })
+    }
+
+
+</script>
+
+
+

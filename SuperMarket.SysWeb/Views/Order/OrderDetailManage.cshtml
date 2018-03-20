@@ -1,0 +1,234 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.OrderDetailEntity> _entitylist = ViewBag.entitylist;
+    string _opration = ViewBag.opration;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selHasComment {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 20%;
+    }
+
+    .admin_detail > ul > li {
+        width: 20%;
+    }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>订单详情管理</span></div>
+    </div>
+
+    <div class="title_main">
+
+        产品名称:
+        <input value="@Request["productname"]" id="txtProductName" />
+
+        &nbsp;&nbsp;&nbsp;
+
+        <button onclick="btnSearchOrderDetailList()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div id="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>订单详情号</li>
+                <li>产品名称</li>
+                <li>总价格</li>
+                <li>操作</li>
+                <li>查看订单</li>
+
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.OrderDetailEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+
+                            <li class="li_iterm">@entity.Id</li>
+                            <li class="li_iterm">@entity.ProductName</li>
+                            <li class="li_iterm">@entity.TotalPrice</li>
+
+                            @if (_opration == "goodDelivery")
+                            {
+                                if (entity.IsDeliveried == 0)
+                                {
+                                    <li ><a href = "/Order/OrderWLInfo?orderdetailid=@entity.Id&ordercode=@entity.OrderCode" target = "_blank" > 发货 </a ></li >
+                                }
+                                else if (entity.IsDeliveried == 1)
+                                {
+                                    <li ><a href = "/Order/OrderWLInfo?orderdetailid=@entity.Id&ordercode=@entity.OrderCode" target = "_blank" > 修改发货信息 </a ></li >
+                                }
+                            }
+                            else if (_opration== "returnAuthen")
+                            {
+                                if (entity.CanReturn==1)
+                                {
+                                    <li><a onclick="FunCanReturn(this,0)" detailid="@entity.Id" href="javascript:void(0)">不可退换货</a></li>
+                                }
+                                else if (entity.CanReturn == 0)
+                                {
+                                    <li><a onclick="FunCanReturn(this,1)" detailid="@entity.Id" href="javascript:void(0)">准予退换货</a></li>
+                                }
+                            }
+                            <li class="li_iterm"><a href="/Order/OrderDetails/?ordercode=@entity.OrderCode&orderDetailId=@entity.Id" target="_blank">订单详情</a> </li>
+
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="product-main-detail">
+                    没有找到该记录!
+                </div>
+            }
+        }
+
+    </div>
+
+    <input type="hidden" value="@ViewBag.ordercode" id="hidordercode" />
+    <input type="hidden" value="@ViewBag.opration" id="hidopration" />
+
+</div>
+
+<script>
+
+    function btnSearchOrderDetailList() {
+
+        debugger;
+        var _productname = $("#txtProductName").val();
+        var _hascomment = $("#selHasComment").val();
+        var _ordercode = $("#hidordercode").val();
+        window.location.href = "/Order/OrderDetailManage/?productname=" + _productname + "&ordercode=" + _ordercode + "&opration=" + $("#hidopration").val();
+
+    }
+
+    function FunCanReturn(obj,canreturn) {
+
+        if(!confirm("是否使该订单可退换货!")){
+            return false;
+        }
+        debugger
+        var _id = $(obj).attr("detailid");
+        var _canreturn = canreturn;
+
+        $.post("/Order/OrderCanReturnCheck",{id:_id,canreturn:_canreturn},function(data){
+            if(data>0){
+                
+            }else{
+                alert("失败!")
+            }
+        });
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != "all") {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 2)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        }
+        else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+
+</script>
+
+
+
+

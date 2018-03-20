@@ -1,0 +1,236 @@
+﻿@{
+    SuperMarket.Model.VWMemberEntity _member = ViewBag.VWMember;
+}
+<div class="property">
+    <!-----头部----->
+    <div class="property-top">
+        <h3 class="fl">添加虚拟注册用户</h3> 
+    </div>
+    <div class="clear"></div>
+    <!----------右边内容开始----------->
+    <input type="hidden" id="hidMemId" value="@_member.MemId" />
+    <div class="register-main">
+        <!------用户名------>
+        <div class="register-number" style="display:none;">
+            <span class="fl">用户名</span>
+            <input type="text" id="txtUserName" onblur="CheckLogin()" value="@_member.MemCode" placeholder="字母/中文/数字" class="fl">
+            <p class="Errormsg" id="divUserNameMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <!------公司名称------>
+        <div class="register-number">
+            <span class="fl">公司名称</span>
+            <input type="text" placeholder="请输入公司名称" value="@_member.CompanyName" id="txtCompanyName" onchange="FunCheckIsNotNull(this)" class="fl">
+            <p class="Errormsg" id="divCompanyNameMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <!------公司所在地------>
+        <div class="register-number2">
+            <input type="hidden" id="hidProvince" value="@_member.CompanyProvinceId" />
+            <input type="hidden" id="hidCity" value="@_member.CompanyCityId" />
+            <span class="fl">公司所在地</span>
+            <div class="register-number2-w fl">
+                <select id="selProvince" onchange="FunCheckIsNotNullOfSelect(this)">
+                    <option value="0">请选择</option>
+                </select>
+                <select id="selCity">
+                    <option value="0">请选择</option>
+                </select>
+            </div>
+            <p class="Errormsg" id="divProvinceMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <!------公司地址------>
+        <div class="register-number">
+            <span class="fl">公司地址</span>
+            <input type="text" value="@_member.CompanyAddress" id="txtCompanyAddress" placeholder="请输入公司地址" onchange="FunCheckIsNotNull(this)" class="fl">
+            <p class="Errormsg" id="divCompanyAddressMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <div class="register-type">
+            <span class="fl">用户类型</span>
+            <div class="register-type-right fl"> 
+                <div class="register-type-top">
+                 
+                    <a class="fl">
+                        <input type="checkbox" id="chkIsSupplier" name="chkIsSupplier" checked  >
+                        供应商用户
+                    </a>
+                    <a class="fl">
+                        <input type="checkbox" id="chkIsStore" name="chkIsStore"   @(_member.IsStore == 1 ? "checked" : "")>
+                        修理厂用户
+                    </a>
+                </div>
+            </div>
+            <p class="Errormsg" id="divCompanyTypeMsg"></p>
+            <div class="clear"></div>
+        </div>
+        <!-----用户类型------->
+        <div class="register-type" style="display:none;">
+            <span class="fl">企业类型</span>
+            <div class="register-type-right fl">
+                <input id="hidCompanyType" type="hidden" value="@(_member.CompanyType==0?2 :_member.CompanyType)" />
+                <div class="register-type-top">
+                    <a class="fl">
+                        <input type="radio" name="radCompanyType" value="1" @(_member.CompanyType == 1 ? "checked" : "")>
+                        4S店
+                    </a>
+                    <a class="fl">
+                        <input type="radio" name="radCompanyType" value="2" @((_member.CompanyType == 2 || _member.CompanyType == 0) ? "checked" : "")>
+                        维修厂
+                    </a>
+                    <a class="fl">
+                        <input type="radio" name="radCompanyType" value="3" @(_member.CompanyType == 3 ? "checked" : "")>
+                        经销商
+                    </a>
+                </div>
+            </div>
+            <p class="Errormsg" id="divCompanyTypeMsg"></p>
+            <div class="clear"></div>
+        </div>
+        <div class="register-number">
+            <span class="fl">联系人姓名</span>
+            <input type="text" placeholder="请输入推荐人姓名" id="txtContactsManName" onchange="FunCheckIsNotNull(this)" value="@_member.ContactsManName" class="fl">
+            <p class="Errormsg" id="divContactsManNameMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <!------验证码------>
+        <div class="register-verify">
+            <span class="fl">联系人手机</span>
+            <input type="text" placeholder="请输入联系人手机" id="txtMobile" onchange="FunCheckIsNotNull(this)" value="@(string.IsNullOrEmpty(_member.ContactsMobile)? _member.MobilePhone: _member.ContactsMobile)" class="fl">
+            <p class="Errormsg" id="divMobileMsg"></p>
+        </div>
+        <div class="clear"></div>
+        <!--------同意------->
+        
+        <div class="register-btn">
+            <button onclick="Register2()">虚拟注册</button>
+        </div>
+        <!-------立即注册结束------->
+    </div>
+    <!----------右边内容结束----------->
+    <div class="clear"></div>
+</div>
+<script>
+    $(function () {
+        BindDropParent($("#selProvince"), "/Common/GetProvinceJson", "", "34"); //绑定省份下拉框
+        $("#hidProvince").val("34"); 
+        var paraminit = { pcode: "34" };
+        BindDropParent($("#selCity"), "/Common/GetCityJson", paraminit, "3401"); //绑定市下拉框
+        $("#hidCity").val("3401");
+        $("#selProvince").change(function () { //省份下拉框change事件
+            $("#hidProvince").val($(this).find("option:selected").val());
+            $("#hidCity").val("");
+            var param = { pcode: $(this).val() }
+            BindDropParent($("#selCity"), "/Common/GetCityJson", param); //绑定市下拉框
+        });
+        $("#selCity").change(function () { //绑定市下拉框change事件
+            $("#hidCity").val($(this).find("option:selected").val());
+        });
+    });
+    function FunCheckIsNotNull(obj) {
+        if ($(obj).val() != "") {
+            $(obj).parent().parent().find(".Errormsg").html("");
+        }
+    }
+
+     
+    function Register2() {
+        debugger
+        var usercode = $.trim($("#txtUserName").val());
+        var txtMobile = $.trim($("#txtMobile").val());
+        var companyname = $.trim($("#txtCompanyName").val());
+        var province = $.trim($("#hidProvince").val());
+        var city = $.trim($("#hidCity").val());
+        var address = $.trim($("#txtCompanyAddress").val());
+        var comtype = $('#hidCompanyType').val();
+        var contractmanname = $.trim($("#txtContactsManName").val());
+        var jiaoyan = true;
+        var issysuser = 0;
+        var issupplier= 0;
+        var isstore = 0;
+        if ($('#chkIsSysUser').is(':checked')) {
+            issysuser = 1;
+        }
+        if ($('#chkIsSupplier').is(':checked')) {
+            issupplier = 1;
+        }
+        if ($('#chkIsStore').is(':checked')) {
+            isstore = 1;
+        }
+        //if (usercode == "") {
+        //    $("#divUserNameMsg").html("用户名不能为空");
+        //    $("#txtUserName").focus();
+        //    jiaoyan = false;
+        //}
+        //else {
+        //    $("#divUserNameMsg").html("");
+        //}
+        if (txtMobile == "") {
+            $("#divMobileMsg").html("联系人手机号码不能为空");
+            $("#txtMobile").focus();
+            jiaoyan = false;
+        }
+        else {
+            $("#divMobileMsg").html("");
+        }
+        if (companyname == "") {
+            $("#divCompanyNameMsg").html("公司名称不能为空"); $("#txtCompanyName").focus();
+            jiaoyan = false;
+        } else {
+            $("#divCompanyNameMsg").html("");
+        }
+        if (province == "" || province == "0" || city == "" || city == "0") {
+            $("#divProvinceMsg").html("请选择省份城市");
+            jiaoyan = false;
+        } else {
+            $("#divProvinceMsg").html("");
+        }
+        if (comtype == "" || comtype == "0") {
+            $("#divCompanyTypeMsg").html("请选择企业类型");
+            jiaoyan = false;
+        } else {
+            $("#divCompanyTypeMsg").html("");
+        }
+        if (contractmanname == "") {
+            $("#divContactsManNameMsg").html("联系人姓名不能为空"); $("#txtContactsManName").focus();
+            jiaoyan = false;
+        } else {
+            $("#divContactsManNameMsg").html("");
+        }
+        if (address == "") {
+            $("#divCompanyAddressMsg").html("公司地址不能为空"); $("#txtCompanyAddress").focus();
+            jiaoyan = false;
+        } else {
+            $("#divCompanyAddressMsg").html("");
+        }
+        if (!jiaoyan) {
+            return;
+        }
+
+        if (!txtMobile.isHandSet()) {
+            $("#divMobileMsg").html("手机号码格式不规范！")
+            $("#txtMobile").focus();
+            return;
+        }  
+        $.post("/SysMemHome/MemSimpleAddSubmit", {
+            useraccount: usercode, mobile: txtMobile,   issysuser: issysuser, issupplier: issupplier,
+            isstore:isstore,
+            companyname: companyname, province: province, city: city, comtype: comtype, contractmanname: contractmanname, address: address
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                var memobj = _returncode.Obj;
+                location.href = "/SysMemHome/MemberList?mobilephone=" + memobj;
+                return false;
+            }
+            else {
+                alert(_TheArray[status]);
+                return false;
+            }
+        });
+
+        return false;
+    }
+</script>

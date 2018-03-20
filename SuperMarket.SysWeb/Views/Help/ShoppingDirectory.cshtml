@@ -1,0 +1,257 @@
+﻿@using SuperMarket.Model;
+
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IssueContentEntity entity = ViewBag.entity;
+    IssueClassEntity classentity = ViewBag.classentity;
+}
+
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selIsActive, #selIsHot, #selClassLevelOne, #selClassLevelTwo {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div style="display:none;" id="divcmstemplet">
+    @Html.Raw(entity.IssueContent)
+</div>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>购物指南内容@(entity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">问题标题：</div>
+                <div class="Backstage_td2"><input id="IssueTitle" value="@entity.IssueTitle" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">内容明细：</div>
+                <div class="Backstage_td2">
+                    <div style="float:left;margin-left:10px" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:50px;">
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否有效：</div>
+                <div class="Backstage_td2">
+                    <select id="selIsActive">
+                        <option value="-1">
+                            -----------请选择是否有效-------------
+                        </option>
+                        <option value="1" @(entity.IsActive == 1 ? "selected=selected" : "")>
+                            --------------- 有效----------------
+                        </option>
+                        <option value="0" @(entity.IsActive == 0 ? "selected=selected" : "")>
+                            ----------------无效----------------
+                        </option>
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">分类选择：</div>
+                <div class="Backstage_td2">
+
+                    <select id="selClassLevelOne">
+                        <option value="0">
+                            -----------请选择一级分类-------------
+                        </option>
+                    </select>
+
+                    <select id="selClassLevelTwo">
+                        <option value="0">
+                            -----------请选择二级分类-------------
+                        </option>
+                    </select>
+
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="product-main-search">
+        @if (entity.Id == 0)
+        {
+            <div class="deserve" id="ShoppingDirectoryAdd" onclick="ShoppingDirectoryAddSubmit()" style="cursor:pointer;margin-left:140px"><span style="cursor:pointer;">添加</span></div>
+
+        }
+        else
+        {
+            <div class="deserve" id="ShoppingDirectoryUpdate" onclick="ShoppingDirectoryUpdateSubmit()" style="cursor:pointer;"><span style="cursor:pointer;">修改</span></div>
+        }
+    </div>
+
+    <input id="switch" value="@entity.Id" type="hidden" />
+    <input id="hidclassid" value="@classentity.Id" type="hidden" />
+    <input id="hidparentid" value="@classentity.ParentId" type="hidden" />
+
+</div>
+
+
+<script type="text/javascript">
+
+    var ue = null;
+
+    $(function () {
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 300,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+
+        ue.on('ready', function () {
+            proTemplate.init(ue);
+        });
+
+        ue.addListener("ready", function () {
+            ue.setContent($("#divcmstemplet").html());
+        });
+
+        SelectOptionBind($("#selClassLevelOne"), "/Common/GetClassLevelList", 0, $("#hidparentid").val());
+        SelectOptionBind($("#selClassLevelTwo"), "/Common/GetClassLevelList", $("#hidparentid").val(), $("#hidclassid").val());
+        
+        $("#selClassLevelOne").bind("change", function () {
+            SelectOptionBind($("#selClassLevelTwo"), "/Common/GetClassLevelList", $(this).val(), "");
+        });
+
+    });
+
+    function ShoppingDirectoryAddSubmit() {
+
+        var _issuetitle = $("#IssueTitle").val();
+        var _issuecontent = ue.getContent();
+        var _isactive = $("#selIsActive option:selected").attr("value");
+        var _classid = $("#selClassLevelTwo").val();
+        debugger
+        $.post("/Help/ShoppingDirectoryAdd", {
+            issuetitle: _issuetitle,
+            issuecontent: _issuecontent, isactive: _isactive,classid:_classid
+        },
+            function (data) {
+                if (data > 0) {
+                    alert("添加成功!");
+                    window.location.href = "/Help/ShoppingDirectoryManage";
+                }
+                else if (data == -1003) {
+                    alert("该记录已存在!");
+                }
+                else {
+                    alert("添加失败!");
+                }
+            });
+    }
+
+    function ShoppingDirectoryUpdateSubmit() {
+
+        var _id = $("#switch").val();
+        var _issuetitle = $("#IssueTitle").val();
+        var _issuecontent = ue.getContent();
+        var _isactive = $("#selIsActive option:selected").attr("value");
+        var _classid = $("#selClassLevelTwo").val();
+     
+        $.post("/Help/ShoppingDirectoryUpdate", {
+            id: _id,
+            issuetitle: _issuetitle,
+            issuecontent: _issuecontent, isactive: _isactive,classid:_classid
+        },
+            function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    window.location.href = "/Help/ShoppingDirectoryManage";
+                }
+                else {
+                    alert("修改失败!");
+                }
+            });
+    }
+
+
+    function SelectOptionBind(obj, url, parentid, selectvalue) {
+
+        debugger
+
+        $.ajax({
+            url: url,
+            //asysn:false,
+            type: "POST",
+            dataType: 'json',
+            data: { parentid: parentid },
+            success: function (data) {
+                if (data != null && data != "" && data != undefined) {
+                    $(obj).find("option:not(:first)").remove();
+                    
+                    for (var i = 0; i < data.length; i++) {
+                        $(obj).append("<option value=" + data[i].Id + ">" + data[i].Name + "</option>");
+                    }
+                    if (selectvalue != null && selectvalue != undefined && selectvalue != "" && selectvalue != 0) {
+                        $(obj).val(selectvalue);
+                    }
+
+                }
+            },
+            error: function () {
+                alert("出现错误!");
+            }
+
+        })
+
+    }
+
+</script>
+
+

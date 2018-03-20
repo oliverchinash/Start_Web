@@ -1,0 +1,244 @@
+﻿@{ 
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder; ;
+    IList<SuperMarket.Model.VWCGMemQuotedEntity> quotecgmemlist = ViewBag.QuotedCGMemList;
+    IList<SuperMarket.Model.InquiryProductEntity> productlist = vworder.OrderProducts;
+    Dictionary<int, IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic = ViewBag.ProductSubDIc;
+    Dictionary<string, SuperMarket.Model.CGQuotedPriceEntity> pricedic = ViewBag.PriceDic;
+
+    //Dictionary<int, IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic= ViewBag.ProductSubDic;
+    //SuperMarket.Model.StoreEntity store = ViewBag.CGMemStore;
+    //SuperMarket.Model.CGMemQuotedEntity quotecg = ViewBag.CGMemQuote;
+    //Dictionary<int, SuperMarket.Model.CGQuotedPriceEntity> pricedic= ViewBag.ProductCGMemDic ;
+    IList<SuperMarket.Model.InquiryOrderFeedBackEntity> feedbacklist = ViewBag.FeedBackList;
+}
+
+<div class="list-top">
+    <div class="list-top-main">
+        <img src="../img/index-icon.png" style="vertical-align: middle"> 
+        <span>询价单详情</span>
+    </div>
+</div>
+<!------top结束------>
+<!------供应商和用户信息------>
+@*@if (store != null && store.MemId > 0)
+{
+    <table class="listDetail-table" cellpadding="0" cellspacing="0">
+        <tr>
+            <th class="listDetail-td">供应商名称</th>
+            <th class="listDetail-td2">供应商地址</th>
+            <th class="listDetail-td2">联系人</th>
+            <th class="listDetail-td3">供应商联系方式</th> 
+        </tr>
+        <tr>
+            <td>@store.CompanyName</td>
+            <td>@store.Address</td>
+            <td>@store.ContactsManName</td>
+            <td>@store.MobilePhone</td>
+        </tr>
+    </table>
+}*@
+@if (feedbacklist != null && feedbacklist.Count > 0)
+{
+    <table class="listDetail-table" cellpadding="0" cellspacing="0">
+        <tr>
+            <th class="listDetail-td">反馈原因</th>
+            <th class="listDetail-td2">备注</th>
+            <th class="listDetail-td2">反馈时间</th> 
+        </tr>
+        @foreach (SuperMarket.Model.InquiryOrderFeedBackEntity feedback in feedbacklist)
+        {
+            <tr>
+                <td>@feedback.FeedBackReasonName</td>
+                <td>@feedback.FeedBackRemark</td>
+                <td>@feedback.FeedBackTime</td>
+            </tr>
+        }
+       
+    </table>
+}
+<table class="listDetail-table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th class="listDetail-td">用户名称</th>
+        <th class="listDetail-td3">用户联系方式</th>
+        <th class="listDetail-td">所属公司</th> 
+        <th class="listDetail-td2">用户地址</th>
+    </tr>
+    <tr>
+        <td>@vworder.MemName</td>
+        <td>@vworder.MemPhone</td>
+        <td>@vworder.CompanyName</td>
+        <td>@vworder.CompanyAddress</td> 
+    </tr>
+</table>
+
+<!------供应商和用户信息------>
+<!-------订单明细开始-------->
+<h3>订单明细</h3>
+<div class="listDetail-main">
+    <ul class="listDetail-cont">
+        <li>订单号：@vworder.InquiryOrderCode</li>
+        <li>下单时间:@vworder.CreateTime</li>
+        <li>订单状态：@vworder.StatusName</li>
+        <li>品牌：@vworder.CarBrandName</li>
+        <li>车型：@vworder.CarSeriesName</li>
+        <li>年款：@vworder.CarTypeModelName</li>
+        <li>车架号：@vworder.VinNo</li>
+        <li>发动机号：@vworder.EngineModelNo</li>
+        <li>&nbsp;</li>
+        <li>
+            车架号图：@if (!string.IsNullOrEmpty(vworder.VinPic))
+            {
+                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+vworder.VinPic)" target="_blank">
+                    <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.VinPic)" />
+                </a>     }
+<li>发动机号图：@if (!string.IsNullOrEmpty(vworder.EngineModelPic))
+            {
+            <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+vworder.EngineModelPic)" target="_blank">
+                <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.EngineModelPic)" />
+            </a>   
+}
+</li>
+    </ul>
+    <div class="clear"></div>
+    <ul class="listDetail-cont2"> 
+        <li>
+            @if (vworder.OrderPics != null && vworder.OrderPics.Count > 0)
+            {
+                foreach (SuperMarket.Model.InquiryOrderPicsEntity pic in vworder.OrderPics)
+                {
+                    <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+pic.PicUrl)" target="_blank">
+                        <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+pic.PicUrl)" />
+                    </a>
+                }
+            } 
+        </li>
+    </ul> 
+
+    <div class="select-list">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>产品名称</th>
+                <th>产品类型</th>
+                <th>数量</th>
+                <th>客户报价</th>
+                <th>客户备注</th>
+                @if (quotecgmemlist != null && quotecgmemlist.Count > 0)
+                {
+                    foreach (SuperMarket.Model.VWCGMemQuotedEntity entity in quotecgmemlist)
+                    {
+                        <th><a target="_blank" href="/SysMemHome/MemberDetail?memid=@entity.CGMemId">@(entity.CGMemStore.CompanyName)</a> </th>
+                    }
+                }
+            </tr>
+            @if (productlist != null && productlist.Count > 0)
+            {
+                    Dictionary<int, decimal> totalcgpricealldic = new Dictionary<int, decimal>();
+                    Dictionary<int, decimal> totalpricealldic = new Dictionary<int, decimal>();
+                    foreach (SuperMarket.Model.InquiryProductEntity proentity in productlist)
+                    {
+                        int pro_i = 0;
+                        if (productsubdic.ContainsKey(proentity.ProductId))
+                        {
+                            IList<SuperMarket.Model.InquiryProductSubEntity> productsublist = productsubdic[proentity.ProductId];
+                            if (productsublist != null && productsublist.Count > 0)
+                            {
+                                foreach (SuperMarket.Model.InquiryProductSubEntity prosubentity in productsublist)
+                                {
+                                    pro_i++;
+                                <tr>
+                                    @if (pro_i == 1)
+                                        {
+                                        <td rowspan="@(productsublist.Count)" width="260">@proentity.ProductName</td>
+                                    }
+
+                                    <td>@prosubentity.InquiryProductTypeName</td>
+                                    <td>@proentity.ProductNum</td>
+                                    <td>@prosubentity.Price</td>
+                                    <td>@prosubentity.Remark</td>
+                                    @foreach (SuperMarket.Model.VWCGMemQuotedEntity entity in quotecgmemlist)
+                                        {
+                                        if (pricedic.ContainsKey(prosubentity.Id + "_" + entity.CGMemId))
+                                        {
+                                            SuperMarket.Model.CGQuotedPriceEntity priceentity = pricedic[prosubentity.Id + "_" + entity.CGMemId];
+                                            if (!totalcgpricealldic.ContainsKey(entity.CGMemId))
+                                            {
+                                                totalcgpricealldic.Add(entity.CGMemId, priceentity.CGPrice);
+                                                totalpricealldic.Add(entity.CGMemId, priceentity.Price);
+                                            }
+                                            else
+                                            {
+                                                totalcgpricealldic[entity.CGMemId] = totalcgpricealldic[entity.CGMemId] + priceentity.CGPrice;
+                                                totalpricealldic[entity.CGMemId] = totalpricealldic[entity.CGMemId] + priceentity.Price;
+                                            }
+                                            <td class="@(priceentity.HasSelected==1?"clsred":"")">@(priceentity.HasSelected==1?"已选择 ":"")@(priceentity.CGPrice.ToString("0.00"))/@(priceentity.Price.ToString("0.00"))/备注：@(priceentity.InquiryProductDes)</td>
+                                        }
+                                        else
+                                        {
+                                            <td>未报价</td>
+                                        }
+                                    }
+                                </tr> 
+                            } 
+                          }
+                       } 
+                    }
+                }
+        </table>
+    </div>
+    @*<table class="listDetail-table2" cellpadding="0" cellspacing="0">
+        <tr>
+            <th style="width: 30%">零件名称</th>
+            <th>零件数量</th>
+            <th>零件直供单价</th>
+            <th>零件零售单价</th>
+            <th>毛利</th>
+            <th>备注</th>
+            <th>供应商备注</th> 
+        </tr>
+        @if (vworder.OrderProducts != null && vworder.OrderProducts.Count > 0)
+        {
+            foreach (SuperMarket.Model.InquiryProductEntity pro in vworder.OrderProducts)
+            {
+                if (productsubdic.ContainsKey(pro.ProductId))
+                {
+                    IList<SuperMarket.Model.InquiryProductSubEntity> prosublist = productsubdic[pro.ProductId];
+                    if (prosublist != null && prosublist.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.InquiryProductSubEntity prosub in prosublist)
+                        {
+                            string cgpricestr = "未报价";
+                            string pricestr = "未报价";
+                            string lirunstr = "未报价";
+                            string cgremark = "";
+                            if(quotecg!=null&& quotecg.CGMemId>0&& pricedic.ContainsKey(prosub.Id))
+                            {
+                                SuperMarket.Model.CGQuotedPriceEntity proprice = pricedic[prosub.Id];
+                                if(proprice!=null&& proprice.Id>0)
+                                {
+                                    cgpricestr = proprice.CGPrice.ToString("0.00");
+                                    pricestr = proprice.Price.ToString("0.00");
+                                    lirunstr= (proprice.Price* pro.ProductNum- proprice.CGPrice * pro.ProductNum).ToString("0.00");
+                                    cgremark = proprice.Remark;
+                                }
+                            }
+                            <tr>
+                                <td>@(pro.ProductName+" "+ prosub.InquiryProductTypeName)</td>
+                                <td>@pro.ProductNum</td> 
+                                <td>@cgpricestr</td>
+                                <td>@pricestr</td>
+                                <td class="red">@lirunstr</td> 
+                                <th>@pro.Remark</th> 
+                                <th>@cgremark</th> 
+                            </tr>
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+      
+    </table>*@
+
+</div>

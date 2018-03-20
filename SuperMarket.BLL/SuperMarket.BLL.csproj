@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\Lib\Lucene.Net.dll</HintPath>
     </Reference>
@@ -168,6 +172,7 @@
     <Compile Include="Basic\ProductDB\ProductCarTypeModelBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductDailyGrabBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductDetailBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductExtBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductFineBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductMenuBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertyBLL.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="Basic\ProductDB\ProductSpecialBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductSpecialDetailsBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductStyleBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductStyleExtBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductStylePicsBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductStyleSpecBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductWholeSaleBLL.cs" />
@@ -242,6 +248,7 @@
     <Compile Include="WeiXin\WeiXinJsSdk.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

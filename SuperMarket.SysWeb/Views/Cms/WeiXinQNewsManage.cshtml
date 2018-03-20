@@ -1,0 +1,200 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.WeiXinQNewsEntity> _entitylist = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCmsType, #selIsActive, #selSortPrinciple {
+        width: 150px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 14%;
+    }
+
+    .admin_detail > ul > li {
+        width: 14%;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>模板管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Cms/WeiXinQNewsEdit" target="_blank"><img src="~/Themes/Img/Add.png" />添加</a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+        名称:
+        <input value="@Request["k"]" id="txtSearchKey" />
+        文章类型：
+        <select id="selNewsType">
+            <option value="-1">类型</option>
+            <option @(Request["nt"] == "1" ? "selected=selected" : "") value="1">行业资讯</option>
+            <option @(Request["nt"] == "2" ? "selected=selected" : "") value="2">维修案例</option>
+            <option @(Request["nt"] == "3" ? "selected=selected" : "") value="3">技术资讯</option>
+            <option @(Request["nt"] == "4" ? "selected=selected" : "") value="4">轻松一笑</option>
+            <option @(Request["nt"] == "5" ? "selected=selected" : "") value="5">管理资讯</option>
+        </select>
+        <button id="btnCmsTempletSearch" onclick="FunCmsTempletSearch()">查询</button>
+
+            <div class="add_admin">
+
+            </div>
+
+        </div> 
+
+    <div id="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>序号</li>
+                <li>公告标题</li>
+                <li>创建时间</li>
+                <li>来源网址</li> 
+                <li>公告类型</li> 
+                <li>是否发布</li> 
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+
+                foreach (SuperMarket.Model.WeiXinQNewsEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul><li class="li_iterm">
+                                @entity.Id
+                            </li>
+                            <li class="li_iterm">
+                                @entity.Title
+                            </li>
+                            <li class="li_iterm">@entity.CreateTime.ToShortDateString()</li>
+                            <li class="li_iterm">@entity.FromUrl </li>
+                            <li class="li_iterm">@entity.NewsTypeName </li>
+                            <li class="li_iterm">@(entity.HasShow == 1 ? "发布" : "未发布")</li>
+                            <li class="li_iterm">
+                                <a href="/Cms/WeiXinQNewsEdit?id=@entity.Id">编辑模板</a>&nbsp;&nbsp;
+                                @if (entity.HasShow == 0)
+                                { 
+                                    <a href="#" style="color:red" onclick="WeiXinQNewsPublish(this)" value="@entity.Id">发布</a>
+                                }
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                }
+
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录
+                </div>
+            }
+        }
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    $(function () {
+
+        $("body").bind("keydown", function (e) {
+            if (e.which == 13) {
+                $("#btnCmsTempletSearch").click();
+            }
+        });
+    })
+ 
+
+    function WeiXinQNewsPublish(obj) {
+      
+        var _result = confirm("是否使该选项失效?");
+        if (_result == true) {
+            var _templetId = $(obj).attr("value");
+            $.post("/Cms/WeiXinQNewsPublish", { templetId: _templetId }, function (data) {
+                if (data > 0) {
+                    alert("修改成功!");
+                    location.reload();
+                }
+                else {
+                    alert("修改失败!");
+                }
+            }, "json");
+        }
+        else {
+            return;
+        }
+
+    }
+     
+    function FunCmsTempletSearch() { 
+        var _searchkey = $("#txtSearchKey").val();
+        var _newstype = $("#selNewsType").val();
+        location.href = "/Cms/WeiXinQNewsManage?k=" + _searchkey + "&nt=" + _newstype;
+    }
+ 
+
+</script>

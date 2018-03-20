@@ -149,7 +149,7 @@ namespace SuperMarket.BLL.ProductDB
         {
             return ProductPropertyDA.Instance.GetProductPropertyList(pageSize, pageIndex, ref recordCount);
         }
-        public IList<ProductPropertyEntity> GetListByProductId(int productid,bool cache=true)
+        public IList<ProductPropertyEntity> GetListByProductId(int productid,bool cache=false)
         {
             IList<ProductPropertyEntity> list = null;
             if (cache)

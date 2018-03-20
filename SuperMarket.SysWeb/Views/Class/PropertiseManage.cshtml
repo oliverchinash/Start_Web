@@ -1,0 +1,113 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+
+    IList<SuperMarket.Model.ClassPropertiesEntity> entitylist = ViewBag.entitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selLevel,#selIsActive{
+        width:200px;
+        height:32px;
+        margin-top:9px;
+        margin-left:12px;
+    }
+       #selLevel>option{
+        text-align:center
+    }
+
+       button{
+           width:100px;
+           height:32px;
+           margin-left:20px
+       }
+
+       .title_main>input{
+           width:200px;
+           height:32px
+       }
+
+       .add_admin>span{
+           width:100px;
+           margin-left:-100px
+       }
+        .add_admin>span>a{
+           color:blue;
+       }
+
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>分类属性管理</span></div>
+        <div class="add_admin">
+                <span><a href="/Class/PropertiseInfo?classid=@(ViewBag.ClassId)&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加属性</a></span>
+            </div>
+    </div>
+     
+
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:20%">属性名称</li> 
+                <li style="width:20%">是否有效</li>
+                <li style="width:40%">操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.ClassPropertiesEntity entity in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm" style="width:20%">@entity.Name</li>
+                            <li class="li_iterm" style="width:20%" id="@("isactive"+entity.Id)">@(entity.IsActive == 1 ? "有效" : "无效")</li>
+                            <li class="check" style="width:40%">
+                                <span><a href="/Class/PropertiseInfo?propertyid=@entity.Id&op=update" target="_blank">修改</a></span><img src="~/Themes/Img/bj.png" />&nbsp;&nbsp;&nbsp;
+                                <span><a href="/Class/PropertiseDetailManage?propid=@entity.Id">属性关联值管理</a></span>
+                            </li> 
+                        </ul>
+                    </div> 
+                }
+                
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        } 
+    </div>
+</div>
+ 

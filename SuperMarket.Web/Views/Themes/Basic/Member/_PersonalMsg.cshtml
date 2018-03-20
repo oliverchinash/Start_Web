@@ -1,0 +1,162 @@
+﻿@{
+    JiChen.Entities.VWMemberEntity mem = ViewBag.VWMember;
+}
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-我的信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link href="/themes/basic/css/basic.css" rel="stylesheet" />
+    <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Themes/Basic/css/personal.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/relogin.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/webuploader.js"></script>
+    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/diyUpload.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/commoncontrolbind.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type==@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <input id="txtPicServerRootUrl" type="hidden" value="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+    <div class="validate">
+        <!----头部开始------>
+        <header data-am-widget="header" class="am-header header">
+            @Html.Partial("controls/_HeadBanner")
+            <h1 class="am-header-title">
+                公司信息
+            </h1>
+            <div class="am-header-right am-header-nav">
+                <a href="javascript:void(0);InfoMsgEditSubmit();" class="">
+                    提交
+                </a>
+            </div>
+        </header>
+        <!----头部结束------>
+        <!---注册开始---->
+        <input id="txtheadpicpath" type="hidden" value="@mem.HeadPicUrl" />
+        <div class="personal-top">
+            <div class="personal-top-main"> 
+                <div   id="divhearpic">
+                    @if (!string.IsNullOrEmpty(mem.HeadPicUrl))
+                    {
+                        <img id="imglisence" src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+mem.HeadPicUrl)">
+                    }
+                    else
+                    {
+                        <img id="imglisence" src="/themes/basic/img/personal_tp1.png">
+                    }
+                </div>
+            </div>
+        </div>
+        <form>
+            <!---------企业信息---------->
+            <div class="validate-form">
+                <div class="validate-input">
+                    <span>用户名:</span>
+                    <input type="text" id="txtUserName" readonly="readonly"    value="@mem.MemCode" placeholder="请输入">
+                </div>
+                <div class="validate-input">
+                    <span>昵称:</span>
+                    <input type="text" id="txtNickname"  value="@mem.NickName" placeholder="请输入">
+                </div> 
+            </div>
+            <div class="validate-form">
+                <div class="validate-input">
+                    <span>公司名称:</span>
+                    <span>@mem.CompanyName </span>
+</div>
+                <div class="validate-input"> 
+                    <span>公司位置:</span><span>@(mem.CompanyProvinceName+ mem.CompanyCityName)</span>
+                   
+                </div>
+                <div class="validate-input">
+                    <span>公司详细地址:</span>
+                    <span >@mem.CompanyAddress</span>
+                </div>
+                <div class="validate-input-radio am-cf">
+                    <input id="hidCompanyType" type="hidden" value="@mem.CompanyType" />
+                    <span class="am-fl">企业类型:</span>
+                    <span>@mem.CompanyTypeName</span>
+                    
+                </div>
+            </div>
+            <!-------企业信息结束--------->
+            <!----------- 联系人---------->
+            <div class="validate-form">
+                <div class="validate-input">
+                    <span>联系人姓名:</span>
+                    <span>@mem.ContactsManName </span>
+                </div>
+                <div class="validate-input"> 
+                    <span>联系人手机:</span>
+                    <span>@ViewBag.MobileNo</span> 
+                </div>
+                <div class="validate-input"> 
+                    <span>联系人邮箱:</span>
+                    <span>@mem.ContactsEmail</span> 
+                </div>
+            </div>
+            <!--------推荐联系人结束-------->
+        </form>
+        <input id="txtLisencePath" type="hidden" value="@mem.LicensePath" />
+        <div class="validate-img am-g"> 
+            <div class="am-u-sm-6">
+                <div id="divuploadlisence"><img id="imglisence" src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+ mem.LicensePath)"></div>
+            </div> 
+        </div> 
+    </div>
+</body>
+</html>
+<script>
+
+    function InfoMsgEditSubmit() {
+        var hearpicpath = $("#txtheadpicpath").val();
+        var nickname = $("#txtNickname").val();
+        $.post("/Member/SaveMemberInfoMsg", {
+            picpath: hearpicpath, nickname: nickname
+        }, function (data) {
+            var _returnsult = eval("(" + data + ")");
+            var status = -_returnsult.Status;
+            if (status == _TheArray[0]) {
+                alert("提交成功");
+            }
+        });
+    }
+    $(function () {
+        var arrimagespath = new Array(); 
+    
+        $('#divhearpic').diyUpload({
+            url: '/Member/UploadFile', 
+            fileNumMax: 1,
+            imagedefaultpath: arrimagespath,
+            formData: {
+                pictype: 4,
+            },
+            success: function (fileid, data) {
+                if (data != "" && data.pic_raw != "") {
+                    var strimagesurl = $("#txtPicServerRootUrl").val();
+                    $("#txtheadpicpath").val(data.pic_raw);
+                    $("#imglisence").attr("src", strimagesurl + data.pic_raw);
+                    $("#imglisence").attr("fileid", fileid);
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+    })
+</script>

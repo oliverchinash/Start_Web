@@ -1,0 +1,87 @@
+
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>询价单页面</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="{{assets}}i/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+    <link rel="stylesheet" href="../css/amazeui.min.css">
+    <link rel="stylesheet" href="../css/basic.css">
+    <link rel="stylesheet" href="../css/inquiry.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/amazeui.min.js"></script>
+    <script src="../js/inquiry.js"></script>
+</head>
+<body>
+<!----头部开始------>
+<header data-am-widget="header" class="am-header-fixed am-header header">
+    <div class="am-header-left am-header-nav">
+        <a href="#" class="">
+            <i class="am-header-icon am-icon-chevron-left"></i>
+        </a>
+    </div>
+    <h1 class="am-header-title">
+        <a href="#">
+            询价单
+        </a>
+    </h1>
+</header>
+<!----头部结束------>
+<!-----内容开始----->
+<div class="inquiry">
+    <form class="am-form am-u-sm-11 am-u-sm-centered inquiry-form">
+        <div class="am-form-group am-form-icon am-form-feedback">
+            <input type="text" class="am-form-field" placeholder="请输入车架号">
+            <span class="am-icon-camera"></span>
+        </div>
+    </form>
+    <div class="am-u-sm-5 am-u-sm-centered inquiry-check">
+        <label class="am-checkbox am-danger">
+            <input type="checkbox" id="inquiry-check" onclick="inquiry();" value="" data-am-ucheck>
+            我没有车架号
+        </label>
+    </div>
+    <div class="inquiry-btn am-u-sm-4 am-u-sm-centered active">
+        <span>下一步</span>
+    </div>
+</div>
+<!-----内容结束----->
+
+<!--------nav footer开始--------->
+<div data-am-widget="navbar" class="am-navbar am-cf footer-navbar" id="">
+    <ul class="am-navbar-nav am-cf am-avg-sm-3">
+        <li>
+            <a href="#" class="">
+                <span class="am-icon-home"></span>
+                <span class="am-navbar-label">首页</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="">
+                <span class="am-icon-phone"></span>
+                <span class="am-navbar-label">电话</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="">
+                <span class="am-icon-qrcode"></span>
+                <span class="am-navbar-label">订单</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!--------nav footer结束--------->
+</body>
+</html>

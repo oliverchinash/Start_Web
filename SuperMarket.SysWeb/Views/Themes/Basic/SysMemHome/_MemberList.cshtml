@@ -1,0 +1,177 @@
+﻿
+@{   IList<SuperMarket.Model.VWMemberEntity> _entitylist = ViewBag.entitylist;
+} 
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main">
+            <span>用户管理</span>
+        </div>
+    </div> 
+    <div class="list-search">
+        <div class="list-search-main">
+            <div class="list-search-wrap">
+                <label class="fl">原网址：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.SupplierURL" id="txtSupplierURL" />
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">用户类型：</label>
+                <div class="list-search-input">
+                    <select id="selSearchMemType">
+                        <option value="-1" @(ViewBag.MemType == -1 ? "selected" : "") >全部</option>
+                        <option value="1"  @(ViewBag.MemType == 1 ? "selected" : "")  isstore="1">终端用户</option>
+                        <option value="2"  @(ViewBag.MemType == 2 ? "selected" : "") issupplier="1">供应商</option>
+                        <option value="3"  @(ViewBag.MemType == 3 ? "selected" : "") issys="1">系统用户</option>
+                    </select>
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">状态：</label>
+                <div class="list-search-input">
+                    <select id="selStatus">
+                        <option value="-1">-----选择状态-------</option>
+                        @{
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> producttypelist = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.MemberStatus>();
+                            if (producttypelist != null && producttypelist.Count > 0)
+                            {
+                                foreach (SuperMarket.Core.Enums.EnumUnitEntity entity in producttypelist)
+                                {
+                                    <option value="@entity.EnumValue" @(ViewBag.Status == entity.EnumValue ? "selected" : "")>@entity.EnumDes</option>
+                                }
+                            }
+                        } 
+                    </select> 
+                </div>
+            </div> 
+            <div class="list-search-wrap" style="display:none;">
+                <label class="fl">姓名：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.MemName" id="txtMemName" />
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">电话：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.MobilePhone" id="txtMobilePhone" />
+                </div> 
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">公司名称：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.CompanyName" id="txtCompanyName" />
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">账号：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.MemCode" id="txtMemCode" />
+                </div>
+            </div>
+            <div class="list-search-wrap">
+                <label class="fl">品牌：</label>
+                <div class="list-search-input">
+                    <input value="@ViewBag.BrandName" id="txtBrandName" />
+                </div>
+            </div>
+        </div> 
+        <div class="clear"></div> 
+        <div class="list-search-button">
+            <button class="fr" onclick="Fun_SearchList()">搜索</button>
+        </div> 
+        <div class="list-search-button">
+            <a class="fl" target="_blank" href="/SysMemHome/MemberSimpleAdd"  >虚拟注册登记</a>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main">
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0" class="dispatch-table">
+                <tr>
+                    <th>账号</th>
+                    <th>联系人</th>
+                    <th>店铺名称</th>
+                    <th>联系电话</th>
+                    <th>绑定微信</th>
+                    <th>申请时间</th>
+                    <th>审核状态</th> 
+                    <th>操作</th>
+                </tr>
+                @{
+                    if (_entitylist != null && _entitylist.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.VWMemberEntity _entity in _entitylist)
+                        {
+                            <tr>
+                                <td><a href="/SysMemHome/MemberDetail?memid=@_entity.MemId">@_entity.MemCode</a></td>
+                                <td>@_entity.ContactsManName</td>
+                                <td>@_entity.CompanyName</td>
+                                <td>@_entity.MobilePhone</td>
+                                <td>@(string.IsNullOrEmpty(_entity.WeChat)?"未绑定":"已绑定")</td>
+                                <td>@_entity.CreateTime.ToShortDateString()</td>
+                                <td>@_entity.StatusName</td>  
+                                <td>
+                                    <a href="/SysMemHome/MemberDetail?MemId=@_entity.MemId" target="_blank">详情</a>
+                                    <a  onclick="FunSendWeiXinQuoteUrl(@_entity.MemId)">发送报价通知链接</a>
+   </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+
+        </div>
+        <div class="list-page">
+            <ul>
+                @Html.Raw(ViewBag.PageStr)
+            </ul>
+        </div>
+    </div>
+</div> 
+<script>
+    function Fun_SearchList() {
+        var memtype = $("#selSearchMemType").val();
+        var issupplier = -1;
+        var isstore = -1;
+        var issys = -1;
+        if($("#selSearchMemType").find("option:selected").attr("issupplier")==1)
+        {
+            issupplier = 1;
+        } if ($("#selSearchMemType").find("option:selected").attr("isstore") == 1) {
+            isstore = 1;
+        } if ($("#selSearchMemType").find("option:selected").attr("issys") == 1) {
+            issys = 1;
+        }
+        var status = $("#selStatus").val();
+        var supplierurl = $("#txtSupplierURL").val();
+        var brandname = $("#txtBrandName").val();
+        var memname = $("#txtMemName").val();
+        var mobilephone = $("#txtMobilePhone").val();
+        var companyname = $("#txtCompanyName").val();
+        var memcode = $("#txtMemCode").val(); 
+        location.href = "/SysMemHome/MemberList?memcode=" + memcode + "&mobilephone=" + mobilephone + "&companyName=" + companyname + "&status=" + status + "&memtype=" + memtype + "&issupplier=" + issupplier + "&isstore=" + isstore + "&issys=" + issys + "&brandname=" + brandname + "&supplierurl=" + supplierurl;
+    }
+
+    function  FunSendWeiXinQuoteUrl(memid)
+    {
+        var oldurl = $.trim($("#txtSupplierURL").val());
+        if(oldurl=="")
+        {
+            alert("请填写原网址");
+            return false; 
+        }
+        $.post("/SysMemHome/SendQuoteUrl", { memid: memid, oldurl: oldurl }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                alert("发送成功");
+                return false;
+            }
+            else {
+                alert(_TheArray[status]);
+                return false;
+            }
+        });
+    }
+</script>

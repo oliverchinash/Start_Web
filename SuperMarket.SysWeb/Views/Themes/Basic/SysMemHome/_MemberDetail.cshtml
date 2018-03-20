@@ -1,0 +1,116 @@
+﻿
+@{    SuperMarket.Model.MemberEntity member  = ViewBag.Member;
+   SuperMarket.Model.StoreEntity store = ViewBag.Store;
+    }
+
+<div class="list-top">
+    <div class="list-top-main">
+        <img src="../img/index-icon.png" style="vertical-align: middle">
+        <span>用户详情</span>
+    </div>
+</div>
+<!------top结束------>
+<!------供应商和用户信息------>
+@if (store != null && store.MemId > 0)
+{ 
+    <h3>公司信息</h3>
+    <div class="listDetail-main">
+        <ul class="listDetail-cont">
+            <li>公司名称：@store.CompanyName</li>
+            <li>公司地址:@store.Address</li>
+            <li>公司联系人：@store.ContactsManName</li>
+            <li>公司联系方式：@store.MobilePhone</li>
+            <li>申请时间：@store.CreateTime.ToShortDateString()</li>
+            <li>级别：@store.GradeLevel</li>
+            <li>状态：@store.StatusName</li>  
+        </ul>
+        <div class="clear"></div> 
+    </div> 
+    <div class="listDetail-main">
+        <ul class="listDetail-cont2">
+            <li> <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+store.LicensePath)" target="_blank">
+                            <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+store.LicensePath)" />
+                 </a> 
+            </li>
+        </ul>
+    </div>
+}
+@if (member != null && member.Id > 0)
+{ 
+    <h3>用户信息 临时登录码：&tempcode=@(ViewBag.TempCode)</h3>
+        <div class="listDetail-main">
+            <ul class="listDetail-cont"> 
+                <li>账号：@member.MemCode</li>
+                <li>名称:@member.MemNikeName</li>
+                <li>联系方式：@member.MobilePhone</li>
+                <li>申请时间：@member.CreateTime</li>
+                <li>QQ：@member.QQ</li>
+                <li>微信：@member.WeChat</li>
+                <li>邮箱：@member.Email</li>
+                <li>系统用户：@(member.IsSysUser == 1 ? "是" : "否")</li>
+                <li>供应商用户：@(member.IsSupplier == 1 ? "是" : "否")</li>
+                <li>终端用户：@(member.IsStore == 1 ? "是" : "否")</li>
+                <li>登录次数：@(member.LoginNum)</li>
+                <li>状态：@(member.StatusName)
+                @if (member.Status == (int)SuperMarket.Model.MemberStatus.WaitCheck || member.Status==(int)SuperMarket.Model.MemBillStatus.WaitToAudit)
+                { 
+                    <button memid="@member.Id" onclick="AcceptStore(this)"  >
+                        通过
+                    </button>
+                    <button   onclick="RefuseStore(this)" memid="@member.Id" >
+                        拒绝
+                    </button>
+                 } 
+                </li>  
+            </ul> 
+            <div class="clear"></div> 
+        </div>
+        <script>
+            function AcceptStore(obj) {
+
+                if (confirm("确定通过此申请么?") == false) {
+                    return false;
+                }
+
+                var _StoreId = $(obj).attr("storeid");
+                var _MemberId = $(obj).attr("memid");
+                var _billId = $(obj).attr("billId");
+                $.post("/SysMemHome/AcceptStore", { StoreId: _StoreId, MemberId: _MemberId, billId: _billId }, function (data) {
+
+                    if (data > 0) {
+                        alert("审核通过!");
+                        window.location.href = "/Message/SendMsgEdit/?memid=" + $(obj).attr("MemId") + "&SMSContent=" + "亲,您注册的企业号已经审批通过。";
+                    }
+                    else {
+                        alert("审核失败!");
+                    }
+                });
+            }
+
+            function RefuseStore(obj) {
+
+                if (confirm("确定拒绝此申请么?") == false) {
+                    return false;
+                }
+
+                var _StoreId = $(obj).attr("storeid");
+                var _MemberId = $(obj).attr("memid");
+                var _billId = $(obj).attr("billId");
+                $.post("/Check/RefuseStore", { StoreId: _StoreId, MemberId: _MemberId, billId: _billId }, function (data) {
+
+                    if (data > 0) {
+                        alert("审核拒绝!");
+                        window.location.href = "/Message/SendMsgEdit/?memid=" + $(obj).attr("MemId") + "&SMSContent=" + "亲,您注册的企业号未通过审批。";
+                    }
+                    else {
+                        alert("审核失败!");
+                    }
+
+                }
+                );
+            }
+
+        </script>
+}
+       
+ 

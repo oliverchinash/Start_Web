@@ -98,7 +98,7 @@ namespace SuperMarket.Model
         }
         
         /// <summary>
-        /// 阿哈马收货邮编
+        /// 易店心收货邮编
         /// <summary>
         private  string _AahamaPost;
 	 	public string AahamaPost
@@ -114,7 +114,7 @@ namespace SuperMarket.Model
 		}
 
 	    /// <summary>
-		/// 阿哈马收货地址
+		/// 易店心收货地址
 		/// <summary>
 		private  string _AahamaAddress;
 	 	public string AahamaAddress
@@ -130,7 +130,7 @@ namespace SuperMarket.Model
 		}
 
 	    /// <summary>
-		/// 阿哈马收货电话
+		/// 易店心收货电话
 		/// <summary>
 		private  string _AahamaPhone;
 	 	public string AahamaPhone
@@ -146,7 +146,7 @@ namespace SuperMarket.Model
 		}
 
 	    /// <summary>
-		/// 阿哈马收货省份
+		/// 易店心收货省份
 		/// <summary>
 		private  int _AahamaProvince;
 	 	public int AahamaProvince
@@ -162,7 +162,7 @@ namespace SuperMarket.Model
 		}
 
 	    /// <summary>
-		/// 阿哈马收货城市
+		/// 易店心收货城市
 		/// <summary>
 		private  int _AahamaCity;
 	 	public int AahamaCity
@@ -178,7 +178,7 @@ namespace SuperMarket.Model
 		}
 
 	    /// <summary>
-		/// 阿哈马收货人
+		/// 易店心收货人
 		/// <summary>
 		private  string _AahamaName;
 	 	public string AahamaName

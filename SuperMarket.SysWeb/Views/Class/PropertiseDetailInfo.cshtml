@@ -1,0 +1,124 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+    SuperMarket.Model.ClassProDetailsEntity entity = ViewBag.entity;
+
+}
+
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selBrand, #txtBrand {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    .Backstage_td2 > input {
+        width: 200px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+
+    #ShowArea > input {
+        width: 200px;
+        height: 20px;
+        background: #ccc;
+        margin-left: 0px;
+        padding: 0px 10px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+</style>
+
+<div class="main"> 
+    <div class="title_main"> 
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>类别属性值@(entity.Id == 0 ? "添加" : "修改")</span></div> 
+    </div><div class="title_main"> 
+    <div class="title_text"><span>@(ViewBag.ClassName)>@(ViewBag.PropertyName )</span></div>
+</div>  
+    <div class="detail_main">
+        <ul> 
+            <li>
+                <div class="Backstage_td1">属性值名称：</div>
+                <div class="Backstage_td2">
+                    <input id="txtName" value="@entity.Name" />
+                </div>
+            </li>
+            <li>
+                <div class="Backstage_td1">是否有效：</div>
+                <div class="Backstage_td2">
+                    <input type="radio" name="txtIsActive" value="1" @((entity.Id > 0 && entity.Active == 1) ? " checked='checked'" : "") />有效<input type="radio" name="txtIsActive" value="0" @((entity.Id > 0 && entity.Active != 1) ? "checked='checked'" : "") />无效
+                </div>
+            </li>
+            <li>
+                <div class="Backstage_td1">序号：</div>
+                <div class="Backstage_td2"><input id="txtSort" value="@entity.Sort" /></div>
+            </li>
+        </ul>
+    </div>
+    @{
+        if (entity.Id == 0)
+        {
+            <div class="deserve" style="cursor:pointer" id="ClassPropertiesAdd" onclick="SaveProperties()">添加</div>
+        }
+        else
+        {
+            <div class="deserve" style="cursor:pointer" id="ClassPropertiesUpdate" onclick="SaveProperties()">修改</div>
+        }
+    }
+    <input value="@entity.Id" style="display:none" id="hidId" />
+    <input value="@ViewBag.PropertyId" style="display:none" id="hidPropertyId" />
+</div>
+
+<script type="text/javascript">
+
+     function SaveProperties()
+    {
+         var _PropertyId = $("#hidPropertyId").val();
+        var _name = $("#txtName").val();
+        var _id = $("#hidId").val();
+        var _sort = $("#txtSort").val();
+        var _isactive = $("input[name='txtIsActive'][checked]").val();
+        $.post("/Class/ClassPropDetailEdit", {
+            propid: _PropertyId, name: _name, pdid: _id, isactive: _isactive, sort: _sort
+        }, function (data) {
+            if (data > 0) {
+                alert("添加成功!");
+                window.location.href = "/Class/PropertiseDetailManage?propid=" + _PropertyId;
+            } else if (data == -1003) {
+                alert("该对应关系已存在!");
+                window.location.href = "/Class/PropertiseDetailManage?propid=" + _PropertyId;
+            } else {
+                alert("添加失败!");
+                window.location.href = "/Class/PropertiseDetailManage?propid=" + _PropertyId;
+            }
+
+        })
+    }
+
+
+
+</script>
+
+
+
+

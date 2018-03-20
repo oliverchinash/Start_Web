@@ -1,0 +1,275 @@
+﻿@{ 
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder; ;
+    IList<SuperMarket.Model.VWCGMemQuotedEntity> quotecgmemlist = ViewBag.QuotedCGMemList;
+    IList<SuperMarket.Model.InquiryProductEntity> productlist = vworder.OrderProducts;
+    Dictionary<int,IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic= ViewBag.ProductSubDIc;
+    Dictionary<string, SuperMarket.Model.CGQuotedPriceEntity> pricedic= ViewBag.PriceDic;
+}
+<div class="select">
+    <div class="list-top">
+        <div class="list-top-main">
+            <img src="../img/index-icon.png" style="vertical-align: middle"> 
+            <span>初步选择询价订单供应商</span>
+        </div>
+    </div> 
+
+    <table class="listDetail-table" cellpadding="0" cellspacing="0">
+        <tr>
+            <th class="listDetail-td">用户名称</th>
+            <th class="listDetail-td3">用户联系方式</th>
+            <th class="listDetail-td">所属公司</th>
+            <th class="listDetail-td2">用户地址</th>
+        </tr>
+        <tr>
+            <td>@vworder.MemName</td>
+            <td>@vworder.MemPhone</td>
+            <td>@vworder.CompanyName</td>
+            <td>@vworder.CompanyAddress</td>
+        </tr>
+    </table>
+    <!------供应商和用户信息------>
+    <!-------订单明细开始-------->
+    <h3>订单明细</h3>
+    <div class="listDetail-main">
+        <ul class="listDetail-cont">
+            <li>订单号：@vworder.InquiryOrderCode</li>
+            <li>下单时间:@vworder.CreateTime</li>
+            <li>订单状态：@vworder.StatusName</li>
+            <li>品牌：@vworder.CarBrandName</li>
+            <li>车型：@vworder.CarSeriesName</li>
+            <li>年款：@vworder.CarTypeModelName</li>
+            <li>车架号：@vworder.VinNo</li>
+            <li>发动机号：@vworder.EngineModelNo</li>
+            <li>&nbsp;</li> 
+            <li>
+                车架号图：@if (!string.IsNullOrEmpty(vworder.VinPic))
+                {
+                    <a target="_blank" href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.VinPic)">
+                        <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.VinPic)" />
+                    </a>
+                }
+            </li>
+            <li>
+                发动机号图：@if (!string.IsNullOrEmpty(vworder.EngineModelPic))
+                {
+                    <a target="_blank" href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.EngineModelPic)">
+                        <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + vworder.EngineModelPic)" />
+                    </a>     }
+</li>
+        </ul>
+        <div class="clear"></div>
+        <ul class="listDetail-cont2">
+            <li>
+                @if (vworder.OrderPics != null && vworder.OrderPics.Count > 0)
+                {
+                    foreach (SuperMarket.Model.InquiryOrderPicsEntity pic in vworder.OrderPics)
+                    {
+                        <a target="_blank" href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + pic.PicUrl)">
+                            <img class="clsvinimg" src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+pic.PicUrl)" />
+                        </a>     }
+                }
+</li>
+        </ul> 
+    </div>
+    <div class="select-list">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>产品名称</th>
+                <th>产品类型</th> 
+                @if (quotecgmemlist != null && quotecgmemlist.Count > 0)
+                {
+                    foreach (SuperMarket.Model.VWCGMemQuotedEntity entity in quotecgmemlist)
+                    { 
+                        <th><input type="checkbox" cgmemid="@entity.CGMemId" onclick="Fun_SelectAllByMemId(this)" />@(entity.CGMemStore.CompanyName+"("+ (entity.HasInStock==1?"有现货":"订货"+ entity.RemarkByCGMem)+")")</th>
+                    }
+                } 
+            </tr>
+            @if (productlist != null && productlist.Count > 0)
+            {
+                Dictionary<int, decimal> totalcgpricealldic = new Dictionary<int, decimal>();
+                Dictionary<int, decimal> totalpricealldic = new Dictionary<int, decimal>();
+                foreach (SuperMarket.Model.InquiryProductEntity proentity in productlist)
+                {
+                    int pro_i = 0;
+                    if (productsubdic.ContainsKey(proentity.ProductId))
+                    {
+                        IList<SuperMarket.Model.InquiryProductSubEntity> productsublist = productsubdic[proentity.ProductId];
+                        if (productsublist != null && productsublist.Count > 0)
+                        {
+                            foreach (SuperMarket.Model.InquiryProductSubEntity prosubentity in productsublist)
+                            {
+                                pro_i++;
+                                <tr>
+                                    @if (pro_i == 1)
+                                    {
+                                        <td rowspan="@(productsublist.Count)" width="260">@proentity.ProductName</td>
+                                    }
+
+                                    <td>@prosubentity.InquiryProductTypeName</td> 
+                                    @foreach (SuperMarket.Model.VWCGMemQuotedEntity entity in quotecgmemlist)
+                                    {
+                                        if (pricedic.ContainsKey(prosubentity.Id + "_" + entity.CGMemId))
+                                        {
+                                            SuperMarket.Model.CGQuotedPriceEntity priceentity = pricedic[prosubentity.Id + "_" + entity.CGMemId];
+                                            if (!totalcgpricealldic.ContainsKey(entity.CGMemId))
+                                            {
+                                                totalcgpricealldic.Add(entity.CGMemId, priceentity.CGPrice);
+                                                totalpricealldic.Add(entity.CGMemId, priceentity.Price);
+                                            }
+                                            else
+                                            {
+                                                totalcgpricealldic[entity.CGMemId] = totalcgpricealldic[entity.CGMemId] + priceentity.CGPrice;
+                                                totalpricealldic[entity.CGMemId] = totalpricealldic[entity.CGMemId]+priceentity.Price;
+                                            }
+                                            <td><input class="clschkQuotePrice" type="checkbox"  @(priceentity.HasSelected==1?"checked":"")  prosubid="@priceentity.InquiryProductSubId" productname="@proentity.ProductName" cgmemid="@entity.CGMemId" priceid="@priceentity.Id"  />@(priceentity.CGPrice.ToString("0.00"))/@(priceentity.Price.ToString("0.00"))/备注：@(priceentity.InquiryProductDes)</td>
+                                        }
+                                        else
+                                        {
+                                                <td>未报价</td>
+                                        }
+                                     }
+                                </tr>
+
+                            }
+
+                        }
+                    }
+
+                }
+                @*<tr>
+            <td colspan="2" width="260">总计</td>
+            @foreach (SuperMarket.Model.CGMemQuotedEntity entity in quotecgmemlist)
+            {
+                if (totalcgpricealldic.ContainsKey(entity.CGMemId))
+                {
+                    <td>@(totalcgpricealldic[entity.CGMemId])/ @(totalpricealldic[entity.CGMemId])  </td>
+                }
+                else
+                {
+                    <td>未报价</td>
+                }
+            }
+        </tr>            <tr>
+        <td colspan="2" width="260">利润</td>
+        @foreach (SuperMarket.Model.CGMemQuotedEntity entity in quotecgmemlist)
+        {
+            if (totalcgpricealldic.ContainsKey(entity.CGMemId))
+            {
+                <td> @(totalpricealldic[entity.CGMemId] - totalcgpricealldic[entity.CGMemId])</td>
+            }
+            else
+            {
+                <td>未报价</td>
+            }
+        }
+    </tr>*@
+            }
+        </table>
+        <!------选择供应商---->
+         @*<div class="select-s">
+            <div class="select-fl fl">选择供应商：</div>
+            <ul class="select-fr fl">
+                @if (quotecgmemlist != null && quotecgmemlist.Count > 0)
+                {
+                    foreach (SuperMarket.Model.VWCGMemQuotedEntity entity in quotecgmemlist)
+                    {
+                        <li>
+                            <input type="radio" name="radcgmem" @(entity.HasChecked==1?"checked":"") value="@(entity.CGMemId)" >@(entity.CGMemStore.CompanyName)(@(entity.InStockName+" "+ entity.RemarkByCGMem))
+                        </li>
+                    }
+                }  
+            </ul>
+        </div>*@ 
+        <div class="clear"></div>
+        <div class="select-button">
+            <button class="fr" onclick="Fun_SelectCGMemPrice()">确认选择</button>
+        </div>
+    </div> 
+</div>
+<div style="display:none;">
+    <input type="hidden" id="hidSelectedOrderCode" value="@ViewBag.Code" />
+</div>
+<script>
+    var clicklock = 0;
+    function Fun_SelectCGMem() {
+        var ordercode = $("#hidSelectedOrderCode").val();
+        var memid = $("input[name='radcgmem']:checked").val();
+        if (memid == null || memid == undefined)
+        {
+            alert("请选择供应商");
+            return false;
+        }
+        if (clicklock == 0)
+        {
+            clicklock++;
+            $.post("/SysOrderInquiry/SelectCGMemSubmit", { ordercode: ordercode, memid: memid }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var _returnStatus = -_returncode.Status;
+                if (_returnStatus == _TheArray[0]) {
+                    alert("成功选择供应商");
+                    location.href = "/SysOrderInquiry/ProductPriceSet?code=" + ordercode;
+                }
+                else {
+                    alert(_TheArray[_returnStatus]);
+                }
+            })
+        } 
+    }
+
+    function Fun_SelectCGMemPrice() {
+        var ordercode = $("#hidSelectedOrderCode").val();
+        var memprices = "";
+        var productsubattr=new Array();
+        var hasselectmore = false;
+        $(".clschkQuotePrice:checked").each(function () {
+            var productsubid=$(this).attr("prosubid");
+            if(productsubattr.hasOwnProperty(productsubid))
+            {
+                productsubattr[productsubid] = productsubattr[productsubid] + 1;
+                var productname = $(this).attr("productname");
+
+                alert(productname+" 重复选择，请校验");
+                hasselectmore = true;//选多了
+                return false;
+
+            }
+            else {
+                productsubattr[productsubid] = 1;
+                var cgmemid=$(this).attr("cgmemid");
+                var priceid=$(this).attr("priceid"); 
+                memprices += cgmemid + "_" + priceid + "|";
+            }
+        })
+        if(hasselectmore)
+        {
+            return;
+        }
+        if (clicklock == 0) {
+            clicklock++;
+            $.post("/SysOrderInquiry/SelectCGMemPriceSubmit", { ordercode: ordercode, memprices: memprices }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var _returnStatus = -_returncode.Status;
+                if (_returnStatus == _TheArray[0]) {
+                    alert("成功选择供应商");
+                    location.href = "/SysOrderInquiry/ProductPriceSet?code=" + ordercode;
+                }
+                else {
+                    alert(_TheArray[_returnStatus]);
+                    clicklock = 0;
+                }
+            })
+        }
+    }
+    function Fun_SelectAllByMemId(obj)
+    {
+        var cgmemid = $(obj).attr("cgmemid");
+      
+        if ($(obj).is(':checked'))
+        { 
+            $(".clschkQuotePrice[cgmemid=" + cgmemid + "]").prop('checked', true);
+        }
+        else {
+            $(".clschkQuotePrice[cgmemid=" + cgmemid + "]").prop("checked", false);
+        }
+    }
+</script>

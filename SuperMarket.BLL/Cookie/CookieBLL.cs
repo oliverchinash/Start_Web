@@ -13,7 +13,7 @@ namespace SuperMarket.BLL.Cookie
 {
     public class CookieBLL
     {
-        #region 修理厂用户（阿哈马平台）cookie
+        #region 修理厂用户（易店心平台）cookie
         public static SuperMarket.Model.Account.MemberLoginEntity GetLoginCookie()
         {
             try

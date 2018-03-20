@@ -1,0 +1,263 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "订单详情";
+    SuperMarket.Model.VWOrderEntity _entity = ViewBag.entity;
+    IList<SuperMarket.Model.OrderDetailEntity> _detailEntitys = ViewBag.detailEntity;
+    SuperMarket.Model.OrderBillBasicEntity _billBasicEntity = ViewBag.billEntity;
+    SuperMarket.Model.VWMemberEntity _mementity = ViewBag.VWMem;
+}
+
+<div class="detail_or">
+    <div class="detail_top">
+
+        <div class="detail_thead"><span>订单详情</span></div>
+        <div class="detail_tbody">
+
+            <table>
+               <tr>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70" class="sold_info">订单信息:</td>
+                                <td>订单编号：@_entity.Code</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">下单时间:</td>
+                                <td>@_entity.CreateTime</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">订单状态:</td>
+                                <td>@_entity.StatusName</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">支付方式:</td>
+                                <td>@SuperMarket.Core.Enums.EnumShow.Instance.GetEnumDes((SuperMarket.Model.PayType)_entity.PayType)</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">物流选择:</td>
+                                <td>@_entity.ExpressComName</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70" class="sold_info">收获人</td>
+                                <td>@_entity.AccepterName</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">收货人手机:</td>
+                                <td>@_entity.AccepterPhone</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">收货地址:</td>
+                                <td>@_entity.AccepterAddress</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">收货省市:</td>
+                                <td>@(_entity.AccepterProvinceName) @(_entity.AccepterCityName)</td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70"></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70" class="sold_info">发票类型</td>
+                                <td>@_entity.BillTypeName</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80">
+                        <table>
+                            <tr>
+                                <td width="70">发票抬头:</td>
+                                <td>@((_entity.BillType == (int)SuperMarket.Model.BillType.VAT)?_billBasicEntity.CompanyName:_entity.BillName)</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="300" height="80"><table>
+    <tr>
+        <td width="70">公司名称:</td>
+        <td>@(_mementity.CompanyName)</td>
+    </tr>
+</table> 
+                    </td> 
+                    <td width="300" colspan="2"> <table>
+    <tr>
+        <td width="70">备注:</td>
+        <td>@(_entity.Remark)</td>
+    </tr>
+</table> 
+                    </td> 
+                    
+                </tr>
+                @if (_entity.BillType == (int)SuperMarket.Model.BillType.VAT)
+                {
+                    <tr>
+                        <td width="300" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70" class="sold_info">纳税人识别号</td>
+                                    <td>@_billBasicEntity.CompanyCode</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="300" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70">注册地址:</td>
+                                    <td>@_billBasicEntity.CompanyAddress</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="300" height="80"> 
+                            <table>
+                            <tr>
+                                <td width="70">注册电话:</td>
+                                <td>@_billBasicEntity.CompanyPhone</td>
+                            </tr>
+                        </table></td>
+                                                <td width="300" height="80"><table>
+                            <tr>
+                                <td width="70">开户银行:</td>
+                                <td>@_billBasicEntity.CompanyBank</td>
+                            </tr>
+                        </table></td>
+                                                <td width="300" height="80"><table>
+                            <tr>
+                                <td width="70">银行账户:</td>
+                                <td>@_billBasicEntity.BankAccount</td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                    <tr>
+                        <td width="300" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70" class="sold_info">收票人姓名</td>
+                                    <td>@_billBasicEntity.ReceiverName</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="300" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70">收票人手机:</td>
+                                    <td>@_billBasicEntity.ReceiverPhone</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="300" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70">收票人省市:</td>
+                                    <td>@(_billBasicEntity.ReceiverProvinceName+" "+ _billBasicEntity.ReceiverCityName)</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="600" height="80">
+                            <table>
+                                <tr>
+                                    <td width="70">详细地址:</td>
+                                    <td>@_billBasicEntity.ReceiverAddress</td>
+                                </tr>
+                            </table>
+                        </td> 
+                    </tr>
+                }
+            </table> 
+        </div>
+
+        <div class="detail_thead" style="background:#fff; border-top:none; height:50px; line-height:60px;"><span>商品清单</span></div>
+        <div class="detail_tbody">
+            <table cellspacing="0">
+                <tr class="table_tr">
+                    <th width="370">商品</th>
+                    <th width="270">零售价（元）</th>
+                    <th width="125">数量</th>
+                    <th width="200">操作状态</th>
+                    <th width="170">总价</th>
+                </tr>
+               @foreach (SuperMarket.Model.OrderDetailEntity _detailEntity in _detailEntitys)
+               { <tr>
+                  
+
+                   
+                    <td class="table_td">
+                        <table>
+                            <tr>
+                                <td><img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+_detailEntity.ProductPic+"."+_detailEntity.ProductPicSuffix)" style="height:50px;width:50px"/></td>
+                                <td style="text-align:left;">@_detailEntity.ProductName</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="table_td">@_detailEntity.ActualPrice</td>
+                    <td class="table_td">@_detailEntity.Num</td>
+                    <td class="table_td">@ViewBag.status</td>
+                    <td class="table_td" style="font-weight:bold;">@_detailEntity.TotalPrice</td>
+                </tr>
+               }
+            </table>
+        </div>
+         
+        <div class="detail_or_sum">
+            <div class="or_sum_text">
+                <ul>
+                    <li>总商品金额： <span id="totalGoodFee" style="margin-right:10px">@_entity.TotalPrice</span></li>
+                     <li>积分抵扣： <span id="transfee" style="margin-right:10px">-@_entity.IntegralFee</span></li> 
+                    <li>订单金额：<span>￥</span><span style="margin-right:10px">@(_entity.ActPrice)</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+

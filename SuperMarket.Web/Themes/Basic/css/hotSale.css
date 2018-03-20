@@ -1,0 +1,100 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align:left;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+
+
+/**********爆品热卖页面开始***********/
+.hotSale{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    background: #fff repeat;
+    font-size: 1.4rem;
+}
+/******头部开始******/
+.hotSale-header{
+    background: #CC1B23;
+}
+.hotSale-header a{
+    color: #fff;
+}
+.hotsale-daojishi{
+    margin-left: 1rem;
+    padding: 1rem 0;
+}
+.hotSale-cart{
+    position: relative;
+}
+.hotSale-cart span{
+    background-color: #FD5040;
+    position:absolute;
+    top:7px;
+    left: 75%;
+    margin-left: -10px;
+    padding: 1px 5px;
+}
+/******产品列表开始******/
+.hotSale-main ul{
+   padding-left: 0;
+}
+.hotSale-main ul li{
+    margin-top:.5rem;
+    border-bottom: 1px solid #ddd;
+}
+.hotSale-main ul li span{
+    color: #D85359;
+}
+/****产品图文介绍开始****/
+.hotSale-main .am-list{
+    margin-bottom: 0;
+}
+.hotSale-main .am-list-news-default{
+    margin:.5rem 1rem;
+}
+.hotSale-main .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.hotSale-main .am-list-main{
+    text-align: left;
+
+}
+.hotSale-main .am-list-item-hd{
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.hotSale-main .am-list-main h3 a{
+    color: #343434;
+}
+.hotSale-main .hotSale-main-huiyuan{
+    margin-top: .7rem;
+}
+.hotSale-main .am-list-item-desced a{
+    color: #FF532B;
+}
+.hotSale-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img {
+    display: block;
+    width: 9rem;
+    height: 9rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/****产品图文介绍结束****/

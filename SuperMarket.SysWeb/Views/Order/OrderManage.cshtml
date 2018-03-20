@@ -1,0 +1,378 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "订单管理";
+    IList<SuperMarket.Model.OrderEntity> _entitylist = ViewBag.entitylist;
+    IList<SuperMarket.Model.OrderDetailEntity> _entitylist2 = ViewBag.orderdetailentitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selOrderStatus, #selOrderTerm {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 10%;
+    }
+
+    .admin_detail > ul > li {
+        width: 10%;
+    }
+</style>
+
+
+<input id="txtHidTerm" type="hidden" value="@Request["term"]">
+<input id="txtHidStatus" type="hidden" value="@Request["status"]">
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>订单管理</span></div>
+    </div>
+
+    <div class="title_main">
+
+        请选择订单状态：
+        <select id="selOrderStatus">
+            <option value="0">--选择状态--</option>
+            <option value="1" @(Request["status"] == "1" ? "selected=selected" : "")>--等待付款--</option>
+            <option value="2" @(Request["status"] == "2" ? "selected=selected" : "")>--等待确认--</option>
+            <option value="3" @(Request["status"] == "3" ? "selected=selected" : "")>--等待发货--</option>
+            <option value="4" @(Request["status"] == "4" ? "selected=selected" : "")>--等待收货--</option>
+            <option value="5" @(Request["status"] == "5" ? "selected=selected" : "")>--完成--</option>
+            <option value="6" @(Request["status"] == "6" ? "selected=selected" : "")>--已关闭--</option>
+            <option value="7" @(Request["status"] == "7" ? "selected=selected" : "")>--取消订单--</option>
+        </select>
+
+        请选择时间段：
+        <select id="selOrderTerm">
+
+            <option value="-2">---选择时间段----</option>
+            <option value="-1" @(Request["term"] == "-1" ? "selected=selected" : "")>---三十天内----</option>
+            <option value="0" @(Request["term"] == "0" ? "selected=selected" : "")>-----三个月内----</option>
+            <option value="1" @(Request["term"] == "1" ? "selected=selected" : "")>-----今年内----</option>
+            <option value="2" @(Request["term"] == "2" ? "selected=selected" : "")>------去年----</option>
+            <option value="3" @(Request["term"] == "3" ? "selected=selected" : "")>------前年----</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        订单号:
+        <input value="@Request["ordercode"]" id="txtOrderCode" />
+
+        <button id="btnSearchOrderList" onclick='btnSearchOrderList()'>查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:10%">订单号</li>
+                <li>提交时间</li>
+                <li>订单状态</li>
+                <li>总价格</li>
+                <li>邮费</li>
+                <li>应付金额</li>
+                <li>实付金额</li>
+                <li style="width:30%">操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.OrderEntity entity in _entitylist)
+                {
+
+                    IList<SuperMarket.Model.OrderDetailEntity> listfilter = _entitylist2.Where(s => s.OrderCode == entity.Code).ToList();
+
+                    <div class="admin_detail">
+                        <ul>
+
+                            <li class="li_iterm" style="width:10%">
+                                @entity.Code
+                            </li>
+                            <li class="li_iterm">@entity.CreateTime.ToString("yyyy-MM-dd")</li>
+                            <li class="li_iterm">@entity.StatusName</li>
+                            <li class="li_iterm">@entity.TotalPrice</li>
+                            <li class="li_iterm">@entity.TransFee</li>
+                            <li class="li_iterm">@entity.ActPrice</li>
+                            <li class="li_iterm">@entity.PayPrice</li> 
+                            <li class="li_iterm" style="width:30%">
+                                @if (entity.Status == (int)SuperMarket.Model.OrderStatus.WaitPay&& entity.FinancialStatus == (int)SuperMarket.Model.FinancialStatus.Default)
+                                {
+                                    <a onclick="AddToPayConfirm(this)" href="javascript:void(0)" id="@entity.Id" code="@entity.Code">添加到线下收款确认</a>
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.OrderStatus.WaitDeal && entity.FinancialStatus == (int)SuperMarket.Model.FinancialStatus.WaitChecked)
+                                {
+                                    <a onclick="PayCheck(this)" href="javascript:void(0)" id="@entity.Id" code="@entity.Code">确认收款</a>
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.OrderStatus.WaitDeliver)
+                                {
+                                    <a href="/CGCheck/CGOrderHandle?sourceCode=@entity.Code">采购订单 </a>
+                                    @*if (listfilter != null && listfilter.Count > 0)
+                                    {
+                                        <a href="/Order/OrderDetailManage?opration=goodDelivery&ordercode=@entity.Code" target="_blank">发货</a>
+                                    }
+                                    else
+                                    {
+                                        <span>该订单下无产品</span>
+                                    }*@
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.OrderStatus.WaitRecive)
+                                {
+                                    <a href="/CGCheck/CGOrderHandle?sourceCode=@entity.Code">采购订单 </a>
+                                    @*if (listfilter.All(s => s.IsDeliveried == 1))
+                                    {
+                                        <a href="javascript:void(0)" ordercode=@entity.Code onclick="Receipt(this);">收货</a>
+                                    }
+                                    else
+                                    {
+                                        <span>该订单下仍有未收货子订单，暂时无法收货</span>
+                                    }*@
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.OrderStatus.Finished)
+                                {
+                                    <a href="/CGCheck/CGOrderHandle?sourceCode=@entity.Code">采购订单 </a>
+                                    @*if (entity.CanReturn == 1)
+                                    {
+                                        <a href="/Order/OrderDetailManage/?opration=returnAuthen&ordercode=@entity.Code" target="_blank" > 准予该订单下产品可退货 </a>
+                                    }
+                                    else if (entity.CanReturn == 0)
+                                    {
+                                        <a href="javascript:void(0)" onclick="FunActivate(@entity.Id,@entity.Code,this)" style="color:red"> 激活该订单为可退货状态 </a>
+                                    }*@
+                                }
+                                else if (entity.Status == (int)SuperMarket.Model.OrderStatus.CancelApp)
+                                {
+                                    <a href="/CGCheck/CGOrderHandle?sourceCode=@entity.Code">采购订单 </a>
+                                    <a onclick="CancelOrderPass(this)" href="javascript:void(0)" id="@entity.Id" code="@entity.Code">取消订单通过</a>
+                                    <a onclick="CancelOrderReject(this)" href="javascript:void(0)" id="@entity.Id" code="@entity.Code">取消订单拒绝</a>
+                                } 
+
+                                <a href="/Order/OrderDetails?ordercode=@entity.Code">订单详情管理</a>
+
+                            </li> 
+                        </ul>
+                    </div>
+                } 
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到该记录!
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
+
+<script>
+
+    function btnSearchOrderList() {
+
+        var _ordercode = $("#txtOrderCode").val();
+        var _status = $("#selOrderStatus").val();
+        var _term = $("#selOrderTerm").val();
+        location.href = "/Order/OrderManage/?ordercode=" + _ordercode + "&status=" + _status + "&term=" + _term;
+
+    }
+
+    //激活该订单为可退换货状态
+    function FunActivate(orderId,orderCode,obj){
+
+        $.post("/Order/ActivateOrder",{id:orderId},function(data){
+            if(data>0){
+                alert("激活成功!");
+                var _parentcode = $(obj).parent();
+                $(obj).remove();
+                _parentcode.append("<a href=/Order/OrderDetailManage/?opration=returnAuthen&ordercode="+orderCode+"  target=_blank > 准予该订单下产品可退货 </a>");
+            }
+        });
+
+
+    }
+
+    //确认收款
+    function PayCheck(obj) {
+        var id = $(obj).attr("id");
+        var code = $(obj).attr("code");
+        $.post("/Order/PayCheck", { ordercode: code, orderid: id }, function (data) {
+            location.href=    location.href;
+            //var _jsonobj = eval("(" + data + ")");
+            //if (_jsonobj != null && _jsonobj != undefined) {
+            //    $(obj).parent().parent().parent().remove();
+            //}
+        }
+        );
+    }
+    //取消订单通过
+    function  CancelOrderPass(obj)
+    {
+        if (confirm("请确定可以通过取消订单额！校验：供应商是否接受？")) {
+
+            var id = $(obj).attr("id");
+            var code = $(obj).attr("code");
+            $.post("/Order/CancelOrderCheckPass", { ordercode: code, orderid: id }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var status = -_returncode.Status;
+                if (status == _TheArray[0]) {
+                    alert("成功!");
+                    location.href = location.href;
+                }
+                else {
+                    alert("失败!");
+                }
+            });
+        }
+    }
+    //取消订单通过
+    function CancelOrderReject(obj) {
+        var id = $(obj).attr("id");
+        var code = $(obj).attr("code");
+        $.post("/Order/CancelOrderCheckReject", { ordercode: code, orderid: id }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                alert("成功!");
+                location.href = location.href;
+            }
+            else {
+                alert("失败!");
+            }
+        });
+    }
+
+    function AddToPayConfirm(obj)
+    {
+        var id = $(obj).attr("id");
+        var code = $(obj).attr("code");
+        $.post("/Order/AddToLineConfirm", { ordercode: code, orderid: id }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                alert("成功!");
+                location.href = location.href;
+            }
+            else {
+                alert("确认收货失败!");
+            }
+        }
+        );
+    }
+    //收货
+    function Receipt(obj) {
+        var _ordercode = $(obj).attr("ordercode");
+        $.post("/Order/Recepit", { ordercode: _ordercode }, function (data) {
+            var _jsonobj = eval("(" + data + ")");
+            debugger
+            if (_jsonobj != null && _jsonobj != undefined) {
+                $(obj).parent().parent().parent().remove();
+            }
+            else {
+                alert("确认收货失败!");
+            }
+        });
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != "all") {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 2)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        }
+        else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+
+
+</script>
+
+
+

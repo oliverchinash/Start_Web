@@ -1,0 +1,116 @@
+﻿@{
+    SuperMarket.Model.BrandEntity entity = ViewBag.entity;
+}
+<div class="property"> 
+    <div class="property-top">
+        <h3 class="fl">品牌编辑</h3>
+    </div>
+    <div class="clear"></div> 
+    <div class="property-right fl">
+        <h3>1.基本信息</h3>
+        <div class="property-main">
+            <div class="property-title">
+                <span>品牌名称：</span>
+                <input type="text" id="txtName" value="@entity.Name">
+            </div>
+            <div class="property-title">
+                <span>生产厂家：</span>
+                <input type="text" id="txtManufacturer" value="@entity.Manufacturer">
+            </div> 
+            <div class="property-shop">
+                <span class="property-shop-span">热门品牌：</span> 
+                <a>
+                    <input type="radio" name="radIsHot" value="1" @(entity.IsHot == 1 ? "checked" : "")>
+                    是
+                </a>
+                <a>
+                    <input type="radio" name="radIsHot" value="0" @(entity.IsHot == 0 ? "checked" : "")>
+                    否
+                </a>
+            </div>
+            <div class="property-title">
+                <span>序号：</span>
+                <input type="text" id="txtSort" value="@entity.Sort">
+            </div> 
+            <div class="property-spec">
+                <span class="fl">商标图片：</span>
+                <div class="property-spec-right fl">
+                    <div class="property-spec-main">
+                        <div id="divcontainerProductPic" btntext="上传图片">上传图片</div>
+                        <div id="divPicUrl">
+                            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.PicUrl)" />
+                        </div> 
+                    </div>
+                </div>
+            </div> 
+            <div class="property-shop">
+                <button onclick="Fun_SaveEntity()">保存</button>
+            </div> 
+        </div>
+    </div> 
+    <div class="clear"></div>
+</div> 
+<div style="display:none;">
+    <input id="txtPicUrl" value="@entity.PicUrl" pictype="@((int)SuperMarket.Model.CertificateType.BrandTag)" />
+    <input id="txtId" value="@entity.Id" />
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+    var arrimagespath = new Array();
+    $(function () {
+        var pictype = $("#txtPicUrl").attr("pictype");
+        $('#divcontainerProductPic').diyUpload({
+            url: '/SysCommon/UploadImageFileForBit',
+            imagedefaultpath: arrimagespath,
+            fileNumMax: 1,
+            formData: {
+                pictype: pictype
+            },
+            success: function (fileid, data, webUploader) {
+                if (data != "" && data.pic_raw != "") {
+                    var strimagesurl = $("#txtPicServerRootUrl").val();
+                    $("#divPicUrl").html("<img fileid='" + fileid + "' src='" + strimagesurl + data.pic_raw + "'/>");
+                    $("#txtPicUrl").val(data.pic_raw); 
+                    //删除上传控制锁
+                    if (webUploader.getFiles() > 0 || webUploader.getFile(fileid) != undefined) {
+                        webUploader.removeFile(fileid);
+                    }
+                }
+            },
+            complete: function () {
+
+            },
+            error: function (err) {
+                alert(err);
+            }
+        }); 
+    });
+    function Fun_SaveEntity() {
+        var enid=$("#txtId").val();
+        var name = $("#txtName").val(); 
+        var picurl = $("#txtPicUrl").val();
+        var menufac = $("#txtManufacturer").val();
+        var ishot = $("input[name='radIsHot']:checked").val();  
+        var sort = $("#txtSort").val(); 
+
+        $.post("/SysBasicInfo/BrandEditSubmit", {
+            enid: enid, name: name, picurl: picurl, manu: menufac, ishot: ishot, sort: sort
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var _returnStatus = -_returncode.Status;
+            if (_returnStatus == _TheArray[0]) {
+                alert("操作成功");
+                location.href = "/SysBasicInfo/BrandEdit?id=" + _returncode.Obj.Id;
+            }
+            else {
+                layer.msg(_TheArray[_returnStatus], {
+                    time: 100
+                });
+                cliki = 0;
+                return false;
+            }
+        });
+    }
+</script>

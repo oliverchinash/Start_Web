@@ -1,0 +1,209 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.CmsContentEntity> _entitylist = ViewBag.ContentList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selCategory, #selIsActive {
+        width: 150px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+
+    .admin_title > ul > li {
+        width: 25%;
+    }
+
+    .admin_detail > ul > li {
+        width: 25%;
+    }
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>模板管理</span></div>
+        <div class="add_admin">
+                <span><a href="/Cms/CmsProductBind" target="_blank"><img src="~/Themes/Img/Add.png" />添加</a></span>
+            </div>
+    </div>
+
+    <div class="title_main">
+
+        内容编号:
+        <input id="txtId" value="@Request["cid"]"/>
+
+        &nbsp;&nbsp;&nbsp;
+
+        名称：
+        <input id="txtName" value="@Request["t"]"/>
+
+        &nbsp;&nbsp;&nbsp;
+
+        分类：
+        <select id="selCategory">
+
+            <option value="0">请选择分类</option>
+            <option value="1" @(Request["ct"]=="1"?"selected=selected":"")>首页导航</option>
+            <option value="2" @(Request["ct"]=="2"?"selected=selected":"")>左侧导航</option>
+            <option value="3" @(Request["ct"]=="3"?"selected=selected":"")>首页中部广告</option>
+
+        </select>
+
+        有效性：
+        <select id="selIsActive">
+
+            <option value="-1">请选择有效性</option>
+            <option value="1" @(Request["ct"]=="1"?"selected=selected":"")>有效</option>
+            <option value="0" @(Request["ct"]=="0"?"selected=selected":"")>无效</option>
+
+        </select>
+
+        <button id="Search" onclick="Search()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div id="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>内容标题</li>
+                <li>是否有效</li>
+                <li>生成时间</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.CmsContentEntity entity in _entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">
+                                @entity.Title
+                            </li>
+                            <li class="li_iterm">@(entity.IsActive == 1 ? "有效" : "无效")</li>
+                            <li class="li_iterm">@entity.CreateTime.ToString("yyyy-MM-dd")</li>
+                            <li class="li_iterm"><a href="/Cms/CmsProductBind?cmsid=@entity.Id">编辑模板</a></li>
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+<script>
+
+    function Search() {
+
+        var _cid = $("#txtId").val();
+        var _t = $("#txtName").val();
+        var _ct = $("#selCategory").val();
+        var _s = $("#selIsActive").val();
+
+        window.location.href = "/Cms/CMSContentManage?cid=" + _cid + "&t=" + _t + "&ct=" + _ct + "&s="+_s;
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != 'all') {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 1)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        } else {
+            document.getElementById("all").checked = false;
+        }
+    }
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+
+</script>
+
+

@@ -1,0 +1,645 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+    max-width: 100%;
+}
+/************产品列表页开始************/
+.product-list{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    background: #F3F3F3 repeat;
+
+}
+.product-list-top{
+    background: #EFEFEF;
+    width: 100%;
+}
+/*******header********/
+.product-list-header{
+    max-width: 750px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+    background: #EFEFEF;
+    height: 44px;
+    line-height: 44px;
+}
+.product-list-header i{
+    color: #ccc;
+}
+.am-with-fixed-header {
+    padding-top: 0px;
+}
+.am-header .am-header-title{
+    margin:1%  20%;
+}
+.am-form input[type=number], .am-form input[type=search], .am-form input[type=text], .am-form input[type=password], .am-form input[type=datetime], .am-form input[type=datetime-local], .am-form input[type=date], .am-form input[type=month], .am-form input[type=time], .am-form input[type=week], .am-form input[type=email], .am-form input[type=url], .am-form input[type=tel], .am-form input[type=color], .am-form select, .am-form textarea, .am-form-field{
+    font-size: 1.4rem;
+}
+
+/********已选*********/
+.product-list-choose{
+    padding:0 0 1rem 0;
+    font-size: 1.4rem;
+    width: 100%;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+.product-list-choose div{
+    padding-left:1rem;
+    padding-top:1rem;
+}
+
+.product-list-choose ul{
+    position:absolute;
+    left: 48px;
+    margin-top: 0;
+    padding-left:.5rem;
+    margin-bottom: .5rem;
+}
+.product-list-choose ul li{
+    padding-top: .5rem;
+    float: left;
+    margin-left:.2rem;
+    margin-top: .5rem;
+    height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.product-list-choose ul li span{
+    padding: .3rem .8rem;
+    line-height:1.8rem;
+    background:#fff url("../img/product_icon.png") no-repeat right bottom;
+    background-size:17px 14px;
+    border:1px solid #FF5000;
+    border-radius: .5rem;
+
+}
+.product-list-ul{
+
+    width: 1000px;
+}
+
+
+/*****加入购物车效果******/
+.u-flyer{display: block;width: 50px;height: 50px;border-radius: 50px;position: fixed;z-index: 9999;}
+#msg{
+    position:fixed;
+    top:300px; right:50px;
+    z-index:10000;
+    width:1px;
+    height:52px;
+    line-height:52px;
+    font-size:16px;
+    text-align:center;
+    color:#fff;
+    background:#FF5000;
+    display:none
+}
+#box {
+    background: #6699FF;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+}
+/********产品列表导航栏*********/
+.product-list-nav{
+    background: #fff;
+    width: 100%;
+}
+.product-list-nav ul{
+    padding: 0;
+
+}
+.product-list-nav .am-menu-default .am-parent a{
+    color: #333;
+}
+.product-list-nav .am-menu-default .am-menu-nav>.am-parent.am-open>a{
+    color: #B11205;
+
+}
+.product-list-nav .am-menu-default .am-menu-nav a{
+
+}
+.product-list-nav .am-menu-default .am-menu-nav{
+    padding: 0;
+}
+
+/*************油品侧边栏开始****************/
+.classify{
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    background: #F3F3F3 repeat;
+
+}
+
+.classify-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    margin-top: -.3rem;
+}
+.classify-header .am-header-nav a{
+    color: #333;
+}
+.classify-header .am-header-title a{
+    color: #333;
+}
+.classify-main .am-tabs-nav li{
+    background-color: #fff;
+}
+.classify-main .am-tabs-default .am-tabs-nav>.am-active a{
+    background-color: #fff;
+    border-bottom: 2px solid #CC1B23;
+    color: #CC1B23;
+    font-size: 1.4rem;
+}
+.classify-main .am-tabs{
+    margin: 0;
+}
+
+/*****折叠面板*****/
+.product-list-nav .am-offcanvas-bar:after{
+    background:none;
+}
+.product-list-nav .am-offcanvas-bar{
+    background: #fff;
+}
+.product-list-nav .am-offcanvas-content{
+    padding: 0;
+}
+.classify-main .am-accordion-gapped .am-accordion-item{
+    margin: 0;
+    border: none;
+}
+.classify-main .am-tabs-bd{
+    border: none;
+    margin-top: .8rem;
+}
+.classify-main .am-tabs-bd .am-tab-panel{
+    padding: 0;
+}
+.classify-main .am-accordion{
+    background-color: #fff;
+    text-align: left;
+    border-bottom: none;
+}
+.classify-main .am-accordion-content{
+    background-color: #F5F5F5;
+    padding: 0;
+}
+.classify-main .am-accordion-gapped{
+    margin: 0;
+}
+.classify-main .am-accordion-gapped .am-active .am-accordion-title{
+    background-color: #fff;
+}
+.am-offcanvas-content .am-accordion-content .classify-list-a{
+    text-align: left;
+    color: #666;
+    border-bottom: 1px solid #DDDDDD;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    text-indent:2rem;
+}
+.am-offcanvas-content .am-accordion-content  .classify-list-a:focus{
+    color:#CC1B23;
+}
+/***************油品侧边栏结束**************/
+
+/***********列表主体内容开始*************/
+.product-list-main{
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border-top: 1px solid #DDDDDD;
+    margin-top: .8rem;
+
+}
+/***********列表主体内容结束*************/
+.product-list-main{
+    text-align:left;
+}
+.product-list-main img{
+    border: 1px solid #DDDDDD;
+}
+.product-list-main .product-list-news{
+    margin-top: -1rem;
+    padding-top: -6rem;
+}
+.product-list-main .am-list-item-hd a{
+    color: #5B5B5B;
+    font-size: 1.4rem;
+}
+.product-list-main .am-list-item-hd{
+    color: #000;
+    height: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.product-list-main .am-list{
+    margin-top: 0;
+    margin-bottom:.5rem;
+}
+.product-list-main .am-list>li{
+    border-top:none;
+    padding: 0;
+}
+.product-list-main .am-list-news-default .am-list .am-list-item-desced .am-list-item-text{
+    color: #FF5000;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.product-list-main .am-list-news-default .am-list .am-list-item-desced{
+    padding-top: .5rem;
+}
+.product-list-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 9rem;
+    height: 9rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+
+/****************品牌******************/
+.brand{
+    font-size: 1.4rem;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    background: #F3F3F3 repeat;
+}
+
+/*******header********/
+.brand-header{
+    max-width: 750px;
+    margin: 0 auto;
+    background:#F7F7F7;
+    text-align:center;
+    height: 44px;
+    line-height: 44px;
+}
+.brand-header i{
+    color: #ccc;
+}
+.brand-header a{
+    color: #0C0C0C;
+}
+.brand-header .am-header-title{
+    margin-top: 0;
+    font-size: 1.7rem;
+}
+.brand .brand-all{
+    text-indent: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.brand .brand-all a{
+    color: #989898;
+}
+/****A字母查找****/
+.brand-A{
+    background: #fff;
+}
+.brand-A p{
+    text-align: left;
+    text-indent: 1rem;
+    border-bottom: 1px solid #EFEFEF;
+    margin-bottom: 0;
+}
+.brand-A-list a{
+    color: #0C0C0C;
+}
+.brand-A .am-list-news-default .am-list{
+    margin-bottom: 0;
+}
+.brand-A .am-list-news-default .am-list a{
+    color: #0C0C0C;
+}
+.brand-A .am-list-news-default .am-list .am-list-item-desced{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.brand-A .am-list-news-default .am-list li{
+    width: 100%;
+    border-top: none;
+    margin-bottom: 0;
+    border-bottom: 1px solid #EFEFEF;
+
+}
+.brand-A .am-list-news-default{
+    margin: 0;
+}
+.brand-A .am-list-main{
+    line-height: 3rem;
+
+}
+/********产品列表内的品牌样式修改*********/
+.doc-oc-demo2 .brand{
+    text-align: left;
+}
+.doc-oc-demo2 .brand img{
+    padding-top: .5rem;
+}
+.doc-oc-demo2 .brand-header{
+    height: 3rem;
+}
+.doc-oc-demo2 .brand-header a{
+    color:#282828;
+
+}
+.doc-oc-demo2 .brand-all a{
+    text-align: left;
+}
+.doc-oc-demo2 .brand-A .am-list-main{
+    text-align:left;
+}
+/**********产品列表内品牌样式修改完毕************/
+/****************车型查找******************/
+.cartype{
+    font-size: 1.4rem;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    background: #F3F3F3 repeat;
+}
+
+/*******header********/
+.cartype-header{
+    max-width: 750px;
+    margin: 0 auto;
+    background:#F7F7F7;
+    text-align:center;
+    border-bottom: 1px solid #E3E3E3;
+    height: 44px;
+    line-height: 44px;
+}
+.cartype-header i{
+    color: #ccc;
+}
+.cartype-header a{
+    color: #0C0C0C;
+}
+.cartype-header .am-header-title{
+    font-size: 1.7rem;
+    margin-top: 0;
+}
+/*******header里面的选项卡********/
+.cartype .cartype-tabs{
+    margin: 0;
+}
+.cartype .am-tabs-default .am-tabs-nav{
+    background-color: #F7F7F7;
+}
+.cartype .am-tabs-default .am-tabs-nav>.am-active a{
+    background:none;
+    color: #D61419;
+    border-bottom: 1px solid #D61419;
+}
+
+.cartype .am-tabs-bd .am-tab-panel{
+    padding: 0;
+}
+/*******header里面的选项卡结束********/
+.cartype .cartype-all{
+    text-indent: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cartype .cartype-all a{
+    color: #989898;
+}
+/****A字母查找****/
+.cartype-A{
+    background: #fff;
+}
+.cartype-A p{
+    text-align: left;
+    text-indent: 1rem;
+    border-bottom: 1px solid #EFEFEF;
+    margin-bottom: 0;
+}
+.cartype-A-list a{
+    color: #0C0C0C;
+}
+.cartype-A .am-list-news-default .am-list{
+    margin-bottom: 0;
+}
+.cartype-A .am-list-news-default .am-list a{
+    color: #0C0C0C;
+}
+.cartype-A .am-list-news-default .am-list .am-list-item-desced{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.cartype-A .am-list-news-default .am-list li{
+    width: 100%;
+    border-top: none;
+    margin-bottom: 0;
+    border-bottom: 1px solid #EFEFEF;
+
+}
+.cartype-A .am-list-news-default{
+    margin: 0;
+}
+.cartype-A .am-list-main{
+    line-height: 3rem;
+
+}
+
+/*********车型查找的浏览页面***********/
+.cartype-liulan{
+    font-size: 1.4rem;
+    background: #fff;
+    height: auto;
+    padding-bottom: 50rem;
+}
+.cartype-liulan .cartype-liulan-p{
+    width: 100%;
+    text-indent: 1rem;
+    line-height: 3.5rem;
+    background-color: #EFEFEF;
+}
+.cartype-liulan .cartype-liulan-p2{
+    text-align: center;
+    border: 1px solid #ccc;
+    width: 13rem;
+    display: block;
+    margin-left: 30%;
+}
+/********产品列表内的品牌样式修改*********/
+#doc-oc-demo3 .cartype{
+    text-align: left;
+}
+#doc-oc-demo3 .cartype img{
+    padding-top: .5rem;
+}
+#doc-oc-demo3 .cartype-header{
+    height: 3rem;
+}
+#doc-oc-demo3 .cartype-header a{
+    color:#282828;
+
+}
+#doc-oc-demo3 .cartype-all a{
+    text-align: left;
+}
+#doc-oc-demo3 .cartype-A .am-list-main{
+    text-align:left;
+}
+/**********产品列表内品牌样式修改完毕************/
+
+/***********车型二层开始***************/
+.cartype-second{
+    font-size: 1.3rem;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    background: #F3F3F3 repeat;
+}
+
+/*******header********/
+.cartype-second-header{
+    max-width: 750px;
+    margin: 0 auto;
+    background:#F7F7F7;
+    text-align:center;
+    border-bottom: 1px solid #E3E3E3;
+    height: 44px;
+    line-height: 44px;
+}
+.cartype-second-header i{
+    color: #ccc;
+}
+.cartype-second-header a{
+    color: #0C0C0C;
+}
+.cartype-second-header .am-header-title{
+    font-size: 1.7rem;
+    margin-top: 0;
+}
+/***********查询全部***********/
+.cartype-second .cartype-second-all{
+    text-indent: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cartype-second .cartype-second-all a{
+    color: #989898;
+}
+/******主体内容开始*******/
+.cartype-second-one p{
+    width: 100%;
+    background-color: #EEEEEE;
+    color: #838181;
+    line-height: 3rem;
+    text-indent: 1rem;
+    margin: 0;
+}
+
+.cartype-second-one ul{
+    background: #F7F7F7;
+    padding: 0;
+    text-align: center;
+}
+.cartype-second-one ul li{
+    line-height: 4.5rem;
+    border-bottom: 1px solid #E3E3E3;
+    border-right: 1px solid #E3E3E3;
+}
+.cartype-second-one ul li a{
+    color:#838181;
+}
+/***********车型二层结束***************/
+
+/***********车型三层开始***************/
+.cartype-three{
+    font-size: 1.4rem;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+    text-align: left;
+    background: #F3F3F3 repeat;
+}
+
+/*******header********/
+.cartype-three-header{
+    max-width: 750px;
+    margin: 0 auto;
+    background:#F7F7F7;
+    text-align:center;
+    border-bottom: 1px solid #E3E3E3;
+    height: 44px;
+    line-height: 44px;
+}
+.cartype-three-header i{
+    color: #ccc;
+}
+.cartype-three-header a{
+    color: #0C0C0C;
+}
+.cartype-three-header .am-header-title{
+    font-size: 1.7rem;
+    margin-top: 0;
+}
+/***********查询全部***********/
+.cartype-three .cartype-three-all{
+    text-indent: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cartype-three .cartype-three-all a{
+    color: #989898;
+}
+/*********下拉菜单*********/
+.cartype-three-menu{
+    background: #fff;
+    font-size: 1.4rem;
+    padding-left: 0;
+    text-align: center;
+
+}
+.cartype-three-menu li{
+    font-size: 1.4rem;
+    padding-left: 0;
+    padding-right:0;
+
+}
+.cartype-three-menu .am-dropdown .am-btn{
+    background: none;
+    font-size: 1.4rem;
+    padding: .5rem 0;
+}
+/***********车型三层结束***************/
+

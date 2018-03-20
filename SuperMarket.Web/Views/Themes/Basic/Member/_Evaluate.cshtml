@@ -1,0 +1,189 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-发表评论</title> 
+    <meta name="renderer" content="webkit">
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/basic.css">
+    <link rel="stylesheet" href="/themes/basic/css/comment.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script> 
+    <script src="/themes/basic/js/comment.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+    <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/Themes/Basic/Js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/webuploader.min.js"></script>
+    <script type="text/javascript" src="/Themes/Basic/Js/diyUpload/js/diyUploadEvaluateM.js"></script>
+
+</head>
+<body>@{
+    JiChen.Entities.VWOrderDetailEntity _detail = ViewBag.OrderDetail;
+}<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始------>
+    <header data-am-widget="header" class="am-header header">
+        <div style="display:none;">
+            <input id="txtPicServerRootUrl" type="hidden" value="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+            <input type="text" id="txtOrderDetailId" value="@_detail.Id" />
+            <input type="text" id="txtProductId" value="@_detail.ProductId" /> 
+            <input type="text" id="txtProductDetailId" value="@_detail.ProductDetailId" />
+        </div>
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                发表评论
+            </a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="javascript:void(0);EvaluateSubmit();" class="">
+                提交
+            </a>
+        </div>
+    </header>
+    <!----header结束------>
+    <!-------内容开始-------->
+    <div class="addComment">
+        <!-----商品描述评分开始------->
+        <div class="am-cf addComment-main">
+            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _detail.PicUrlSmall)">
+            <!-- # 星级评分 # star:value = 分数-->
+            <div class="shop-rating">
+                <span class="title">产品质量：</span>
+                <ul class="rating-level" id="stars1">
+                    <li><a class="one-star" star:value="1" href="javascript:void(0)">1</a></li>
+                    <li><a class="two-stars" star:value="2" href="javascript:void(0)">2</a></li>
+                    <li><a class="three-stars" star:value="3" href="javascript:void(0)">3</a></li>
+                    <li><a class="four-stars" star:value="4" href="javascript:void(0)">4</a></li>
+                    <li><a class="five-stars" star:value="5" href="javascript:void(0)">5</a></li>
+                </ul>
+                <span class="result" style="display:none;" id="stars1-tips"></span>
+                <input type="hidden" id="stars1-input" name="a" value="" size="2" />
+            </div>
+            <!-- END 星级评分 -->
+        </div>
+        <!-----商品描述评分结束------->
+        <!--------描述评论开始-------->
+        <form class="addComment-main2">
+            <textarea id="txtCommentContent" placeholder="商品满足您的期待吗？说说它的优点和美中不足的地方吧" maxlength="200"></textarea>
+            <div class="addComment-main2-div" id="divpicbox">
+                <div id="divuploadimg"><img src="/themes/basic/img/comment_tp1.png" class="am-img-responsive"></div> 
+            </div>
+            <div style="display:none;">
+                <span>共<a id="aHasUpload">0</a>张，还能上传<a id="aCanUpload">10</a>张</span></div> 
+        </form>
+        <!--------描述评论结束-------->
+    </div>
+    <!-------内容结束-------->
+ 
+    <div class="addComment-main3">
+        <div class="shop-rating" style="margin-top: 1rem">
+            <span class="title">送货速度：</span>
+            <ul class="rating-level" id="stars2">
+                <li><a class="one-star" star:value="1" href="javascript:void(0)">1</a></li>
+                <li><a class="two-stars" star:value="2" href="javascript:void(0)">2</a></li>
+                <li><a class="three-stars" star:value="3" href="javascript:void(0)">3</a></li>
+                <li><a class="four-stars" star:value="4" href="javascript:void(0)">4</a></li>
+                <li><a class="five-stars" star:value="5" href="javascript:void(0)">5</a></li>
+            </ul>
+            <span class="result" style="display:none;" id="stars2-tips"></span>
+            <input type="hidden" id="stars2-input" name="a" value="" size="2" />
+        </div>
+
+        <div class="shop-rating">
+            <span class="title">服务态度：</span>
+            <ul class="rating-level" id="stars3">
+                <li><a class="one-star" star:value="1" href="javascript:void(0)">1</a></li>
+                <li><a class="two-stars" star:value="2" href="javascript:void(0)">2</a></li>
+                <li><a class="three-stars" star:value="3" href="javascript:void(0)">3</a></li>
+                <li><a class="four-stars" star:value="4" href="javascript:void(0)">4</a></li>
+                <li><a class="five-stars" star:value="5" href="javascript:void(0)">5</a></li>
+            </ul>
+            <span class="result" style="display:none;" id="stars3-tips"></span>
+            <input type="hidden" id="stars3-input" name="a" value="" size="2" />
+        </div>
+        <div class="shop-rating">
+            <span class="title">商品包装：</span>
+            <ul class="rating-level" id="stars4">
+                <li><a class="one-star" star:value="1" href="javascript:void(0)">1</a></li>
+                <li><a class="two-stars" star:value="2" href="javascript:void(0)">2</a></li>
+                <li><a class="three-stars" star:value="3" href="javascript:void(0)">3</a></li>
+                <li><a class="four-stars" star:value="4" href="javascript:void(0)">4</a></li>
+                <li><a class="five-stars" star:value="5" href="javascript:void(0)">5</a></li>
+            </ul>
+            <span class="result" style="display:none;" id="stars4-tips"></span>
+            <input type="hidden" id="stars4-input" name="a" value="" size="2" />
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+var Stars1 = new Stars("stars1",{nowClass:"current-rating",tipsTxt:["很差","差","好","很好","非常好"]})
+var Stars2 = new Stars("stars2")
+var Stars3 = new Stars("stars3")
+var Stars4 = new Stars("stars4")
+            $('#divuploadimg').diyUpload({
+                url: '/Member/UploadFile',
+                fileNumMax: 5,
+                formData: {
+                    pictype: 5,
+                },
+                cancel: function () {
+                },
+                success: function () {
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        });
+        function EvaluateSubmit() {
+            var orderdetailid = $("#txtOrderDetailId").val();  
+            var pdid = $("#txtProductDetailId").val();
+            var pics = "";
+            $("#divpicbox .Evaluation_photoImg").each(function () {
+                if (pics == "") {
+                    pics = $(this).attr("picurl");
+                }
+                else {
+                    pics = pics + "|" + $(this).attr("picurl");
+                }
+            });
+            var hidPackStar = $("#stars4-input").val();
+            var hidProductStar = $("#stars1-input").val();
+            var hidSeviceStar = $("#stars3-input").val();
+            var hidTrafficStar = $("#stars2-input").val();
+            var txtCommentContent = $("#txtCommentContent").val();
+            if (hidPackStar == "" || hidPackStar == "0" || hidSeviceStar == "" || hidSeviceStar == "0" || hidProductStar == "" || hidProductStar == "0" || txtCommentContent == "") {
+                alert("尊敬的客户，评价内容需要填写完整才能提交，谢谢~~");
+                return;
+            }
+            //alert(txtCommentContent);
+
+            $.post("/Member/EvaluateSubmit", {
+                odid: orderdetailid,pdid:pdid, piccontent: pics, packstar: hidPackStar, productstar: hidProductStar, sevicestar: hidSeviceStar,
+                trafficstar: hidTrafficStar, commentcontent: txtCommentContent
+            }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var status = -_returncode.Status;
+                if (status == _TheArray[0]) {
+                    location.href = "/MobileMember/Evaluated";
+                    return false;
+                }
+                else {
+                    alert(_TheArray[status]);
+                    return false;
+                }
+            });
+
+        }
+    </script>
+</body>
+</html>

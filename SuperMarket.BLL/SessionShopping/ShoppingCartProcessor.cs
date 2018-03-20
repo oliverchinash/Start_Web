@@ -43,7 +43,7 @@ namespace SuperMarket.BLL.MemberDB
                 cookieValue = "[]";
             }
             IList<ShoppCookie> itemsCart = JsonJC.JsonToObject<List<ShoppCookie>>(cookieValue);
-            //IList<ShoppCarEntity> itemsCart = JsonJC.JsonToObject<List<ShoppCarEntity>>(cookieValue);
+            //IList<MemShoppCarEntity> itemsCart = JsonJC.JsonToObject<List<MemShoppCarEntity>>(cookieValue);
             return GetShoppingCart(itemsCart);
         }
 
@@ -61,7 +61,7 @@ namespace SuperMarket.BLL.MemberDB
                 {
                     IList<ShoppCookie> listcookie = new List<ShoppCookie>();
 
-                    IList<ShoppCarEntity> list = new List<ShoppCarEntity>();
+                    IList<MemShoppCarEntity> list = new List<MemShoppCarEntity>();
                     string cookieval = WZShopCartBLL.Instance.GetCartCookie(member.MemId);
                     if (cookieval != "")
                     {
@@ -107,11 +107,11 @@ namespace SuperMarket.BLL.MemberDB
             {
                 SuperMarket.Model.Account.MemberLoginEntity member = CookieBLL.GetLoginCookie();
                 VWShoppingCartInfo shoppingCartInfo = new VWShoppingCartInfo();
-                //IList<ShoppCarEntity> list = new List<ShoppCarEntity>();
+                //IList<MemShoppCarEntity> list = new List<MemShoppCarEntity>();
                 //foreach(ShoppCookie entity in shoppingCart)
                 //{
                 //    VWProductEntity vwpentity = ProductBLL.Instance.GetProVWByDetailId(entity.ProdId);
-                //    ShoppCarEntity shopcarentity = new ShoppCarEntity();
+                //    MemShoppCarEntity shopcarentity = new MemShoppCarEntity();
                 //    shopcarentity.PicUrl = vwpentity.PicUrl;
                 //    shopcarentity.PicSuffix = vwpentity.PicSuffix;
                 //    shopcarentity.Price = vwpentity.TradePrice;
@@ -392,7 +392,7 @@ namespace SuperMarket.BLL.MemberDB
                     MemberLoginEntity member = CookieBLL.GetLoginCookie();
                     if (member != null && member.MemId > 0 && jsonRst != "")
                     {
-                        WZShopCartEntity model = new WZShopCartEntity();
+                        MemWZShopCartEntity model = new MemWZShopCartEntity();
                         model.AddDate = DateTime.Now;
                         model.BuyDate = DateTime.Now.Date;
                         model.EndDate = DateTime.Now.Date.AddDays(15);

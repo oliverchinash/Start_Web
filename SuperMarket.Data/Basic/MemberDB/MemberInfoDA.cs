@@ -372,7 +372,7 @@ c.GradeLevel,b.HeadPicUrl,c.CompanyName
 							FROM
 							dbo.[Member] a WITH(NOLOCK)  left join 
 							dbo.[MemberInfo]  b WITH(NOLOCK) ON a.id=b.MemId	left join 
-							dbo.[Store]  c WITH(NOLOCK) ON a.id=c.MemId
+							dbo.MemStore  c WITH(NOLOCK) ON a.id=c.MemId
 							WHERE a.[Id]=@MemId";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 

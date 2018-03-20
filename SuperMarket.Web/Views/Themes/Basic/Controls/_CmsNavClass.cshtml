@@ -1,0 +1,200 @@
+﻿   <!-- 油品侧边栏内容开始 -->
+<div id="divClassCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <!----分类页面开始------>
+            <div class="classify">
+                <!----头部开始------>
+                <header data-am-widget="header" class="am-header header">
+                    <div class="am-header-left am-header-nav">
+                        <a href="javascript:void(0)" class="" onclick="FunCloseCanvas('divClassCanvas')">
+                            <i class="am-header-icon am-icon-angle-right am-icon-md">返回</i>
+                        </a>
+                    </div>
+                    <h1 class="am-header-title">
+                        <a href="javascript:void(0)">
+                            分类
+                        </a>
+                    </h1>
+                </header>
+                <!-----头部结束------->
+                <!-----------主体内容开始------------->
+                <div class="classify-main">
+                    <div data-am-widget="tabs" class="am-tabs am-tabs-default">
+                        <!---------头部选项卡---------->
+                       @* <ul class="am-tabs-nav am-cf">
+     <li class="am-active"><a href="[data-tab-panel-0]">常用件</a></li>
+    <li class=""><a href="[data-tab-panel-1]">全车件</a></li>
+                        </ul>*@
+                        <!--------选项卡内容列表--------->
+                        <div class="am-tabs-bd">
+                            <div data-tab-panel-0 class="am-tab-panel am-active">
+                                <!------------内容列表的折叠面板开始--------------->
+                                <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
+                                    <dl class="am-accordion-item">
+                                        <!--------油品开始----------->
+                                        <dt class="am-accordion-title"  onclick="FunSelectNavClass('0')">
+                                            查询全部
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse"> 
+                                        </dd>
+                                    </dl>
+                                    @{
+                                        IList<JiChen.Entities.VWClassesFoundEntity> list = JiChen.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId, (int)ViewBag.ClassmMenuType, -1,true);
+                                        if (list != null && list.Count > 0)
+                                        {
+                                            foreach (JiChen.Entities.VWClassesFoundEntity entity in list)
+                                            {
+                                                <dl class="am-accordion-item">
+                                                    <dt class="am-accordion-title">
+                                                        @entity.Name
+                                                    </dt>
+                                                    <dd class="am-accordion-bd am-collapse"> 
+                                                        <div class="am-accordion-content"> 
+                                                            <a href="javascript:void(0)"  onclick="FunSelectNavClass('@entity.Id')" class="classify-list-a">
+                                                                <div class="classify-list">
+                                                                    全部
+                                                                </div>
+                                                            </a>
+                                                            @if (entity.Children != null && entity.Children.Count > 0)
+                                                            {
+                                                                foreach (JiChen.Entities.VWClassesFoundEntity entity2 in entity.Children)
+                                                                {
+                                                                    <a href="javascript:void(0)"  onclick="FunSelectNavClass('@entity2.Id')" class="classify-list-a">
+                                                                        <div class="classify-list">
+                                                                            @entity2.Name
+                                                                        </div>
+                                                                    </a>
+                                                                }
+                                                            }  
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            }
+                                        }
+                                    } 
+                                </section>
+
+                                <!------------内容列表的折叠面板结束--------------->
+                            </div>
+
+
+                            <div data-tab-panel-1 class="am-tab-panel ">
+                                <!------------内容列表的折叠面板开始--------------->
+                                <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
+                                    <!--------前保险杠开始----------->
+                                    <dl class="am-accordion-item">
+                                        <dt class="am-accordion-title">
+                                            前保险杠
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse">
+                                            <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                            <div class="am-accordion-content">
+                                                <!-------折叠内列表开始------->
+                                                <a href="javascript:void(0)" class="classify-list-a">
+                                                    <div class="classify-list">
+                                                        全部
+                                                    </div>
+                                                </a>
+                                                <!---------折叠内列表结束---------->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <!--------------前保险杠结束------->
+                                    <!--------后保险杠开始----------->
+                                    <dl class="am-accordion-item">
+                                        <dt class="am-accordion-title">
+                                            后保险杠
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse">
+                                            <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                            <div class="am-accordion-content">
+                                                <!-------折叠内列表开始------->
+                                                <a href="javascript:void(0)" class="classify-list-a">
+                                                    <div class="classify-list">
+                                                        全部
+                                                    </div>
+                                                </a>
+                                                <!---------折叠内列表结束---------->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <!---------后保险杠结束----------->
+                                    <!--------中网开始----------->
+                                    <dl class="am-accordion-item">
+                                        <dt class="am-accordion-title">
+                                            中网
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse">
+                                            <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                            <div class="am-accordion-content">
+                                                <!-------折叠内列表开始------->
+                                                <a href="javascript:void(0)" class="classify-list-a">
+                                                    <div class="classify-list">
+                                                        全部
+                                                    </div>
+                                                </a>
+                                                <!---------折叠内列表结束---------->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <!--------中网结束-------------->
+                                    <!------------前照灯开始------------>
+                                    <dl class="am-accordion-item">
+                                        <dt class="am-accordion-title">
+                                            前照灯
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse">
+                                            <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                            <div class="am-accordion-content">
+                                                <!-------折叠内列表开始------->
+                                                <a href="javascript:void(0)" class="classify-list-a">
+                                                    <div class="classify-list">
+                                                        全部
+                                                    </div>
+                                                </a>
+                                                <!---------折叠内列表结束---------->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <!------------前照灯结束------------->
+                                    <!------------后灯开始----------------->
+                                    <dl class="am-accordion-item">
+                                        <dt class="am-accordion-title">
+                                            后灯
+                                        </dt>
+                                        <dd class="am-accordion-bd am-collapse">
+                                            <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                            <div class="am-accordion-content">
+                                                <!-------折叠内列表开始------->
+                                                <a href="javascript:void(0)" class="classify-list-a">
+                                                    <div class="classify-list">
+                                                        全部
+                                                    </div>
+                                                </a>
+                                                <!---------折叠内列表结束---------->
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <!------------后灯结束----------------->
+
+                                </section>
+
+                                <!------------内容列表的折叠面板结束--------------->
+                            </div>
+                            <div data-tab-panel-2 class="am-tab-panel ">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-----------主体内容结束------------->
+            </div>
+
+            <!----分类页面结束----->
+        </div>
+    </div>
+</div>
+<div style="display:none;"><span id="spannavclass" spanval="" spanname="" >@ViewBag.SelectClassId</span></div>

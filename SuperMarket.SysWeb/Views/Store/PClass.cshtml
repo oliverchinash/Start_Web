@@ -1,0 +1,215 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@section Head{
+    <script type="text/javascript" src="/Js/common/commoncontrolbind.js"></script>
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selIsActive, #selIsHot {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<input type="hidden" id="txtTypeId" value="@ViewBag.TypeId" />
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>@(ViewBag.TypeId == 1 ? "发布款式" : (ViewBag.TypeId == 2 ? "发布产品" : "分类管理"))</span></div>
+    </div>
+
+    <div class="detail_main">
+
+        <ul> <li><div class="product-main-b" style="width:1170px;margin-bottom:20px">选择产品类型：<select id="selClassType">
+    <option value="1">汽车用品</option>
+    <option value="2">通用件</option>
+    <option value="3">辅材</option>
+    <option value="4">汽修工具</option>
+    <option value="5">工程机械分类</option>
+    <option value="6">商用车汽车配件</option>
+    <option value="7">乘用车汽车配件</option>
+    <option value="8">工程机械分类</option>
+</select>
+            </div></li>
+
+            <li>
+                <div class="Backstage_td1">汽车配件分类：</div>
+                <div class="Backstage_td2" id="CategorySelector" style="clear:none">
+                    <ul id="ulClassFound1" level="1" class="ulclassfound"></ul>
+                    <ul id="ulClassFound2" level="2" class="ulclassfound"></ul>
+                    <ul id="ulClassFound3" level="3" class="ulclassfound"></ul>
+                    <ul id="ulClassFound4" level="4" class="ulclassfound"></ul>
+                </div>
+            </li>
+
+            <li><div class="product-main-b" style="width:1170px;margin-bottom:20px">当前选择的分类：<span id="spanClassPath"></span></div></li>
+
+            @if (ViewBag.TypeId == 1 || ViewBag.TypeId == 2|| ViewBag.TypeId == 3)
+            {
+                <li>
+                    <div class="Backstage_td1">配件品牌分类：</div>
+                    <div class="Backstage_td2">
+                        <div id="CategorySelector">
+                            <ul id="ulBrand" class="ulbrand"></ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li><div class="product-main-b" style="width:1170px">当前选择的品牌：<span id="spanBrandPath"></span></div></li>
+
+            }
+
+            @if (ViewBag.TypeId == 4)
+            {
+                <li>
+                    <div class="Backstage_td1">配件样式分类：</div>
+                    <div class="Backstage_td2">
+                        <div>
+                            <ul id="ulStyle" class="ulStyle"></ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li><div class="product-main-b" style="width:1170px">当前选择的样式：<span id="spanStylePath"></span></div></li>
+            }
+
+        </ul>
+
+    </div>
+
+    <div class="product-main-next"><span style="cursor:pointer;" onclick="NextProductRelase()">下一步</span></div>
+
+</div>
+<div style="display:none;"> 
+    <input id="txtClassId" value="0" />
+    <input  id="txtLevel" value="0" />
+</div>
+<script type="text/javascript">
+
+    debugger
+    var _type = $("#txtTypeId").val();
+    var classid, brandid;
+
+    $(function () {
+        $("#selClassType").change(function () {
+            var classtype = $("#selClassType").val();
+            BindClassFound(1, 0, classtype);
+        });
+        var classtype = $("#selClassType").val();
+       
+        BindClassFound(1, 0, classtype);
+       
+    });
+
+    function NextProductRelase() {
+
+        //classid = $("#ulClassFound3 li.Selected").attr("classid");
+        classid = $("#txtClassId").val();
+        if (classid == "undefined" || classid == null || classid == "" || classid == "0") {
+            alert("请选择分类");
+            return;
+        }
+
+        brandid = $("#ulBrand li.Selected").attr("brandid");
+        if (brandid == "undefined" || brandid == null || brandid == "") {
+            alert("请选择品牌");
+            return;
+        }
+
+        if (_type == "1") {
+            location.href = "/Store/PStyleEdit?classid=" + classid + "&brandid=" + brandid;
+        }
+        else if (_type == "2") {
+            location.href = "/Store/ProductEdit?classid=" + classid + "&brandid=" + brandid;
+        }
+        else if (_type == "3") {
+            location.href = "/Store/PStyleList?classid="+classid+"&brandid="+brandid;
+        }
+    }
+
+    function SelectClassFound(obj) {
+        var _level = $(obj).attr("level");
+        var _classid = $(obj).attr("classid");
+        var classtype = $("#selClassType").val();
+        var _levelfor = parseInt(_level) + 1;
+        $(obj).siblings().removeClass('Selected');
+        $(obj).addClass("Selected");
+
+        classid = $(obj).attr("classid");
+        $("#txtClassId").val(classid);
+        var strspanshow = "";
+        for (var i = 1; i <= _level; i++) {
+            strspanshow = strspanshow + $(".ulclassfound[level=" + i + "] li.Selected").text() + ">";
+        }
+        $("#spanClassPath").html(strspanshow);
+        if ($(obj).hasClass("IsParent")) {
+            BindClassFound(_levelfor, _classid, classtype);
+        } else {
+            BindBrand(_classid);
+        }
+    }
+
+    function BindClassFound(_level, _pid,_classtype) {
+
+        $.post("/Common/GetClassFoundLevel", { level: _level, pid: _pid,  classtype: _classtype }, function (data) {
+            var jsonobj = eval(data);
+            $(".ulclassfound[level=" + _level + "]").find("li").remove();
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                for (var i = 0; i < jsonobj.length; i++) {
+                    var classstr = "isclassend";
+                    if (jsonobj[i].IsEnd == 0)
+                        classstr = "IsParent";
+                    var str = "<li class='" + classstr + "' level=" + _level + " classid=" + jsonobj[i].Id + " onclick='SelectClassFound(this)' >" + jsonobj[i].Name + "</li>"
+                    $(".ulclassfound[level=" + _level + "]").append(str);
+                }
+            }
+        });
+    }
+
+    function SelectBrand(obj) {
+        $(obj).siblings().removeClass('Selected');
+        $(obj).addClass("Selected");
+        $("#spanBrandPath").html($(obj).text());
+
+    }
+
+    function BindBrand(classid) {
+
+        $.post("/Common/GetBrandByClass", { classid: classid }, function (data) {
+            var jsonobj = eval(data);
+            $("#ulBrand").find("li").remove();
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                for (var i = 0; i < jsonobj.length; i++) {
+                    var str = "<li  brandid=" + jsonobj[i].Id + " onclick='SelectBrand(this)' >" + jsonobj[i].Name + "</li>"
+                    $("#ulBrand").append(str);
+                }
+            }
+        });
+    }
+
+
+
+</script>

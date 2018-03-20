@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Main/_Login_Master.cshtml";
+    ViewBag.Title = "注册";
+}
+
+<div class="login-logo">logo</div>
+<div class="login-main">
+    <div class="login-t">
+        <div class="delu">注册</div>
+        <div class="registered"><a href="Login">已有账号？马上登录</a></div>
+    </div>
+    <form>
+        <ul>
+            <li class="registered-t">
+                <input type="text" name="txtEMail" oncopy="return false;" id="txtEMail" class="a-input" autofocus="autofocus" placeholder="请输入您的手机号码" />
+            </li>
+            <li class="registered-b">
+                <div class="input-t"><span>*</span>&nbsp;方便您找回密码</div>
+                <input type="password" name="txtPassword" id="txtPassword" class="a-input" autofocus="autofocus" placeholder="请输入您的密码" />
+            </li>
+            <li class="registered-b">
+                <div class="input-t"><span>*</span>&nbsp;6-15个字符，英文区分大小写</div>
+                <input type="password" name="txtConfirmPwd" id="txtConfirmPwd" class="a-input" autofocus="autofocus" placeholder="请再次输入您的密码" />
+            </li>
+            <li>
+                <input type="button" class="input1" id="regauser" style="cursor: pointer" onclick="return Register()" autofocus="autofocus" value="注&nbsp;&nbsp;册" />
+            </li>
+        </ul>
+    </form>
+</div>
+
+ 
+
+ 
+

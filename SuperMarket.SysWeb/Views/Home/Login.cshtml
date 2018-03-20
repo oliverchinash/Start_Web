@@ -1,0 +1,27 @@
+﻿@{ 
+    Layout = "~/Views/Main/_Login_Master.cshtml";
+    ViewBag.Title = "登陆";
+}
+  
+
+<div class="login-logo">logo</div>
+<div class="login-main">
+     <div class="login-t">
+        <div class="delu">登录</div>
+        <div class="zhuce"><a href="Register">免费注册></a></div>
+    </div> 
+    <form>
+        <ul>
+            <li>
+                <input type="text" name="txtLoginID" id="txtLoginID" class="a-input" autofocus="autofocus" placeholder="请输入您的用户名" />
+            </li>
+            <li>
+                <input type="text" name="txtRegPwd" id="txtRegPwd" class="a-input" autofocus="autofocus" placeholder="请输入您的密码" />
+                <span><a href="/Home/FindPwd">忘记密码</a></span>
+            </li>
+            <li>
+                <input type="button" id="logauser" name="logauser" onclick="return Login()" class="input1" autofocus="autofocus" value="登&nbsp;&nbsp;录" />
+            </li>
+        </ul>
+    </form>
+</div> 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>阿哈马车服-登录</title> 
+    <title>易店心-登录</title> 
     <meta name="renderer" content="webkit">  
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -115,22 +115,7 @@
                     else {
                         window.location.href = mainweburl;
                     }
-                }
-                else if (loginmemobj.Status == 10) {
-                    $("#perrormsg").html("您的资料正在审核，如有疑问，请联系客服400-999-8411"); 
-                } 
-                else if (loginmemobj.Status == 11 || loginmemobj.Status == 12) {
-                        var stamp = loginmemobj.TimeStampTab;
-                        if (loginmemobj.Status == 11) {
-
-                            window.location.href = "/Home/Reg2?stamp=" + stamp + "&returnurl=" + encodeURIComponent(returnurl);
-                        }
-                        else if (loginmemobj.Status == 12) {
-                            window.location.href = "/Home/Reg3?stamp=" + stamp + "&returnurl=" + encodeURIComponent(returnurl);
-
-                        }
-                  
-                }
+                }  
             }
             else {
                 $("#perrormsg").html(_TheArray[status]);

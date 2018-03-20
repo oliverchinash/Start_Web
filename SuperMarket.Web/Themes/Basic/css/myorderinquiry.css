@@ -1,0 +1,188 @@
+﻿
+
+/******内容******/
+.orderDetails{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.orderDetails-m{
+    padding-left: 1rem;
+    margin-top: .8rem;
+    margin-bottom: 0;
+    background-color: #fff;
+}
+.orderDetails-m li .am-u-sm-9{
+    padding: 0;
+}
+.orderDetails2-span{
+    color:#FF532B ;
+    position: absolute;
+    right: 1rem;
+    top: .6rem;
+}
+
+.orderDetails-m p{
+    margin-bottom: .2rem;
+}
+.orderDetails-m li{
+    padding-right: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+.orderDetails2-chanpin{
+    border-bottom: 1px dashed #ddd !important;
+}
+.orderDetails-w{
+    font-size: 1.3rem;
+    padding: .3rem 0;
+}
+.orderDetails-div{
+    position: absolute;
+    right: .5rem;
+    top:.5rem;
+    color:#FF532B;
+}
+.orderDetails-div button{
+    background-color:#FF532B;
+    color: #fff;
+    border-radius: .5rem;
+}
+.orderDetails-w .orderDetails-r{
+    color: #FF532B;
+}
+.orderDetails-chakan{
+    display: block;
+    padding: .5rem 0;
+}
+.orderDetails-bianji{
+    padding-top: .3rem;
+}
+.orderDetails-bianji a{
+    display: inline-block;
+   margin-right: .5rem;
+    color: #333;
+}
+.orderDetails-bianji .am-btn{
+    border-radius: .5rem;
+}
+
+/*********我的订单页面**********/
+.order{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+/***页头标题**/
+.myorder-tab{
+    padding-left: 0;
+    background-color: #fff;
+    text-align: center;
+}
+.myorder-tab li{
+    padding: .6rem 0;
+}
+.myorder-tab li a{
+    color: #000000;
+}
+.myorder-li{
+    position: relative;
+}
+.myorder-li .am-badge{
+    position:absolute;
+    top: -.5rem;
+    margin-left: -4px;
+    padding: 1px 3px;
+}
+.am-active a{
+    padding-bottom: .3rem;
+    background:none;
+    color: #D61419;
+    border-bottom: 2px solid #D61419;
+}
+.am-active .myorder-tex{
+    color: #D61419;
+}
+.order-m{
+    background-color: #fff;
+    padding:.5rem 0;
+    margin-bottom: .8rem;
+}
+.order-m li{
+    padding: .2rem 0;
+}
+.order-m .am-u-sm-3{
+    text-align: right;
+}
+.order-m2{
+    margin-top: 0;
+    margin-bottom: .8rem;
+    background-color: #fff;
+    padding:.5rem 0;
+}
+.order-m2 li{
+    padding: .2rem 0;
+}
+.order-m2 .am-u-sm-3 {
+    text-align: right;
+}
+
+/**********需求列表*********/
+.add{
+    text-align: left;
+    width:100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.add-main{
+    background-color: #fff;
+    padding:0;
+    margin-top: .6rem;
+    margin-bottom: 0;
+    position: relative;
+}
+.add-main li p{
+    margin: .5rem 0;
+}
+.add-main li p span{
+    color: #999;
+}
+.add-main .add-btn{
+    position: absolute;
+    top:1rem;
+    right: 6%;
+}
+.add-main .add-btn a{
+    display: inline-block;
+    padding: .2rem .4rem;
+    background-color: #FF5000;
+    color: #fff;
+    border-radius: .5rem;
+}
+
+/**********订单详情页**********/
+.orderDetails2{
+    width:100%;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.orderDetails2-shouhuo{
+    background-color: #fff;
+}
+.delivery-kehu{
+    font-size: 1.3rem;
+    padding: .5rem 1rem;
+    border-bottom: 1px solid #ddd;
+}
+.delivery-kehu p{
+    margin: 0;
+}
+.delivery-price{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin:0;
+    padding-bottom: .5rem;
+}
+.delivery-price li{
+    font-size: 1.3rem;
+    padding:.3rem 0 0 0;
+}

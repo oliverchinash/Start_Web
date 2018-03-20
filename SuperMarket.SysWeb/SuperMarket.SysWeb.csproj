@@ -44,10 +44,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.AI.Web">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Web.1.2.3\lib\net45\Microsoft.AI.Web.dll</HintPath>
     </Reference>
@@ -143,8 +139,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\CheckController.cs" />
+    <Compile Include="Controllers\ClassController.cs" />
+    <Compile Include="Controllers\CmsController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\GYProvinceController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,7 +179,58 @@
     <Content Include="Themes\Basic\Css\register.css" />
     <Content Include="Themes\Basic\Css\role.css" />
     <Content Include="Themes\Basic\Css\select.css" />
-    <Content Include="Web.config" />
+    <Content Include="Views\GYProvince\GYProvinceEdit.cshtml" />
+    <Content Include="Views\GYProvince\GYProvinceList.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Shared\Controls\_LeftBanner.cshtml" />
+    <Content Include="Views\Shared\Controls\_TopBanner.cshtml" />
+    <Content Include="Views\Shared\Controls\_TopMaster.cshtml" />
+    <Content Include="Views\Shared\Controls\_TopMenu.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_LeftBanner.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_TopBanner.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_TopMaster.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_TopMenu.cshtml" />
+    <Content Include="Views\Themes\Basic\GYProvince\_GYProvinceEdit.cshtml" />
+    <Content Include="Views\Themes\Basic\GYProvince\_GYProvinceList.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Index.cshtml" />
+    <Content Include="Views\Themes\Basic\Master\_MainSys_Master.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_BrandEdit.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_BrandList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_ClassEdit.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_ClassList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_Index.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_ProductEdit.cshtml" />
+    <Content Include="Views\Themes\Basic\SysBasicInfo\_ProductList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysFinance\_PayOrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysFinance\_PayReback.cshtml" />
+    <Content Include="Views\Themes\Basic\SysMemHome\_Index.cshtml" />
+    <Content Include="Views\Themes\Basic\SysMemHome\_MemberDetail.cshtml" />
+    <Content Include="Views\Themes\Basic\SysMemHome\_MemberList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysMemHome\_MemberSimpleAdd.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_CGMemSelect.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_OrderConfirmPrint.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_OrderDetail.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_OrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_ReportCGOrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderConfirm\_ReportOrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\listDetail.html" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\orderDetail.html" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_CGMemSelect.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_OrderDetail.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_OrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_ProductPriceSet.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_ReportCGOrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\SysOrderInquiry\_ReportOrderList.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -181,18 +239,15 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Themes\Basic\Js\" />
+    <Folder Include="Views\Themes\Basic\SysProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Common.config" />
-    <Content Include="Views\Themes\Basic\Home\_Index.cshtml" />
-    <Content Include="Views\Themes\Basic\Master\_MainSys_Master.cshtml" />
     <Content Include="SuperMarket.config" />
   </ItemGroup>
   <ItemGroup>
@@ -208,29 +263,111 @@
       <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
       <Name>SuperMarket.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Pay\SuperMarket.Pay.csproj">
+      <Project>{2f312844-4f15-4f5a-a4e2-f0a5af5bdaf1}</Project>
+      <Name>SuperMarket.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Web.CommonControllers\SuperMarket.Web.CommonControllers.csproj">
+      <Project>{6f37ff76-46bf-41b6-bf06-05f1f1b3f9d9}</Project>
+      <Name>SuperMarket.Web.CommonControllers</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Controls\_LeftBanner.cshtml" />
-    <Content Include="Views\Shared\Controls\_TopBanner.cshtml" />
-    <Content Include="Views\Shared\Controls\_TopMaster.cshtml" />
-    <Content Include="Views\Shared\Controls\_TopMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Themes\Basic\Controls\_LeftBanner.cshtml" />
-    <Content Include="Views\Themes\Basic\Controls\_TopBanner.cshtml" />
-    <Content Include="Views\Themes\Basic\Controls\_TopMaster.cshtml" />
-    <Content Include="Views\Themes\Basic\Controls\_TopMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\GYProvince\GYProvinceEdit.cshtml" />
-    <Content Include="Views\GYProvince\GYProvinceList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Themes\Basic\GYProvince\_GYProvinceEdit.cshtml" />
-    <Content Include="Views\Themes\Basic\GYProvince\_GYProvinceList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Brand\BrandInfo.cshtml" />
+    <Content Include="Views\Brand\BrandManage.cshtml" />
+    <Content Include="Views\Check\CGPersonal.cshtml" />
+    <Content Include="Views\Check\CheckPersonalInfo.cshtml" />
+    <Content Include="Views\Check\CheckSupplier.cshtml" />
+    <Content Include="Views\Check\Index.cshtml" />
+    <Content Include="Views\Check\SupplierDetail.cshtml" />
+    <Content Include="Views\Class\ClassBrandInfo.cshtml" />
+    <Content Include="Views\Class\ClassBrandManage.cshtml" />
+    <Content Include="Views\Class\ClassEdit.cshtml" />
+    <Content Include="Views\Class\ClassManage.cshtml" />
+    <Content Include="Views\Class\PropertiseDetailInfo.cshtml" />
+    <Content Include="Views\Class\PropertiseDetailManage.cshtml" />
+    <Content Include="Views\Class\PropertiseInfo.cshtml" />
+    <Content Include="Views\Class\PropertiseManage.cshtml" />
+    <Content Include="Views\Cms\CmsAdd.cshtml" />
+    <Content Include="Views\Cms\CMSContentManage.cshtml" />
+    <Content Include="Views\Cms\CmsManage.cshtml" />
+    <Content Include="Views\Cms\CmsProductBind.cshtml" />
+    <Content Include="Views\Cms\NoticeEdit.cshtml" />
+    <Content Include="Views\Cms\NoticeManage.cshtml" />
+    <Content Include="Views\Cms\WeiXinQNewsEdit.cshtml" />
+    <Content Include="Views\Cms\WeiXinQNewsManage.cshtml" />
+    <Content Include="Views\Cms\WeiXinUrlEdit.cshtml" />
+    <Content Include="Views\Cms\WeiXinUrlManage.cshtml" />
+    <Content Include="Views\Finance\DoRefundManage.cshtml" />
+    <Content Include="Views\Finance\MemBillVATManage.cshtml" />
+    <Content Include="Views\Finance\RebackFundPage.cshtml" />
+    <Content Include="Views\Finance\RecivedConfirm.cshtml" />
+    <Content Include="Views\Finance\RefundDetail.cshtml" />
+    <Content Include="Views\Finance\RefundManage.cshtml" />
+    <Content Include="Views\Help\ShoppingDirectory.cshtml" />
+    <Content Include="Views\Help\ShoppingDirectoryManage.cshtml" />
+    <Content Include="Views\Main\_CGMember_Master.cshtml" />
+    <Content Include="Views\Main\_Login_Master.cshtml" />
+    <Content Include="Views\Main\_Member_Master.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Message\SendMsgEdit.cshtml" />
+    <Content Include="Views\Message\SendMsgList.cshtml" />
+    <Content Include="Views\Order\EvaluationDetail.cshtml" />
+    <Content Include="Views\Order\EvaluationManage.cshtml" />
+    <Content Include="Views\Order\OrderCreate.cshtml" />
+    <Content Include="Views\Order\OrderDetailManage.cshtml" />
+    <Content Include="Views\Order\OrderDetails.cshtml" />
+    <Content Include="Views\Order\OrderManage.cshtml" />
+    <Content Include="Views\Order\OrderWLInfo.cshtml" />
+    <Content Include="Views\Order\ReturnOrderCheck.cshtml" />
+    <Content Include="Views\Order\SuppliersReceiving.cshtml" />
+    <Content Include="Views\Store\ClearMemCache.cshtml" />
+    <Content Include="Views\Store\ConventionalPList.cshtml" />
+    <Content Include="Views\Store\PClass.cshtml" />
+    <Content Include="Views\Store\PPublished.cshtml" />
+    <Content Include="Views\Store\PRelease.cshtml" />
+    <Content Include="Views\Store\ProductCarTypeManage.cshtml" />
+    <Content Include="Views\Store\ProductCarTypeModel.cshtml" />
+    <Content Include="Views\Store\ProductDetailPicsEdit.cshtml" />
+    <Content Include="Views\Store\ProductEdit.cshtml" />
+    <Content Include="Views\Store\ProductList.cshtml" />
+    <Content Include="Views\Store\ProductPicsEdit.cshtml" />
+    <Content Include="Views\Store\PStyleEdit.cshtml" />
+    <Content Include="Views\Store\PStyleList.cshtml" />
+    <Content Include="Views\Store\ReleaseProduct.cshtml" />
+    <Content Include="Views\Store\SpecialPList.cshtml" />
+    <Content Include="Views\SysBasicInfo\BrandEdit.cshtml" />
+    <Content Include="Views\SysBasicInfo\BrandList.cshtml" />
+    <Content Include="Views\SysBasicInfo\ClassEdit.cshtml" />
+    <Content Include="Views\SysBasicInfo\ClassList.cshtml" />
+    <Content Include="Views\SysBasicInfo\Index.cshtml" />
+    <Content Include="Views\SysBasicInfo\ProductEdit.cshtml" />
+    <Content Include="Views\SysBasicInfo\ProductList.cshtml" />
+    <Content Include="Views\SysFinance\PayOrderList.cshtml" />
+    <Content Include="Views\SysFinance\PayReback.cshtml" />
+    <Content Include="Views\SysMemHome\Index.cshtml" />
+    <Content Include="Views\SysMemHome\MemberDetail.cshtml" />
+    <Content Include="Views\SysMemHome\MemberList.cshtml" />
+    <Content Include="Views\SysMemHome\MemberSimpleAdd.cshtml" />
+    <Content Include="Views\SysOrderConfirm\CGMemSelect.cshtml" />
+    <Content Include="Views\SysOrderConfirm\OrderConfirmPrint.cshtml" />
+    <Content Include="Views\SysOrderConfirm\OrderDetail.cshtml" />
+    <Content Include="Views\SysOrderConfirm\OrderList.cshtml" />
+    <Content Include="Views\SysOrderConfirm\ReportCGOrderList.cshtml" />
+    <Content Include="Views\SysOrderConfirm\ReportOrderList.cshtml" />
+    <Content Include="Views\SysOrderInquiry\CGMemSelect.cshtml" />
+    <Content Include="Views\SysOrderInquiry\OrderDetail.cshtml" />
+    <Content Include="Views\SysOrderInquiry\OrderList.cshtml" />
+    <Content Include="Views\SysOrderInquiry\ProductPriceSet.cshtml" />
+    <Content Include="Views\SysOrderInquiry\ReportCGOrderList.cshtml" />
+    <Content Include="Views\SysOrderInquiry\ReportOrderList.cshtml" />
+    <Content Include="Views\SysProduct\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,152 @@
+﻿
+@{ 
+    IList<SuperMarket.Model.ProductEntity> entitylist = ViewBag.entitylist;
+}
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main"> 
+            <span>产品管理</span>
+        </div>
+    </div>
+    <!------top结束------>
+    <!------搜索开始------>
+    <div class="list-search"> 
+        <div class="list-search-main"> 
+            <div class="list-search-wrap">
+                <label class="fl">名称：</label>
+                <div class="list-search-input">
+                    <input type="text" id="txtProductName" value="@(ViewBag.ProductName)" />
+                </div>
+            </div> 
+            <div class="list-search-wrap">
+                <label class="fl">一级分类：</label>
+                <div class="list-search-input">
+                    <select id="selProductClass1"  >
+                        <option value="-1">--请选择--</option>
+                    </select>
+                    <input id="txtProductClass1" type="hidden" value="@ViewBag.ProductClass1" />
+                </div>
+            </div> 
+            <div class="list-search-wrap">
+                <label class="fl">二级分类：</label>
+                <div class="list-search-input">
+                    <select id="selProductClass2">
+                        <option value="-1">--请选择--</option>
+                    </select>
+                    <input id="txtProductClass2" type="hidden"  value="@ViewBag.ProductClass2" />
+                </div>
+            </div> 
+            <div class="list-search-wrap">
+                <label class="fl">三级分类：</label>
+                <div class="list-search-input">
+                    <select id="selProductClass3">
+                        <option value="-1">--请选择--</option>
+                    </select>
+                    <input id="txtProductClass3" type="hidden"  value="@ViewBag.ProductClass3" />
+                    <input id="txtProductClass" type="hidden" />
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button class="fr" onclick="Fun_SearchList()">搜索</button>
+        </div>
+        <div class="list-search-button">
+            <a class="fl" target="_blank" href="/SysBasicInfo/ProductEdit">添加</a>
+        </div>
+    </div>
+    <!------搜索结束------>
+    <!-----订单列表开始----->
+    <div class="list-main"> 
+        <div class="dispatch-list">
+            <table cellpadding="0" cellspacing="0">
+                <tr> 
+                    <th>产品名称</th>
+                    <th>产品标题</th>
+                    <th style="width:10%">是否支持批发</th>
+                    <th style="width:10%">是否支持零售</th>
+                    <th style="width:40%">操作</th>
+                </tr>
+                @{
+                    if (entitylist != null && entitylist.Count > 0)
+                    {
+                        foreach (SuperMarket.Model.ProductEntity entity in entitylist)
+                        {
+                            <tr enid="@entity.Id">
+                                <td>@entity.AdTitle </td>
+                                <td>@entity.Title</td>
+                                <td>@(entity.Wholesale == 1 ? "支持批发" : "不支持批发")</td>
+                                <td>@(entity.Retail == 1 ? "支持零售" : "不支持零售")</td>
+                                <td>
+                                    <a href="/Store/ProductEdit?productid=@entity.Id&styleid=@entity.StyleId">编辑</a>&nbsp;&nbsp;&nbsp;
+                                    @if (entity.Status == 1)
+                                    {
+                                        <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,0)">下架</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,1)" style="color:red">上架</a>
+                                    }
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="/Store/ReleaseProduct?pid=@entity.Id&flag=@ViewBag.Flag" target="_blank">发布产品</a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="/Store/ProductCarTypeManage?pid=@entity.Id" target="_blank">适用车型</a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="/Store/ProductPicsEdit?&productid=@entity.Id&styleid=@entity.StyleId" target="_blank">添加产品图片</a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <a href="/Store/ProductDetailPicsEdit?&productid=@entity.Id" target="_blank">添加产品详情图片</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </table>
+        </div> 
+        <div class="list-page">
+            <ul>
+                @Html.Raw(ViewBag.PageStr)
+            </ul>
+        </div>
+        </div>
+</div>
+<script>  
+
+    var class1 = $("#txtProductClass1").val();
+    var class2 = $("#txtProductClass2").val();
+    var class3 = $("#txtProductClass3").val();
+    BindDropParent($("#selProductClass1"), "/Common/GetClassFoundBasic", "", class1);
+    if (class1 > 0)
+    { 
+        var paraminit = { pid: class1 };
+        BindDropParent($("#selProductClass2"), "/Common/GetClassFoundBasic", paraminit, class2);
+        if (class2 > 0)
+        {
+            var paraminit = { pid: class2 };
+            BindDropParent($("#selProductClass3"), "/Common/GetClassFoundBasic", paraminit, class3); 
+        }  
+    }
+    $("#selProductClass1").change(function () { 
+        $("#txtProductClass1").val($(this).val());
+        $("#txtProductClass").val($(this).val());
+        var param = { pid: $(this).val() }
+        BindDropParent($("#selProductClass2"), "/Common/GetClassFoundBasic", param);
+    });
+    $("#selProductClass2").change(function () { 
+        $("#txtProductClass2").val($(this).val());
+        $("#txtProductClass").val($(this).val());
+        var param = { pid: $(this).val() }
+        BindDropParent($("#selProductClass3"), "/Common/GetClassFoundBasic", param);
+    });
+    $("#selProductClass3").change(function () {  
+        $("#txtProductClass").val($(this).val()); 
+    });
+
+    function   Fun_SearchList()
+    {
+        var pid1 = $("#txtProductClass1").val();
+        var pid2 = $("#txtProductClass2").val();
+        var pid3 = $("#txtProductClass3").val();
+        var key = $("#txtProductName").val();
+        location.href = "/SysBasicInfo/ProductList?pid1=" + pid1 + "&pid2=" + pid2 + "&pid3=" + pid3 + "&key=" + key;
+    }
+</script>

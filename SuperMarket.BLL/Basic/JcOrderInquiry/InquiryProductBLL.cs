@@ -179,7 +179,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             return InquiryProductDA.Instance.GetInquiryProductList(pageSize, pageIndex, ref recordCount);
         }
 
-        public IList<InquiryProductEntity> GetInquiryProductAll(string ordercode,bool cache=true)
+        public IList<InquiryProductEntity> GetInquiryProductAll(string ordercode,bool cache=false)
         {
             IList<InquiryProductEntity> list = null;
             if(cache)

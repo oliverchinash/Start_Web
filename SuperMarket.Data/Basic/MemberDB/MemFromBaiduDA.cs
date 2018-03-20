@@ -214,10 +214,10 @@ ON a.PositionLng = w.value2 AND a.PositionLat = w.value3";
         public int SetMemberPosition(int memid, decimal posilng, decimal posilat, string title,string address)
         {
             string sql = @" 
-UPDATE dbo.Store SET Latitude=@Latitude ,Longitude=@Longitude WHERE MemId=@MemId 
-IF EXISTS(SELECT 1 FROM dbo.MemFromBaidu a WITH(NOLOCK)  inner join dbo.Store b WITH(NOLOCK)   on a.MemId=b.MemId and a.CompanyName=b.CompanyName and a.CompanyAddress=b.Address WHERE  a.MemId=@MemId   )
+UPDATE dbo.MemStore SET Latitude=@Latitude ,Longitude=@Longitude WHERE MemId=@MemId 
+IF EXISTS(SELECT 1 FROM dbo.MemFromBaidu a WITH(NOLOCK)  inner join dbo.MemStore b WITH(NOLOCK)   on a.MemId=b.MemId and a.CompanyName=b.CompanyName and a.CompanyAddress=b.Address WHERE  a.MemId=@MemId   )
 BEGIN 
- delete a  from  dbo.MemFromBaidu a inner join dbo.Store b on a.MemId=b.MemId and a.CompanyName=b.CompanyName and a.CompanyAddress=b.Address WHERE  a.MemId=@MemId 
+ delete a  from  dbo.MemFromBaidu a inner join dbo.MemStore b on a.MemId=b.MemId and a.CompanyName=b.CompanyName and a.CompanyAddress=b.Address WHERE  a.MemId=@MemId 
  UPDATE  dbo.MemFromBaidu SET  MemId=0  WHERE  MemId=@MemId 
 END
 else IF EXISTS(SELECT 1 FROM dbo.MemFromBaidu a  WHERE  MemId=@MemId   )
@@ -248,7 +248,7 @@ INSERT INTO  dbo.MemFromBaidu
           JuLi,MemId
         )
  SELECT  case when isnull(@Title,'')='' then  CompanyName else @Title end ,case when isnull(@Address,'')='' then  Address else @Address end ,
-MobilePhone,'',b.Name,c.Name,Latitude,Longitude,'','','',MemId FROM dbo.Store a WITH(NOLOCK)   INNER JOIN SysDB.Dbo.GYProvince b
+MobilePhone,'',b.Name,c.Name,Latitude,Longitude,'','','',MemId FROM dbo.MemStore a WITH(NOLOCK)   INNER JOIN SysDB.Dbo.GYProvince b
  ON a.ProvinceId=b.Code INNER JOIN SysDB.Dbo.GYCity c ON a.CityId=c.Code WHERE a.MemId=@MemId
 END 
 

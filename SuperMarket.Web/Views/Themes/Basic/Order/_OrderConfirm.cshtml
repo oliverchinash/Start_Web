@@ -1,0 +1,173 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单确认</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/paycheck.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script> 
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.js"></script> 
+    <script src="/themes/basic/js/common.js"></script>
+</head>
+<body>
+    @{ 
+        JiChen.Entities.VWPayOrderEntity order = ViewBag.PayOrderEntity;
+    }<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header header">
+      @Html.Partial("controls/_HeadBanner")
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                订单确认
+            </a>
+        </h1>
+    </header>
+    <div style="display:none;">
+        <input id="txtPayOrderId" value="@order.Id" />
+       <input id="txtPayOrderCode" value="@order.PayOrderCode" />
+    <input id="txtOrderCode" value="@order.SysOrderCode" /></div>
+    <div class="confirmation">
+        <div class="confirmation-main1">
+            <div class="confirmation-main1-p" style="display:@(ViewBag.Success==1?"":"none");">
+                <p>
+                    <span class="am-icon am-icon-check-square"></span>
+                    <span>订单提交成功！请您尽快付款</span>
+                </p>
+            </div>
+            <p class="confirmation-main1-p2 am-cf">
+                <span class="am-fl">订单号：@order.SysOrderCode</span>
+                <span class="am-fr">总金额：￥<b>@order.NeedPayPrice</b></span>
+            </p>
+        </div>
+        <!-------支付方式-------->
+        @*onclick="FunOpenCanvas('divPayMethodCanvas')"*@
+        <ul class="confirmation-main2"> 
+            <li class="am-cf">
+                <p class="am-fl">支付方式</p>
+                <span class="am-fr" style="color:#FF532B;" id="spanSelectPayTypeName">@order.PayMethodName</span>
+            </li> 
+        </ul> 
+        <!------支付方式侧边栏结束------>
+        <!-------确认支付--------->
+        <div class="confirmation-mian3">
+            <button type="button" class="am-btn" onclick="FunPayImediately()">确认支付</button>
+        </div>
+        <!-------订单中心--------->
+        <div class="confirmation-mian4 am-cf">
+            <a href="/MobileMember/OrderList" class="am-btn am-fl" style="color:#666;background-color: #fff; border: 1px solid #ddd">订单中心</a>
+            <a href="/MobileHome/Index" class="am-btn am-fr" style="color:#fff;background-color: #FF532B;">继续购物</a>
+        </div>
+    </div> 
+    <div class="divCanvasContainer"> 
+        @Html.Partial("controls/_PayMethodBox") 
+    </div>
+    <div style="display:none;">
+        <span id="txtSelectPayType">@(order.PayMethod)</span>
+        <span id="txtSelectPayTypeOld">@(order.PayMethod)</span>
+    </div>
+    <script> 
+        function FunSelectPayMethod(liobj) {
+            $("#txtSelectPayType").html($(liobj).attr("PayType"));
+            $("#spanSelectPayTypeName").html($(liobj).attr("PayName"));
+            setcookie("selpaymethodid", $(liobj).attr("PayType"));
+            $(liobj).addClass("active").siblings().removeClass("active");
+        }
+
+        function FunPayImediately()
+        {
+            var paytypeold = $("#txtSelectPayTypeOld").html();
+            var paytype = $("#txtSelectPayType").html();
+            var payordercode = $("#txtPayOrderCode").val();
+            var ordercode = $("#txtOrderCode").val();
+            if (paytypeold != paytype)
+            {
+                $.post("/Order/PayMethodUpdate", {
+                    paycode: payordercode, code: ordercode, paytype: paytype
+                }, function (data) {
+                    var _returncode = eval("(" + data + ")");
+                    var status = -_returncode.Status;
+                    if (status == _TheArray[0]) {
+                        if (paytype == 4) {//线下支付
+                            location.href = "/MobileOrder/OrderNotice?code=" + ordercode;
+                        }
+                        else if (paytype == 2) {//微信支付
+                            callpay();
+                            //location.href = "/MobileCashier/weixin?paycode=" + payordercode;
+                        }
+                        else{
+                            location.href = "/MobileOrder/Cashier?code=" + ordercode;
+                        }
+                    }
+                });
+            }
+            else {
+                if (paytype == 4) {
+                    location.href = "/MobileOrder/OrderNotice?code=" + ordercode;
+                } else if (paytype == 2) {//微信支付
+                    callpay();
+                    //location.href = "/MobileCashier/weixin?paycode=" + payordercode;
+                }
+                else {
+                    location.href = "/MobileOrder/Cashier?code=" + ordercode;
+                }
+            }
+        } 
+    </script>
+    @{ 
+        if (ViewBag.WeiXinJsApiParam!=null)
+        {
+            <script>
+                //调用微信JS api 支付
+                function jsApiCall()
+                {  
+                    WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+                    @Html.Raw(ViewBag.WeiXinJsApiParam),//josn串
+                     function (res)
+                     {    
+                         if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                             //支付成功
+                             location.href="/MobilePay/PaySuccess";
+                         }else{
+                             //alert(res.err_msg);
+                         }
+                     } );
+                }
+
+                function callpay()
+                {
+                    if (typeof WeixinJSBridge == "undefined")
+                    { 
+                        if (document.addEventListener)
+                        {
+                            document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                        }
+                        else if (document.attachEvent)
+                        {
+                            document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                            document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                        }
+                    }
+                    else
+                    {
+                        jsApiCall();
+                    }
+                }
+               
+            </script>
+        }
+    }
+    @Html.Partial("controls/_BodyBefore")
+</body>
+</html>

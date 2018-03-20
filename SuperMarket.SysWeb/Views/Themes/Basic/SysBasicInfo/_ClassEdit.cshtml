@@ -1,0 +1,67 @@
+﻿@{
+    SuperMarket.Model.ClassesFoundEntity entity = ViewBag.Entity;
+    SuperMarket.Model.ClassesFoundEntity pentity = ViewBag.ParentEntity;
+}
+<div class="property"> 
+    <div class="property-top">
+        <h3 class="fl">分类编辑</h3>
+    </div>
+    <div class="clear"></div> 
+    <div class="property-right fl">
+        <h3>1.基本信息</h3>
+        <div class="property-main">
+            <div class="property-title">
+                <span>上级类别：</span>
+                <span >@pentity.Name</span> 
+            </div>
+            <div class="property-title">
+                <span>分类名称：</span>
+                <input type="text" id="txtName" value="@entity.Name">
+            </div>
+            <div class="property-title">
+                <span>分类全称：</span>
+                <input type="text" id="txtFullName" value="@entity.FullName">
+            </div>  
+            <div class="property-title">
+                <span>序号：</span>
+                <input type="text" id="txtSort" value="@entity.Sort">
+            </div> 
+            <div class="property-shop">
+                <button onclick="Fun_SaveEntity()">保存</button>
+            </div> 
+        </div>
+    </div> 
+    <div class="clear"></div>
+</div> 
+<div style="display:none;">
+     <input id="txtId" value="@entity.Id" />
+</div>
+
+<script type="text/javascript">
+     
+    function Fun_SaveEntity() {
+        var enid=$("#txtId").val();
+        var name = $("#txtName").val(); 
+        var fullname = $("#txtFullName").val();
+        var menufac = $("#txtManufacturer").val(); 
+        var sort = $("#txtSort").val(); 
+
+        $.post("/SysBasicInfo/ClassEditSubmit", {
+            enid: enid, name: name, picurl: picurl, manu: menufac, ishot: ishot, sort: sort
+        }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var _returnStatus = -_returncode.Status;
+            if (_returnStatus == _TheArray[0]) {
+                alert("操作成功");
+                location.href = "/SysBasicInfo/BrandEdit?id=" + _returncode.Obj.Id;
+            }
+            else {
+                layer.msg(_TheArray[_returnStatus], {
+                    time: 100
+                });
+                cliki = 0;
+                return false;
+            }
+        });
+    }
+</script>

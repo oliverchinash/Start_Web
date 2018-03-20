@@ -1,0 +1,216 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "添加模板";
+    SuperMarket.Model.CmsTempletEntity _cmsentity = ViewBag.CmsEntity;
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+
+
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #CMSType, #IsActive {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+<div style="display:none;" id="divcmstemplet">
+    @Html.Raw(_cmsentity.TempletContent)
+</div>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>模板@(_cmsentity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul>
+
+            <li>
+                <div class="Backstage_td1">模板标题：</div>
+                <div class="Backstage_td2"><input id="Title" value="@_cmsentity.Title" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板内容：</div>
+                <div class="Backstage_td2">
+                    <div class="clear" style="float:left"></div>
+                    <div style="float:left;margin-left:10px" class="editor-wrap">
+                        <div id="editor" type="text/plain" style="width:700px;height:50px;">
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">产品数量：</div>
+                <div class="Backstage_td2"><input id="ProductNum" value="@_cmsentity.ProductNum" /></div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">模板类型：</div>
+                <div class="Backstage_td2">
+                    <select id="CMSType">
+
+                        <option value="0">--模板类型--</option>
+                        <option value="1">--首页导航--</option>
+                        <option value="2">--左侧导航--</option>
+                        <option value="3">--首页中部广告--</option>
+                        <option value="4">--分类导航--</option>
+
+                    </select>
+                </div>
+            </li>
+
+            <li>
+                <div class="Backstage_td1">是否有效：</div>
+                <div class="Backstage_td2">
+                    <select id="IsActive">
+
+                        <option value="0">--是否有效--</option>
+                        <option value="1">--有效--</option>
+                        <option value="2">--无效--</option>
+
+                    </select>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="product-main-search">
+
+        <div class="product-main-search-l"><span style="color:#f00"></span></div>
+        @if (_cmsentity.Id == 0)
+        {
+            <div class="product-main-next" style="margin-left:140px" onclick="CmsAddSubmit()"><span style="cursor:pointer;">添加</span></div>
+        }
+        else
+        {
+            <div class="product-main-next" style="margin-left:140px" onclick="CmsUpdateSubmit()"><span style="cursor:pointer;">修改</span></div>
+        }
+
+    </div>
+
+    <div style="display:none">
+        <input id="hidCmsId" value="@_cmsentity.Id" />
+        <input id="hidCMSType" value="@_cmsentity.CMSType" />
+        <input id="hidIsActive" value="@_cmsentity.IsActive" />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+
+    $(function () {
+        ue = UE.getEditor('editor', {
+            zIndex: 1,
+            initialFrameHeight: 300,
+            imagePopup: false,
+            autoHeightEnabled: false,
+            toolbars: [
+                [
+                    'source', 'fullscreen', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'forecolor', 'backcolor', 'cleardoc', 'lineheight', 'paragraph', 'fontfamily', 'fontsize', 'indent', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', 'link', 'unlink', 'insertimage'
+                ]
+            ],
+            imageScaleEnabled: false,
+            allowDivTransToP: false
+        });
+
+        ue.on('ready', function () {
+            proTemplate.init(ue);
+        });
+
+        ue.addListener("ready", function () {
+            ue.setContent($("#divcmstemplet").html());
+        })
+
+        $("#CMSType").val($("#hidCMSType").val());
+        $("#IsActive").val($("#hidIsActive").val());
+
+    })
+    function CmsAddSubmit() {
+        debugger
+        var _title = $("#Title").val();
+        var _templetcontent = ue.getContent();
+        var _productnum = $("#ProductNum").val();
+        var _cmstype = $("#CMSType option:selected").attr("value");
+        var _isactive = $("#IsActive option:selected").attr("value");
+        $.post("/Cms/CmsAddSubmit", {
+            title: _title, templetcontent: _templetcontent,
+            productnum: _productnum, cmstype: _cmstype, isactive: _isactive
+        },
+            function (data) {
+                var _returncode = (-data);
+                if (_returncode == _TheArray[0]) {
+                    alert(_TheArray[_returncode]);
+                    window.location.href = "/Cms/CmsManage";
+                }
+                else {
+                    alert(_TheArray[_returncode]);
+                    return false;
+                }
+            });
+    }
+
+    function CmsUpdateSubmit() {
+        var _cmsid = $("#hidCmsId").val();
+        var _title = $("#Title").val();
+        var _templetcontent = ue.getContent();
+        var _productnum = $("#ProductNum").val();
+        var _cmstype = $("#CMSType option:selected").attr("value");
+        var _isactive = $("#IsActive option:selected").attr("value");
+        $.post("/Cms/CmsUpdateSubmit", {
+            cmsid: _cmsid, title: _title, templetcontent: _templetcontent,
+            productnum: _productnum, cmstype: _cmstype, isactive: _isactive
+        },
+            function (data) {
+                var _returncode = (-data);
+                if (_returncode == _TheArray[0]) {
+                    alert(_TheArray[_returncode]);
+                    window.location.href = "/Cms/CmsManage";
+                }
+                else {
+                    alert(_TheArray[_returncode]);
+                    return false;
+                }
+            });
+    }
+
+</script>

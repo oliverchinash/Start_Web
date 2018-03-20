@@ -1,0 +1,54 @@
+﻿<div id="divBrandCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <!----品牌页面开始------>
+            <div class="brand">
+                <!-------固定部分元素开始--------->
+                <div class="brand-top" data-am-sticky>
+                    <!----header开始------>
+                    <header data-am-widget="header" class="am-header header">
+                        <div class="am-header-left am-header-nav">
+                            <a href="javascript:void(0)" class=""  onclick="FunCloseCanvas('divBrandCanvas')">
+                                <i class="am-header-icon am-icon-angle-right am-icon-md">返回</i>
+                            </a>
+                        </div>
+                        <h1 class="am-header-title">
+                            <a href="javascript:void(0)">
+                                品牌
+                            </a>
+                        </h1>
+                    </header>
+                    <!----header结束------>
+                    <!-----查询全部开始------>
+                    <ul class="am-list  brand-all">
+                        <li>
+                            <a href="javascript:void(0)" style="padding: 0;" onclick="FunSearch(1)">
+                                查询全部
+                                <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                            </a>
+                        </li>
+                        @{
+                            IList<JiChen.Entities.BrandEntity> listbrand = ViewBag.BrandList;
+                            if (listbrand != null && listbrand.Count > 0)
+                            {
+                                foreach (JiChen.Entities.BrandEntity entity in listbrand)
+                                {
+                                    <li>
+                                        <a href="javascript:void(0)" style="padding: 0;" onclick="FunSelectBrand(@entity.Id)">
+                                             @entity.Name
+                                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                                        </a>
+                                    </li>
+                                } 
+                            }
+                        }
+                    </ul>
+                    <!-----查询全部结束----->
+                </div> 
+            </div>
+            <!----品牌页面结束----->
+        </div>
+    </div>
+</div>
+
+<div style="display:none;"><span id="spanselectbrand" spanval="" spanname="">@ViewBag.SelectBrandId</span></div>

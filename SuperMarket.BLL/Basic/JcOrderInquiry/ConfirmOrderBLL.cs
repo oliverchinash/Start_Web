@@ -174,7 +174,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
                 {
                     if(en.CGMemId>0)
                     {
-                        StoreEntity store = StoreBLL.Instance.GetStoreByMemId(en.CGMemId);
+                        MemStoreEntity store = StoreBLL.Instance.GetStoreByMemId(en.CGMemId);
                         en.CGCompanyName = store.CompanyName;
                         en.CGMemName = store.ContactsManName; 
                     }

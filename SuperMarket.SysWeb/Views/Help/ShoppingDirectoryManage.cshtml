@@ -1,0 +1,241 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "管理购物指南";
+    IList<SuperMarket.Model.IssueContentEntity> _entitylist = ViewBag.entitylist;
+
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selIsActive { 
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+        #selIsActive > option {
+            text-align: center;
+        }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+        .admin_title>ul>li{
+            width:20%;
+        }
+    .admin_detail>ul>li{
+        width:20%;
+    }
+
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>购物指南内容管理</span></div>
+        <div class="add_admin">
+            <span><a href="/Help/ShoppingDirectory" target="_blank"><img src="~/Themes/Img/Add.png" />添加</a></span>
+        </div>
+    </div>
+
+    <div class="title_main">
+
+        Id:
+        <input value="@Request["id"]" id="txtSearchId" />
+        &nbsp;&nbsp;&nbsp;
+
+        问题标题:
+        <input value="@Request["issuetitle"]" id="txtIssueTitle" />
+        &nbsp;&nbsp;&nbsp;
+
+        请选择是否有效:
+        <select id="selIsActive">
+
+            <option value="-1" >是否有效</option>
+
+            <option value="1" @(Request["isactive"]=="1"?"selected=selected":"")>有效</option>
+
+            <option value="0" @(Request["isactive"]=="0"?"selected=selected":"")>无效</option>
+
+        </select>
+        所属系统:
+        <select id="selSystemType">
+
+            <option value="-1">所属系统</option>
+
+            <option value="1"  @(ViewBag.SystemType=="1"?"selected=selected":"")>B2B平台</option>
+
+            <option value="2" @(ViewBag.SystemType=="2"?"selected=selected":"")>采购平台</option>
+
+        </select>
+        <button id="btnCmsTempletSearch" onclick="FunIssueContentSearch()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>内容ID </li>
+                <li>
+                    问题标题
+                </li>
+                <li>分类</li>
+                <li>是否有效 </li> 
+                <li>操作 </li>
+            </ul>
+        </div>
+
+        @{
+            if (_entitylist != null && _entitylist.Count > 0)
+            {
+
+                foreach (SuperMarket.Model.IssueContentEntity entity in _entitylist)
+                {
+
+                    <div class="admin_detail">
+                        <ul> 
+                            <li class="li_iterm">@entity.Id</li>
+                            <li class="li_iterm">
+                                @entity.IssueTitle
+                            </li>
+                            <li class="li_iterm">@(entity.ClassId == 0 ? "无分类" : entity.ClassName.ToString())</li>
+                            <li class="li_iterm">@(entity.IsActive == 0 ? "无效" : "有效")</li>
+                            <li class="li_iterm">
+                                <a href="/Help/ShoppingDirectory?id=@entity.Id" target="_blank">编辑</a>&nbsp;&nbsp;&nbsp;
+                                <a href="javascript:void(0)" onclick="Fundelete(this)" id="@entity.Id">删除</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录
+                </div>
+            }
+        }
+
+    </div>
+
+
+</div>
+
+ 
+
+
+<script>
+    
+
+    function Fundelete(obj) {
+
+        var _id = $(obj).attr("id");
+        $.post("/Help/ShoppingDirectoryDelete", { id: _id }, function (data) {
+            if (data > 0) {
+                alert("删除成功!");
+                $(obj).parent().parent().parent().remove();
+            } else {
+                alert("删除失败!");
+            }
+        });
+      
+    }
+
+    function FunIssueContentSearch() {
+
+        var _id = $.trim($("#txtSearchId").val());
+        var _issuetitle = $("#txtIssueTitle").val();
+        var _isactive = $("#selIsActive option:selected").val();
+        var _systype = $("#selSystemType option:selected").val();
+        location.href = "/Help/ShoppingDirectoryManage?id=" + _id + "&issuetitle=" + _issuetitle + "&isactive=" + _isactive + "&systype=" + _systype;
+    }
+
+    function allCheck() {
+        var obj = document.getElementsByTagName("input");
+        if (document.getElementById("all").checked == true) {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < obj.length; i++) {
+                obj[i].checked = false;
+            }
+        }
+    }
+
+    function checkT_F() {
+        var obj = document.getElementsByTagName("input");
+        var j = 0;
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].id != 'all') {    //如果不是复选框
+                if (obj[i].checked == true) {    //并且为选中
+                    j++;
+                }
+            }
+        }
+        if (j == (obj.length - 1)) {    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+            document.getElementById("all").checked = true; //全选被激活
+        } else {
+            document.getElementById("all").checked = false;
+        }
+    }
+
+    function underCarriage() {
+        debugger;
+        var obj = document.getElementsByTagName("input");
+        for (var i = obj.length - 1; i >= 0; i--) {
+            if (obj[i].checked == true)
+                obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+
+</script>
+
+

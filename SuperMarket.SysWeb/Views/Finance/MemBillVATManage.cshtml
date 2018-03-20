@@ -1,0 +1,207 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    IList<SuperMarket.Model.MemBillVATEntity> entityList = ViewBag.EntityList;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .admin_title > ul > li, .admin_detail > ul > li {
+        width: 12.5%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selStatus, #selBillType {
+        width: 200px;
+        height: 32px;
+        margin-top: 9px;
+        margin-left: 12px;
+    }
+
+    button {
+        width: 100px;
+        height: 32px;
+        margin-left: 20px;
+    }
+
+    .title_main > input {
+        width: 200px;
+        height: 32px;
+    }
+
+    .add_admin > span {
+        width: 100px;
+        margin-left: -100px;
+    }
+
+        .add_admin > span > a {
+            color: blue;
+        }
+</style>
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>增值税发票管理</span></div>
+        <div class="add_admin">
+        </div>
+    </div>
+
+    <div class="title_main">
+
+        请选择审核状态:
+        <select id="selStatus">
+
+            <option value="-1">请选择审核状态</option>
+            <option value="0" @(Request["status"] == "0" ? "selected=selected" : "")>待审核</option>
+            <option value="1" @(Request["status"] == "1" ? "selected=selected" : "")>审核通过</option>
+            <option value="2" @(Request["status"] == "2" ? "selected=selected" : "")>已删除</option>
+            <option value="2" @(Request["status"] == "3" ? "selected=selected" : "")>审核拒绝</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        请选择发票类型:
+        <select id="selBillType">
+
+            <option value="0">请选择发票类型</option>
+            <option value="1" @(Request["billType"] == "1" ? "selected=selected" : "")>普票</option>
+            <option value="2" @(Request["billType"] == "2" ? "selected=selected" : "")>增票</option>
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        公司名称:
+        <input value="@Request["companyName"]" id="txtCompanyName" />
+
+        <button onclick="FunSearchMemBillVAT()">查询</button>
+
+        <div class="add_admin">
+
+        </div>
+
+    </div>
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li>公司名称</li>
+                <li>公司电话</li>
+                <li>公司银行</li>
+                <li>银行账号</li>
+                <li>发票类型</li>
+                <li>审核状态</li>
+                <li>创建时间</li>
+                <li>操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entityList != null && entityList.Count > 0)
+            {
+                foreach (SuperMarket.Model.MemBillVATEntity entity in entityList)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm">@entity.CompanyName</li>
+                            <li class="li_iterm">@entity.CompanyPhone</li>
+                            <li class="li_iterm">@entity.CompanyBank</li>
+                            <li class="li_iterm">@entity.BankAccount</li>
+                            <li class="li_iterm">@(entity.BillType == 1 ? "普票" : (entity.BillType == 2 ? "增票" : ""))</li>
+                            <li class="li_iterm">@(entity.Status == 0 ? "待审核" : (entity.Status == 1 ? "审核通过" : (entity.Status == 2 ? "已删除" : "审核拒绝")))</li>
+                            <li class="li_iterm">@entity.CreateTime.ToShortDateString()</li>
+                            <li class="li_iterm">
+                                @if (entity.Status == 0)
+                                {
+                                    <a href="javascipt:void(0)" onclick="FunAudit(@entity.Id,1)">审核通过</a>
+                                    <a href="javascipt:void(0)" onclick="FunAudit(@entity.Id,3)">审核拒绝</a>
+                                }
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    function FunSearchMemBillVAT() {
+        var _status = $("#selStatus").val();
+        var _billType = $("#selBillType").val();
+        var _companyName = $("#txtCompanyName").val();
+
+        window.location.href = "/Finance/MemBillVATManage/?status=" + _status + "&billType=" + _billType+"&companyName="+_companyName;
+    }
+
+    function FunAudit(id,status){
+
+        $.post("/Finance/MemBillAudit",{id:id,status:status},function(data){
+            if(data>0){
+                alert("审核成功!");
+            }
+            else{
+                alert("审核失败!");
+            }
+        });
+    }
+  
+
+</script>

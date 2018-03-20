@@ -435,7 +435,7 @@ namespace SuperMarket.LoginWebControllers
                 VWXunJiaObj _obj = new VWXunJiaObj();
                 VWProductEntity vwp = ProductBLL.Instance.GetProVWByDetailId(_pdid);
                 //VWProductNomalParamEntity vwpa = ProductExtBLL.Instance.GetProductNormalParamById(vwp.ProductId);
-                StoreEntity store = StoreBLL.Instance.GetStoreByMemId(member.MemId);
+                MemStoreEntity store = StoreBLL.Instance.GetStoreByMemId(member.MemId);
                 _obj.Product = vwp;
                 //_obj.ProductExt = vwpa;
                 _obj.MobilePhone = store.MobilePhone;

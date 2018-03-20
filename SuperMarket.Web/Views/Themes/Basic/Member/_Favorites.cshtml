@@ -1,0 +1,204 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-我的收藏</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/dropload.css">
+    <link rel="stylesheet" href="/themes/basic/css/payHistory.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/product.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/commoncontrolbind.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/themes/basic/js/jquery.fly2.min.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.js"></script> 
+    <script src="/Themes/Basic/js/dropload.min.js"></script>  
+    <script src="/themes/basic/js/CommonNumInit.js"></script>
+    <script src="/themes/basic/js/common.js"></script>
+    <script src="/themes/basic/js/globalcart.js"></script> 
+</head>
+<body><div style="display:none;"> 
+    <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
+</div><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header  am-header-fixed  header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                收藏夹
+            </a>
+        </h1>
+        @Html.Partial("controls/_CartBox")
+        @*<div class="am-header-right am-header-nav payHistory-header-delete">
+            <a href="javascript:void(0)" onclick="FunFavoritsCancelAll()">
+                清空
+            </a>
+        </div>*@
+    </header>
+    @{ 
+        IList<JiChen.Entities.VWMemFavoritesEntity> list = ViewBag.List;
+    }
+    <!-------header结束-------->
+    <!---------内容开始---------->
+@if (list != null && list.Count > 0)
+{
+    <div class="payHistory" id="divFavoriteBox">
+        <ul id="ulFavoriteListBox">
+            @foreach (JiChen.Entities.VWMemFavoritesEntity entity in list)
+            {
+                <li ProductDetailId="@entity.ProductDetailId">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default payHistory-list-news am-cf">
+                        <div class="am-list-news-bd">
+                            <ul class="am-list">
+                                <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left payHistory-list-li">
+                                    <div class="am-u-sm-4 am-list-thumb">
+                                        <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" class="">
+                                            <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.ProductEntity.PicUrlList)" class="am-img-responsive" />
+                                        </a>
+                                    </div>
+
+                                    <div class="am-u-sm-8 am-list-main">
+                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" class="">@entity.ProductEntity.AdTitle</a></h3>
+
+                                        <div class="am-list-item-text am-cf">
+                                            <a href="" class="am-fl">@entity.ProductEntity.ActualPrice.ToString("0.00")</a>
+                                        </div>
+                                        <div class="am-list-item-desced am-cf payHistory-shop" style="padding-top: 0;">
+                                            <div class="am-fl" style="margin-top: .5rem">
+                                                <input id="txtProductNum@(entity.ProductDetailId)" hascreate="0"   style="width:100px;" class="alignment" value="1" />
+                                            </div>
+                                            <div class="am-fr " style="padding-top: .5rem">
+                                                <a class="clsaddtocart"  ProductDetailId="@(entity.ProductDetailId)"  href="javascript:void(0)">加入购物车</a>
+                                                <img src="/Themes/Basic/img/payHistory_icon.png" ProductDetailId="@(entity.ProductDetailId)" onclick="FunFavoritsCancel('@(entity.ProductDetailId)')" class="am-img-responsive payHistory-delete" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            } 
+        </ul>
+    </div> 
+}
+    <script id="divMemFavoritList-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <li ProductDetailId="{{ProductDetailId}}">
+            {{#with ProductEntity}}
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default payHistory-list-news am-cf">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left payHistory-list-li">
+                            <div class="am-u-sm-4 am-list-thumb">
+                                <a href="javascript:void(0)" class="">
+                                    <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
+                                </a>
+                            </div>
+
+                            <div class="am-u-sm-8 am-list-main">
+                                <h3 class="am-list-item-hd"><a href="javascript:void(0)" class="">{{AdTitle}}</a></h3>
+
+                                <div class="am-list-item-text am-cf"> 
+                                        <a href="" class="am-fl">{{transformat ActualPrice}}</a> 
+                                </div>
+                                <div class="am-list-item-desced am-cf payHistory-shop" style="padding-top: 0;">
+                                    <div class="am-fl" style="margin-top: .5rem">
+                                        <input id="txtProductNum{{ProductDetailId}}" hascreate="0" style="width:100px;" class="alignment" value="1" />
+                                    </div>
+                                    <div class="am-fr" style="padding-top: .5rem">
+                                        <a class="clsaddtocart"  ProductDetailId="{{ProductDetailId}}" href="javascript:void(0)">加入购物车</a>
+                                        <img src="/Themes/Basic/img/payHistory_icon.png"  ProductDetailId="{{ProductDetailId}}" onclick="FunFavoritsCancel('{{ProductDetailId}}')"  class="am-img-responsive payHistory-delete" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {{/with}}
+        </li> 
+        {{/each}}
+    </script>
+  
+    <script> 
+        function FavoritesCancelCallback(pdid) {
+            $("#ulFavoriteListBox li[ProductDetailId='"+pdid+"']").remove();
+        }
+        function   FavoritesCancelAllCallback()
+        {
+            $("#ulFavoriteListBox li").remove();
+        }
+        $(function () {
+            offsetcart = $(".am-icon-shopping-cart").offset();
+            GetCartCount();
+            AddToCartClick();
+        // 页数
+        var page = 1; 
+        var maxpage = $("#spanmaxpageindex").html();
+        if ($("#divFavoriteBox").length > 0) {
+            // dropload
+            $("#divFavoriteBox").dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中....</div>',
+                    domNoData: '<div class="dropload-noData">没有更多记录了</div>'
+                },
+                loadDownFn: function (me) {
+                    page++; 
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Member/GetFavoritesJson',
+                        data: { pageindex: page },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (page <= maxpage) {
+                                var objlist = data.List;
+                                var myTemplate = Handlebars.compile($("#divMemFavoritList-template").html());
+                                Handlebars.registerHelper("transformat", function (value) {
+                                    return value.toFixed(2);
+                                });
+                                 
+                                    // 插入数据到页面，放到最后面
+                                    $('#ulFavoriteListBox').append(myTemplate(objlist));
+                                   
+                                    me.resetload();
+                                    Create_Num();
+                                    AddToCartClick();
+                            } else {
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                me.noData();
+                                me.resetload();
+                            }
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.resetload();
+                        }
+                    });
+                },
+                threshold: 50
+            });
+        }
+    });
+    </script>
+</body>
+</html>

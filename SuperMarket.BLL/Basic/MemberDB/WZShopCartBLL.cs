@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="wZShopCart">要添加的WZ_ShopCart数据实体对象</param>
-		public   int AddWZShopCart(WZShopCartEntity wZShopCart)
+		public   int AddWZShopCart(MemWZShopCartEntity wZShopCart)
 		{
 			if (wZShopCart.Id > 0|| WZShopCartBLL.Instance.IsExist(wZShopCart))
             {
@@ -52,7 +52,7 @@ namespace SuperMarket.BLL.MemberDB
             } 
             else  
             {
-                return WZShopCartDA.Instance.AddWZShopCart(wZShopCart);
+                return MemWZShopCartDA.Instance.AddWZShopCart(wZShopCart);
             }
 	 	}
         /// <summary>
@@ -60,7 +60,7 @@ namespace SuperMarket.BLL.MemberDB
         /// 该方法提供给界面等UI层调用
         /// </summary>
         /// <param name="wZShopCart">要添加的WZ_ShopCart数据实体对象</param>
-        public int AddWZShopCartXuQiu(WZShopCartEntity wZShopCart)
+        public int AddWZShopCartXuQiu(MemWZShopCartEntity wZShopCart)
         {
             if (wZShopCart.Id > 0 || WZShopCartBLL.Instance.IsExist(wZShopCart))
             {
@@ -68,7 +68,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return WZShopCartDA.Instance.AddWZShopCart(wZShopCart);
+                return MemWZShopCartDA.Instance.AddWZShopCart(wZShopCart);
             }
         }
         /// <summary>
@@ -77,20 +77,20 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="wZShopCart">待更新的实体对象</param>
         /// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-        public   int UpdateWZShopCart(WZShopCartEntity wZShopCart)
+        public   int UpdateWZShopCart(MemWZShopCartEntity wZShopCart)
 		{
-			return WZShopCartDA.Instance.UpdateWZShopCart(wZShopCart);
+			return MemWZShopCartDA.Instance.UpdateWZShopCart(wZShopCart);
 		}
-        public int UpdateWZShopCartXuQiu(WZShopCartEntity wZShopCart)
+        public int UpdateWZShopCartXuQiu(MemWZShopCartEntity wZShopCart)
         {
-            return WZShopCartDA.Instance.UpdateWZShopCartXuQiu(wZShopCart);
+            return MemWZShopCartDA.Instance.UpdateWZShopCartXuQiu(wZShopCart);
         }
         /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteWZShopCartByKey(int id)
         {
-            return WZShopCartDA.Instance.DeleteWZShopCartByKey(id);
+            return MemWZShopCartDA.Instance.DeleteWZShopCartByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -98,7 +98,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteWZShopCartDisabled()
         {
-            return WZShopCartDA.Instance.DeleteWZShopCartDisabled();
+            return MemWZShopCartDA.Instance.DeleteWZShopCartDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -111,7 +111,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return WZShopCartDA.Instance.DeleteWZShopCartByIds(idstr); 
+            return MemWZShopCartDA.Instance.DeleteWZShopCartByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
@@ -124,7 +124,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return WZShopCartDA.Instance.DisableWZShopCartByIds(idstr);
+            return MemWZShopCartDA.Instance.DisableWZShopCartByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个WZ_ShopCart实体记录。
@@ -132,16 +132,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>WZ_ShopCart实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   WZShopCartEntity GetWZShopCart(int id)
+		public MemWZShopCartEntity GetWZShopCart(int id)
 		{
-			return WZShopCartDA.Instance.GetWZShopCart(id);			
+			return MemWZShopCartDA.Instance.GetWZShopCart(id);			
 		}
 		  ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<WZShopCartEntity> GetWZShopCartList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemWZShopCartEntity> GetWZShopCartList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return WZShopCartDA.Instance.GetWZShopCartList(pageSize, pageIndex, ref recordCount);
+            return MemWZShopCartDA.Instance.GetWZShopCartList(pageSize, pageIndex, ref recordCount);
         }
         /// <summary>
         /// 获取数据库购物车数据
@@ -150,7 +150,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public string GetCartCookie(int memberid)
         {
-            WZShopCartEntity _entity = WZShopCartDA.Instance.GetCartCookie(memberid);
+            MemWZShopCartEntity _entity = MemWZShopCartDA.Instance.GetCartCookie(memberid);
             if (_entity != null && _entity.CookieValue != null&&_entity.CookieValue != "")
             {
                 return _entity.CookieValue;
@@ -160,7 +160,7 @@ namespace SuperMarket.BLL.MemberDB
         }
         public string GetXuQiuCookie(int memberid)
         {
-            WZShopCartEntity _entity = WZShopCartDA.Instance.GetCartCookie(memberid);
+            MemWZShopCartEntity _entity = MemWZShopCartDA.Instance.GetCartCookie(memberid);
             if (_entity != null && _entity.CookieValueXuQiu != null && _entity.CookieValueXuQiu != "")
             {
                 return _entity.CookieValueXuQiu;
@@ -176,8 +176,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<WZShopCartEntity> list = null;
-                    list = WZShopCartDA.Instance.GetWZShopCartAll();
+                    IList<MemWZShopCartEntity> list = null;
+                    list = MemWZShopCartDA.Instance.GetWZShopCartAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -187,9 +187,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(WZShopCartEntity wZShopCart)
+        public bool IsExist(MemWZShopCartEntity wZShopCart)
         {
-            return WZShopCartDA.Instance.ExistNum(wZShopCart)>0;
+            return MemWZShopCartDA.Instance.ExistNum(wZShopCart)>0;
         }
 		
 	}

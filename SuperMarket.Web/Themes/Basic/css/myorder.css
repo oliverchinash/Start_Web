@@ -1,0 +1,275 @@
+@charset"utf-8";
+/******公共样式******/
+body{
+    color: #343333;
+    text-align: center;
+    background: #EFEFEF repeat;
+}
+ul li{list-style:none;}
+a{ text-decoration:none;}
+a,img{ border:0 none;}
+img{
+    width: 100%;
+}
+.cl{
+    clear: none;
+}
+
+/**********我的订单页面***********/
+/******头部开始******/
+.myorder-header{
+    background: #F7F7F7;
+    border-bottom: 1px solid #E7E7E7;
+}
+.myorder-header a{
+    color: #5D5F6A;
+}
+.myorder{
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    height: auto;
+
+}
+/*******选项卡开始*******/
+.myorder .myorder-tabs{
+    margin: 0;
+}
+.myorder .am-tabs-default .am-tabs-nav{
+    background-color: #fff;
+}
+.myorder .am-tabs-default .am-tabs-nav>.am-active a{
+    background:none;
+    color: #D61419;
+    border-bottom: 2px solid #D61419;
+}
+.myorder .am-tabs-bd{
+
+}
+.myorder .am-tabs-bd .am-tab-panel{
+    padding: 0;
+}
+
+.myorder-li{
+    position: relative;
+}
+.myorder-li .am-badge{
+    position:absolute;
+    top: 5px;
+    margin-left: -3px;
+    padding: 1px 5px;
+}
+
+/*********全部页面开始**********/
+.myorder-all-main{
+   background: #fff;
+    width: 100%;
+    margin-top: .8rem;
+    text-align: left;
+}
+.myorder-all-main ul{
+    padding-left: 1rem;
+    margin-bottom: 0;
+}
+.myorder-all-main ul li{
+    border-bottom: 1px solid #ddd
+}
+.myorder-all-main p{
+    margin-bottom: 0;
+}
+/******图文介绍开始********/
+.myorder-all-main .am-list-news-default .am-list{
+    padding-left: 0;
+    margin-top: .5rem;
+}
+.myorder-all-main .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.myorder-all-main .am-list-main{
+    text-align: left;
+
+}
+.myorder-all-main .am-list-item-hd{
+    color: #000;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+.myorder-all-main .am-list-main h3 a{
+    color: #343434;
+}
+.myorder-all-main .am-list-item-desced a{
+    color: #FF532B;
+}
+.myorder-all-main .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    width: 8rem;
+    height:8rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/**********删除框样式********/
+.am-dimmer.am-active{
+    opacity: 0;
+}
+/**********删除弹出框样式********/
+.layui-layer-btn .layui-layer-btn0{
+    border-color:#FF532B !important;
+    background-color:#FF532B !important;
+    color: #fff;
+}
+.layui-layer-title{
+    padding: 0 !important;
+}
+.layui-layer-btn{
+    text-align: center !important;
+}
+/*********全部页面结束**********/
+
+/*********待付款页面开始**********/
+.waitpay ul{
+    background: #fff;
+    padding-left: 1rem;
+    margin-bottom: 0;
+    margin-top: .8rem;
+}
+.waitpay ul li{
+    border-bottom: 1px solid #ddd
+}
+/******图文介绍开始********/
+.waitpay .am-list-news-default .am-list{
+    padding-left: 0;
+    margin-top: .5rem;
+}
+.waitpay .am-list-news-default .am-list .am-list-item-desced{
+    padding: 0;
+    border:none;
+}
+.waitpay .am-list-main{
+    text-align: left;
+
+}
+.waitpay .am-list-item-hd{
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.4rem;
+}
+
+.waitpay .am-list-main h3 a{
+    color: #343434;
+}
+.waitpay .am-list-item-desced a{
+    color: #FF532B;
+}
+.waitpay .am-list-news-default .am-list-item-thumb-left .am-list-thumb img{
+    display: block;
+    height: 8rem;
+    width: 8rem;
+}
+@media only screen and (max-width: 640px){
+    .am-list-news-default .am-list-item-thumb-left .am-list-thumb{
+        max-height:none;
+    }
+}
+/*******全选结算*********/
+.waitpay-navbar .am-navbar-nav{
+    padding: 0;
+
+}
+.waitpay-navbar ul .am-navbar-nav a .am-navbar-label{
+    font-size: 1.4rem;
+}
+.waitpay-navbar-li{
+    background: #fff;
+    border-top: 1px solid #E4E4E4;
+}
+.waitpay-navbar-li a{
+    color: #000;
+}
+.waitpay-navbar-li .am-icon-unchecked .am-icon-checked{
+    margin: 0 auto !important;
+}
+.waitpay-navbar-li2{
+    background: #FF532B;
+}
+.waitpay-navbar-li2 a{
+    color:#fff;
+}
+.waitpay-chekbox-all{
+
+}
+/*********待付款页面结束**********/
+
+/*******底部提交订单*******/
+.waitpay-money{
+    background: #fff;
+    height: 45px;
+    width: 100%;
+    max-width: 75rem;
+    position: fixed;
+    bottom: 0;
+    line-height: 45px;
+    text-align: left;
+    border-top: 1px solid #eeee;
+}
+.waitpay-money-div{
+    padding-left: 1rem;
+}
+.waitpay-money span{
+    color: #FF532B;
+}
+.waitpay-money a{
+    background: #FF532B;
+    display: inline-block;
+    color: #fff;
+    width: 33%;
+    text-align: center;
+    float: right;
+}
+
+/***********取消订单的侧边栏开始************/
+.waitpay .am-offcanvas-bar{
+    background: #FFFFFF;
+}
+.waitpay .am-offcanvas-bar:after{
+    background: #FFFFFF;
+}
+.waitpay .am-offcanvas-content{
+    padding:0 ;
+}
+.waitpay .waitpay-header{
+    background: #fff;
+}
+.active{
+    background: url("../img/paycheck_icon.png") no-repeat right center;
+}
+
+.waitpay-pay-ul{
+    text-align: left;
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+}
+.waitpay-pay-ul li{
+    border-bottom: none;
+    text-indent: 1rem;
+    font-size: 1.4rem;
+}
+.waitpay-pay-ul li a{
+    padding: .5rem 0;
+    color: #666;
+}
+

@@ -1,0 +1,265 @@
+﻿
+@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+}
+
+@{
+
+    IList<SuperMarket.Model.ClassesFoundEntity> entitylist = ViewBag.entitylist;
+}
+
+<style type="text/css">
+    .admin_detail a:link {
+        color: blue;
+    }
+
+    .admin_detail a:hover {
+        color: red;
+    }
+
+    .admin_detail a:visited {
+        color: blue;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .Page {
+        margin-right: 12px;
+    }
+
+    #selLevel,#selIsActive{
+        width:100px;
+        height:32px;
+        margin-top:9px;
+        margin-left:12px;
+    }
+       #selLevel>option{
+        text-align:center
+    }
+
+       button{
+           width:100px;
+           height:32px;
+           margin-left:20px
+       }
+
+       .title_main>input{
+           width:100px;
+           height:32px
+       }
+
+       .add_admin>span{
+           width:100px;
+           margin-left:-100px
+       }
+        .add_admin>span>a{
+           color:blue;
+       }
+
+</style>
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>分类管理</span></div>
+        <div class="add_admin">
+                <span><a href="/Class/ClassEdit?id=0&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加一级分类</a></span>
+            </div>
+    </div>
+
+
+    <div class="title_main">
+        请选择类型:
+        <select id="selClassType"> 
+            <option value="-1">请选择类型</option> 
+            <option value="1">汽车用品</option> 
+            <option value="2">通用件</option> 
+            <option value="3">辅材</option> 
+            <option value="4">汽修工具</option>
+            <option value="5">工程机械</option>
+            <option value="6">商用车配件</option>
+            <option value="7">乘用车配件</option>  
+        </select>
+        请选择层级:
+        <select id="selLevel"> 
+            <option value="0">请选择层级</option> 
+            <option value="1">层级一</option> 
+            <option value="2">层级二</option> 
+            <option value="3">层级三</option> 
+            <option value="4">层级四</option> 
+        </select>
+
+        请选择是否有效:
+        <select id="selIsActive">
+
+            <option value="-1">请选择是否有效</option>
+
+            <option value="1" @(Request["isactive"]=="1"?"selected=selected":"")>有效</option>
+
+            <option value="0" @(Request["isactive"]=="0"?"selected=selected":"")>无效</option>
+ 
+
+        </select>
+
+        &nbsp;&nbsp;&nbsp;
+        分类名称:
+        <input value="@Request["name"]" id="txtName" />
+
+        <button id="SearchClass" onclick="FunSearchClass()">查询</button>
+ 
+        <div class="add_admin">
+ 
+
+        </div>
+    </div>
+
+
+    <div class="detail_main">
+
+        <div class="admin_title">
+            <ul>
+                <li style="width:10%">分类名称</li>
+                <li style="width:10%">所属类型</li>
+                <li style="width:10%">级别</li>
+                <li style="width:10%">终极</li>
+                <li style="width:10%">有效</li>
+                <li style="width:40%">操作</li>
+            </ul>
+        </div>
+
+        @{
+            if (entitylist != null && entitylist.Count > 0)
+            {
+                foreach (SuperMarket.Model.ClassesFoundEntity entity in entitylist)
+                {
+                    <div class="admin_detail">
+                        <ul>
+                            <li class="li_iterm" style="width:10%">@entity.Name</li>
+                            <li class="li_iterm" style="width:10%">@(entity.ClassTypeName)</li>
+                            <li class="li_iterm" style="width:10%">@(entity.ClassLevel)</li>
+                            <li class="li_iterm" style="width:10%">@(entity.IsEnd==1?"是":"否")</li>
+                            <li class="li_iterm" style="width:10%" id="@("isactive"+entity.Id)">@(entity.IsActive == 1 ? "有效" : "无效")</li>
+                            <li class="check" style="width:40%">
+                              <span><a href="/Class/ClassEdit?id=@entity.Id&op=update" target="_blank">修改</a></span><img src="~/Themes/Img/bj.png" />&nbsp;&nbsp;&nbsp;
+                                @{
+                                    if (entity.IsActive == 1)
+                                    {
+                                        <span><a href="#" onclick="FunDisable(this)" id="@entity.Id">失效</a></span>
+                                    }
+                                    else if (entity.IsActive == 0)
+                                    {
+                                        <span><a href="#" onclick="FunEnable(this)" id="@entity.Id">生效</a></span>
+                                    }
+                                }
+                                &nbsp;&nbsp;&nbsp;
+
+                                @if (entity.IsEnd == 0)
+                                {
+                                    <a href="/Class/ClassEdit?id=@entity.Id&op=add" target="_blank">添加子分类</a>
+                                }
+                                &nbsp; &nbsp;
+
+                                @if (entity.IsEnd==0)
+                                {
+                                    <a href="/Class/ClassManage?parentid=@entity.Id&level=@(entity.ClassLevel+1)" target="_blank">管理子分类</a>
+                                }
+                                &nbsp; &nbsp;
+
+                                <span><a href="/Class/ClassBrandManage?classid=@entity.Id">品牌管理</a></span>
+                                <span><a href="/Class/PropertiseManage?classid=@entity.Id">属性管理</a></span> 
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+                }
+                <div class="Page">
+                    <ul>
+                        @Html.Raw(ViewBag.PageStr)
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="admin_detail">
+                    没有找到记录!!!
+                </div>
+            }
+        }
+        <input value="@Request["level"]" type="hidden" id="hidlevel" />
+        <input value="@ViewBag.ClassType" type="hidden" id="hidClassType"/>
+        
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        var _level = $("#hidlevel").val();
+        if(_level==""||_level==undefined||_level==null){
+            $("#selLevel").val(0);
+        } else {
+            $("#selLevel").val(_level);
+        }
+        var _classtype = $("#hidClassType").val(); 
+        if (_classtype == "" || _classtype == undefined || _classtype == null) {
+            $("#selClassType").val(-1);
+        } else {
+            $("#selClassType").val(_classtype);
+        }
+    })
+
+    function FunSearchClass() {
+        var _level = $("#selLevel").val();
+        var _isactive = $("#selIsActive").val();
+        var _name = $("#txtName").val();
+        var _classtype = $("#selClassType").val();
+        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&classtype=" + _classtype;
+    }
+
+    function FunDisable(obj) { 
+        var _id = $(obj).attr("id"); 
+        if (confirm("确定要使该分类失效么?") == false) {
+            return false;
+        }
+        $.post("/Class/ClassDisable", { id: _id }, function (data) {
+            if (data > 0) {
+                alert("成功!");
+                $("#isactive" + _id).text("无效");
+            }
+            else {
+                alert("失败!")
+            }
+        })
+    }
+
+    function FunEnable(obj) {
+
+        debugger
+
+        var _id = $(obj).attr("id");
+
+        if (confirm("确定要使该分类生效么?") == false) {
+            return false;
+        }
+        $.post("/Class/ClassEnable", { id: _id }, function (data) {
+            if (data > 0) {
+                alert("成功!");
+                $("#isactive" + _id).text("有效");
+            }
+            else {
+                alert("失败!")
+            }
+        })
+    }
+
+</script>
+
+
+

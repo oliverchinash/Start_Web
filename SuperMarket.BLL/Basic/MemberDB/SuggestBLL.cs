@@ -44,7 +44,7 @@ namespace SuperMarket.BLL.MemberDB
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
 		/// <param name="suggest">要添加的Suggest数据实体对象</param>
-		public   int AddSuggest(SuggestEntity suggest)
+		public   int AddSuggest(MemSuggestEntity suggest)
 		{
 			  if (suggest.Id > 0)
             {
@@ -61,7 +61,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return SuggestDA.Instance.AddSuggest(suggest);
+                return MemSuggestDA.Instance.AddSuggest(suggest);
             }
 	 	}
 
@@ -71,16 +71,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <param name="suggest">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateSuggest(SuggestEntity suggest)
+		public   int UpdateSuggest(MemSuggestEntity suggest)
 		{
-			return SuggestDA.Instance.UpdateSuggest(suggest);
+			return MemSuggestDA.Instance.UpdateSuggest(suggest);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
         public int DeleteSuggestByKey(int id)
         {
-            return SuggestDA.Instance.DeleteSuggestByKey(id);
+            return MemSuggestDA.Instance.DeleteSuggestByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
@@ -88,7 +88,7 @@ namespace SuperMarket.BLL.MemberDB
         /// <returns></returns>
         public int DeleteSuggestDisabled()
         {
-            return SuggestDA.Instance.DeleteSuggestDisabled();
+            return MemSuggestDA.Instance.DeleteSuggestDisabled();
         }
 		 /// <summary>
         /// 做失效处理
@@ -101,7 +101,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return SuggestDA.Instance.DeleteSuggestByIds(idstr); 
+            return MemSuggestDA.Instance.DeleteSuggestByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
@@ -114,7 +114,7 @@ namespace SuperMarket.BLL.MemberDB
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return SuggestDA.Instance.DisableSuggestByIds(idstr);
+            return MemSuggestDA.Instance.DisableSuggestByIds(idstr);
         }
 		/// <summary>
 		/// 根据主键获取一个Suggest实体记录。
@@ -122,16 +122,16 @@ namespace SuperMarket.BLL.MemberDB
 		/// </summary>
 		/// <returns>Suggest实体</returns>
 		/// <param name="columns">要返回的列</param>
-		public   SuggestEntity GetSuggest(int id)
+		public   MemSuggestEntity GetSuggest(int id)
 		{
-			return SuggestDA.Instance.GetSuggest(id);			
+			return MemSuggestDA.Instance.GetSuggest(id);			
 		}
 		  ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<SuggestEntity> GetSuggestList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<MemSuggestEntity> GetSuggestList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return SuggestDA.Instance.GetSuggestList(pageSize, pageIndex, ref recordCount);
+            return MemSuggestDA.Instance.GetSuggestList(pageSize, pageIndex, ref recordCount);
         }
 		
 		public async Task GetSuggestAll()
@@ -142,8 +142,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<SuggestEntity> list = null;
-                    list = SuggestDA.Instance.GetSuggestAll();
+                    IList<MemSuggestEntity> list = null;
+                    list = MemSuggestDA.Instance.GetSuggestAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -153,9 +153,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(SuggestEntity suggest)
+        public bool IsExist(MemSuggestEntity suggest)
         {
-            return SuggestDA.Instance.ExistNum(suggest)>0;
+            return MemSuggestDA.Instance.ExistNum(suggest)>0;
         }
 		
 	}

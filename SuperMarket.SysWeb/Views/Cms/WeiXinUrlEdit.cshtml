@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "编辑公告";
+    SuperMarket.Model.WeChatNavigationEntity _noticeEntity = ViewBag.Entity;
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />  
+}
+
+<style type="text/css">
+    .main {
+        width: 100%;
+    }
+
+    .Backstage_td1 {
+        width: 10%;
+    }
+
+    .deserve {
+        margin-left: 240px;
+    }
+
+    #selIsActive, #IsActive {
+        width: 200px;
+        height: 26px;
+        margin-top: 12px;
+        margin-left: 8px;
+    }
+
+    input:focus {
+        border-color: #3385ff;
+    }
+</style>
+
+ 
+
+
+<div class="main">
+
+    <div class="title_main">
+        <img src="~/Themes/Img/home.png" />
+        <div class="title_text">您当前的位置：后台管理系统><span>微信导航@(_noticeEntity.Id == 0 ? "添加" : "修改")</span></div>
+    </div>
+
+    <div class="detail_main">
+        <ul> 
+            <li>
+                <div class="Backstage_td1">链接地址：</div>
+                <div class="Backstage_td2"><input id="txtRedirectUrl" value="@_noticeEntity.RedirectUrl" /></div>
+            </li>
+            <li>
+                <div class="Backstage_td1">导航类型：</div>
+                <div class="Backstage_td2"><select id="selWeChatUrlType">
+    <option value="@((int)SuperMarket.Model.WeChatUrTypeEnum.Temp)" @((_noticeEntity.WeChatUrlType== (int)SuperMarket.Model.WeChatUrTypeEnum.Temp) ?"selected":"")> 临时导航</option>
+    <option value="@((int)SuperMarket.Model.WeChatUrTypeEnum.Normal)" @((_noticeEntity.WeChatUrlType== (int)SuperMarket.Model.WeChatUrTypeEnum.Temp) ?"selected":"")>常用导航</option> 
+</select></div>
+            </li> <li>
+                <div class="Backstage_td1">备注：</div>
+                <div class="Backstage_td2"><input id="txtRemark" value="@_noticeEntity.Remark" /></div>
+            </li> 
+        </ul>
+    </div> 
+
+    <div class="product-main-search">
+
+        <div class="product-main-search-l"><span style="color:#f00"></span></div>
+
+        <div class="product-main-next" style="margin-left:140px" onclick="CmsReserveSubmit()"><span style="cursor:pointer;">生成</span></div>
+
+    </div>
+    <div style="display:none">
+        <input id="hidCmsId" value="@_noticeEntity.Id" />
+    </div>
+
+</div>
+
+<script type="text/javascript">
+     
+     
+    function CmsReserveSubmit() {
+
+        var _RedirectUrl = $("#txtRedirectUrl").val();
+        var _urltype = $("#selWeChatUrlType").val();
+        var _remark = $("#txtRemark").val();
+        
+        $.post("/Cms/WeChatUrlAdd", {
+            _url: _RedirectUrl, _urltype: _urltype, _remark: _remark
+        }, function (data) {
+            if (data > 0) {
+                alert("成功");
+                location.href = "/Cms/WeiXinUrlManage";
+            }
+            else {
+                alert("失败");
+                location.href = "/Cms/WeiXinUrlManage";
+
+            }
+        }
+         )
+
+    }
+
+
+</script>

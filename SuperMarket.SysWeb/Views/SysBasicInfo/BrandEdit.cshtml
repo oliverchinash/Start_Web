@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "询价订单列表";
+    Layout = "~/Views/" + SuperMarket.Core.Globals.SkinPath + "/Main/_MainSysDSDetail_Master.cshtml";
+}
+@section Head{  
+<link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+<script type="text/javascript" src="/js/diyUpload/js/webuploader.js"></script>
+<script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+<script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script> 
+}
+@Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/SysBasicInfo/_BrandEdit")
+

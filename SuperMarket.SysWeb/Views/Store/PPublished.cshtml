@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "已发布产品";
+    IList<SuperMarket.Model.ProductStyleEntity> _entitylist = ViewBag.EntityList;
+}
+@section Head{
+    <link href="~/Css/style.css" rel="stylesheet" type="text/css" />
+    }
+        <input type="hidden" id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+
+        <div class="tip-title">产品管理<span style="color:#f4934e">></span>已发布产品</div>
+        <div class="product-main">
+            <div class="product-main-title">
+                <ul>
+                    <li class="product-main-title_item1">商品名称</li>
+                    <li class="product-main-title_item2">价格</li>
+                    <li class="product-main-title_item2">库存</li>                
+                    <li class="product-main-title_item2">操作</li>
+                </ul>
+            </div>
+            <div class="product-main-choose">
+                <input class="original_checkbox" type="checkbox" name="allCK" id="all" onclick="javascript:allCheck()" />
+                <label>全选</label>
+                <button>删除</button>
+                <button id="underCarriage" onclick="underCarriage()">下架</button>
+            </div>
+
+           @{                
+                foreach (SuperMarket.Model.ProductStyleEntity entity in _entitylist)
+                {                   
+                    <div class="product-main-detail">
+                        <ul>
+                            <li class="product-main-detail_item1">
+                               <input class="original_checkbox" type="checkbox" value="aa" name="chk" onclick="javascript:checkT_F()" />
+                                <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.PicUrl)" />
+                                <p>@entity.AdTitle</p>  
+                            </li>
+                            <li class="product-main-detail_item2" style="color:#f00">@entity.Price</li>
+                            <li class="product-main-detail_item2">@entity.Num</li>
+                            <li class="product-main-detail_item2"><a href="/Store/PRelease?styleid=@entity.Id"> 编辑宝贝</a></li>
+                        </ul>
+                    </div>
+                }
+            }
+        </div>
+
+<script>
+function allCheck(){
+    var obj=document.getElementsByTagName("input");
+    if(document.getElementById("all").checked==true){
+        for(var i=0;i<obj.length;i++){
+            obj[i].checked=true;
+        }
+    }else{
+        for(var i=0;i<obj.length;i++){
+            obj[i].checked=false;
+        }
+    }
+}
+function checkT_F(){
+    var obj=document.getElementsByTagName("input");
+    var j=0;
+    for(var i=0;i<obj.length;i++){
+        if(obj[i].id!='all'){    //如果不是复选框
+            if(obj[i].checked==true){    //并且为选中
+                j++;
+            }
+        }
+    }
+    if(j==(obj.length-1)){    //如果复选框选中的数量等于（复选框总和减去全选这个选框的数量）
+        document.getElementById("all").checked=true; //全选被激活
+    }else{
+        document.getElementById("all").checked=false;
+    }
+}
+
+function underCarriage()
+{
+    debugger;
+    var obj = document.getElementsByTagName("input");
+    for (var i=obj.length-1; i >0; i--)
+    {
+        if (obj[i].checked == true)
+        {
+            obj[i].parentElement.parentElement.parentElement.remove();
+        }
+    }
+}
+
+</script>
+

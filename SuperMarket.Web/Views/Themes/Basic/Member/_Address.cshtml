@@ -1,0 +1,147 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-收货地址</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link rel="stylesheet" href="/themes/basic/css/paycheck.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.js"></script>
+    <script src="/themes/basic/js/commoncontrolbind.js"></script>
+    <script src="/themes/basic/js/commonboxadderss.js"></script>
+    <script src="/themes/basic/js/common.js"></script>
+    <script>  
+
+        function FunAddNewAddressOpen() {
+            FunAddressEditBoxShow();
+            FunAddNewAddress();
+        }
+        //地址
+        function FunAddressEdit(obj) {
+            FunAddressEditBoxShow();
+            UpdateReceiptAddress(obj);
+        }
+        function BindListUpdateBeh(jsonobj) {
+            var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
+            var liobj = $("#ulAddressListBox ul[AddressId='" + jsonobj.Id + "']");
+            $(liobj).html(myTemplate(jsonobj));
+        }
+        function  FunAddressEditBoxShow()
+        {
+            $(".paycheck").hide(); 
+            $(".newAddress").show();
+        }
+        function SetDefaultAddress(addressid) {
+
+            var param = { addressid: addressid }
+            $.post("/Member/SetDefaultAddress", { addressid: addressid }, function (data) {
+                if (data == 0) {
+                    alert("设置失败!");
+                }
+                else { 
+                }
+
+            });
+        }
+        function FunAddressEditBoxhide() {
+            $(".paycheck").show();
+            $(".newAddress").hide();
+        }
+        $(function () {
+            FunBindAddressListBox();
+        })
+
+         
+    </script>
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div class="paycheck">
+        <!----header开始----->
+        <header data-am-widget="header" class="am-header header">
+            @Html.Partial("controls/_HeadBanner") 
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                    收货地址
+                </a>
+            </h1>
+            <div class="am-header-right am-header-nav">
+                <a href="javascript:void(0)" onclick="FunAddNewAddressOpen()">
+                    新建
+                </a>
+            </div>
+        </header>
+        <!----header结束------->
+        <!---------内容开始----------->
+        <div class="address" id="ulAddressListBox">
+            
+        </div>
+
+     
+        
+        </div>
+    @Html.Partial("controls/_AddressEditBox")
+    <script id="liAddressList-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <ul AddressId="{{Id}}">
+            <li class="am-g">
+                <div class="address-dizhi-main am-u-sm-12">
+                    <p style="color: #000">收货人：{{AccepterName}}<span style="padding-left: 1rem">{{MobilePhone}}</span></p>
+                    <p style="font-size: 1.2rem">收货地址：{{ProvinceName}} {{CityName}} {{Address}}</p>
+                </div>
+            </li>
+            <li class="am-cf">
+                <label class="am-radio am-danger am-fl">
+                    {{#if Id}}
+                    {{#compare IsDefault 1}}
+                    <input type="radio" name="radio3"  onclick="SetDefaultAddress('{{Id}}')" value="" data-am-ucheck checked>设为默认
+                    {{else}}
+                    <input type="radio" name="radio3" onclick="SetDefaultAddress('{{Id}}')" value="" data-am-ucheck>设为默认
+                    {{/compare}}
+                    {{/if}}
+                </label>
+                <a href="javascript:void(0)" class="am-fr" style="padding-top: .2rem" AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>
+                    <i class="am-icon am-icon-compress"></i>
+                    <span>编辑</span>
+                </a>
+            </li>
+        </ul>
+        {{/each}}
+    </script>
+
+    <script id="liAddressEdit-template" type="text/x-handlebars-template">
+        <ul  AddressId="{{Id}}">
+            <li class="am-g">
+                <div class="address-dizhi-main am-u-sm-12">
+                    <p style="color: #000">收货人：{{AccepterName}}<span style="padding-left: 1rem">{{MobilePhone}}</span></p>
+                    <p style="font-size: 1.2rem">收货地址：{{ProvinceName}} {{CityName}} {{Address}}</p>
+                </div>
+            </li>
+            <li class="am-cf">
+                <label class="am-radio am-danger am-fl">
+                    {{#if Id}}
+                    {{#compare IsDefault 1}}
+                    <input type="radio" name="radio3" onclick="SetDefaultAddress('{{Id}}')" value="" data-am-ucheck checked>设为默认
+                    {{else}}
+                    <input type="radio" name="radio3"  onclick="SetDefaultAddress('{{Id}}')" value="" data-am-ucheck>设为默认
+                    {{/compare}}
+                    {{/if}}
+                </label>
+                <a href="javascript:void(0)" class="am-fr" style="padding-top: .2rem" AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>
+                    <i class="am-icon am-icon-compress"></i>
+                    <span>编辑</span>
+                </a>
+            </li>
+        </ul> 
+    </script>
+</body>
+</html>

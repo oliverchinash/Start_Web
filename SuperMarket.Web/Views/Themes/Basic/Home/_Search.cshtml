@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "_Index";
+}
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-国内最专业的汽车零部件及相关用品的在线采购网站</title>
+    <meta name="keywords" content="易店心_车配网_汽配_汽车用品_汽车配件_乘用车配件_商用车配件_机油_汽修_辅料" />
+    <meta name="description" content="易店心是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">  
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/home.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/cssadd.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link href="/themes/basic/css/cityselect.css" rel="stylesheet" />
+    <link rel="icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/Themes/Basic/js/amazeui.min.js"></script>
+    <script src="/Themes/Basic/js/handlebars.min.js"></script>
+    <script src="/Themes/Basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/Themes/Basic/js/Mobileindex.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script>
+        $(function () {
+            $("#txtSearchkey").focus();
+            document.onkeydown = function (event) {
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if (e && e.keyCode == 13) {
+                    var isFocus = $("#txtSearchkey").is(":focus");
+                    if (true == isFocus) {
+                        FunSearchByKey(1);
+                    }
+                }
+            }; 
+    })
+    </script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/themes/basic/js/cityselect.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/zepto.min.js"></script>
+    <script src="/themes/basic/js/jquery.marquee.js"></script> 
+</head>
+<body class="am-with-fixed-header am-with-fixed-navbar" ><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div style="display:none;"> 
+        <img src="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" alt="易店心" title="易店心" >  </div> 
+    <div style="display:none;">
+        <span id="spanjishisong">@ViewBag.JiShiSong</span>
+     <input name="title" value="易店心-国内最专业的汽车零部件及相关用品的在线采购网站" />
+        <input name="imgUrl" value="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" />
+        <input name="desc" value="易店心是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+    </div>  
+    <header data-am-widget="header" class="am-header gosearch-header">
+        <div class="am-header-left am-header-nav">
+            <a href="javascript:window.history.go(-1);">取消</a>
+        </div>
+        <div class="gosearch-search">
+            <input type="text"  id="txtSearchkey" value="@ViewBag.SearchKey"  placeholder="名称/型号/品牌/车型">
+            <div class="gosearch-button">
+                <i class="am-icon-search" onclick="FunSearchByKey(1)" style="color: #ccc"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="gosearch-main">
+        <h3>热搜</h3>
+        <ul class="am-g">
+            <li class="am-u-sm-3">
+                <a href="/MobileProduct/Search?key=美孚&js=0">美孚</a>
+            </li>
+            <li class="am-u-sm-3">
+                <a href="/MobileProduct/Search?key=博世&js=0">博世</a>
+            </li>
+            <li class="am-u-sm-3">
+    <a href="/MobileProduct/List?cl=4187&js=0">油品</a>
+</li><li class="am-u-sm-3">
+    <a href="/MobileProduct/Search?key=火花塞&js=0">火花塞</a>
+</li> 
+            
+        </ul>
+    </div>
+</body>
+</html> 

@@ -28,7 +28,7 @@
                
                 <div class="am-form-icon user-ipone">
                     <i class="am-icon-mobile-phone"></i>
-                    <input type="password" class="am-form-field" id="txtPassWord" onchange="FunCheckPassWord(this)" placeholder="密码:字母开头，如：asd123456">
+                    <input type="password" class="am-form-field" id="txtPassWord" onchange="FunCheckPassWord(this)" placeholder="密码">
                     <span style="color: red;" id="spanMobilemsg"></span>
                 </div>
                 <div class="am-form-icon user-ipone">
@@ -131,12 +131,7 @@
              $(obj).val("");
              $("#error").html("*两次密码输入不一致").show();
             return;
-        }
-        else if (/^\d*$/.test($(obj).val()) || /^[a-zA-Z]$/.test($(obj).val()) || /^[^\da-zA-Z]$/.test($(obj).val())) {
-             $(obj).val("");
-             $("#error").html("*至少使用两种字符组合(如asd123456)").show();
-            return;
-        }
+        } 
         else {
             $("#error").html("").hide();
         }
@@ -148,12 +143,7 @@
             $(obj).val("");
             $("#error").html("*两次密码输入不一致").show();
             return; 
-        }
-        else if (/^\d*$/.test($(obj).val()) || /^[a-zA-Z]$/.test($(obj).val()) || /^[^\da-zA-Z]$/.test($(obj).val())) {
-            $(obj).val("");
-            $("#error").html("*至少使用两种字符组合(如asd123456)").show();
-            return;
-        }
+        } 
         else {
             $("#error").html("").hide();
         }
@@ -191,9 +181,8 @@
             var _returncode = eval("(" + data + ")");
             var status = -_returncode.Status;
             if (status == _TheArray[0]) {
-                var mem = _returncode.Obj;
-                var stamp = mem.TimeStampTab;
-                location.href = "/Home/Reg2?stamp=" + stamp + "&returnurl=" + encodeURIComponent(returnurl);
+                var mem = _returncode.Obj; 
+                location.href = returnurl ;
                 return false;
             }
             else {

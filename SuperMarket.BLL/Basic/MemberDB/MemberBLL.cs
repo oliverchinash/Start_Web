@@ -100,7 +100,7 @@ namespace SuperMarket.BLL.MemberDB
         {
             return MemberDA.Instance.RegisterCompanyProc(entity);
         }
-        public int RegisterProc( MemberEntity mem,MemberInfoEntity meminfo,StoreEntity store)
+        public int RegisterProc( MemberEntity mem,MemberInfoEntity meminfo,MemStoreEntity store)
         {
             return MemberDA.Instance.RegisterProc(mem, meminfo, store);
         }

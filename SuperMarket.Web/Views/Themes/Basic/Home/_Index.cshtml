@@ -1,0 +1,562 @@
+﻿ 
+<!doctype html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-国内最专业的汽车零部件及相关用品的在线采购网站</title>
+    <meta name="keywords" content="易店心_车配网_汽配_汽车用品_汽车配件_乘用车配件_商用车配件_机油_汽修_辅料" />
+    <meta name="description" content="易店心是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/home.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/cssadd.css?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link href="/themes/basic/css/cityselect.css" rel="stylesheet" />
+    <link rel="icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/Themes/Basic/js/amazeui.min.js"></script>
+    <script src="/Themes/Basic/js/handlebars.min.js"></script>
+    <script src="/Themes/Basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/Themes/Basic/js/Mobileindex.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script>
+        $(function () {
+            $(".am-form-group").click(function () {
+                window.location.href = "/MobileHome/Search";
+            })  
+        //document.onkeydown = function (event) {
+        //    var e = event || window.event || arguments.callee.caller.arguments[0];
+        //    if (e && e.keyCode == 13) {
+        //        var isFocus = $("#txtkey").is(":focus");
+        //        if (true == isFocus) {
+        //            FunSearchByKey(1);
+        //        }
+        //    }
+        //};
+        NewCheckIsLogin();
+    })
+    </script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="/themes/basic/js/cityselect.js?type=@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/zepto.min.js"></script>
+    <script src="/themes/basic/js/jquery.marquee.js"></script>
+    
+</head>
+<body class="am-with-fixed-header am-with-fixed-navbar" >
+    <div style="display:none;"> 
+        <img src="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" alt="易店心" title="易店心" >  </div> 
+    <div style="display:none;"> 
+         <span id="spanjishisong">@ViewBag.JiShiSong</span> 
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+     <input name="title" value="易店心-国内最专业的汽车零部件及相关用品的在线采购网站" />
+        <input name="imgUrl" value="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" />
+        <input name="desc" value="易店心是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+    </div>  <div class="home" id="homewrapper">
+        <!----header开始----->
+        <header data-am-widget="header" class="am-header am-header-fixed home-header am-no-layout">
+            <div class="am-header-left am-header-nav">
+                <img src="/Themes/Basic/img/home_logo.png" width="116" height="34">
+            </div>
+            <div class="am-header-title">
+                 <div class="am-form-group am-form-icon" style="width: 100%;">
+                        <i class="am-icon-search" style="color: #999"></i>
+                        <input type="text" id="txtSearchkey" class="am-form-field am-round" placeholder="搜索车型/品牌/OEM编号">
+                  </div> 
+            </div>
+            <div class="am-header-right am-header-nav home-login">
+                <a href="/MobileMember/Home">
+                    <i class="am-icon am-icon-user"></i>
+                    <span class="am-header-nav-title"  id="aheadlogin">
+                        登录
+                    </span>
+                </a>
+            </div>
+        </header>
+        <!----header结束----->
+        <!---slider开始----->
+        <div data-am-widget="slider" class="am-slider am-slider-a1 home-slider"  >
+            <ul class="am-slides">
+                <li>
+                    <a href="#">
+                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/12mon_mobile.jpg">
+                    </a>
+                </li> 
+                <li>
+                    <a href="/Mobileproduct/Dailygrab">
+                        <img src="/themes/basic/img/discounts.png">
+                    </a>
+                </li> 
+                <li>
+                    <a href="/MobileProduct/List?bd=87">
+                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/bannerxinyi.jpg">
+                    </a>
+                </li> 
+                <li>
+                    <a  style="cursor:pointer;" onclick="FunRedirectRegister()">
+                        <img src="/Themes/Basic/img/propic/1.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="/MobileProduct/ProductS?code=bs">
+                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/bannerboshi.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="/MobileProduct/ProductS?code=sd">
+                        <img src="/Themes/Basic/img/propic/shida3.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!----slider结束---->
+        <!-----产品分类开始---->
+        <div class="am-g home-list">
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/List?cl=4187">
+                    <img src="/Themes/Basic/img/home_tp1.png" class="am-img-responsive">
+                    <div class="">油品</div>
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/List?cl=4633">
+                    <img src="http://images.ddbbqp.com/mobile/tubiao/longtai.png" class="am-img-responsive">
+                    <div class="">轮胎</div>
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/List?cl=2575">
+                    <img src="~/Themes/Basic/img/propic/huohuasai.jpg" class="am-img-responsive">
+                    <div class="">火花塞</div>
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/Categray">
+                    <img src="/Themes/Basic/img/home_tp4.png" class="am-img-responsive">
+                    <div class="">全部分类</div>
+                </a>
+            </div> 
+            <div class="am-u-sm-3">
+                <a href="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryWebUrl)/InquiryMem/Inquiry">
+                    <img src="/Themes/Basic/img/propic/fuliaohaocai.jpg" class="am-img-responsive">
+                    <div class="">询价系统</div>
+                </a>
+            </div>
+            @*<div class="am-u-sm-3">
+                <a href="/MobileProduct/List?cl=4185">
+                    <img src="/Themes/Basic/img/propic/fuliaohaocai.jpg" class="am-img-responsive">
+                    <div class="">辅料耗材</div>
+                </a>
+            </div>*@
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/Categray?s=2">
+                    <img src="http://images.ddbbqp.com/mobile/tubiao/shangyongche.png" class="am-img-responsive">
+                    <div class="">商用车</div>
+                </a>
+            </div>  
+            <div class="am-u-sm-3">
+                <a href="/MobileProduct/List?cl=4186">
+                    <img src="/Themes/Basic/img/propic/qicheyongpin.jpg" class="am-img-responsive">
+                    <div class="">养护用品</div>
+                </a>
+            </div>
+            @if (JiChen.Core.ConfigCore.Instance.ConfigEntity.JiShiSong == 1)
+            {
+                <div class="am-u-sm-3">
+                    <a href="/MobileHome/Index?js=1">
+                        <img src="/Themes/Basic/img/hometpjishida.png" class="am-img-responsive">
+                        <div class="">及时送</div>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="am-u-sm-3">
+                    <a href="/MobileProduct/List?cl=4463">
+                        <img src="/Themes/Basic/img/home_tp3.png" class="am-img-responsive">
+                        <div class="">四配套</div>
+                    </a>
+                </div>
+            } 
+        </div>
+        <!-----产品分类结束---->
+        <!-----滚动广告效果---->
+     
+        <!----限时抢购开始----->
+        <!----------品牌展开始---------->
+                <p class="home-faxian">易店心<span>·</span>推荐</p> 
+                <div class="home-brand">
+                    <div class="am-g am-cf">
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/ProductS?code=bs">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshiad.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/ProductS?code=mf">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/meifuad.jpg">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="am-g am-cf">
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/List?pt=1&bd=87">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/xinyi.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/List?pt=1&bd=71">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/fumaode.jpg">
+                            </a>
+                        </div>
+                    </div>
+                    @*<div class="am-g am-cf">
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/ProductS?code=ad">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/shidaad.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-6">
+                            <a href="/MobileProduct/ProductS?code=lf">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/langfuad.jpg">
+                            </a>
+                        </div>
+                    </div>*@
+                    <div class="am-g am-cf">
+                        <div class="am-u-sm-3">
+                            <a href="/MobileProduct/List?cl=4196&pt=1&bd=37">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshihhs.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <a href="/MobileProduct/List?cl=4203&pt=1&bd=37">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshiygp.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <a href="/MobileProduct/List?cl=4197&pt=1&bd=37">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshijylqq.jpg">
+                            </a>
+                        </div>
+                        <div class="am-u-sm-3">
+                            <a href="/MobileProduct/List?cl=4199&pt=1&bd=37">
+                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshikqlqq.jpg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!----------品牌展结束---------->
+
+        <!---标题--->
+                @{
+                    IList<JiChen.Entities.VWProductBaoPinEntity> bplist = ViewBag.ListProduct;
+                    if (bplist != null && bplist.Count > 0)
+                    {
+                        <div style="display:none"><span id="spanendtime">@bplist[0].EndTime</span></div>
+                        <div class="home-qg">
+                            <div class="am-g">
+                                <h3 class="am-u-sm-4 home-qg-p">
+                                    爆品<span>热卖</span>
+                                </h3>
+                                <!----倒计时---->
+                                <div class="am-u-sm-5 home-daojishi am-fl" style="text-align: left; padding-top:.5rem;padding-left: 0rem;padding-right:0;">
+                                    <span>还剩:</span>
+                                    <span id="spantimer">
+                                    </span>
+                                </div>
+                                <nav class="am-u-sm-3" style="font-size:1.2rem; padding-top:.5rem;padding-right: .5rem;padding-left: .5rem">
+                                   <a href="/MobileProduct/ProductBp" class="" style="color:#666;">查看全部</a>   </nav>
+                              
+                            </div> 
+                            <ul class="am-g home-qg-main">
+                                @{
+                                    int showpicnum = bplist.Count;
+                                    if (showpicnum > 3) { showpicnum = 3; }
+                                    string classshowli = "am-u-sm-"+(12/ showpicnum).ToString();
+
+                                    for (int i = 0;   i < showpicnum; i++)
+                                    {
+                                        JiChen.Entities.VWProductBaoPinEntity pentity = bplist[i];
+                                        <li class="@classshowli">
+                                            <a href="/MobileProduct/Detail?pd=@(pentity.ProductDetailId)">
+                                                <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + pentity.ProductDetail.PicUrlList)">
+                                                <div class="home-qg-wz">
+                                                    <p>@pentity.Name</p>
+                                                    @if (pentity.Price == 0)
+                                                     {
+                                                        <span  class="qg-span">￥会员可见</span>
+                                                     }
+                                                     else
+                                                     {
+                                                        <span class="qg-span">￥@pentity.Price.ToString("0.00")</span>
+                                                     } 
+                                                    <span class="qg-span2">仅剩@(pentity.ProductDetail.StockNum + pentity.ProductDetail.UnitName)</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        }
+                                    }
+                            </ul>
+                        </div> 
+                        <div class="cl"></div>
+                    }
+                }
+         
+        <!-----限时抢购结束------>
+        <!--广告图--->
+        @*<a href="javascript:void(0)">
+            <img src="/Themes/Basic/img/home_tp13.png">
+        </a>*@
+        <!--广告图--->
+        <!--------易店心新发现开始---------->
+        @*<div class="am-g">
+            <div class="am-u-sm-4  am-u-sm-centered" style="padding:1rem 0;">
+                <img src="/Themes/Basic/img/home_tp14.png">
+            </div>
+        </div>*@
+        <p class="home-faxian">易店心<span>·</span>超值购</p>
+        <div class="home-main1">
+            <div class="am-g">
+                <div class="am-u-sm-6">
+                    <a href="/MobileProduct/List?pt=2">
+                        <img src="/Themes/Basic/img/限量购.jpg">
+                    </a>
+                </div>
+                <div class="am-u-sm-6">
+                    <a href="/MobileProduct/ProductS?code=xph">
+                        <img src="/Themes/Basic/img/新品惠.jpg">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--------易店心新发现结束---------->
+        <!--------易店心超实惠开始---------->
+        @*<div class="am-g">
+            <div class="am-u-sm-4  am-u-sm-centered" style="padding:1rem 0;">
+                <img src="/Themes/Basic/img/home_tp16.png">
+            </div>
+        </div>*@
+     @*   <p class="home-faxian">易店心<span>·</span>超实惠</p>
+        <div class="home-main2">
+            <div class="am-g home-main2-ul">
+                <div class="am-u-sm-6" style="border-right: 1px solid #E7E7E7">
+                    <a href="javascript:void(0)">
+                        <img src="/Themes/Basic/img/home_tp17.png">
+                    </a>
+                </div>
+                <div class="am-u-sm-6">
+                    <a href="javascript:void(0)">
+                        <img src="/Themes/Basic/img/home_tp17.png">
+                    </a>
+                </div>
+            </div>
+            <div class="am-g home-main2-ul2">
+                <div class="am-u-sm-3" style="border-right: 1px solid #E7E7E7">
+                    <a href="javascript:void(0)">
+                        <p class="home-main2-p">美孚专场</p>
+                        <p class="home-main2-p2">全场5折起</p>
+                        <img src="/themes/basic/img//home_tp20.png">
+                    </a>
+                </div>
+                <div class="am-u-sm-3">
+                    <a href="javascript:void(0)">
+                        <p class="home-main2-p">美孚专场</p>
+                        <p class="home-main2-p2">全场5折起</p>
+                        <img src="/themes/basic/img//home_tp20.png">
+                    </a>
+                </div>
+                <div class="am-u-sm-3">
+                    <a href="javascript:void(0)">
+                        <p class="home-main2-p">美孚专场</p>
+                        <p class="home-main2-p2">全场5折起</p>
+                        <img src="/themes/basic/img//home_tp20.png">
+                    </a>
+                </div>
+                <div class="am-u-sm-3">
+                    <a href="javascript:void(0)">
+                        <p class="home-main2-p">美孚专场</p>
+                        <p class="home-main2-p2">全场5折起</p>
+                        <img src="/themes/basic/img//home_tp20.png">
+                    </a>
+                </div>
+            </div>
+           <div class="am-g home-main2-ul2">
+            <div class="am-u-sm-3" style="border-right: 1px solid #E7E7E7">
+                <a href="javascript:void(0)">
+                    <img src="/Themes/Basic/img/home_tp20.png">
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="javascript:void(0)">
+                    <img src="/Themes/Basic/img/home_tp20.png">
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="javascript:void(0)">
+                    <img src="/Themes/Basic/img/home_tp20.png">
+                </a>
+            </div>
+            <div class="am-u-sm-3">
+                <a href="javascript:void(0)">
+                    <img src="/Themes/Basic/img/home_tp20.png">
+                </a>
+            </div>
+        </div>
+    </div> *@
+        <p class="home-faxian">易店心<span>·</span>品牌展</p>
+        <div class="am-g home-main3">
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=mf">
+                    <p class="home-main2-p">美孚</p>
+                    <p class="home-main2-p2">正品保障</p>
+                    <img src="/themes/basic/img/propic/meifu1.jpg">
+                </a>
+            </div>
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=jsd">
+                    <p class="home-main2-p">嘉实多</p>
+                    <p class="home-main2-p2">价格实惠</p>
+                    <img src="/themes/basic/img/propic/jiashiduo1.jpg">
+                </a>
+            </div>
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=qp">
+                    <p class="home-main2-p">壳牌</p>
+                    <p class="home-main2-p2">值得信赖</p>
+                    <img src="/themes/basic/img/propic/qiaopai1.jpg">
+                </a>
+            </div>
+        </div>
+        <div class="am-g home-main4">
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=bs">
+                    <p class="home-main2-p">博世</p>
+                    <p class="home-main2-p2">品牌保障</p>
+                    <img src="~/themes/basic/img/propic/boshi1.jpg">
+                </a>
+            </div>
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=sd">
+                    <p class="home-main2-p">世达</p>
+                    <p class="home-main2-p2">工具专家</p>
+                    <img src="~/themes/basic/img/propic/shida2.jpg">
+                </a>
+            </div>
+            <div class="am-u-sm-4">
+                <a href="/MobileProduct/ProductS?code=lf">
+                    <p class="home-main2-p">郎孚</p>
+                    <p class="home-main2-p2">进口实惠</p>
+                    <img src="~/themes/basic/img/propic/langfu2.jpg">
+                </a>
+            </div>
+
+        </div>
+        <!--------易店心品牌街结束---------->
+        <!-----------精选推荐开始----------->
+        @{
+            IList<JiChen.Entities.VWProductFineEntity> listjinxuan = ViewBag.ListJinXuan;
+            if (listjinxuan != null && listjinxuan.Count > 0)
+            {
+                @*<div class="am-g">
+                    <div class="am-u-sm-12  am-u-sm-centered" style="padding:1rem 0;">
+                        精选推荐
+                    </div>
+                </div>*@
+                <p class="home-faxian">易店心<span>·</span>精选</p>
+                <div class="am-g home-main5" id="divproductjingxuan">
+                    @foreach (JiChen.Entities.VWProductFineEntity entity in listjinxuan)
+                    { <div class="am-u-sm-6 home-main5-li">
+                        <div class="home-main5-li-div">
+                            <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)">
+                                @if (!string.IsNullOrEmpty(entity.ProductDetail.PicUrlList))
+                                { 
+                                      <img src="@(JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.ProductDetail.PicUrlList)">
+                                }
+                                else
+                                {    <img src="/Themes/Basic/img/ImageError.jpg">
+                                }
+                                 <div class="home-mian5-wz">
+                                    <p>@entity.ProductDetail.AdTitle</p> 
+                                </div>
+                            </a>
+                            @if (entity.Price > 0)
+                            {
+                                <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" style="color: red; text-align: left">￥@entity.Price.ToString("0.00")</a>
+                            }
+                            else
+                            {
+                                <a  style="cursor:pointer;" onclick="FunRedirectRegister()" style="color:red;text-align: left">注册看价格</a>
+                            }
+                        </div>
+                    </div>
+                  }
+                </div>
+            }
+        }
+       
+        <!-----------精选推荐结束-----------> 
+    </div>
+    <!--------nav footer开始--------->
+    @Html.Partial("controls/_FootBanner")
+    <div id="divjingxuanTemplet" style="display:none;">
+        <div class="am-u-sm-6 home-main5-li">
+            <a href="_ProductUrl_">
+                <img src="{{ProductPicPath}}">
+                <div class="home-mian5-wz">
+                    <p>{{ProductName}}</p>
+                    <a href="javascript:void(0)" style="color: red;">_ProductPrice_</a>
+                </div>
+            </a>
+        </div>
+    </div>
+    @Html.Partial("controls/_BodyBefore")
+    
+</body>
+</html>
+<script>
+    //绑定列表
+    function BindProductJinPin(_pageindex)//显示当前人收货地址
+    { 
+        var urlstr = "/Common/GetProductFine";
+        var param = { pageindex: _pageindex }
+        $.ajax({
+            url: urlstr,
+            type: "POST",
+            //async: false,
+            dataType: 'json',
+            data: param,
+            success: function (json) {//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+                if (json != null && json != "") {
+                    var objjson = eval(json); 
+                    var _list = objjson.List;
+                    var htmldiv = $("#divjingxuanTemplet").html();
+                    if (_list != null && _list != undefined && _list.length > 0) {
+                        for (var i = 0; i < _list.length; i++) {
+                            var productid=""
+                            $("#divproductjingxuan").append(strhtmldiv);
+                        }
+                    }
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Http status: " + xhr.status + " " + xhr.statusText + "\najaxOptions: " + ajaxOptions + "\nthrownError:" + thrownError + "\n" + xhr.responseText);
+            },
+            complete: function (data, status) {
+            }
+        });
+    }
+    $(function () {
+        GetCJAmount();
+        ScrollRegisterMembers();
+        //setInterval('ScrollRegisterMembers()', 2000); 
+        setInterval('GetCJAmount()', 2000);
+        $(document).ready(function () {
+            $('.deal-scroll').kxbdMarquee({
+                direction: 'left',
+                eventA: 'mouseenter',
+                eventB: 'mouseleave'
+            });
+        });
+    })
+</script>

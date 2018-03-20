@@ -1,0 +1,117 @@
+﻿ 
+<div  class="newBill invoice" style="display: none">
+    <!----header开始------>
+    <header data-am-widget="header" class="am-header header">
+        <div class="am-header-left am-header-nav invoice-tuichu">
+            <a href="javascript:void(0)" class="" onclick="FunBillEditBoxhide()">
+                <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                发票信息
+            </a>
+            <div class="am-header-right am-header-nav">
+                <a href="javascript:void(0)" class="" style="font-size: 1.6rem" onclick="SaveBill()">
+                    确定
+                </a>
+            </div>
+        </h1>
+    </header>
+    <!----header结束------>
+    <!---------页头选项卡开始----------->
+    <div data-am-widget="tabs" class="am-tabs am-tabs-default invoice-tabs">
+        <ul class="am-tabs-nav am-cf" id="tabbilltype">
+            <li class="am-active " billtype="1"><a  onclick="FunSelectBillType(1)">普通发票</a></li>
+            <li class=""  billtype="2"><a  onclick="FunSelectBillType(2)">增值税发票</a></li>
+        </ul>
+        <div class="am-tabs-bd" id="divbillselectcontent">
+            <p id="billediterrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p>
+            <!---------普票开始----------->
+            <div data-tab-panel-0   billtype="1" class="am-tab-panel am-active">
+                <div class="invoice-main">
+                    <form>
+                        <ul>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-3">发票抬头</label>
+                                <input type="text" id="txtBillEditBillTitle" value="" placeholder="请输入发票抬头(必填)" class="am-u-sm-9">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <!---------普票结束----------->
+            <!---------专票开始----------->
+            <div data-tab-panel-1 billtype="2" class="am-tab-panel ">
+                <div class="invoice-main2">
+                    <form>
+                        <ul>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">发票抬头</label>
+                                <input type="text" id="txtBillEditCompanyName" value="" placeholder="请输入公司名称(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">纳税人识别码</label>
+                                <input type="text" id="txtBillEditCompanyCode" value="" placeholder="纳税人识别码(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">注册地址</label>
+                                <input type="text"  id="txtBillEditCompanyAddress" value="" placeholder="请输入发票收货地址(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">注册电话</label>
+                                <input type="text"  id="txtBillEditCompanyPhone"  value="" placeholder="请输入发票联系人的电话(必填)" class="am-u-sm-8">
+                            </li> 
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">开户行名称</label>
+                                <input type="text" id="txtBillEditCompanyBank"   value="" placeholder="请输入开户行名称(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">银行账号</label>
+                                <input type="text" id="txtBillEditBankAccount"  value="" placeholder="请输入银行账号(必填)" class="am-u-sm-8">
+                            </li>
+                        </ul>
+                    </form>
+                    <div class="invoice-main3-tishi">
+                        <p>温馨提示:</p>
+                        <p>1.如果您没有营业执照，请拨打热线<span>400-999-8411,</span>客服人员将帮助您完成认证。</p>
+                    </div>
+                </div>
+
+                @*<div class="invoice-main3">
+                    <form>
+                        <ul>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">收货人姓名</label>
+                                <input type="text" value="" placeholder="请输入收货人姓名(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">收货人手机号</label>
+                                <input type="text" value="" placeholder="请输入收货人手机号(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">收货城市</label>
+                                <input type="text" value="" placeholder="请输入收货城市(必填)" class="am-u-sm-8">
+                            </li>
+                            <li class="am-g am-cf">
+                                <label class="am-u-sm-4">收货人地址</label>
+                                <input type="text" value="" placeholder="请输入收货人地址(必填)" class="am-u-sm-8">
+                            </li>
+                        </ul>
+                    </form>
+                    <div class="invoice-main3-tishi">
+                        <p>温馨提示:</p> 
+                        <p>1.如果您没有营业执照，请拨打热线<span>400-999-8411,</span>客服人员将帮助您完成认证。</p>
+                    </div>
+                </div>*@
+            </div> 
+        </div>
+    </div>
+    <div style="display:none;"><span id="spanbilleditbillid"></span>
+        <input type="text" id="txtBillEditBillVATId" value="" />
+    </div>
+    <!---------页头选项卡结束----------->
+    <!--------主要内容结束---------->
+</div>
+
+

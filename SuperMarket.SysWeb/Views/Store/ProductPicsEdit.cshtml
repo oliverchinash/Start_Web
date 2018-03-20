@@ -1,0 +1,174 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "添加产品图片";
+}
+@section Head{
+
+    <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
+    <link href="/css/amazonmenu.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
+    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+
+}
+
+@{ 
+    SuperMarket.Model.ProductEntity entity = ViewBag.Entity;
+    IList<SuperMarket.Model.ProductStylePicsEntity> entityList = ViewBag.EntityList;
+}
+
+
+
+<div style="display: none;">
+    
+    <input type="hidden" id="hidProductId" value="@ViewBag.ProductId" />
+    <input type="hidden" id="hidStyleId" value="@ViewBag.StyleId"/>
+    <input id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+
+
+
+    <ul id="ulStylePics" class="hidpicuploaddiy" bindfield="StylePics" pictype="3" btntext="上传图片">
+        @{
+            if (entityList != null && entityList.Count > 0)
+            {
+                foreach (SuperMarket.Model.ProductStylePicsEntity _picentity in entityList)
+                {
+                    <li liitemcode="StylePics@_picentity.Id" action="@_picentity.HasCompress">@(_picentity.PicUrl + "." + _picentity.PicSuffix)</li>
+                }
+            }
+        }
+    </ul>
+
+</div>
+
+<style>
+
+    input  {
+        width:200px;padding:5px
+    }
+
+</style>
+
+<div class="tip-title">产品管理<span style="color:#f4934e">></span>添加产品图片</div>
+<div class="product-main">
+     
+     
+    <div class="product-main-search">
+        <div class="product-main-search-l">产品标题：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtAdTitle" value="@entity.AdTitle" autofocus: autofocus readonly/>
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l">标题说明：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtTitle" value="@entity.Title" readonly/>
+        </div>
+    </div>
+    <div class="product-main-search">
+        <div class="product-main-search-l"> 产品编码：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtCode" value="@entity.Code" readonly/>
+        </div>
+    </div>
+
+    <div class="product-main-search">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>所选图片：</div>
+        <div class="product-main-search-r">
+            <div class="Upload">
+                <div id="divcontainerProductPic" btntext="上传图片"><div></div></div>
+                <div style="float:left; width:100%;">
+                    <div id="divProductPicList" bindfield="StylePics" style="margin-left:8px"></div>
+                </div>
+                <div style="float:left;  color:#f00; font-size:10px; line-height:30px;margin-left:8px">请控制在500K以内，支持格式为bmp、jpg、png.</div>
+            </div>
+        </div>
+    </div>
+             
+    <div class="product-footer">
+        <div class="product-footer-l" style="cursor:pointer;" onclick="ProductSubmit()">确认</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var ue = null;
+    $(function () {
+
+        var arrimagespath = new Array();
+        if ($.trim($("#ulStylePics").children().length > 0) != "") {
+            $("#ulStylePics").children().each(function () {
+                arrimagespath.push({
+                    imageid: $(this).attr("liitemcode"),
+                    imagepath: $("#txtPicServerRootUrl").val() + $(this).text()
+                });
+            });
+        }
+
+        $('#divProductPicList').diyUpload({
+            url: "/Store/UploadProductImages",
+            buttonText: "上传图片",
+            imagedefaultpath: arrimagespath,
+            fileNumMax: 10,
+            formData: {
+            },
+            success: function (fileid, data) {
+                if (data != "" && data._raw != "") {
+                    var listr = "<li liitemcode='" + fileid + "' action='0'>" + data._raw + "</li>";
+                    $("#ulStylePics").append(listr);
+                    //alert(listr);
+                }
+            },
+            error: function (err) {
+                alert(err);
+            }
+        });
+
+
+    });
+
+    function ProductSubmit() {
+
+        debugger
+        var _styleId = $("#hidStyleId").val();
+        var _productId = $("#hidProductId").val();
+
+        var _isort = 100;
+        var _productpicsstr = "";
+
+        $("#ulStylePics li").each(function () {
+            if (_productpicsstr == "") {
+                _productpicsstr = $(this).text() + "_" + _isort + "_" + $(this).attr("action");
+            }
+            else {
+                _productpicsstr = _productpicsstr + "|" + $(this).text() + "_" + _isort + "_" + $(this).attr("action");
+            }
+            _isort = _isort - 1;
+        });
+
+        $.post("/Store/ProductPicSubmit", {
+             styleId: _styleId, productId: _productId,productpicsstr:_productpicsstr
+        }, function (data) {
+            var _returncode = data;
+            if (_returncode == 1) {
+                alert("添加成功!");
+                window.location.href = "/Store/ProductList?styleid="+_styleId;
+            }
+            else {
+                alert("产品已存在!");
+                return false;
+            }
+
+        });
+    }
+
+    
+
+ 
+</script>

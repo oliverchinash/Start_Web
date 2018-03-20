@@ -45,7 +45,7 @@ namespace SuperMarket.BLL.MemberDB
         /// 该方法提供给界面等UI层调用
         /// </summary>
         /// <param name="store">要添加的Store数据实体对象</param>
-        public int AddStore(StoreEntity store)
+        public int AddStore(MemStoreEntity store)
         {
             if (store.Id > 0)
             {
@@ -57,7 +57,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                return StoreDA.Instance.AddStore(store);
+                return MemStoreDA.Instance.AddStore(store);
             }
         }
 
@@ -67,9 +67,9 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="store">待更新的实体对象</param>
         /// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-        public int UpdateStore(StoreEntity store)
+        public int UpdateStore(MemStoreEntity store)
         {
-            return StoreDA.Instance.UpdateStore(store);
+            return MemStoreDA.Instance.UpdateStore(store);
         }
        
         /// <summary>
@@ -78,38 +78,38 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <returns>Store实体</returns>
         /// <param name="columns">要返回的列</param>
-        public StoreEntity GetStore(int id)
+        public MemStoreEntity GetStore(int id)
         {
-            return StoreDA.Instance.GetStore(id);
+            return MemStoreDA.Instance.GetStore(id);
         }
-        public StoreEntity GetStoreByNameAdd(string name,string address)
+        public MemStoreEntity GetStoreByNameAdd(string name,string address)
         {
-            return StoreDA.Instance.GetStoreByNameAdd(name, address);
+            return MemStoreDA.Instance.GetStoreByNameAdd(name, address);
 
         }
         /// </summary>
         /// <returns>Store实体</returns>
         /// <param name="columns">要返回的列</param>
-        public StoreEntity GetStoreByMemId(int memid, bool cache = true)
+        public MemStoreEntity GetStoreByMemId(int memid, bool cache = true)
         {
-            StoreEntity entity = new StoreEntity();
+            MemStoreEntity entity = new MemStoreEntity();
             if (cache)
             {
                 string _cachekey = "GetStoreByMemId_" + memid;
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    entity = StoreDA.Instance.GetStoreByMemId(memid);
+                    entity = MemStoreDA.Instance.GetStoreByMemId(memid);
                     MemCache.AddCache(_cachekey, entity);
                 }
                 else
                 {
-                    entity = (StoreEntity)obj;
+                    entity = (MemStoreEntity)obj;
                 }
             }
             else
             {
-                entity = StoreDA.Instance.GetStoreByMemId(memid);
+                entity = MemStoreDA.Instance.GetStoreByMemId(memid);
             }
 
             return entity;
@@ -117,7 +117,7 @@ namespace SuperMarket.BLL.MemberDB
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<StoreEntity> GetStoreList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
+        public IList<MemStoreEntity> GetStoreList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
         {
             string _legalName = string.Empty;
             string _companyName = string.Empty;
@@ -160,21 +160,21 @@ namespace SuperMarket.BLL.MemberDB
                     }
                 }
             }
-            return StoreDA.Instance.GetStoreList(pageSize, pageIndex, ref recordCount, _legalName, _companyName, _checkStatus, _memcode, _contractname, _contractphone, _issupplier);
+            return MemStoreDA.Instance.GetStoreList(pageSize, pageIndex, ref recordCount, _legalName, _companyName, _checkStatus, _memcode, _contractname, _contractphone, _issupplier);
         }
-        public IList<StoreEntity> GetStoreNoPositionList(int pageSize, int pageIndex, ref int recordCount)
+        public IList<MemStoreEntity> GetStoreNoPositionList(int pageSize, int pageIndex, ref int recordCount)
         { 
-            return StoreDA.Instance.GetStoreNoPositionList(pageSize, pageIndex, ref recordCount );
+            return MemStoreDA.Instance.GetStoreNoPositionList(pageSize, pageIndex, ref recordCount );
         }
 
         public IList<UnitStr> ShowHasRegister(string str)
         {
-            return StoreDA.Instance.ShowHasRegister(str);
+            return MemStoreDA.Instance.ShowHasRegister(str);
 
         }
-        public IList<StoreEntity> GetStoreListByMems(string memids)
+        public IList<MemStoreEntity> GetStoreListByMems(string memids)
         {
-            return StoreDA.Instance.GetStoreListByMems(memids); 
+            return MemStoreDA.Instance.GetStoreListByMems(memids); 
         }
         public VWShowStoreEntity GetNextStore(int preid)
         {
@@ -185,7 +185,7 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    entity = StoreDA.Instance.GetNextStore(preid);
+                    entity = MemStoreDA.Instance.GetNextStore(preid);
                     MemCache.AddCache(_cachekey, entity);
                 }
                 else
@@ -195,7 +195,7 @@ namespace SuperMarket.BLL.MemberDB
             }
             else
             {
-                entity = StoreDA.Instance.GetNextStore(preid);
+                entity = MemStoreDA.Instance.GetNextStore(preid);
             }
 
             return entity;
@@ -208,8 +208,8 @@ namespace SuperMarket.BLL.MemberDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<StoreEntity> list = null;
-                    list = StoreDA.Instance.GetStoreAll();
+                    IList<MemStoreEntity> list = null;
+                    list = MemStoreDA.Instance.GetStoreAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -219,39 +219,39 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(StoreEntity store)
+        public bool IsExist(MemStoreEntity store)
         {
-            return StoreDA.Instance.ExistNum(store) > 0;
+            return MemStoreDA.Instance.ExistNum(store) > 0;
         }
         public bool IsExist(string storename,string address)
         {
-            return StoreDA.Instance.ExistNum(storename, address) > 0;
+            return MemStoreDA.Instance.ExistNum(storename, address) > 0;
         }
 
         public VWStoreEntity GetVWStoreByMemId(int memid)
         {
-            return StoreDA.Instance.GetVWStoreByMemId(memid);
+            return MemStoreDA.Instance.GetVWStoreByMemId(memid);
         }
 
-        public IList<StoreEntity> GetStoreByLegalName(int pagesize, int pageindex, ref int recordcount, string LegalName)
+        public IList<MemStoreEntity> GetStoreByLegalName(int pagesize, int pageindex, ref int recordcount, string LegalName)
         {
-            return StoreDA.Instance.GetStoreByLegalName(pagesize, pageindex, ref recordcount, LegalName);
+            return MemStoreDA.Instance.GetStoreByLegalName(pagesize, pageindex, ref recordcount, LegalName);
         }
 
 
-        public IList<StoreEntity> GetStoreByCompanyName(int pagesize, int pageindex, ref int recordcount, string compamyName)
+        public IList<MemStoreEntity> GetStoreByCompanyName(int pagesize, int pageindex, ref int recordcount, string compamyName)
         {
-            return StoreDA.Instance.GetStoreByCompanyName(pagesize, pageindex, ref recordcount, compamyName);
+            return MemStoreDA.Instance.GetStoreByCompanyName(pagesize, pageindex, ref recordcount, compamyName);
         }
 
-        public IList<StoreEntity> GetStoreByStatus(int pagesize, int pageindex, ref int recordcount, int Status)
+        public IList<MemStoreEntity> GetStoreByStatus(int pagesize, int pageindex, ref int recordcount, int Status)
         {
-            return StoreDA.Instance.GetStoreByStatus(pagesize, pageindex, ref recordcount, Status);
+            return MemStoreDA.Instance.GetStoreByStatus(pagesize, pageindex, ref recordcount, Status);
         }
 
         public int CheckPhoneIsExist(string mobile)
         {
-            return StoreDA.Instance.CheckPhoneIsExist(mobile);
+            return MemStoreDA.Instance.CheckPhoneIsExist(mobile);
         }
     }
 }

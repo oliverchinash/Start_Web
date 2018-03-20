@@ -1,0 +1,57 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>易店心-积分说明</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/myIntegral.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body>@{ 
+    IList<JiChen.Entities.IntegralChangeEntity> _changelist = ViewBag.ChangeList;
+}<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@JiChen.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                积分明细
+            </a>
+        </h1>
+    </header>
+    <!----header结束------->
+    <!---------内容开始---------->
+    <div class="integralDetails">
+        <ul>
+            <li class="am-g integralDetails-li">
+                <div class="am-u-sm-4">日期</div>
+                <div class="am-u-sm-4">积分记录</div>
+                <div class="am-u-sm-4">积分说明</div>
+            </li>
+            @if (_changelist != null && _changelist.Count > 0)
+            {
+                foreach (JiChen.Entities.IntegralChangeEntity _integralentity in _changelist)
+                {
+                    <li class="am-g">
+                        <div class="am-u-sm-4">@_integralentity.ChangeTime</div>
+                        <div class="am-u-sm-4">@_integralentity.ChangeNum</div>
+                        <div class="am-u-sm-4">@_integralentity.ChangeReason</div>
+                    </li>
+                }
+
+            }
+        </ul>
+    </div>
+    <!---------内容结束---------->
+
+</body>
+</html>

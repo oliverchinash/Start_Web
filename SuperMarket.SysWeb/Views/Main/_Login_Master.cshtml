@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>汽配网登录</title>
+    <link rel=stylesheet href="/css/MemberStyle.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/GlobalCart.js?type==@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script type="text/javascript" src="/js/JsGlobalEnum.js?type==@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+
+    <script type="text/javascript">
+
+        var ApplicationPath = "";
+        var WebUrl = "/";
+        var returnpath = "@Request.Path";
+        var returnurl = "@Request["ReturnUrl"]";
+        if (returnurl == "") {
+            returnurl = "@Request.UrlReferrer";
+        }
+
+    </script>
+
+    @RenderSection("Head", false)
+
+</head>
+<body>
+
+    <div class="login">
+        @RenderBody()
+    </div>
+
+</body>
+</html>
