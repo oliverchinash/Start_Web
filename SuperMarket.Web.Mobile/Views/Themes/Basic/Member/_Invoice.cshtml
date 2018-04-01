@@ -1,0 +1,93 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-发票信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/paycheck.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/invoice.css">
+    <link href="/themes/basic/css/cssadd.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/commoncontrolbind.js"></script>
+    <script src="/themes/basic/js/handlebars.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script> 
+    <script src="/themes/basic/js/commonboxbill.js"></script>
+    <script src="/themes/basic/js/common.js"></script>
+     
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div class="paycheck">
+        <!----header开始------>
+        <header data-am-widget="header" class="am-header header">
+            @Html.Partial("controls/_HeadBanner") 
+            <h1 class="am-header-title">
+                <a href="javascript:void(0)">
+                    发票信息
+                </a>
+                <div class="am-header-right am-header-nav paycheck-fapiao-xinzeng"  >
+                    <a  href="javascript:void(0)" onclick="FunBillXinZeng()" style="font-size: 1.6rem">
+                        新增
+                    </a>
+                </div>
+            </h1>
+        </header>
+        <!----header结束------>
+        <!-------主要内容开始-------->
+        <ul class="am-list am-list-static paycheck-offcanvas-ul" id="ulBillListBox"></ul>
+      </div>
+        @Html.Partial("controls/_BillEditBox")
+
+        <script id="liBillList-template" type="text/x-handlebars-template">
+            {{#each this}}
+            <li class="am-g" BillId="{{Id}}" CompanyName="{{CompanyName}}" CompanyCode="{{CompanyCode}}" CompanyAddress="{{CompanyAddress}}" CompanyPhone="{{CompanyPhone}}" CompanyBank="{{CompanyBank}}" BankAccount="{{BankAccount}}" ReceiverName="{{ReceiverName}}" ReceiverPhone="{{ReceiverPhone}}" ReceiverProvince="{{ReceiverProvince}}" ReceiverCity="{{ReceiverCity}}" ReceiverAddress="{{ReceiverAddress}}" Status="{{Status}}" IsDefault="{{IsDefault}}" BillType="{{BillType}}" BillTypeName="{{BillTypeName}}" returnobjid="txtSelectBillType"  >
+                <div class="paycheck-dizhi-main am-u-sm-10">
+                    <p>发票类型：{{BillTypeName}}</p>
+                    <p>发票抬头：{{CompanyName}} </p>
+                    {{#if Id}}
+                    {{#compare Status 0}}
+                    <div class="paycheck-dizhi-moren am-cf">
+                        {{#if Id}}
+                        {{#compare IsDefault 1}}
+                        <p style='color:#FF532B' class='am-fl'>默认</p>
+                        {{/compare}}
+                        {{/if}}
+                        <a   BillId="{{Id}}" CompanyName="{{CompanyName}}" CompanyCode="{{CompanyCode}}" CompanyAddress="{{CompanyAddress}}" CompanyPhone="{{CompanyPhone}}" CompanyBank="{{CompanyBank}}" BankAccount="{{BankAccount}}" ReceiverName="{{ReceiverName}}" ReceiverPhone="{{ReceiverPhone}}" ReceiverProvince="{{ReceiverProvince}}" ReceiverCity="{{ReceiverCity}}" ReceiverAddress="{{ReceiverAddress}}" Status="{{Status}}" IsDefault="{{IsDefault}}" BillType="{{BillType}}" BillTypeName="{{BillTypeName}}" class='am-fr paycheck-dizhi-bianji' onclick='FunBillEdit(this)'>编辑</a>
+                    </div>
+                    {{/compare}}
+                    {{/if}}
+                </div>
+            </li>
+            {{/each}}
+        </script>
+        <script>
+
+        //发票
+        function FunBillEditBoxShow() {
+            $(".paycheck").hide(); 
+            $(".newBill").show();
+        }
+
+        function FunBillEditBoxhide() {
+            $(".newBill").hide();
+            $(".paycheck").show(); 
+        }
+        function FunBillEdit(obj) {
+            FunBillEditBoxShow();
+            UpdateReceiptBill(obj);
+        }
+        $(function () {
+            FunBindBillListBox();
+        });
+        </script>
+</body>
+</html>

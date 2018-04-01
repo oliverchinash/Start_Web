@@ -18,7 +18,7 @@ using SuperMarket.BLL.MemberDB;
 using SuperMarket.BLL.MessageDB;
 using SuperMarket.Web.CommonControllers;
 
-namespace SuperMarket.Admin.Controllers
+namespace SuperMarket.SysWeb.Controllers
 {
     public class CheckController : BaseMemAdminController
     {

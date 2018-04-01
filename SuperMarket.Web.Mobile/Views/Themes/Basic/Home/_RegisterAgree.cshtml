@@ -1,0 +1,41 @@
+﻿<!doctype html>
+<html class="no-js">@{
+    SuperMarket.Model.IssueContentEntity entity = ViewBag.Content;
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-@entity.IssueTitle</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/basic.css">
+    <link rel="stylesheet" href="/themes/basic/css/personal.css">
+    <script src="/themes/basic/js/jquery.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body>
+    <div style="display:none;">
+        <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    </div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header am-header-fixed header">
+        @Html.Partial("controls/_HeadBanner")
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                阿哈马车服
+            </a>
+        </h1>
+    </header>
+    <!----header结束----->
+    <!-------内容开始---------->
+    <div class="service">
+       @Html.Raw(entity.IssueContent)
+    </div>
+    <!-------内容结束---------->
+    <!--------nav footer开始--------->
+    @Html.Partial("controls/_FootBanner")
+</body>
+</html>

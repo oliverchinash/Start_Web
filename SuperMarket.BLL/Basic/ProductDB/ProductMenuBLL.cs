@@ -130,21 +130,18 @@ namespace SuperMarket.BLL.ProductDB
             return ProductMenuDA.Instance.GetProductMenuList(pageSize, pageIndex, ref recordCount);
         }
 
-        public IList<VWProductMenuEntity> GetProductMenuAll(int menutype,int isactive)
+        public IList<VWProductMenuEntity> GetProductMenuAll(int menutype,int isactive,bool iscahce=false)
         {
             IList<VWProductMenuEntity> list = null;
-
-            string _cachekey = "GetProductMenuAll"+ menutype + isactive;// SysCacheKey.ProductMenuListKey;
-            object obj = MemCache.GetCache(_cachekey);  
-            if (obj == null)
+            if (!iscahce)
             {
                 list = ProductMenuDA.Instance.GetProductMenuAll(menutype, isactive);
                 foreach (VWProductMenuEntity entity in list)
-                {  
+                {
                     if (entity.ProductDetailId > 0)
                     {
                         entity.ProductDetail = ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
-                    } 
+                    }
                     if (entity.ClassId > 0)
                     {
                         entity.ClassesFound = ClassesFoundBLL.Instance.GetClassesFound(entity.ClassId);
@@ -154,11 +151,37 @@ namespace SuperMarket.BLL.ProductDB
                         entity.Brand = BrandBLL.Instance.GetBrand(entity.BrandId);
                     }
                 }
-                MemCache.AddCache(_cachekey, list);
             }
             else
             {
-                list = (IList<VWProductMenuEntity>)obj;
+
+
+                string _cachekey = "GetProductMenuAll" + menutype + isactive;// SysCacheKey.ProductMenuListKey;
+                object obj = MemCache.GetCache(_cachekey);
+                if (obj == null)
+                {
+                    list = ProductMenuDA.Instance.GetProductMenuAll(menutype, isactive);
+                    foreach (VWProductMenuEntity entity in list)
+                    {
+                        if (entity.ProductDetailId > 0)
+                        {
+                            entity.ProductDetail = ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
+                        }
+                        if (entity.ClassId > 0)
+                        {
+                            entity.ClassesFound = ClassesFoundBLL.Instance.GetClassesFound(entity.ClassId);
+                        }
+                        if (entity.BrandId > 0)
+                        {
+                            entity.Brand = BrandBLL.Instance.GetBrand(entity.BrandId);
+                        }
+                    }
+                    MemCache.AddCache(_cachekey, list);
+                }
+                else
+                {
+                    list = (IList<VWProductMenuEntity>)obj;
+                }
             }
             return list;
         }

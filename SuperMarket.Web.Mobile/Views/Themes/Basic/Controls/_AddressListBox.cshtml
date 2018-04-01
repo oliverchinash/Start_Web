@@ -1,0 +1,62 @@
+﻿
+<div id="divAddressListCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <!-------头部开始-------->
+            <header data-am-widget="header" class="am-header header">
+                <div class="am-header-left am-header-nav paycheck-offcanvas-fanhui">
+                    <a   onclick="FunCloseCanvas('divAddressListCanvas')">
+                        <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+                    </a>
+                </div>
+                <h1 class="am-header-title">
+                    收货地址
+                </h1>
+                <div class="am-header-right am-header-nav paycheck-dizhi-new">
+                    <a href="javascript:void(0)" class="" onclick="FunAddNewAddressOpen()">
+                        新增
+                    </a>
+                </div>
+            </header> 
+            <ul class="am-list am-list-static paycheck-offcanvas-ul" id="ulAddressListBox">
+               
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script id="liAddressList-template" type="text/x-handlebars-template">
+   {{#each this}}
+    <li   AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' ProvinceName='{{ProvinceName}}' CityName='{{CityName}}'  Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}'  class='am-g' returnobjid="txtSelectAddressId" onclick="FunSelectAddress(this)">
+        <div class='paycheck-dizhi-main am-u-sm-10'>
+            <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
+            <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
+            <div class='paycheck-dizhi-moren am-cf'>
+              {{#if Id}}
+                {{#compare IsDefault 1}}
+                <p style='color:#FF532B' class='am-fl'>默认</p>
+                {{/compare}}
+              {{/if}}
+                <a href='#' AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}'  class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>编辑</a>
+            </div>
+         </div>
+    </li>   
+   {{/each}}
+</script>
+<script id="liAddressEdit-template" type="text/x-handlebars-template"> 
+    <li AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' ProvinceName='{{ProvinceName}}' CityName='{{CityName}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-g' returnobjid="txtSelectAddressId" onclick="FunSelectAddress(this)">
+        <div class='paycheck-dizhi-main am-u-sm-10'>
+            <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
+            <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
+            <div class='paycheck-dizhi-moren am-cf'>
+                {{#if Id}}
+                {{#compare IsDefault 1}}
+                <p style='color:#FF532B' class='am-fl'>默认</p>
+                {{/compare}}
+                {{/if}}
+                <a href='#' AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>编辑</a>
+            </div>
+        </div>
+    </li>
+</script>

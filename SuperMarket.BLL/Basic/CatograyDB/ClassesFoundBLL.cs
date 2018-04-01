@@ -204,44 +204,58 @@ namespace SuperMarket.BLL.CatograyDB
             MemCache.AddCache(_cachekey, _objlistall);
             return _objlistall;
         }
-        public  List<int> GetSubClassEndList(int classid)
+        public  List<int> GetSubClassEndList(int classid,bool cache = false)
         {
-            string _cachekey = "GetSubClassEndList_" + classid;
-            object obj = MemCache.GetCache(_cachekey);
-             List<int> _listint = new List<int>();
-            if (obj == null)
+            List<int> _listint = new List<int>();
+            if (cache == false)
             {
-                ClassesFoundEntity _entity = GetClassesFound(classid, true);
+                ClassesFoundEntity _entity = GetClassesFound(classid, cache);
                 int redirectclassid = _entity.RedirectClassId;
                 if (redirectclassid == 0) redirectclassid = _entity.Id;
-                
                 _listint.Add(redirectclassid);
-                if (_entity.IsEnd == 0&& redirectclassid > 0)
+                if (_entity.IsEnd == 0 && redirectclassid > 0)
                 {
-                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, true, -1,-1);
+                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, cache, -1, -1);
                     if (_entitylist2 != null && _entitylist2.Count > 0)
                     {
                         foreach (ClassesFoundEntity _entity2 in _entitylist2)
-                        { 
-                            //if (_entity2.RedirectClassId > 0)
-                            //{
-                            //    _listint.Add(_entity2.RedirectClassId);
-                            //}
-                            //else
-                            //{
-                            //    _listint.Add(_entity2.Id);
-                            //}  
-                            List<int> listsub= GetSubClassEndList(_entity2.Id );
+                        {
+                            List<int> listsub = GetSubClassEndList(_entity2.Id, cache);
                             _listint.AddRange(listsub);
                         }
                     }
                 }
-
             }
             else
             {
-                _listint = ( List<int>)obj;
+                string _cachekey = "GetSubClassEndList_" + classid;
+                object obj = MemCache.GetCache(_cachekey);
+                if (obj == null)
+                {
+                    ClassesFoundEntity _entity = GetClassesFound(classid, true);
+                    int redirectclassid = _entity.RedirectClassId;
+                    if (redirectclassid == 0) redirectclassid = _entity.Id;
+                    _listint.Add(redirectclassid);
+                    if (_entity.IsEnd == 0 && redirectclassid > 0)
+                    {
+                        IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, true, -1, -1);
+                        if (_entitylist2 != null && _entitylist2.Count > 0)
+                        {
+                            foreach (ClassesFoundEntity _entity2 in _entitylist2)
+                            {
+                                List<int> listsub = GetSubClassEndList(_entity2.Id);
+                                _listint.AddRange(listsub);
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    _listint = (List<int>)obj;
+                }
             }
+
             return _listint;
         }
 

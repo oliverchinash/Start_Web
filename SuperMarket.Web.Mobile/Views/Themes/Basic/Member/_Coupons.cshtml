@@ -1,0 +1,95 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-优惠券</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link rel="stylesheet" href="/themes/basic/css/myIntegral.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                我的优惠券
+            </a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            @*<a href="javascript:void(0)">
+                使用说明
+            </a>*@
+        </div>
+    </header>
+    @{ 
+        IList<SuperMarket.Model.MemCouponsEntity> list = ViewBag.CouponsList;
+  
+                }
+    <!----header结束------->
+    <!---------内容开始---------->
+    <div class="myCoupon">
+        <!---------页头选项卡开始----------->
+        <div data-am-widget="tabs" class="am-tabs am-tabs-default myCoupon-tabs">
+            <ul class="am-tabs-nav am-cf">
+                <li class="@(ViewBag.Status==1? "am-active":"")"><a  href="/MobileMember/Coupons?s=1">未使用</a></li>
+                <li class="@(ViewBag.Status==2? "am-active":"")"><a  href="/MobileMember/Coupons?s=2">已使用</a></li>
+                <li class="@(ViewBag.Status==3? "am-active":"")"><a  href="/MobileMember/Coupons?s=3">已过期</a></li>
+            </ul> 
+            <div class="am-tabs-bd">
+                <!-------未使用的优惠券内容------->
+                <div class="am-tab-panel am-active">
+                    @if (list != null && list.Count > 0)
+                    {
+                        <div class="myCoupon-have">
+                            <ul class="am-g am-cf">
+                                @foreach (SuperMarket.Model.MemCouponsEntity entity in list)
+                                {
+                                    if (entity.DicCoupons != null && entity.DicCoupons.Id > 0)
+                                    {
+                                        <li class="am-u-sm-6">
+                                            <div class="myCoupon-have-main">
+                                            @if (entity.DicCoupons.CouponType == (int)SuperMarket.Model.CouponTypeEnum.Money)
+                                            {
+                                                <p>￥<span style="font-size:2.5rem">@((int)entity.DicCoupons.CouponValue)</span>优惠券</p>
+                                            }
+                                            else if (entity.DicCoupons.CouponType == (int)SuperMarket.Model.CouponTypeEnum.DisCount)
+                                            {
+                                                <p><span style="font-size:2.5rem">@((int)(entity.DicCoupons.CouponValue * 100))%</span>折扣券</p>
+                                            }
+                                            <span class="myCoupon-have-span">满@(entity.DicCoupons.MinimumReqAmount.ToString("0"))元可用</span>
+                                            <span class="myCoupon-have-span">有效日期:@(entity.EndTime.ToShortDateString())</span>
+                                            </div>
+                                        </li>
+                                    }
+                                } 
+                            </ul>
+                        </div>
+                      
+                    }
+                    else
+                    {
+                        <div class="myCoupon-no" style="display: none">
+                            <img src="/themes/basic/img/myCoupon_tp1.png" class="am-img-responsive">
+                            <p>您目前还没有优惠券哦</p>
+                        </div>
+                    }
+                     
+                </div>
+               
+            </div>
+
+        </div>
+    </div> 
+</body>
+</html>

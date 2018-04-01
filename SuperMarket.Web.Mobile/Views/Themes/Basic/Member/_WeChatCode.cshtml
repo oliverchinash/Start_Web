@@ -1,0 +1,86 @@
+﻿@{ 
+    SuperMarket.Model.VWMemberEntity member = ViewBag.VWMember;
+}
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马微信绑定</title>
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/relogin.css"> 
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body>
+    <!----头部开始------>
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="#">
+                我的微信
+            </a>
+        </h1>
+    </header>
+    @if (string.IsNullOrEmpty(member.WeChat))
+    { 
+        <div class="code">
+            <div class="code-m">
+                <div class="code-title">提示：绑定微信需要使用微信访问</div> 
+                
+            </div>
+            <div class="am-u-sm-8 am-u-sm-centered code2-btn">
+                <button class="am-btn am-btn-danger" onclick="FunWeChatBind()">绑定</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="code2">
+            <div class="code2-t">
+                <i class="am-icon-wechat"></i>
+                 微信账号<span class="code2-span">已绑定</span>
+            </div>  
+            <p>1，解绑后需要使用此账号进行登录，解绑后的账户仍可继续使用，订单等信息不会丢失，忘记密码请在登录页找回密码</p>
+            <div class="am-u-sm-8 am-u-sm-centered code2-btn">
+                <button class="am-btn am-btn-danger" onclick="FunDelWeChatBind()">解除绑定</button>
+            </div>
+        </div> 
+    } 
+</body>
+</html>
+<script>
+    function FunWeChatBind() {
+        if (confirm("确定要绑定此微信账号？")) {
+            $.post("/Member/WeChatBind", {
+            }, function (checklogindata) {
+                var _returnsult = eval("(" + checklogindata + ")");
+                var status = -_returnsult.Status;
+                if (status == _TheArray[0]) { 
+                    location.href = _returnsult.Obj; 
+                } 
+            });
+        }
+
+    }
+    function FunDelWeChatBind()
+    {
+        if (confirm("确定要解绑么？"))
+        {
+            $.post("/Member/DelWeChatBind", {
+            }, function (checklogindata) {
+                var _returnsult = eval("(" + checklogindata + ")");
+                var status = -_returnsult.Status;
+                if (status == _TheArray[0]) {
+                    alert("解绑成功");
+                    location.reload();
+                }
+
+            });
+        }
+      
+    }
+</script>

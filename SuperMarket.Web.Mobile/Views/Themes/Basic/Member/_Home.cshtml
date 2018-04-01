@@ -27,7 +27,7 @@
     <header data-am-widget="header" class="am-header am-header-fixed header">
         <h1 class="am-header-title">
             <a href="javascript:void(0)">
-                我的易店心
+                我的阿哈马
             </a>
         </h1>
        
@@ -49,7 +49,7 @@
                     <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _mementity.HeadPicUrl)" />
                     }
                 </a>
-                <p>@(string.IsNullOrEmpty(_mementity.MemNikeName) ? _mementity.MemCode : _mementity.MemNikeName)</p>
+                <p>@(string.IsNullOrEmpty(_mementity.NickName) ? _mementity.MemCode : _mementity.NickName)</p>
                 <p>@(_mementity.CompanyName)</p>
             </div>
         </div>

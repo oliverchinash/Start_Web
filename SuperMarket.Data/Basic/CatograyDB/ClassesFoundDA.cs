@@ -221,7 +221,7 @@ namespace SuperMarket.Data.CatograyDB
         public ClassesFoundEntity GetClassesFound(int id)
         {
             string sql = @"SELECT  [Id],[Code],[FullName],[Name],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[HasProperties],[HasProduct],PropertiesClassId, [ParentId],
-RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [Id]=@id";
+RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [Id]=@Id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@Id", DbType.Int32, id);
@@ -379,8 +379,7 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
         /// <param name="db">数据库操作对象</param>
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
         public IList<ClassesFoundEntity> GetClassesFoundList(int pagesize, int pageindex, ref int recordCount, int level, string name,int parentid,int isactive,int classtype,int classmenutype)
-        {
-            BaseSuperMarketDB db2 = new BaseSuperMarketDB();
+        { 
             
             string where = "WHERE  1=1";
             if (level > 0)

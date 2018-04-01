@@ -508,8 +508,8 @@ namespace SuperMarket.LoginWebControllers
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null)
             {
-                if (!string.IsNullOrEmpty(member.MemCode))
-                    return member.MemCode;
+                if (!string.IsNullOrEmpty(member.MobilePhone))
+                    return member.MobilePhone;
             }
             return "0";
         }
@@ -519,7 +519,7 @@ namespace SuperMarket.LoginWebControllers
 
             if (member != null)
             {
-                if (!string.IsNullOrEmpty(member.MemCode))
+                if (!string.IsNullOrEmpty(member.MobilePhone))
                     return "1";
             }
             return "0";

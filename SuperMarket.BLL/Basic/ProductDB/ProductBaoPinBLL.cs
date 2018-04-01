@@ -163,12 +163,10 @@ namespace SuperMarket.BLL.ProductDB
             return list;
         }
 		//取显示出来的爆品列表
-		public IList<VWProductBaoPinEntity> GetProductBaoPinShowList()
-        { 
+		public IList<VWProductBaoPinEntity> GetProductBaoPinShowList(bool iscache=false)
+        {
             IList<VWProductBaoPinEntity> list = null;
-            string _cachekey = "GetProductBaoPinShowList";// SysCacheKey.ProductBaoPinListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
-            if (obj == null)
+            if (!iscache)
             {
                 list = ProductBaoPinDA.Instance.GetProductBaoPinShowList();
                 foreach (VWProductBaoPinEntity entity in list)
@@ -181,13 +179,35 @@ namespace SuperMarket.BLL.ProductDB
                         {
                             entity.Brand = BrandBLL.Instance.GetBrand(entity.ProductDetail.BrandId);
                         }
-                    } 
+                    }
                 }
-                MemCache.AddCache(_cachekey, list);
             }
             else
             {
-                list = (IList<VWProductBaoPinEntity>)obj;
+
+                string _cachekey = "GetProductBaoPinShowList";// SysCacheKey.ProductBaoPinListKey;
+                object obj = MemCache.GetCache(_cachekey); ;
+                if (obj == null)
+                {
+                    list = ProductBaoPinDA.Instance.GetProductBaoPinShowList();
+                    foreach (VWProductBaoPinEntity entity in list)
+                    {
+                        if (entity.ProductDetailId > 0)
+                        {
+                            entity.ProductDetail = ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
+                            entity.ProductId = entity.ProductDetail.ProductId;
+                            if (entity.ProductDetail.BrandId > 0)
+                            {
+                                entity.Brand = BrandBLL.Instance.GetBrand(entity.ProductDetail.BrandId);
+                            }
+                        }
+                    }
+                    MemCache.AddCache(_cachekey, list);
+                }
+                else
+                {
+                    list = (IList<VWProductBaoPinEntity>)obj;
+                }
             }
             return list;
         }

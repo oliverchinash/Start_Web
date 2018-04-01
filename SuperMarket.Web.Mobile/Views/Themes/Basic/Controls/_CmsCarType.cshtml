@@ -1,0 +1,237 @@
+﻿<div id="divCarTypeBrandCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <div class="cartype">
+                <header data-am-widget="header" class="am-header header">
+                    <div class="am-header-left am-header-nav">
+                        <a href="javascript:void(0)" class="" onclick="FunCloseCanvas('divCarTypeBrandCanvas')">
+                            <i class="am-header-icon am-icon-angle-right am-icon-md">返回</i>
+                        </a>
+                    </div>
+                    <h1 class="am-header-title">
+                        <a href="javascript:void(0)">
+                            车型品牌
+                        </a>
+                    </h1>
+                </header>
+                <div data-am-widget="tabs" class="am-tabs am-tabs-default cartype-tabs">
+                    @*<ul class="am-tabs-nav am-cf" data-am-sticky>
+                        <li class="am-active"><a href="[data-tab-panel-0]">全部</a></li>
+                        <li class=""><a href="[data-tab-panel-1]">浏览</a></li> 
+                    </ul>*@
+                    <div class="am-tabs-bd">
+                        <div data-tab-panel-0 class="am-tab-panel am-active">
+                            <!-----查询全部开始------>
+                            <ul class="am-list cartype-all">
+                                <li>
+                                    <a href="javascript:void(0)" style="padding: 0;"  onclick="FunClickCarType()">
+                                        全部
+                                        <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            @{
+                                IList<SuperMarket.Model.VWTreeCTBrandEntity> ctbrands = SuperMarket.BLL.CatograyDB.CarTypeBrandBLL.Instance.GetTreeCarTypeBrand();
+                                if (ctbrands != null && ctbrands.Count > 0)
+                                {
+                                    foreach (SuperMarket.Model.VWTreeCTBrandEntity entity in ctbrands)
+                                    {
+                                        <div class="cartype-A am-cf" style="margin-top: .6rem">
+                                            <p>@entity.PYFirst</p>
+                                            @if (entity.Children != null && entity.Children.Count > 0)
+                                            {
+                                                foreach (SuperMarket.Model.VWTreeCTBrandEntity child in entity.Children)
+                                                {
+
+                                                    <div data-am-widget="list_news" class="am-list-news am-list-news-default am-cf">
+                                                        <ul class="am-list">
+                                                            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                                                                <a href="javascript:void(0)"  onclick="SelectCarTypeBrand('@child.Id')">
+                                                                    <div class="am-u-sm-2 am-list-thumb">
+                                                                    </div>
+                                                                    <div class="am-u-sm-10 am-list-main">
+                                                                        @child.Name
+                                                                    </div>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    }
+
+
+                                }
+                            }
+                            <!----A标签结束----->
+                            <!---------字母查询结束---------->
+                        </div>
+                        <!-----------全部结束------------->
+                        <!----------浏览开始-------------->
+                        <div data-tab-panel-1 class="am-tab-panel ">
+                            <div class="cartype-liulan">
+                                <p class="cartype-liulan-p">一汽大众</p>
+                                <p class="cartype-liulan-p2">清空历史记录</p>
+                            </div>
+                        </div>
+                        <!----------浏览结束-------------->
+                    </div>
+                </div>
+
+
+            </div>
+            <!----车型页面结束------>
+        </div>
+    </div>
+</div>
+
+
+<div id="divCarTypeSeriesCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content">
+            <div class="cartype-second">
+                <div class="cartype-second-top" data-am-sticky id="divCarTypeSeriesBox">
+                    <!----header开始------>
+                    <header data-am-widget="header" class="am-header cartype-second-header">
+                        <div class="am-header-left am-header-nav">
+                            <a href="javascript:void(0)" class="" onclick="FunCloseCanvas('divCarTypeSeriesCanvas')">
+                                <i class="am-header-icon am-icon-angle-right am-icon-md"></i>
+                            </a>
+                        </div>
+                        <h1 class="am-header-title">
+                            <a href="javascript:void(0)">
+                                请选择车系
+                            </a>
+                        </h1>
+                    </header>
+                    <!----header结束------>
+                    <!-----查询全部开始------>
+                    <ul class="am-list am-list-static cartype-second-all">
+                        <li>
+                            <a href="javascript:void(0)" style="padding: 0;" onclick="FunClickCarType()">
+                                查询全部
+                                <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-----查询全部结束----->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="divCarTypeModelCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+        <div class="am-offcanvas-content"> 
+            <div class="cartype-three">
+                <!----header开始------>
+                <header data-am-widget="header" class="am-header am-header-fixed cartype-three-header">
+                    <div class="am-header-left am-header-nav">
+                        <a href="javascript:void(0)" class=""  onclick="FunCloseCanvas('divCarTypeModelCanvas')">
+                            <i class="am-header-icon am-icon-angle-left am-icon-md"></i>
+                        </a>
+                    </div>
+                    <h1 class="am-header-title">
+                        <a href="javascript:void(0)">
+                            请选择车型
+                        </a>
+                    </h1>
+                </header>
+                <!----header结束------>
+                <!-------下拉菜单开始--------->
+                <ul class="am-g cartype-three-menu am-cf" style="margin-top: 4rem">
+                    <li class="am-sm-u-6 am-fl" style="margin-left: 5%;">
+                        <div class="am-dropdown" data-am-dropdown>
+                            <div style="display:none" id="divSelectYear"></div>
+                            <button class="am-btn am-dropdown-toggle" id="btnCarTypeYear"><span id="spanCarTypeYear">全部年款</span><span class="am-icon-caret-down" style="padding-left:.5rem"></span></button>
+                            <ul class="am-dropdown-content" id="ulCarTypeModeYears"> 
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="am-sm-u-6 am-fl" style="margin-left: 5%;">
+                        <div class="am-dropdown" data-am-dropdown>
+                            <div style="display:none" id="divSelectCapacity"></div>
+                            <button class="am-btn am-dropdown-toggle"  id="btnCarTypeCapacity"><span id="spanCarTypeCapacity">全部排量</span><span class="am-icon-caret-down" style="padding-left:.5rem"></span></button>
+                            <ul class="am-dropdown-content"  id="ulCarTypeModeCapacitys"> 
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-------下拉菜单结束--------->
+                <!-----查询全部开始------>
+                <ul class="am-list am-list-static cartype-three-all" id="ulCarTypeModels">
+                    <li style="padding: 0;">
+                        <a href="javascript:void(0)" style="padding: .5rem 0;" onclick="FunClickCarType()">
+                            查询全部
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" style="padding: 0;">
+                            安驰威豹 2009款 2.0T MT
+                            <span class="am-list-icon am-icon-angle-right am-fr" style="padding-right: 1rem"></span>
+                        </a>
+                    </li>
+                </ul>
+                <!-----查询全部结束----->
+                <!--------主内容开始---------->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div style="display:none;">
+    <span id="spanSelectCarTypeBrand" spanval="" spanname="">@ViewBag.CarTypeBrandId</span>
+    <span id="spanSelectCarTypeSeries"  spanval="" spanname="">@ViewBag.CarTypeSeriesId</span>
+    <span id="spanSelectCarTypeModel"  spanval="" spanname="">@ViewBag.CarTypeModelId</span>
+</div>

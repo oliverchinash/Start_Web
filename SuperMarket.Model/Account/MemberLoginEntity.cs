@@ -28,16 +28,16 @@ namespace SuperMarket.Model.Account
         /// <summary>
         /// 账号
         /// <summary>
-        private string _MemCode;
-        public string MemCode
+        private string _MobilePhone;
+        public string MobilePhone
         {
             get
             {
-                return _MemCode;
+                return _MobilePhone;
             }
             set
             {
-                _MemCode = value;
+                _MobilePhone = value;
             }
         }
         /// <summary>

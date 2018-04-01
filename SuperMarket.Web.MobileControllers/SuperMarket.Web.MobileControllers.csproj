@@ -31,7 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -42,10 +45,23 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeChatJsSdk.SdkCore">
+      <HintPath>..\Lib\WeChatJsSdk.SdkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="WeChatJsSdk.Utility">
+      <HintPath>..\Lib\WeChatJsSdk.Utility.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MobileMemberController.cs" />
+    <Compile Include="CartController.cs" />
+    <Compile Include="CashierController.cs" />
+    <Compile Include="HomeController.cs" />
+    <Compile Include="MemberController.cs" />
+    <Compile Include="OrderController.cs" />
+    <Compile Include="PayController.cs" />
+    <Compile Include="ProductController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CommonHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">
@@ -59,6 +75,10 @@
     <ProjectReference Include="..\SuperMarket.Model\SuperMarket.Model.csproj">
       <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
       <Name>SuperMarket.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperMarket.Pay\SuperMarket.Pay.csproj">
+      <Project>{2f312844-4f15-4f5a-a4e2-f0a5af5bdaf1}</Project>
+      <Name>SuperMarket.Pay</Name>
     </ProjectReference>
     <ProjectReference Include="..\SuperMarket.Web.CommonControllers\SuperMarket.Web.CommonControllers.csproj">
       <Project>{6f37ff76-46bf-41b6-bf06-05f1f1b3f9d9}</Project>

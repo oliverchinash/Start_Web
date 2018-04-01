@@ -696,7 +696,7 @@ WHERE a.Id=@ProductId and pd.ProductType=@ProductType ";
             string innerstr = " ";
             if(!string.IsNullOrEmpty(classidstr))
             {
-                innerstr = " inner join dbo.fun_splitstr(@ClassIdStr,',') b  WITH(NOLOCK)	on a.ClassId=b.Id ";
+                innerstr = " inner join dbo.fun_splitstr(@ClassIdStr,',') b  	on a.ClassId=b.Id ";
             }
             if (!string.IsNullOrEmpty(productName))
             {
@@ -757,11 +757,14 @@ WHERE a.Id=@ProductId and pd.ProductType=@ProductType ";
             }
             cmd = db.GetSqlStringCommand(sql2);
 
+            if (!string.IsNullOrEmpty(classidstr))
+            {
+                db.AddInParameter(cmd, "@ClassIdStr", DbType.String, classidstr);
+            }
             if (!string.IsNullOrEmpty(productName))
             {
                 db.AddInParameter(cmd, "@AdTitle", DbType.String, "%" + productName + "%");
             }
-
             if (styleId > 0)
             {
                 db.AddInParameter(cmd, "@StyleId", DbType.Int32, styleId);

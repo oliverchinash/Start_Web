@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>易店心后台登录</title> 
+    <link rel="stylesheet" href="@SuperMarket.Core.Globals.SkinPath/css/basic.css" /> 
+    <link rel="stylesheet" href="@SuperMarket.Core.Globals.SkinPath/css/index.css" />
+    <script src="/ThemesCommon/Js/jquery-1.11.1.min.js"></script>
+    <script src="/themescommon/js/globals.js"></script>
+    <script src="/themescommon/js/globalslogin.js"></script>
+    <script src="/themescommon/js/jsglobalenum.js"></script>
+    <script src="/themescommon/js/commoncontrolbind.js"></script>
+    @RenderSection("Head", false)  
+    <link rel="stylesheet" href="@SuperMarket.Core.Globals.SkinPath/css/cssadd.css" />
+</head>
+<body> 
+    <div style="display:none;"> 
+        <input id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
+        <input id="hidMainCommonDomain" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.MainMobileWebUrl" />
+        <input id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+    </div>
+        @Html.Partial("controls/_TopBanner")
+        @Html.Partial("controls/_TopMaster")
+        @Html.Partial("controls/_TopMenu")
+    <div class="index-main">  
+        @Html.Partial("controls/_LeftBannerSysDS")
+        <div class="index-right fr">
+            @RenderBody()
+        </div>
+   
+    </div>
+</body>
+</html>

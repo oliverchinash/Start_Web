@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+
+@if (ViewBag.JiShiSong == (int)SuperMarket.Model.JiShiSongEnum.JiShi)
+{ 
+    @Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/Cart/_PreOrderXuQiu")
+}
+else
+{
+    @Html.Partial("../" + SuperMarket.Core.Globals.SkinPath + "/Cart/_PreOrder")
+}
+

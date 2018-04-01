@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -140,9 +144,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -491,6 +492,9 @@
     <Content Include="Themes\Basic\js\weixinshare.js" />
     <Content Include="Themes\Basic\js\weixinshareopt.js" />
     <Content Include="Themes\Basic\js\zepto.min.js" />
+    <Content Include="Views\Product\hotSale.html" />
+    <Content Include="Views\Themes\Basic\Member\code.html" />
+    <Content Include="Views\Themes\Basic\Member\code2.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -521,7 +525,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Member\Home.cshtml" />
+    <Content Include="Views\Member\Home1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -558,6 +562,186 @@
       <Project>{d9cf611c-4dbe-44d8-99a4-9016962d46b9}</Project>
       <Name>SuperMarket.Web.MobileControllers</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SuperMarket.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_BodyBefore.cshtml" />
+    <Content Include="Views\Shared\Controls\_HeadLeftBanner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Controls\_BodyBefore.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_HeadLeftBanner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_FootBanner.cshtml" />
+    <Content Include="Views\Shared\Controls\_HeadBanner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Controls\_FootBanner.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_HeadBanner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_AddressEditBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_AddressListBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_AdMemScroll.cshtml" />
+    <Content Include="Views\Shared\Controls\_BillEditBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_BillListBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_CartBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_CmsBrand.cshtml" />
+    <Content Include="Views\Shared\Controls\_CmsCarType.cshtml" />
+    <Content Include="Views\Shared\Controls\_CmsNavClass.cshtml" />
+    <Content Include="Views\Shared\Controls\_LogisticsBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_MemCoupsBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_OrderCancelReasonBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_PayMethodBox.cshtml" />
+    <Content Include="Views\Shared\Controls\_SearchCmsBrand.cshtml" />
+    <Content Include="Views\Shared\Controls\_SearchCmsNavClass.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_AddressEditBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_AddressListBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_AdMemScroll.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_BillEditBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_BillListBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_CartBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_CmsBrand.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_CmsCarType.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_CmsNavClass.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_LogisticsBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_MemCoupsBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_OrderCancelReasonBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_PayMethodBox.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_SearchCmsBrand.cshtml" />
+    <Content Include="Views\Themes\Basic\Controls\_SearchCmsNavClass.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Address.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_BrowseLog.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Coupons.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Evaluate.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Evaluated.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_EvaluateRead.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_EvaluateWait.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Favorites.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Integral.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_IntegralDetails.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Invoice.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_OrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_OrderNotice.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_PersonalMsg.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_Suggest.cshtml" />
+    <Content Include="Views\Themes\Basic\Member\_WeChatCode.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\MobileCashier\" />
+    <Folder Include="Views\Themes\Basic\Cashier\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Member\Address.cshtml" />
+    <Content Include="Views\Member\BrowseLog.cshtml" />
+    <Content Include="Views\Member\Coupons.cshtml" />
+    <Content Include="Views\Member\Evaluate.cshtml" />
+    <Content Include="Views\Member\Evaluated.cshtml" />
+    <Content Include="Views\Member\EvaluateRead.cshtml" />
+    <Content Include="Views\Member\EvaluateWait.cshtml" />
+    <Content Include="Views\Member\Favorites.cshtml" />
+    <Content Include="Views\Member\Home.cshtml" />
+    <Content Include="Views\Member\Integral.cshtml" />
+    <Content Include="Views\Member\IntegralDetails.cshtml" />
+    <Content Include="Views\Member\Invoice.cshtml" />
+    <Content Include="Views\Order\Cashier.cshtml" />
+    <Content Include="Views\Order\OrderConfirm.cshtml" />
+    <Content Include="Views\Order\OrderNotice.cshtml" />
+    <Content Include="Views\Order\WeiXin.cshtml" />
+    <Content Include="Views\Order\XuQiuSuccess.cshtml" />
+    <Content Include="Views\Member\OrderList.cshtml" />
+    <Content Include="Views\Member\PersonalMsg.cshtml" />
+    <Content Include="Views\Member\Suggest.cshtml" />
+    <Content Include="Views\Member\WeChatCode.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pay\PayError.cshtml" />
+    <Content Include="Views\Pay\PaySuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\BrandShow.cshtml" />
+    <Content Include="Views\Product\Categray.cshtml" />
+    <Content Include="Views\Product\DailyGrab.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Product\ProductBp.cshtml" />
+    <Content Include="Views\Product\ProductS.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Cart\_PreOrder.cshtml" />
+    <Content Include="Views\Themes\Basic\Cart\_PreOrderXuQiu.cshtml" />
+    <Content Include="Views\Themes\Basic\Cart\_ShopCart.cshtml" />
+    <Content Include="Views\Themes\Basic\Cart\_ShopCartXuQiu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Home\_ContactUs.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwd.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwdReset.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_ForgetPwdSuccess.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_HelpContent.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Index.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_IndexJiShiSong.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Login.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_LogOut.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Register.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_RegisterAgree.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_RegMsg.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_Search.cshtml" />
+    <Content Include="Views\Themes\Basic\Home\_StartUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\InquiryMem\_Inquiry.cshtml" />
+    <Content Include="Views\Themes\Basic\InquiryMem\_InquiryOrderDetail.cshtml" />
+    <Content Include="Views\Themes\Basic\InquiryMem\_InquiryOrderList.cshtml" />
+    <Content Include="Views\Themes\Basic\InquiryMem\_InquirySelect.cshtml" />
+    <Content Include="Views\Themes\Basic\InquiryMem\_QuoteDetailRead.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Master\_Main_Master.cshtml" />
+    <Content Include="Views\Themes\Basic\Master\_Member_Master.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Product\_BrandShow.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_Categray.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_DailyGrab.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_Detail.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_HeadBanner.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_List.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_ProductBp.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_ProductS.cshtml" />
+    <Content Include="Views\Themes\Basic\Product\_Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Order\_Cashier.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_OrderConfirm.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_OrderNotice.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_PayError.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_PaySuccess.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_WeiXin.cshtml" />
+    <Content Include="Views\Themes\Basic\Order\_XuQiuSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Views\Home\ForgetPwd.cshtml" />
+    <Content Include="Views\Home\ForgetPwdReset.cshtml" />
+    <Content Include="Views\Home\ForgetPwdSuccess.cshtml" />
+    <Content Include="Views\Home\HelpContent.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\RegisterAgree.cshtml" />
+    <Content Include="Views\Home\RegMsg.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\StartUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Cart\PreOrder.cshtml" />
+    <Content Include="Views\Cart\ShopCart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1530,7 +1530,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
 
         public MemberLoginEntity GetLoginMemByCode(string code)
         {
-            string sql = @"SELECT  a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
+            string sql = @"SELECT  a.[Id] as MemId,  a.MobilePhone,[PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)	 
 							WHERE [MemCode]=@MemCode";
@@ -1543,7 +1543,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                 if (reader.Read())
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
-                    entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
+                    entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);  
                     entity.StoreType = StringUtils.GetDbInt(reader["StoreType"]); 
@@ -1580,7 +1580,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                 where += " and a.[TimeStampTab] =@TimeStampTab";
 
             }
-            string sql = @"SELECT  a.[Id] as MemId,[MemCode], WeChat,[PassWord],IsSupplier, IsSysUser,[IsStore],a.StoreType,a.[Status],[MemGrade],MemNikeName,TimeStampTab 
+            string sql = @"SELECT  a.[Id] as MemId,[MemCode], MobilePhone,WeChat,[PassWord],IsSupplier, IsSysUser,[IsStore],a.StoreType,a.[Status],[MemGrade],MemNikeName,TimeStampTab 
 							FROM
 							dbo.[Member] a WITH(NOLOCK) 
 							 " + where;
@@ -1612,7 +1612,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                 if (reader.Read())
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
-                    entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
+                    entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);
                     entity.WeChat = StringUtils.GetDbString(reader["WeChat"]);
@@ -1630,7 +1630,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
 
         public MemberLoginEntity GetLoginMemByPhone(string phonecode)
         {
-            string sql = @"SELECT top 1 a.[Id] as MemId,[MemCode], [PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
+            string sql = @"SELECT top 1 a.[Id] as MemId,[MemCode], MobilePhone,[PassWord],IsSupplier,IsSysUser, [IsStore],a.StoreType,a.[Status],[MemGrade],a.MemNikeName 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)	 
 							WHERE a.[MobilePhone] =@MobilePhone";
@@ -1643,7 +1643,7 @@ dbo.MemRoleRelate c WITH(NOLOCK) ON b.RoleId=c.MemId WHERE c.MemId=@MemId
                 if (reader.Read())
                 {
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
-                    entity.MemCode = StringUtils.GetDbString(reader["MemCode"]);
+                    entity.MobilePhone = StringUtils.GetDbString(reader["MobilePhone"]);
                     entity.PassWord = StringUtils.GetDbString(reader["PassWord"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);  
                     entity.StoreType = StringUtils.GetDbInt(reader["StoreType"]); 

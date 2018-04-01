@@ -1,0 +1,165 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-意见反馈</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/themes/basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/themes/basic/css/invoice.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script> 
+    <script src="/themes/common/js/jsglobalenum.js"></script>
+    <script src="/Themes/Basic/Js/amazeui.min.js"></script> 
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始------>
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                意见反馈
+            </a>
+            <div class="am-header-right am-header-nav">
+                <a href="javascript:void(0)" class="" onclick="FunSuggestAdd()">
+                    提交
+                </a>
+            </div>
+        </h1>
+    </header>
+    <!----header结束------>
+    <!-------主要内容开始-------->
+    <div class="feedDack"> 
+        <div class="feedDack-main">
+            <p>您认为商城的商品种类齐全吗？</p>
+            <ul>
+                <li class="am-cf">
+                    <span class="am-fl">齐全</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductNum" value="" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">一般</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductNum" value="" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">较少</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductNum" value="" data-am-ucheck>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!------种类是否齐全结束------->
+        <!------售价是否满意开始------->
+        <div class="feedDack-main">
+            <p>您对于商品售价是否满意？</p>
+            <ul>
+                <li class="am-cf">
+                    <span class="am-fl">满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductPrice" value="满意" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">一般</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductPrice" value="一般" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">不满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radProductPrice" value="不满意" data-am-ucheck>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!------售价是否满意结束------->
+        <!------售后是否满意开始------->
+        <div class="feedDack-main">
+            <p>您对于售后服务是否满意？</p>
+            <ul>
+                <li class="am-cf">
+                    <span class="am-fl">满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radKFService" value="满意" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">一般</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radKFService" value="一般" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">不满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radKFService" value="不满意" data-am-ucheck>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!------售后是否满意结束------->
+        <!------物流是否满意开始------->
+        <div class="feedDack-main">
+            <p>您对于物流交付是否满意？</p>
+            <ul>
+                <li class="am-cf">
+                    <span class="am-fl">满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radWLService" value="满意" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">一般</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radWLService" value="一般" data-am-ucheck>
+                    </label>
+                </li>
+                <li class="am-cf">
+                    <span class="am-fl">不满意</span>
+                    <label class="am-radio am-danger am-fr">
+                        <input type="radio" name="radWLService" value="不满意" data-am-ucheck>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!------物流是否满意结束------->
+        <!-------建议想法开始-------->
+        <div class="feedDack-jianyi">
+            <textarea id="txtSuggestDetail" placeholder="您对我们商城的商品种类、商品售价、发货速度、售后政策是否都满意吗？ 您还有什么其他建议或想法？" maxlength="200"></textarea>
+        </div>
+        <!-------建议想法结束-------->
+    </div> 
+    <script>
+        function FunSuggestAdd()
+        {
+            var radProductNum = $("input[name='radProductNum'][checked]").val();
+            var radProductPrice = $("input[name='radProductPrice'][checked]").val();
+            var radKFService = $("input[name='radKFService'][checked]").val();
+            var radWLService = $("input[name='radWLService'][checked]").val();
+            var txtSuggestDetail = $("#txtSuggestDetail").val();
+            $.post("/Member/AddSuggest", {
+                kf: radKFService, pn: radProductNum, pp: radProductPrice, wl: radWLService, sd: txtSuggestDetail
+            }, function (checklogindata) {
+                var _returnsult = eval("(" + checklogindata + ")");
+                var status = -_returnsult.Status;
+                if (status == _TheArray[0]) {
+                    alert("提交成功");
+                }
+                   
+            });
+        }
+    </script>
+</body>
+</html>

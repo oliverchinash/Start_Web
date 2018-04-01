@@ -1,0 +1,100 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-每日一抢精彩推荐</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+    <link rel="stylesheet" href="/Themes/Basic/css/product.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
+  <link rel="stylesheet" href="/Themes/Basic/css/discounts.css"> 
+    <link href="/themes/basic/css/cssadd.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle" rel="stylesheet" />
+  <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/amazeui.min.js"></script>
+    <script src="/themes/basic/js/handlebars.min.js"></script>
+    <script src="/themes/basic/js/amazeui.widgets.helper.js"></script>
+    <script src="/themes/basic/js/jquery.fly2.min.js"></script>
+    <script src="/themes/basic/js/productbehind.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/CommonNumInit.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/basic/js/globalcart.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body>
+    @{
+        IList<SuperMarket.Model.VWProductDailyGrabEntity> productlist = ViewBag.DailyGrabList;
+}<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <header data-am-widget="header" class="am-header product-list-header">
+        @Html.Partial("controls/_HeadBanner")
+        <div class="am-header-title" >
+            <div class="am-form-group am-form-icon" style="width: 100%;">
+             每日一抢</div>
+        </div>
+        @Html.Partial("controls/_CartBox")
+    </header>
+    <div class="discounts">
+        <div class="discounts-img">
+            <a  >
+                <img src="/themes/basic/img/discounts.png" class="am-img-responsive">
+            </a>
+        </div>
+        <div class="discounts-main">
+            <div class="discounts-cont">
+                <h3>【每日一抢，与群同在】</h3>
+                <p>幸运与你只隔着一个手机屏幕！让生活充满惊喜，为支持本群群友，阿哈马车服针对本群群友每日推出一款神秘惊喜，你只需准备好手指轻轻一点......敬请留意！</p>
+            </div>
+        </div>
+        <!-------图文产品列表开始--------->
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default product-list-news am-cf">
+            <div class="am-list-news-bd">
+                <ul class="am-list"> 
+                   @if (productlist != null && productlist.Count > 0)
+                   {
+                       foreach (SuperMarket.Model.VWProductDailyGrabEntity _productentity in productlist)
+                       {
+                        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                            <div class="am-u-sm-4 am-list-thumb">
+                                <a href="/MobileProduct/Detail?pd=@(_productentity.ProductDetailId)" class="">
+                                    <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _productentity.ProductDetail.PicUrlList)" class="am-img-responsive" />
+                                </a>
+                            </div>
+                            <div class="am-u-sm-8 am-list-main">
+                                <h3 class="am-list-item-hd" style="height:auto;"><a href="/MobileProduct/Detail?pd=@(_productentity.ProductDetailId)" class="">@_productentity.ProductDetail.AdTitle</a></h3>
+                                <div class="am-list-item-desced am-cf hotSale-main-huiyuan">
+                                    <a class="am-fl" style="color:#FF532B">单次购满@(_productentity.MinLimitNum)@(_productentity.ProductDetail.UnitName)有神秘大礼赠送</a>
+                                </div>
+                                <div class="am-list-item-desced">
+                                    <div class="am-fl" style="margin-top: .5rem">
+                                        <input id="txtProductNum@(_productentity.ProductDetailId)" style="width:100px;" class="alignment" hascreate="0" maxlimit="@_productentity.ProductDetail.StockNum" minlimit="@_productentity.MinLimitNum" value="@_productentity.MinLimitNum" />
+                                    </div>
+                                    <div class="am-fr clsaddtocart"  jishi="@(_productentity.ProductDetail.JiShiSong)" ProductDetailId="@(_productentity.ProductDetailId)"  style="background-color: #CC1B23; border-radius: .3rem;padding: .3rem .5rem; color:#fff">加入购物车</div>
+                                    </div>
+                            </div>
+                        </li>
+                       }
+                   }
+              
+                </ul>
+            </div>
+        </div>
+        <!-------图文产品列表结束--------->
+    </div>
+    @Html.Partial("controls/_FootBanner")
+      @Html.Partial("controls/_BodyBefore")
+</body>
+</html>
+<script>
+    $(function () { 
+        offsetcart = $(".am-icon-shopping-cart").offset();
+        GetCartCount();
+        AddToCartClick(); 
+    });
+
+</script>
+  

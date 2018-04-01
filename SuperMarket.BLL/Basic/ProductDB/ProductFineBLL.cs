@@ -125,26 +125,41 @@ namespace SuperMarket.BLL.ProductDB
 		///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<VWProductFineEntity> GetProductFineList( int pageIndex, int pageSize, ref  int recordCount,int finetype)
+        public IList<VWProductFineEntity> GetProductFineList( int pageIndex, int pageSize, ref  int recordCount,int finetype,bool iscahce=false)
         {
             IList<VWProductFineEntity> list = null;
-               string _cachekey = "GetProductFineList"+ pageIndex+"_"+ pageSize + "_"  + finetype;// SysCacheKey.ProductFineListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
-            if (obj == null)
+            if (!iscahce)
             {
                 list = ProductFineDA.Instance.GetProductFineList(pageSize, pageIndex, ref recordCount, finetype);
                 if (list != null && list.Count > 0)
                 {
                     foreach (VWProductFineEntity entity in list)
                     {
-                        entity.ProductDetail= ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
+                        entity.ProductDetail = ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
                     }
                 }
-                MemCache.AddCache(_cachekey, list);
             }
             else
             {
-                list = (IList<VWProductFineEntity>)obj;
+
+                string _cachekey = "GetProductFineList" + pageIndex + "_" + pageSize + "_" + finetype;// SysCacheKey.ProductFineListKey;
+                object obj = MemCache.GetCache(_cachekey); ;
+                if (obj == null)
+                {
+                    list = ProductFineDA.Instance.GetProductFineList(pageSize, pageIndex, ref recordCount, finetype);
+                    if (list != null && list.Count > 0)
+                    {
+                        foreach (VWProductFineEntity entity in list)
+                        {
+                            entity.ProductDetail = ProductBLL.Instance.GetProVWByDetailId(entity.ProductDetailId);
+                        }
+                    }
+                    MemCache.AddCache(_cachekey, list);
+                }
+                else
+                {
+                    list = (IList<VWProductFineEntity>)obj;
+                }
             }
             return list;
         }

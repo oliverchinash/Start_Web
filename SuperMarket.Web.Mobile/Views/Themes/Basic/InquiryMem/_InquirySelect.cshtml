@@ -1,0 +1,133 @@
+﻿@{ 
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder;
+    Dictionary<int, IList<SuperMarket.Model.CGQuotedPriceEntity>> productquoteddic = ViewBag.ProductQuoteDic;
+}
+<header data-am-widget="header" class="am-header-fixed am-header header">
+    @Html.Partial("controls/_HeadBanner")
+    
+    <h1 class="am-header-title">
+        <a >
+            用户确认
+        </a>
+    </h1>
+    <div class="am-header-right am-header-nav am-dropdown" data-am-dropdown>
+        <button class="am-btn am-btn-danger am-dropdown-toggle" data-am-dropdown-toggle>选择 <span class="am-icon-caret-down"></span></button>
+        <ul class="am-dropdown-content">
+            <li class="affirm-tijiao"><a >确认提交</a></li>
+            <li class="affirm-quxiao"><a href="#">取消订单</a></li>
+            <li class="affirm-fankui"><a href="#">向我反馈</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="affirm">
+    <h3 class="affirm-title">订单@(vworder.InquiryOrderCode)</h3>
+    @{
+        if (vworder.OrderProducts != null && vworder.OrderProducts.Count > 0)
+        {
+            foreach (SuperMarket.Model.InquiryProductEntity product in vworder.OrderProducts)
+            {
+                <div class="affirm-main">
+                    <div class="affirm-w am-g am-cf"> 
+                        <div class="am-u-sm-10">
+                            <p>名称：@product.ProductName</p>
+                        </div>
+                        <div class="am-u-sm-2">
+                            <p>x@(product.ProductNum + product.ProductUnitName)</p>
+                        </div>
+                        <div class="am-u-sm-12">
+                            <p>备注：@product.ProductName</p>
+                        </div>
+                    </div>
+                    <ul class="affirm-cont am-g am-cf">
+                        @{
+                            bool hasquote = false;
+                            if (productquoteddic.ContainsKey(product.Id))
+                            {
+                                IList<SuperMarket.Model.CGQuotedPriceEntity> pquotelist = productquoteddic[product.Id];
+                                if (pquotelist != null && pquotelist.Count > 0)
+                                {
+                                    foreach (SuperMarket.Model.CGQuotedPriceEntity pquoteentity in pquotelist)
+                                    {
+                                        hasquote = true;
+                                        <li class="am-u-sm-12">
+                                            <label class="am-radio am-danger">
+                                                <input type="radio" name="radProduct@(product.Id)" productid="@product.Id" priceid="@pquoteentity.Id" class="clsradioproduct" data-am-ucheck>@(pquoteentity.InquiryProductTypeName + " " + pquoteentity.Remark + " 单价：" + pquoteentity.Price.ToString("0.00"))<span class="red" style="padding-left: .6rem"></span>
+                                            </label>
+                                        </li>
+                                    }
+                                }
+                            }
+                            if (!hasquote)
+                            {
+                                <li class="am-u-sm-12">
+                                    <label class="am-radio am-danger">
+                                        小马哥正在快马加鞭查找此产品
+                                    </label>
+                                </li>
+                            }
+                        } 
+                    </ul>
+                </div>
+            }
+        }
+    } 
+</div>
+
+
+<div style="display:none;">
+    <input type="hidden" id="txtInquiryCode" value="@vworder.InquiryOrderCode" />
+</div>
+<script>
+    $(function () {
+        $(".affirm-tijiao").click(function () {
+            QuotePriceCheckSubmit();
+        });
+        $(".affirm-quxiao").click(function () {
+            QuotePriceCheckSubmit();
+        });
+    })
+    function QuotePriceCheckSubmit() {
+        var producselect = "";
+        var ordercode = $("#txtInquiryCode").val();
+        var i = 0;
+        $(".clsradioproduct:checked").each(function () {
+            producselect += $(this).attr("productid") + "_" + $(this).attr("priceid") + "|";
+            i++;
+        });
+        if (i == 0)
+        {
+            layer.alert("请选择要购买的产品！");
+            return false;
+        }
+        layer.confirm('您选择了' + i + '个产品，确定提交？', {
+            btn: ['提交', '取消'], //按钮
+            title: '提交订单'
+        }, function () {
+            var ordercode = $("#txtInquiryCode").val();
+            $.post("/InquiryMem/OrderProductSelect", {
+                code: ordercode, producselect: producselect
+            }, function (data) {
+                var _returncode = eval("(" + data + ")");
+                var _returnStatus = -_returncode.Status;
+                if (_returnStatus == _TheArray[0]) {
+                    layer.msg('已提交', {
+                        time: 100
+                    });
+                    location.href = "/InquiryMem/InquiryOrderDetail?code=" + ordercode;
+                }
+                else {
+                    layer.msg(_TheArray[_returnStatus], {
+                        time: 100
+                    });
+                    return false;
+                }
+            });
+
+        }, function () {
+            layer.msg('已取消', { icon: 1 });
+        });
+
+    }
+</script>
+

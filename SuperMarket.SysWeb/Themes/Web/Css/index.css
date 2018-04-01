@@ -1,0 +1,420 @@
+@charset "utf-8";
+
+h1 {
+    display: block;
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+/********首页开始********/
+
+.index-nav{
+    width: 1190px;
+    margin: 0 auto;
+    background-color:#0085D7;
+    height: 50px;
+    line-height: 50px;
+}
+.index-nav ul li a{
+    color: #fff;
+}
+
+.index-nav ul li{
+    float: left;
+    display: inline;
+    font-size: 14px;
+}
+.index-nav .nav-left li a{
+    display:  block;
+    width: 88px;
+    height: 50px;
+    line-height: 50px;
+}
+.index-nav .nav-left li a:hover{
+    background-color: #0078C8;
+}
+.nav-active a{
+    background-color: #0078C8;
+}
+.index-nav .nav-right li{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.index-main{
+    width: 1190px;
+    margin: 12px auto;
+}
+/********左侧边栏开始*********/
+.sidebar{
+    color: #333;
+    line-height: 1.28571;
+    font-family: tahoma,arial,"Hiragino Sans GB","Microsoft Yahei",宋体,sans-serif;
+    border: 1px solid #E0E0E0;
+    box-shadow: 0 1px 4px 0 #d7d7d7;
+}
+.sidebar a{
+    color: #333;
+}
+.sidebar-first{
+    height: 42px;
+    line-height: 42px;
+    width: 188px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #F5F5F5;
+}
+.sidebar-first a{
+    position: relative;
+    display: block;
+    height: 42px;
+    line-height: 42px;
+    padding-left: 15px;
+    text-align: left;
+}
+.sidebar-first .tip{
+    color: #0078C8;
+}
+.sidebar-first .bg-icon{
+    position: absolute;
+    background: url("../img/arrowlefticon.png") no-repeat;
+    width: 10px;
+    height: 13px;
+    right: 15px;
+    top: 14px;
+}
+
+/********侧边栏list开始*******/
+.sidebar-nav-list{
+    text-align: left;
+    width: 188px;
+    background: #fff;
+}
+.sidebar-nav-li{
+    background: #fff;
+    width: 158px;
+    margin: 0 10px 0 15px;
+    padding: 13px 0;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.sidebar-nav-li .sidebar-nav-title{
+    width: 160px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 3px;
+}
+.sidebar-nav-li .sidebar-nav-ol{
+    width: 170px;
+    margin-top: 3px;
+    height: 50px;
+    overflow: hidden;
+}
+.sidebar-nav-li .sidebar-nav-ol li{
+    float: left;
+    margin-top: 3px;
+    width: 85px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.arrow-up{
+    background: url("../img/arrowicon2.png") no-repeat;
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+.arrow-down{
+    background: url("../img/arrowicon3.png") no-repeat;
+    width: 13px;
+    height: 9px;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    cursor: pointer;
+    display: none;
+}
+.heightauto{
+    height: auto !important;
+}
+
+/***********右侧开始***********/
+.index-right{
+    text-align: left;
+    width: 990px;
+}
+.index-right-top{
+    width: 100%;
+    background-color: #FAFAFA;
+    border: 1px dashed #ECEDEF;
+    height: 42px;
+    line-height: 42px;
+    text-align: left;
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+.index-right-top a{
+    color: blue;
+}
+/*****店铺名片*****/
+.index-module{
+    width: 100%;
+    height: 128px;
+    border: 1px solid #E0E0E0;
+    margin-bottom: 15px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 4px 0 #d7d7d7;
+    -moz-box-shadow: 0 1px 4px 0 #d7d7d7;
+    box-shadow: 0 1px 4px 0 #d7d7d7;
+    position: relative;
+}
+.index-module-img{
+    height: 128px;
+    width: 128px;
+    text-align: center;
+    font-size: 0;
+    white-space: nowrap;
+}
+.index-module-avatar{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 128px;
+    height: 36px;
+
+}
+.display{
+    display: block;
+}
+.index-module-avatar a{
+    display: block;
+    width: 128px;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    z-index: 1;
+    text-decoration: none;
+}
+.index-module-avatar s{
+    background: #000;
+    opacity: .4;
+    width: 128px;
+    height: 36px;
+    display: block;
+}
+.index-module-img img{
+    max-width: 96px;
+    max-height: 96px;
+    margin-top: 10px;
+}
+.shop-information{
+    padding: 10px 10px;
+}
+.shop-information p{
+    padding-top: 5px;
+}
+.shop-information p span{
+    color:#3CA1E0;
+    padding-left: 5px;
+}
+/*******店铺模块头部*******/
+.index-module-hd h2{
+    font-size: 24px;
+    font-weight: 400;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+/******店铺模块主体******/
+.index-module-main{
+    margin-top: 15px;
+}
+/******店铺模块左边******/
+.module-left{
+    margin-right: 15px;
+}
+/******待办事项*******/
+.module-left-box{
+    border: 1px solid #E0E0E0;
+    margin-bottom: 15px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 4px 0 #d7d7d7;
+    -moz-box-shadow: 0 1px 4px 0 #d7d7d7;
+    box-shadow: 0 1px 4px 0 #d7d7d7;
+    width: 486px;
+}
+.module-left-box-hd{
+    padding: 0 20px;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    background: #ecedef;
+    border-bottom: 1px solid #E0E0E0;
+}
+.module-left-box-hd p{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sidebar-nav-list{
+    text-align: left;
+    width: 188px;
+    background: #fff;
+}
+.module-left-box-li{
+    width: 486px;
+    overflow: hidden;
+    padding: 10px 15px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.module-left-box-li .module-left-box-title{
+    width: 85px;
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 3px;
+}
+.module-left-box-li .module-left-box-ol{
+    margin-top: 3px;
+    height: 25px;
+    overflow: hidden;
+}
+.module-left-box-li .module-left-box-ol li{
+    float: left;
+    margin-top: 3px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 130px;
+}
+.module-left-box-li .module-left-box-ol li a{
+    color: #333;
+}
+.arrow-up2{
+    background: url("../img/arrowicon2.png") no-repeat;
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+.arrow-down2{
+    background: url("../img/arrowicon3.png") no-repeat;
+    width: 13px;
+    height: 9px;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    cursor: pointer;
+    display: none;
+}
+/********资金管理*********/
+.module-left-box-panel{
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1px solid #dfe0e1;
+    height: 75px;
+    line-height: 75px;
+    padding: 0 15px;
+}
+.module-left-box-panel p{
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+    width: 85px;
+    float: left;
+}
+.module-left-box-panel a{
+    color: #333;
+}
+.module-left-box-panel a .money-show{
+    background-color: #f3f3f3;
+    border: 1px solid #afafaf;
+    color: #666;
+    padding: 2px 12px;
+    border-radius: 1px;
+}
+.module-left-panel-wrap{
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+}
+.module-left-panel-wrap a{
+    color: #0078C8;
+    margin-left: 10px;
+}
+
+/*********店铺模块右边************/
+.module-right-box-new{
+    width: 450px;
+    margin: 0 auto;
+}
+.module-right-box-new ul{
+    padding-bottom: 10px;
+}
+.module-right-box-new ul li{
+    position: relative;
+    width: 450px;
+    margin-top: 10px;
+}
+.module-right-box-new ul li span{
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #999;
+}
+.module-right-box-new ul li p a{
+    color: #333;
+}
+.module-right-box-new ul li p:hover{
+    font-size: 15px;
+    font-weight: bold;
+    color: #000;
+}
+.module-right-new-wrap{
+    padding: 5px 0;
+}
+/******广告位******/
+.ad-box{
+    border: 1px solid #E0E0E0;
+    width: 486px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.ad-box img{
+    display: block;
+}

@@ -1910,8 +1910,7 @@ namespace SuperMarket.Web.MemberControllers
                 _entity.PackStar = PackStar;
                 _entity.TrafficStar = TrafficStar;
                 _entity.SeviceStar = SeviceStar;
-                _entity.MemId = memid;
-                _entity.MemCode = member.MemCode;
+                _entity.MemId = memid; 
                 _entity.PicUrlContent = PicContent;
                 _entity.MemLevelName = EnumShow.Instance.GetEnumDes((MemberGrade)member.MemGrade);
                 _entity.CreateTime = DateTime.Now;

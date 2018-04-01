@@ -131,7 +131,7 @@ function LoginFun(usernameid,pwdid,vercodeid)
 
 function AddToCartCom(prodetailid,num)
 {
-    var shoppingCartDomain = $("#hidShopCartDomain").val(); 
+    var shoppingCartDomain = $("#hidMainCommonDomain").val(); 
     $.ajax({
         url: shoppingCartDomain + "/ShoppingHandler/ShoppingHandler",
         data: { Action: "AddToCart", prodetailid: prodetailid, Num: num },
@@ -149,7 +149,7 @@ function AddToCartCom(prodetailid,num)
 }
 
 function AddToCartXuQiuCom(prodetailid, num) {
-    var shoppingCartDomain = $("#hidShopCartDomain").val();
+    var shoppingCartDomain = $("#hidMainCommonDomain").val();
     $.ajax({
         url: shoppingCartDomain + "/ShoppingHandler/ShoppingHandler",
         data: { Action: "AddToXuQiu", prodetailid: prodetailid, Num: num },
@@ -169,7 +169,7 @@ function AddToCartXuQiuCom(prodetailid, num) {
 
 //function AddToCartAndNum(prodetailid,num)
 //{
-//    var shoppingCartDomain = $("#hidShopCartDomain").val();
+//    var shoppingCartDomain = $("#hidMainCommonDomain").val();
 
 //    $.ajax({
 //        url: shoppingCartDomain + "/ShoppingHandler/ShoppingHandler",

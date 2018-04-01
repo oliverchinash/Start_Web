@@ -1,0 +1,35 @@
+﻿
+/* 编辑器 */
+.item_editor{ position:relative;}
+.item_editor .validator-tip{ position:absolute; left:150px; top:5px;}
+
+/* 编辑器模板 */ 
+.editor-temp{ padding:30px 0 20px; color:#666;}
+.editor-temp .temp{ float:left; margin-left:10px; width:100px; border:solid 1px #eee; text-align:center; background:#eee; _display:inline;}
+.editor-temp .temp-hover{ text-decoration:none; background:#e89b63; border-color:#e89b63; color:#fff;}
+.editor-temp .temp-none{ border-color:#f60;}
+.editor-temp .m-follow-msg{ position:relative; z-index:4;}
+.editor-temp .m-follow-msg-hd{ display:block; cursor:pointer;}
+.editor-temp .m-follow-msg-md{ width:302px; top:45px;}
+.editor-temp .m-follow-msg-md .ico{ left:45px;}
+.editor-temp .temp-img-big{ display:block; position:relative; width:100%; height:350px; margin-top:25px; overflow:auto; overflow-x:hidden;}
+.editor-temp .preview-close{ position:absolute; right:5px; top:5px; width:20px; height:20px; line-height:20px; text-align:center; font-size:30px; font-family:Helvetica, STHeiti; color:#666; cursor:pointer;}
+.editor-temp .preview-ok{ display:block; width:100px; height:28px; line-height:28px; margin:10px auto 10px; text-align:center; color:#fff; background:#ED7019; cursor:pointer;}
+
+    /* 浮动气泡信息 */
+    .m-follow-msg{ display:inline-block;}
+    .m-follow-msg-hd{ display:inline-block; height:26px; line-height:26px; vertical-align:middle;}
+    .m-follow-msg-hd .msg-ico{ vertical-align:-2px;}
+    .m-follow-msg-md{ position:absolute; top:26px; left:0; width:150px; line-height:20px; padding:10px; border:solid 1px #d1d1d1; background:#fff; box-shadow: 0 0 2px #eee; text-align:left;}
+    .m-follow-msg-md .ico, .m-follow-msg-md .ico i{ display:block; position:absolute; width:0; height:0; line-height:0; font-size:0;}
+    .m-follow-msg-md .ico{ top:-11px; border-width:5px; border-style:dashed dashed solid; border-color:transparent transparent #d1d1d1;}
+    .m-follow-msg-md .ico i{ z-index:2; top:-4px; left:-5px; border-width:5px; border-style:dashed dashed solid; border-color:transparent transparent #fff;}
+    .m-follow-msg-hover{ position:relative;}
+    .m-follow-msg-hover .m-follow-msg-md{ display:block;}
+	    /* 
+	     * 插件件化以后
+	     * 把内容丢到body中，通过target来定位
+	     */
+	    .m-follow-target{ position:relative; padding-right:20px; cursor:pointer;}
+	    .m-follow-target-ico{ display:inline-block; position:absolute; right:0; top:0; width:1.2em; height:1.2em; border:solid 1px #d1d1d1; background:#fff;}
+	    .m-follow-target-ico i{ position:absolute; left:50%; top:0; margin:5px 0 0 -5px; width:0; height:0; line-height:0; font-size:0; border-width:5px; border-style:solid dashed dashed; border-color:#ccc transparent transparent;}

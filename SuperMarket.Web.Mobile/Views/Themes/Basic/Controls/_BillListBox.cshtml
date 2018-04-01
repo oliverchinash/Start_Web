@@ -1,0 +1,53 @@
+﻿
+<div id="divBillCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip" style="background-color: #F7F7F7">
+        <div class="am-offcanvas-content">
+            <!-------头部开始-------->
+            <header data-am-widget="header" class="am-header header">
+                <div class="am-header-left am-header-nav paycheck-offcanvas-fanhui">
+                    <a href="javascript:void(0)" class=""  onclick="FunCloseCanvas('divBillCanvas')">
+                        <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+                    </a>
+                </div>
+                <h1 class="am-header-title">
+                    发票选择
+                </h1>
+                <div class="am-header-right am-header-nav paycheck-fapiao-xinzeng" >
+                    <a href="javascript:void(0)" onclick="FunBillXinZeng()">
+                        新增
+                    </a>
+                </div>
+            </header>
+            <!-------头部结束--------->
+            <!-------内容开始--------->
+            <ul class="am-list am-list-static paycheck-offcanvas-ul"  id="ulBillListBox">
+               
+            </ul>
+            <!-------内容结束--------->
+        </div>
+    </div>
+</div>
+
+ 
+<script id="liBillList-template" type="text/x-handlebars-template">
+    {{#each this}} 
+    <li class="am-g"  BillId="{{Id}}"  CompanyName="{{CompanyName}}" CompanyCode="{{CompanyCode}}" CompanyAddress="{{CompanyAddress}}" CompanyPhone="{{CompanyPhone}}" CompanyBank="{{CompanyBank}}" BankAccount="{{BankAccount}}" ReceiverName="{{ReceiverName}}" ReceiverPhone="{{ReceiverPhone}}" ReceiverProvince="{{ReceiverProvince}}" ReceiverCity="{{ReceiverCity}}" ReceiverAddress="{{ReceiverAddress}}" Status="{{Status}}" IsDefault="{{IsDefault}}" BillType="{{BillType}}" BillTypeName="{{BillTypeName}}"  returnobjid="txtSelectBillType" onclick="FunSelectBill(this)">
+        <div class="paycheck-dizhi-main am-u-sm-10">
+            <p>发票类型：{{BillTypeName}}</p>
+            <p>发票抬头：{{CompanyName}} </p>
+            {{#if Id}}
+            {{#compare Status 0}} 
+            <div class="paycheck-dizhi-moren am-cf">
+                {{#if Id}}
+                {{#compare IsDefault 1}} 
+                    <p style='color:#FF532B' class='am-fl'>默认</p>
+                {{/compare}}
+                {{/if}}  
+                <a href="javascript:void(0)"  BillId="{{Id}}" CompanyName="{{CompanyName}}" CompanyCode="{{CompanyCode}}" CompanyAddress="{{CompanyAddress}}" CompanyPhone="{{CompanyPhone}}" CompanyBank="{{CompanyBank}}" BankAccount="{{BankAccount}}" ReceiverName="{{ReceiverName}}" ReceiverPhone="{{ReceiverPhone}}" ReceiverProvince="{{ReceiverProvince}}" ReceiverCity="{{ReceiverCity}}" ReceiverAddress="{{ReceiverAddress}}" Status="{{Status}}" IsDefault="{{IsDefault}}" BillType="{{BillType}}" BillTypeName="{{BillTypeName}}" class='am-fr paycheck-dizhi-bianji' onclick='FunBillEdit(this)'>编辑</a>
+            </div>
+            {{/compare}}
+            {{/if}}
+        </div>
+    </li>
+    {{/each}}
+</script>

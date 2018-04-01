@@ -1,0 +1,55 @@
+﻿
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-我的积分</title> 
+    <meta name="renderer" content="webkit"> 
+    <meta http-equiv="Cache-Control" content="no-siteapp" /> 
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/myIntegral.css">
+    <link rel="stylesheet" href="/Themes/Basic/css/basic.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/common.js"></script> 
+</head>
+<body>
+    @{
+        SuperMarket.Model.IntegralEntity _integral = ViewBag.Integral; 
+    }<div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <!----header开始----->
+    <header data-am-widget="header" class="am-header header">
+        @Html.Partial("controls/_HeadBanner") 
+        <h1 class="am-header-title">
+            <a href="javascript:void(0)">
+                我的积分
+            </a>
+        </h1>
+      
+    </header>
+    <!----header结束------->
+    <!---------内容开始---------->
+    <div class="myIntegral">
+        <div class="myIntegral-top">
+            @if (_integral != null && _integral.Id > 0)
+            {
+                <p>@(_integral.AvailableIntegral)</p>
+            }
+            else
+            {
+                <p>0</p>
+            }
+            
+            <span>积少成多，日后必有大用！</span>
+        </div>
+        <ul>
+            <li><a href="/MobileMember/IntegralDetails">积分明细</a></li>
+        </ul>
+    </div>
+    <!---------内容结束---------->
+
+</body>
+</html>

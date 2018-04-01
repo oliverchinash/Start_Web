@@ -1,0 +1,536 @@
+@charset "utf-8";
+i en{
+    font-style: normal;
+}
+/********内容开始***********/
+.property{
+    font-size: 13px;
+    width: 960px;
+    margin: 30px auto;
+    border: 1px solid #C1DBFF;
+}
+.property-top{
+    background-color: #E9F3FE;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+}
+.property-top span{
+    color: red;
+}
+/******左边内容开始*******/
+.property-left{
+    text-align: left;
+    width: 195px;
+    padding: 20px 15px;
+    height: 300px;
+}
+.property-left p{
+    margin-top: 10px;
+}
+.property-left a{
+    color:#fff;
+    display: inline-block;
+    background-color: red;
+    padding: 0 5px;
+}
+/*********右边开始**********/
+.property-right{
+    text-align: left;
+    border-left: 1px solid #C1DBFF;
+    padding: 20px 10px;
+}
+.property-type{
+    padding-top:10px;
+}
+.property-type a{
+    color: #333;
+}
+.property-property{
+    padding-top: 10px;
+}
+.property-property-right{
+    background-color:#F8F8F8;
+    width: 640px;
+    margin-left: 10px;
+    border: 1px solid #ECECEC;
+    padding:5px 10px 20px 10px;
+}
+.property-property-right label{
+    width: 120px;
+    display: inline-block;
+    text-align: right;
+}
+/*******品牌******/
+.property-brand{
+    margin-top: 20px;
+}
+.property-brand-select{
+    position:relative;
+    height:20px;
+}
+#sel{
+    float: right;
+    height: 22px;
+    width: 155px;
+    z-index:88;
+    position:absolute;
+    left:5px;
+    top:0px;
+}
+.property-brand-select #txt{
+    position:absolute;
+    text-indent: 5px;
+    width:133px;
+    height:20px;
+    left:6px;
+    top:1px;
+    z-index:99;
+    border:1px #FFF solid
+}
+/*****材质*****/
+.property-texture{
+    margin-top: 20px;
+}
+.property-texture select{
+    width: 155px;
+    height: 20px;
+}
+/******功能******/
+.property-function{
+    margin-top: 20px;
+}
+.property-function a{
+    color: #333;
+    padding-left: 10px;
+}
+/*****风格图案******/
+.property-style{
+    margin-top: 20px;
+}
+.property-style select{
+    width: 155px;
+    margin-left: 6px;
+}
+
+/*****商品标题*****/
+.property-title{
+    margin-top: 20px;
+}
+.property-title input{
+    width: 405px;
+}
+/******卖点******/
+.property-advantage{
+    margin-top: 20px;
+}
+.property-advantage span{
+    vertical-align: top;
+}
+.property-advantage textarea{
+    width: 405px;
+    height: 65px;
+    margin-left: 6px;
+}
+/******价格*****/
+.property-price{
+    margin-top: 20px;
+}
+.property-price .property-price-span{
+    width: 66px;
+    text-align: right;
+    display: inline-block;
+}
+.property-price input{
+    width: 110px;
+}
+/********商品规格*******/
+.property-spec{
+    margin-top: 20px;
+}
+.property-spec-main{
+    background-color:#F8F8F8;
+    width: 640px;
+    margin-left: 10px;
+    border: 1px solid #ECECEC;
+    padding:5px 10px 20px 10px;
+}
+.property-spec-main ul{
+    margin-top: 10px;
+}
+.property-spec-main ul li{
+    padding: 2px 3px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-left: 3px;
+    float: left;
+    display: inline;
+    cursor: pointer;
+}
+.property-spec-main .property-spec-li{
+    border-top: 5px solid #fff;
+}
+.property-spec-main .property-spec-li2{
+    border-top: 5px solid #808080;
+}
+.property-spec-main .property-spec-li3{
+    border-top: 5px solid #000000;
+}
+.property-spec-main .property-spec-li4{
+    border-top: 5px solid red;
+}
+.property-spec-main .property-spec-li5{
+    border-top: 5px solid #FFFF00;
+}
+.property-spec-main .property-spec-li6{
+    border-top: 5px solid #008000;
+}
+.property-spec-main .property-spec-li7{
+    border-top: 5px solid #0000FE;
+}
+.property-spec-main .property-spec-li8{
+    border-top: 5px solid #800080;
+}
+.property-spec-main .property-spec-li9{
+    border-top: 5px solid #7C4B00;
+}
+.property-spec-main .property-spec-li10{
+    border-top: 5px solid #A3A96B;
+}
+.property-spec-content{
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-left: 3px;
+}
+.active{
+    background-color: red;
+    color: #fff;
+}
+.active2{
+    border-bottom: 2px solid red;
+}
+.property-spec-table{
+    padding:10px 20px 20px 20px;
+}
+.property-spec-table a{
+    width: 110px;
+    color: #333;
+    margin-top: 15px;
+    display: inline-block;
+}
+.property-spec-table span{
+    width: 15px;
+    height: 15px;
+    background-color: #E9F3FE;
+    display: inline-block;
+}
+.property-spec-other{
+    border-top: 1px solid #ccc;
+    padding:20px;
+}
+/******分类表格*****/
+.property-spec-list{
+    width: 615px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-left: 3px;
+}
+.property-spec-list td{
+    border-right: 1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    border-top: 1px solid #ccc;
+}
+.property-spec-list th{
+    background-color: #E2E2E2;
+    height: 32px;
+    line-height: 32px;
+    border-right: 1px solid #ccc;
+}
+.property-spec-list2{
+    width: 500px;
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+}
+.property-spec-list2 td{
+    border-right: 1px solid #ccc;
+    height: 32px;
+    line-height: 32px;
+    border-top: 1px solid #ccc;
+}
+.property-spec-list2 th{
+    background-color: #E2E2E2;
+    border-right: 1px solid #ccc;
+}
+.property-spec-list2 input{
+    width: 80%;
+}
+/******商品数量********/
+.property-number{
+    margin-top: 20px;
+}
+.property-number input{
+    width: 110px;
+}
+.property-shop{
+    margin-top: 20px;
+}
+.property-shop a{
+    color: #333;
+}
+.property-shop-span{
+    width: 66px;
+    text-align: right;
+    display: inline-block;
+}
+
+/******商品编码条形码*******/
+.property-bianma{
+    margin-top: 20px;
+}
+.property-bianma span{
+    width: 80px;
+    text-align: right;
+    display: inline-block;
+}
+.property-bianma input{
+    margin-left: 6px;
+}
+
+/*******商品图片********/
+.property-img{
+    margin-top: 20px;
+}
+.property-img-right{
+    margin-left: 6px;
+    width: 640px;
+    border: 1px solid #ccc;
+}
+.property-img-right ul{
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    background-color:#F8F8F8;
+}
+.property-img-right ul li{
+    float: left;
+    display: inline;
+    padding: 0 25px;
+    cursor: pointer;
+}
+.property-img-wrap{
+    padding:20px;
+    text-align: center;
+}
+.property-img-wz{
+    text-align: left;
+    padding: 20px 20px 20px 120px;
+    color: #888;
+    line-height: 28px;
+    font-size: 12px;
+}
+.property-img-spec{
+    margin-top: 40px;
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    background-color: #F8F8F8;
+}
+.property-img-wrap2{
+    margin-top: 10px;
+}
+.property-img-wrap2 a{
+    text-align: center;
+    width: 90px;
+    height: 90px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    color: #333;
+    margin-left: 5px;
+    float: left;
+    display: inline;
+}
+.property-img-wrap2 a span{
+}
+
+/*******商品视频******/
+.property-video{
+    margin-top: 20px;
+}
+.property-video .property-video-right{
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-left:11px;
+}
+.property-video .property-video-right a{
+    color: #333;
+}
+
+/********商品描述开始********/
+.property-details{
+    margin-top: 20px;
+}
+.property-details-right{
+    margin-left: 6px;
+    width: 640px;
+
+}
+.property-details-right #property-details-table{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    background-color:#F8F8F8;
+}
+.property-details-right  #property-details-table li{
+    float: left !important;
+    display: inline;
+    padding: 0 25px;
+    cursor: pointer;
+}
+.property-details-mobile p{
+    color: #999;
+    padding-top: 20px;
+}
+.property-mobile-main{
+    margin-top: 15px;
+    width: 322px;
+    height: 400px;
+    border: 1px solid #ccc;
+}
+.property-mobile-top{
+    background-color: #F8F8F8;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 10px;
+}
+.property-mobile-top a{
+    color: #999;
+}
+.property-mobile-wrap{
+    height: 360px;
+    overflow-y: scroll;
+}
+.property-mobile-text{
+    width: 100%;
+    height: 175px;
+    background-color:#F8F8F8;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+.property-mobile-text textarea{
+    width: 100%;
+    height:80px;
+}
+.property-mobile-text a{
+    width: 75px;
+    height: 27px;
+    line-height: 27px;
+    background-color:#0099FF;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+}
+.property-mobile-bottom{
+    width: 322px;
+    height: 60px;
+    background-color:#ECECEC;
+    margin-top: 2px;
+    cursor: pointer;
+}
+.property-mobile-bottom p{
+    padding-top: 0 !important;
+}
+.property-mobile-bottom-main{
+    text-align: center;
+    padding-top: 6px;
+}
+.property-mobile-bottom .property-mobile-bottom-main2{
+    padding-top:7px;
+}
+.property-mobile-bottom .property-mobile-bottom-main2 li{
+    float: left;
+    display: inline;
+    width: 25%;
+    text-align: center;
+}
+.property-mobile-bottom .property-mobile-bottom-main2 li a{
+    color: #333;
+}
+/*********商品分类**********/
+.property-classify{
+    margin-top: 20px;
+}
+.property-classify-right{
+    margin-left: 11px;
+    width: 640px;
+    height: 145px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+}
+.property-classify-right ul{
+    padding: 5px 5px;
+    color: #000;
+}
+.property-classify-right ul li span{
+    color: #666;
+}
+
+/*******提取方式**********/
+.property-retrieving{
+    margin-top: 20px;
+}
+.property-retrieving select{
+    margin-left: 10px;
+}
+/*******物流参数********/
+.property-parameter{
+    margin-top: 20px;
+}
+.property-parameter-right{
+    margin-left: 11px;
+    border: 1px solid #ccc;
+    padding: 0 10px 10px 10px;
+}
+.property-parameter-right p{
+    padding-top: 8px;
+}
+
+/*******发票*******/
+.property-invoice{
+    margin-top: 20px;
+}
+.property-invoice-span{
+    width:80px;
+    text-align: right;
+    display: inline-block;
+}
+/*****退换货*******/
+.property-chang{
+    margin-top: 20px;
+}
+.property-chang-span{
+    width: 80px;
+    text-align: right;
+    display: inline-block;
+}
+
+/******库存*****/
+.property-inventory{
+    margin-top: 20px;
+}
+.property-inventory-span{
+    width: 80px;
+    text-align: right;
+    display: inline-block;
+}
+.property-inventory-right span{
+    display: block;
+}

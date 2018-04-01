@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SuperMarket.Admin.Controllers
+namespace SuperMarket.SysWeb.Controllers
 {
     public class HelpController : BaseMemAdminController
     {

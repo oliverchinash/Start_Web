@@ -1,0 +1,5 @@
+﻿@{  
+    string html = "";
+    html = Html.Partial("../" + @SuperMarket.Core.Globals.SkinPath + "/Controls/_AdMemScroll").ToHtmlString(); 
+    @Html.Raw(html);
+}

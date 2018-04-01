@@ -15,7 +15,7 @@ var wxShare = {
     access_token: "",//公众号token，令牌  
     ticket: "",//调用jssdk的临时凭证  
     readySuccessCall: [],//微信初始化成功后的执行事务  
-    appName: "易店心",//项目名称  
+    appName: "阿哈马车服",//项目名称  
     config: {
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来。  
         appId: "", // 必填，公众号的唯一标识  

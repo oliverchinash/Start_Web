@@ -1,0 +1,35 @@
+﻿<div id="divCoupsCanvas" class="am-offcanvas">
+    <div class="am-offcanvas-bar am-offcanvas-bar-flip" style="background-color: #F7F7F7">
+        <div class="am-offcanvas-content">
+            <!-------头部开始-------->
+            <header data-am-widget="header" class="am-header header">
+                <div class="am-header-left am-header-nav paycheck-offcanvas-fanhui">
+                    <a href="javascript:void(0)" class=""  onclick="FunCloseCanvas('divCoupsCanvas')">
+                        <i class="am-header-icon am-icon-angle-left am-icon-md">返回</i>
+                    </a>
+                </div>
+                <h1 class="am-header-title">
+                    优惠券
+                </h1>
+            </header> 
+            <p id="coupserrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p>
+       <p class="paycheck-youhui" id="pnohascoups" style="display: none;">暂无可使用的优惠券</p>
+            <!-------有优惠券开始--------->
+            <ul class="am-list paycheck-pay-ul" id="ulCoupsBox">
+                
+            </ul>
+            <!-------有优惠券结束--------->
+        </div>
+    </div>
+</div>
+
+<script id="liMemCoupsList-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <li class="am-g" couponid="{{Id}}" onclick="FunSelectCoups(this)" CouponType="{{CouponType}}" CouponValue="{{CouponValue}}" MinimumReqAmount="{{MinimumReqAmount}}">
+        <div class="am-u-sm-12 paycheck-peisong-main">
+            <p style="color: #333;">￥<span style="font-size: 2.5rem">{{CouponValue}}</span>优惠券</p>
+            <span>满{{MinimumReqAmount}}元可使用</span>
+        </div>
+    </li>
+    {{/each}}
+</script>

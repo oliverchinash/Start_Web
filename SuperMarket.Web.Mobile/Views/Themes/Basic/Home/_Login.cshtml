@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "_Index"; 
+} 
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿哈马车服-注册</title> 
+    <meta name="renderer" content="webkit">  
+    <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/favicon.ico"> 
+    <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css">
+    <link href="/themes/basic/css/basic.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Themes/Basic/css/relogin.css">
+    <script src="/themes/basic/js/jquery-1.11.1.min.js"></script>
+    <script src="/themes/basic/js/common.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+    <script src="/themes/common/js/jsglobalenum.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
+</head>
+<body><div style="display:none;">
+    <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
+</div>
+    <div class="register">
+        <!----头部开始------>
+        <header data-am-widget="header" class="am-header header"> 
+            @Html.Partial("controls/_HeadBanner")
+            <h1 class="am-header-title"> 
+                    会员登录 
+            </h1>
+        </header>
+        <!----头部结束------>
+        <!---注册开始---->
+        <div class="register-main">
+            <p id="perrormsg" style="text-indent: 1rem; margin-bottom: 0; padding: .5rem 0; color:red; margin-top: 0;"></p> 
+            <form action="" class="am-form am-form-inline">
+                <div class="am-form-icon user-ipone">
+                    <i class="am-icon-user"></i>
+                    <input type="text" class="am-form-field"  id="txtUserName" placeholder="请输入手机号/用户名">
+                </div>
+                <div class="am-form-icon user-ipone">
+                    <i class="am-icon-lock"></i>
+                    <input type="password" class="am-form-field" id="txtPassWord" placeholder="请输入密码">
+                </div> 
+                <!---记住密码一个月内免登陆----->
+                <div class="am-checkbox" style="text-align: left;">
+                    <input type="checkbox" id="chkautologin" class="login-radio">
+                    <label  onclick="FunSelectAutoLogin()">
+                        一个月内免登录
+                    </label>
+                </div>
+                <!----提交------>
+                <div style="padding: 1rem 2rem">
+                    <button class="am-btn login-sub" onclick="LoginMethod()" type="button">登录</button>
+                </div>
+            </form>
+
+            <!---忘记密码--->
+            <ul class="am-g  login-ul">
+                <li class="am-u-sm-6">
+                    <i class="am-icon-mobile-phone"></i>
+                    <a  style="cursor:pointer;" onclick="FunRedirectRegister()">快速注册</a>
+                </li>
+                <li class="am-u-sm-6">
+                    <i class="am-icon-lock"></i>
+                    <a href="/MobileHome/ForgetPwd">忘记密码？</a>
+                </li>
+            </ul>
+        </div>
+    </div> @Html.Partial("controls/_BodyBefore")
+</body>
+</html>
+<script> 
+    
+    var returnurl = "@Request["ReturnUrl"]";
+    if(returnurl=="")
+    {
+        returnurl="@Request.UrlReferrer";
+    }
+    function FunSelectAutoLogin() {
+        if ($('#chkautologin').is(':checked')) {
+            $('#chkautologin').prop("checked",false);
+        }
+        else {
+            $('#chkautologin').prop("checked", true);
+        }
+    }
+    function LoginMethod() {
+        var useraccount = $.trim($("#txtUserName").val());
+        var pwd = $.trim($("#txtPassWord").val());
+        if (useraccount == "") {
+            $("#perrormsg").html("账号不能为空!");
+            return false;
+        }
+        if (pwd == "") {
+            $("#perrormsg").html("登录密码不能为空！");
+            return false;
+        }
+        var autologin = 0;
+        if ($('#chkautologin').is(':checked')) {
+            autologin = 1;
+        }
+        $.post("/Home/UserLogin", { useraccount: useraccount, password: pwd, autologin: autologin }, function (data) {
+            var _returncode = eval("(" + data + ")");
+            var status = -_returncode.Status;
+            if (status == _TheArray[0]) {
+                var loginmemobj = _returncode.Obj;
+                returnurl = returnurl.replace(/&amp;/g, "&");
+                if (loginmemobj.Status == 1) {
+                    if (returnurl == null || returnurl == "" || returnurl.indexOf("Register") > 0 || returnurl.indexOf("Login") > 0 || returnurl.indexOf("RegMsg") != -1) {
+                        window.location.href = "/MobileHome/Index";
+                    }
+                    else if (returnurl.indexOf("http://") == 0) {
+                        window.location.href = returnurl;
+                    }
+                    else {
+                        if (returnurl.indexOf("/") == 0) {
+                            returnurl = returnurl.substring(1, returnurl.length);
+                        }
+                        window.location.href = "/" + returnurl;
+                    }
+                }
+                else if (loginmemobj.Status == 10) {
+                    $("#perrormsg").html("您的资料正在审核，如有疑问，请联系客服400-999-8411")  ;
+
+                }
+            }
+            else {
+                $("#perrormsg").html(_TheArray[status]);
+                return false;
+            }
+
+        });
+    }
+
+</script>

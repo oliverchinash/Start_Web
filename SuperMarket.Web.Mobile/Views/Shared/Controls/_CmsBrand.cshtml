@@ -1,0 +1,6 @@
+﻿
+@{
+    int _classid = Model;
+    string html = Html.Partial("../" + @SuperMarket.Core.Globals.SkinPath + "/Controls/_CmsBrand", _classid).ToHtmlString();
+    @Html.Raw(html);
+}

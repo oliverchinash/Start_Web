@@ -1,0 +1,150 @@
+﻿
+<header data-am-widget="header" class="am-header-fixed am-header header" style="padding: 0;">
+    @Html.Partial("controls/_HeadBanner")
+    
+    <h1 class="am-header-title">
+        <a >
+            订单页
+        </a>
+    </h1> 
+</header> 
+<!----内容开始------>
+<div id="divorderlist">
+    <ul class="myorder-tab am-g am-cf"> 
+        <li class="am-u-sm-3">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.Edit)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
+                <span class="myorder-tex">待提交</span>
+            </a>
+        </li>
+        <li class="am-u-sm-3">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)? "am-active":"")">
+                <span class="myorder-tex">待确认</span> 
+            </a>
+        </li>
+        <li class="am-u-sm-3">
+            <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.WaitDelivery)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)? "am-active":"")">
+                <span class="myorder-tex">发货中</span>
+            </a>
+        </li> 
+        <li class="am-u-sm-3">
+        <a href="/MobileInquiryMem/InquiryOrderList?s=@((int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)" class="myorder-li @((ViewBag.Status== (int)SuperMarket.Model.OrderInquiryStatusEnum.Finished)? "am-active":"")">
+        <span class="myorder-tex">已完成</span>
+    </a>
+</li> 
+    </ul> 
+    <div class="orderDetails">
+        @{
+            IList<SuperMarket.Model.VWInquiryOrderEntity> list = ViewBag.InquiryOrderList;
+            if (list != null && list.Count > 0)
+            {
+                foreach (SuperMarket.Model.VWInquiryOrderEntity entity in list)
+                {
+                    <ul class="orderDetails-m">
+                        <li style="position: relative; padding: .5rem 0;" >
+                            <p class="am-cf">订单号：@entity.InquiryOrderCode</p>
+                            <span class="am-cf" style="color: #999">下单时间:@entity.CreateTime.ToShortDateString()</span>
+                            <div class="orderDetails-div ">
+                                <span style="">@entity.StatusName</span> 
+                            </div>
+                        </li> 
+                        <li class="am-cf">
+                            <div class="orderDetails-bianji am-fl">
+                                @if (entity.Status == (int)SuperMarket.Model.OrderInquiryStatusEnum.WaitAccept)
+                                {
+                                    <a href="/MobileInquiryMem/InquirySelect?code=@entity.InquiryOrderCode" class="am-btn am-btn-xs">确认订单</a>
+                                }
+                            </div> 
+                                <a href="/MobileInquiryMem/InquiryOrderDetail?code=@entity.InquiryOrderCode" class="orderDetails-chakan am-fr">查看订单详情</a>
+</li>
+                    </ul>
+                }
+            }
+        } 
+    </div> 
+</div>
+<div style="display:none;">
+    <input id="hidStatus" value="@ViewBag.Status" />
+    <input id="hidKeyWord" value="@ViewBag.KeyWord" />
+    <input id="hidMaxPageNum" value="@ViewBag.MaxPageNum" />
+</div>
+
+
+<script id="divinquiryList-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <ul class="orderDetails-m">
+        <li style="position: relative; padding: .5rem 0;">
+            <p>订单号：{{InquiryOrderCode}}</p>
+            <span style="color: #999">下单时间:{{transformat CreateTime}}</span>
+            <div class="orderDetails-div ">
+                <span style="">{{StatusName}}</span>
+            </div>
+        </li>
+        <li class="am-cf">
+            <div class="orderDetails-bianji am-fl">
+                {{#if Id}}
+                {{#compare Status 4}}
+                <a href="/MobileInquiryMem/InquirySelect?code={{InquiryOrderCode}}" class="am-btn am-btn-xs">确认订单</a>
+                {{/compare}}
+                {{/if}}
+            </div> 
+            <a href="/MobileInquiryMem/InquiryOrderDetail?code={{InquiryOrderCode}}" class="orderDetails-chakan am-fr">查看订单详情</a>
+        </li>
+    </ul>
+    {{/each}}
+</script>
+<script>
+    var page = 1;
+    var status = $("#hidStatus").val(); 
+    var keyword = $("#hidKeyWord").val();
+    var maxpage = $("#hidMaxPageNum").val();
+    $(".divorderlist").dropload({
+        scrollArea: window,
+        domDown: {
+            domClass: 'dropload-down',
+            domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+            domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+            domNoData: '<div class="dropload-noData">暂无更多数据</div>'
+        },
+        loadDownFn: function (me) {
+            page++;
+            var result = '';
+            $.ajax({
+                type: 'POST',
+                url: '/InquiryMem/InquiryOrderListJeson',
+                data: { s: status,  k: keyword, pageindex: page },
+                dataType: 'json',
+                success: function (data) {
+                    if (page <= maxpage) {
+                        var objlist = data.List;
+                        var myTemplate = Handlebars.compile($("#divinquiryList-template").html());
+                        Handlebars.registerHelper("transformat", function (value) {
+                            return new Date(value).Format("yyyy/MM/dd");;
+                        });
+                        Handlebars.registerHelper("compare", function (v1, v2, options) {
+                            if (v1 == v2) {
+                                return options.fn(this);
+                            } else {
+                                return options.inverse(this);
+                            }
+                        });
+                        $('.orderDetails').append(myTemplate(objlist));
+                        me.resetload();
+                    } else {
+                        // 锁定
+                        me.lock();
+                        // 无数据
+                        me.noData();
+                        me.resetload();
+                    }
+
+                },
+                error: function (xhr, type) {
+                    alert('Ajax error!');
+                    // 即使加载出错，也得重置
+                    me.resetload();
+                }
+            });
+        },
+        threshold: 50
+    });
+</script>

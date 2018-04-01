@@ -19,7 +19,7 @@ using SuperMarket.BLL.ShoppingDB;
 using SuperMarket.BLL.ProductDB;
 using SuperMarket.Web.CommonControllers;
 
-namespace SuperMarket.Admin.Controllers
+namespace SuperMarket.SysWeb.Controllers
 {
     public class OrderController : BaseMemAdminController
     {
