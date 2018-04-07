@@ -26,6 +26,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SuperMarket.BLL.Common;
 
 namespace SuperMarket.SysWeb.Controllers
 {
@@ -309,25 +310,7 @@ namespace SuperMarket.SysWeb.Controllers
             return "";
         }
         #endregion
-
-        #region 获取规格值
-        public string GetSpecValueList()
-        {
-            int _specid = FormString.IntSafeQ("specid");
-            int _pid = FormString.IntSafeQ("pid");//上级品牌Id，0代表第一级
-            IList<ClassProDetailsEntity> list = new List<ClassProDetailsEntity>();
-            //list = ComSpecDetailsBLL.Instance.GetListBySpecId(_specid, _pid, memid);
-            var listfilter = list.Select(
-                     p => new
-                     {
-                         Id = p.Id,
-                         Name = p.Name
-                     });
-            string liststr = JsonJC.ObjectToJson(listfilter);
-            return liststr;
-        }
-        #endregion
-
+         
         #region 发布产品
         [ValidateInput(false)]
         public string ProductSubmit()
@@ -453,7 +436,7 @@ namespace SuperMarket.SysWeb.Controllers
             //type==2 表示选取的是产品，本例：发布产品的时候是唯一款式自动到对应款式的添加产品项
             if (type == 2 && _entitylist.Count == 1)
             {
-                return RedirectToAction("ProductEdit", new { styleid = _entitylist[0].Id });
+                return RedirectToAction("ProductEdit");
             }
             ViewBag.EntityList = _entitylist;
             string url = "/Store/PStyleList?class=" + _classid + "&brandid=" + _brandid + "&orderby=" + orderby;
@@ -607,50 +590,37 @@ namespace SuperMarket.SysWeb.Controllers
         {
             //判断是否是修改
             int productid = QueryString.IntSafeQ("productid");
-            int styleid = QueryString.IntSafeQ("styleid");
+            int siteid = QueryString.IntSafeQ("siteid");
+            if(siteid==0&& productid==0)
+            {
+                return Redirect(SuperMarketWebUrl.GetSysSelectSiteIdUrl());
+            }
             int classid = 0;
-            int brandid = 0;
+            int brandid = 0; 
             VWProductEntity _vwproductentity = new VWProductEntity();
             if (productid > 0)
             {
-                _vwproductentity = ProductBLL.Instance.GetProductVW(productid);
+                _vwproductentity = ProductBLL.Instance.GetProductVW(productid );
                 _vwproductentity.ProductPics = ProductStylePicsBLL.Instance.GetListPicsByProductId(productid);//获取样式图片列表
                 _vwproductentity.ProductPropertys = ProductPropertyBLL.Instance.GetListByProductId(productid);//获取样式属性列表 
-                _vwproductentity.ProductCarTypes = ProductCarTypeBLL.Instance.GetListByProductId(productid);//获取样式车型列表
-                ProductBLL.Instance.Assignment(ref _vwproductentity, productid);
-
-
+                ProductBLL.Instance.Assignment(ref _vwproductentity, productid); 
                 classid = _vwproductentity.ClassId;
                 brandid = _vwproductentity.BrandId;
-                styleid = _vwproductentity.StyleId;
-            }
-            else if (styleid > 0)
-            {
-                VWProductStyleEntity _styleentity = ProductStyleBLL.Instance.GetProductStyle(styleid);
-                classid = _styleentity.ClassId;
-                brandid = _styleentity.BrandId;
+                siteid = _vwproductentity.SiteId;
+                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
+                BrandEntity _brandntity = BrandBLL.Instance.GetBrand(brandid, false);
+
             }
             else
             {
                 classid = QueryString.IntSafeQ("classid");
-                brandid = QueryString.IntSafeQ("brandid");
+                brandid = QueryString.IntSafeQ("brandid"); 
             }
 
-            if (classid == 0 || brandid == 0) RedirectToAction("PClass");
-            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
-            BrandEntity _brandntity = BrandBLL.Instance.GetBrand(brandid, true);
 
-            if (_classentity.IsEnd == 0) RedirectToAction("PClass");
-            string classfullName = _classentity.FullName;
-
-            ViewBag.ClassNamePath = classfullName;
-            ViewBag.ClassId = classid;
-            ViewBag.PropertiesClassId = _classentity.PropertiesClassId;
-            ViewBag.BrandId = brandid;
-            ViewBag.BrandName = _brandntity.Name;
+            ViewBag.SiteId = siteid;
             ViewBag.Product = _vwproductentity;
-            ViewBag.MemId = memid;
-            ViewBag.StyleId = styleid;
+            ViewBag.MemId = memid; 
             return View();
         }
 

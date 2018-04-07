@@ -1,0 +1,53 @@
+﻿ 
+<div class="list">
+    <div class="list-top">
+        <div class="list-top-main">
+            <span>选择产品所属系统</span>
+        </div>
+    </div>
+    <div class="list-search">
+        <div class="list-search-main"> 
+            <div class="list-search-wrap">
+                <label class="fl">产品所属类型：</label>
+                <div class="list-search-input">
+                    <select id="selSiteId">
+                        @{
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.WebSiteEnum>();
+                            foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
+                            {
+                                <option value="@entityu.EnumValue"  >@entityu.EnumDes</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div> 
+        </div>
+        <div class="clear"></div>
+        <div class="list-search-button">
+            <button class="fr" onclick="Fun_SelectSiteId()">确定</button>
+        </div>
+        
+    </div> 
+</div> 
+
+<script>
+    var returnurl = "@Request["returnurl"]";
+    function Fun_SelectSiteId()
+    {
+        var siteid = $("#selSiteId").val();
+        alert(returnurl);
+        if (returnurl.indexOf("#") > 0)
+        {
+            returnurl=returnurl.substring(0,returnurl.indexOf("#"));
+        } 
+        if (returnurl.indexOf("?") > 0)
+        { 
+            returnurl = returnurl + "&siteid=" + siteid;
+        }
+        else {
+            returnurl = returnurl + "?siteid=" + siteid;
+
+        } 
+        window.location.href = returnurl;
+    }
+</script>

@@ -79,8 +79,8 @@ namespace SuperMarket.Data.CatograyDB
         /// <param name="classesFound">待插入的实体对象</param>
         public int AddClassesFound(ClassesFoundEntity entity)
         {
-            string sql = @"insert into ClassesFound( [Code],[Name],[FullName],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[ParentId],[HasProperties],[PropertiesClassId],[HasProduct],[ClassType])VALUES
-			            ( @Code,@Name,@FullName,@PYFirst,@PYShort,@PYFull,@AdId,@Sort,@IsActive,@IsHot,@CreateTime,@UpdateTime,@ClassLevel,@IsEnd,@ParentId,@HasProperties,@PropertiesClassId,@HasProduct,@ClassType);
+            string sql = @"insert into ClassesFound( [Code],[Name],[FullName],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[ParentId],[HasProperties],[PropertiesClassId],[HasProduct],[SiteId])VALUES
+			            ( @Code,@Name,@FullName,@PYFirst,@PYShort,@PYFull,@AdId,@Sort,@IsActive,@IsHot,@CreateTime,@UpdateTime,@ClassLevel,@IsEnd,@ParentId,@HasProperties,@PropertiesClassId,@HasProduct,@SiteId);
 			SELECT SCOPE_IDENTITY();";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -102,7 +102,7 @@ namespace SuperMarket.Data.CatograyDB
             db.AddInParameter(cmd, "@HasProperties", DbType.Int32, entity.HasProperties);
             db.AddInParameter(cmd, "@PropertiesClassId", DbType.Int32, entity.PropertiesClassId);
             db.AddInParameter(cmd, "@HasProduct", DbType.Int32, entity.HasProduct);
-            db.AddInParameter(cmd, "@ClassType", DbType.Int32, entity.ClassType);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, entity.SiteId);
             object identity = db.ExecuteScalar(cmd);
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
@@ -598,12 +598,7 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
                 if (level != -1)
                 {
                     where += " and ClassLevel=@ClassLevel";
-                }
-                if (classmenutype != -1)
-                {
-                    where += " and ClassMenuType=@ClassMenuType";
-                }
-
+                }  
                 if (siteid != -1)
                 {
 
@@ -627,11 +622,7 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
                 if (level != -1)
                 {
                     db.AddInParameter(cmd, "@ClassLevel", DbType.Int32, level);
-                }
-                if (pid <= 0 && classmenutype != -1)
-                {
-                    db.AddInParameter(cmd, "@ClassMenuType", DbType.Int32, classmenutype);
-                }
+                } 
                 if (pid <= 0 && siteid != -1)
                 {
                     db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);

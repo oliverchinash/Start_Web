@@ -10,7 +10,7 @@ using SuperMarket.Core;
 using System.Linq;
 
 /*****************************************
-功能描述：表ClassProperties的业务逻辑层。
+功能描述：表BasicSiteProperties的业务逻辑层。
 创建时间：2016/10/31 13:00:09
 创 建 人：jc001
 变更记录：
@@ -19,12 +19,12 @@ namespace SuperMarket.BLL.CatograyDB
 {
 	  
 	/// <summary>
-	/// 表ClassProperties的业务逻辑层。
+	/// 表BasicSiteProperties的业务逻辑层。
 	/// </summary>
-	public class ClassPropertiesBLL
+	public class BasicSitePropertiesBLL
 	{
 	    #region 实例化
-        public static ClassPropertiesBLL Instance
+        public static BasicSitePropertiesBLL Instance
         {
             get
             {
@@ -37,123 +37,123 @@ namespace SuperMarket.BLL.CatograyDB
             static Nested()
             {
             }
-            internal static readonly ClassPropertiesBLL instance = new ClassPropertiesBLL();
+            internal static readonly BasicSitePropertiesBLL instance = new BasicSitePropertiesBLL();
         }
         #endregion
 		/// <summary>
-		/// 插入一条记录到表ClassProperties，如果表中存在自增字段，则返回值为新记录的自增字段值，否则返回0。
+		/// 插入一条记录到表BasicSiteProperties，如果表中存在自增字段，则返回值为新记录的自增字段值，否则返回0。
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
-		/// <param name="classProperties">要添加的ClassProperties数据实体对象</param>
-		public   int AddClassProperties(ClassPropertiesEntity classProperties)
+		/// <param name="BasicSiteProperties">要添加的BasicSiteProperties数据实体对象</param>
+		public   int AddBasicSiteProperties(BasicSitePropertiesEntity BasicSiteProperties)
 		{
-			  if (classProperties.Id > 0)
+			  if (BasicSiteProperties.Id > 0)
             {
-                return UpdateClassProperties(classProperties);
+                return UpdateBasicSiteProperties(BasicSiteProperties);
             }
-		    else if (string.IsNullOrEmpty(classProperties.Name))
+		    else if (string.IsNullOrEmpty(BasicSiteProperties.Name))
             {
                 return (int)CommonStatus.ADD_Fail_Empty;
             }	 
           
-            else if (ClassPropertiesBLL.Instance.IsExist(classProperties))
+            else if (BasicSitePropertiesBLL.Instance.IsExist(BasicSiteProperties))
             {
                 return (int)CommonStatus.ADD_Fail_Exist;
             }
             else
             {
-                return ClassPropertiesDA.Instance.AddClassProperties(classProperties);
+                return BasicSitePropertiesDA.Instance.AddBasicSiteProperties(BasicSiteProperties);
             }
 	 	}
 
 		/// <summary>
-		/// 更新一条ClassProperties记录。
+		/// 更新一条BasicSiteProperties记录。
 		/// 该方法提供给界面等UI层调用
 		/// </summary>
-		/// <param name="classProperties">待更新的实体对象</param>
+		/// <param name="BasicSiteProperties">待更新的实体对象</param>
 		/// <param name="columns">要更新的列名，不提供任何列名时默认将更新主键之外的所有列</param>
-		public   int UpdateClassProperties(ClassPropertiesEntity classProperties)
+		public   int UpdateBasicSiteProperties(BasicSitePropertiesEntity BasicSiteProperties)
 		{
-			return ClassPropertiesDA.Instance.UpdateClassProperties(classProperties);
+			return BasicSitePropertiesDA.Instance.UpdateBasicSiteProperties(BasicSiteProperties);
 		}
 		 /// <summary>
         /// 根据主键值删除记录。如果数据库不存在这条数据将返回0
         /// </summary>
-        public int DeleteClassPropertiesByKey(int id)
+        public int DeleteBasicSitePropertiesByKey(int id)
         {
-            return ClassPropertiesDA.Instance.DeleteClassPropertiesByKey(id);
+            return BasicSitePropertiesDA.Instance.DeleteBasicSitePropertiesByKey(id);
         }
 		 /// <summary>
         /// 删除失效记录，默认保留2个月
         /// </summary>
         /// <returns></returns>
-        public int DeleteClassPropertiesDisabled()
+        public int DeleteBasicSitePropertiesDisabled()
         {
-            return ClassPropertiesDA.Instance.DeleteClassPropertiesDisabled();
+            return BasicSitePropertiesDA.Instance.DeleteBasicSitePropertiesDisabled();
         }
 		 /// <summary>
         /// 做失效处理
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DeleteClassPropertiesByIds(string ids)
+        public int DeleteBasicSitePropertiesByIds(string ids)
         {
              int[] intArray;
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray); 
-            return ClassPropertiesDA.Instance.DeleteClassPropertiesByIds(idstr); 
+            return BasicSitePropertiesDA.Instance.DeleteBasicSitePropertiesByIds(idstr); 
         }
 	    /// <summary>
         /// 做失效处理
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DisableClassPropertiesByIds(string ids)
+        public int DisableBasicSitePropertiesByIds(string ids)
         {
             int[] intArray;
             string[] strids = ids.Split(',');
             intArray = Array.ConvertAll<string, int>(strids, s => int.Parse(s));
             string idstr = String.Join(",", intArray);
-            return ClassPropertiesDA.Instance.DisableClassPropertiesByIds(idstr);
+            return BasicSitePropertiesDA.Instance.DisableBasicSitePropertiesByIds(idstr);
         }
         /// <summary>
-        /// 根据主键获取一个ClassProperties实体记录。
+        /// 根据主键获取一个BasicSiteProperties实体记录。
         /// 该方法提供给其他实体的业务逻辑层（Logic）方法调用
         /// </summary>
-        /// <returns>ClassProperties实体</returns>
+        /// <returns>BasicSiteProperties实体</returns>
         /// <param name="columns">要返回的列</param>
-        public ClassPropertiesEntity GetClassProperties(int id,bool cache=false)
+        public BasicSitePropertiesEntity GetBasicSiteProperties(int id,bool cache=false)
         {
-            ClassPropertiesEntity list = null;
+            BasicSitePropertiesEntity list = null;
             if (cache)
             {
-                string _cachekey = "GetClassProperties_" + id;
+                string _cachekey = "GetBasicSiteProperties_" + id;
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    list = ClassPropertiesDA.Instance.GetClassProperties(id);
+                    list = BasicSitePropertiesDA.Instance.GetBasicSiteProperties(id);
                     MemCache.AddCache(_cachekey, list);
                 }
                 else
                 {
-                    list = (ClassPropertiesEntity)obj;
+                    list = (BasicSitePropertiesEntity)obj;
                 }
             }
             else
             {
-                list = ClassPropertiesDA.Instance.GetClassProperties(id);
+                list = BasicSitePropertiesDA.Instance.GetBasicSiteProperties(id);
             }
             return list;
         } 
         public int ProcBindProperties(int classid, string propertiesstr)
         {
-            return ClassPropertiesDA.Instance.ProcBindProperties(classid,  propertiesstr);
+            return BasicSitePropertiesDA.Instance.ProcBindProperties(classid,  propertiesstr);
 
         }
         public int ProcGetProperties(int classid, string propertiesstr)
         {
-            return ClassPropertiesDA.Instance.ProcGetProperties(classid, propertiesstr);
+            return BasicSitePropertiesDA.Instance.ProcGetProperties(classid, propertiesstr);
 
         }
         /// <summary>
@@ -164,20 +164,20 @@ namespace SuperMarket.BLL.CatograyDB
         /// <returns></returns>
         public int GetPropertiesId(int classid, string propertiesstr)
         {
-            return ClassPropertiesDA.Instance.GetPropertiesId(classid, propertiesstr); 
+            return BasicSitePropertiesDA.Instance.GetPropertiesId(classid, propertiesstr); 
         }
         public int BindProperties(int classid, string propertname,int sort)
         {
-            return ClassPropertiesDA.Instance.BindProperties(classid, propertname,sort);
+            return BasicSitePropertiesDA.Instance.BindProperties(classid, propertname,sort);
 
         }
         
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<ClassPropertiesEntity> GetClassPropertiesList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
+        public IList<BasicSitePropertiesEntity> GetBasicSitePropertiesList(int pageSize, int pageIndex, ref  int recordCount,IList<ConditionUnit> wherelist)
         {
-            return ClassPropertiesDA.Instance.GetClassPropertiesList(pageSize, pageIndex, ref recordCount);
+            return BasicSitePropertiesDA.Instance.GetBasicSitePropertiesList(pageSize, pageIndex, ref recordCount);
         }    
         /// <summary>
                /// 根据分类id 获取对应的分类产品属性
@@ -185,26 +185,26 @@ namespace SuperMarket.BLL.CatograyDB
                /// <param name="classid"></param>
                /// <param name="pid"></param>
                /// <returns></returns> 
-        public IList<ClassPropertiesEntity> GetListByClassId(int classid,int parentid,bool cache=false)
+        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid,int parentid,bool cache=false)
         {
-            IList<ClassPropertiesEntity> _objlistall = null;
+            IList<BasicSitePropertiesEntity> _objlistall = null;
             if (cache)
             {
-                string _cachekey = "ClassPropertiesList_" + classid + "_" + parentid;// SysCacheKey.VWClassPropertiesListKey;
+                string _cachekey = "BasicSitePropertiesList_" + siteid + "_" + parentid;// SysCacheKey.VWBasicSitePropertiesListKey;
                 object _objcache = MemCache.GetCache(_cachekey);
                 if (_objcache == null)
                 {
-                    _objlistall = ClassPropertiesDA.Instance.GetListByClassId(classid, parentid);
+                    _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid, parentid);
                 }
                 else
                 {
-                    _objlistall = (List<ClassPropertiesEntity>)_objcache;
+                    _objlistall = (List<BasicSitePropertiesEntity>)_objcache;
                 }
                 MemCache.AddCache(_cachekey, _objlistall);
             }
             else
             {
-                _objlistall = ClassPropertiesDA.Instance.GetListByClassId(classid, parentid);
+                _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid, parentid);
 
             }
             return _objlistall; 
@@ -216,26 +216,26 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="classid"></param>
         /// <param name="pid"></param>
         /// <returns></returns> 
-        public IList<ClassPropertiesEntity> GetPropertiesByClassId(int classid, bool cache=false )
+        public IList<BasicSitePropertiesEntity> GetPropertiesBySiteId(int siteid, bool cache=false )
         {
-            IList<ClassPropertiesEntity> list= GetListByClassId(classid, 0, cache);
+            IList<BasicSitePropertiesEntity> list= GetListBySiteId(siteid, 0, cache);
             var objlist = list.Where(p => p.IsSpec == 0);
             if(objlist!=null)
             {
-                return objlist.ToList<ClassPropertiesEntity>();
+                return objlist.ToList<BasicSitePropertiesEntity>();
             }
             return null;
         }
-        public async Task GetClassPropertiesAll()
+        public async Task GetBasicSitePropertiesAll()
         {
             await Task.Run(() =>
             {
-                string _cachekey ="ClassPropertiesListKey";// SysCacheKey.ClassPropertiesListKey;
+                string _cachekey ="BasicSitePropertiesListKey";// SysCacheKey.BasicSitePropertiesListKey;
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    IList<ClassPropertiesEntity> list = null;
-                    list = ClassPropertiesDA.Instance.GetClassPropertiesAll();
+                    IList<BasicSitePropertiesEntity> list = null;
+                    list = BasicSitePropertiesDA.Instance.GetBasicSitePropertiesAll();
                     MemCache.AddCache(_cachekey, list);
                 }
             });
@@ -245,9 +245,9 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <param name="dicEnum"></param>
         /// <returns></returns>
-        public bool IsExist(ClassPropertiesEntity classProperties)
+        public bool IsExist(BasicSitePropertiesEntity BasicSiteProperties)
         {
-            return ClassPropertiesDA.Instance.ExistNum(classProperties)>0;
+            return BasicSitePropertiesDA.Instance.ExistNum(BasicSiteProperties)>0;
         }
 		
 	}

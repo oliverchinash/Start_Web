@@ -4,7 +4,7 @@
 }
 
 @{
-    SuperMarket.Model.ClassPropertiesEntity entity = ViewBag.entity;
+    SuperMarket.Model.BasicSitePropertiesEntity entity = ViewBag.entity;
 
 }
 
@@ -77,11 +77,11 @@
     @{
         if (entity.Id == 0)
         {
-            <div class="deserve" style="cursor:pointer" id="ClassPropertiesAdd" onclick="SaveProperties()">添加</div>
+            <div class="deserve" style="cursor:pointer" id="BasicSitePropertiesAdd" onclick="SaveProperties()">添加</div>
         }
         else
         {
-            <div class="deserve" style="cursor:pointer" id="ClassPropertiesUpdate" onclick="SaveProperties()" >修改</div>
+            <div class="deserve" style="cursor:pointer" id="BasicSitePropertiesUpdate" onclick="SaveProperties()" >修改</div>
         }
     } 
     <input value="@entity.Id" style="display:none" id="hidId" />
@@ -97,7 +97,7 @@
         var _id = $("#hidId").val();
         var _sort = $("#txtSort").val();
         var _isactive = $("input[name='txtIsActive'][checked]").val();
-        $.post("/Class/ClassPropertiesEdit", {
+        $.post("/Class/BasicSitePropertiesEdit", {
             classid: _classid, name: _name, propid: _id, isactive: _isactive, sort: _sort
         }, function (data) {
             if (data > 0) {

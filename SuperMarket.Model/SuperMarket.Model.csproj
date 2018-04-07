@@ -57,8 +57,8 @@
     <Compile Include="Basic\CatograyDB\ClassCGScopeEntity.cs" />
     <Compile Include="Basic\CatograyDB\ClassesFoundEntity.cs" />
     <Compile Include="Basic\CatograyDB\ClassesMenuADEntity.cs" />
-    <Compile Include="Basic\CatograyDB\ClassProDetailsEntity.cs" />
-    <Compile Include="Basic\CatograyDB\ClassPropertiesEntity.cs" />
+    <Compile Include="Basic\CatograyDB\BasicSiteProDetailsEntity.cs" />
+    <Compile Include="Basic\CatograyDB\BasicSitePropertiesEntity.cs" />
     <Compile Include="Basic\CatograyDB\ComPropertyDetailsEntity.cs" />
     <Compile Include="Basic\CatograyDB\ComPropertyEntity.cs" />
     <Compile Include="Basic\CatograyDB\ConfigNavMenuEntity.cs" />
@@ -290,6 +290,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Basic\GYProvinceEntity.cs" />
     <Compile Include="Common\CommonKey.cs" />
+    <Compile Include="Common\DicEnumBox.cs" />
     <Compile Include="Common\CommonStatus.cs" />
     <Compile Include="Common\InquiryDicMenuCode.cs" />
     <Compile Include="Common\MemAuthAndRole.cs" />

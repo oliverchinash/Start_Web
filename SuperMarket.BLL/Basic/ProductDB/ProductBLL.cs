@@ -184,11 +184,25 @@ namespace SuperMarket.BLL.ProductDB
 
 
 
-        public VWProductEntity GetProductVW(int productid)
+        public VWProductEntity GetProductVW(int productid,bool iscache=false)
         {
-            string _cachekey = "GetProductVW_" + productid.ToString() ; 
-            object _objcache = MemCache.GetCache(_cachekey);
             VWProductEntity _obj = new VWProductEntity();
+            if (!iscache)
+                {
+                _obj = ProductDA.Instance.GetProductVW(productid);
+                if (_obj != null && _obj.Unit > 0)
+                {
+                    _obj.UnitName = DicUnitEnumBLL.Instance.GetDicUnitEnum(_obj.Unit).Name;
+                }
+                else
+                {
+                    _obj.UnitName = "件";
+                }
+            }
+            else
+            {
+  string _cachekey = "GetProductVW_" + productid.ToString() ; 
+            object _objcache = MemCache.GetCache(_cachekey);
             if (_objcache == null)
             {
                 _obj = ProductDA.Instance.GetProductVW(productid );
@@ -207,13 +221,32 @@ namespace SuperMarket.BLL.ProductDB
             {
                 _obj = (VWProductEntity)_objcache;
             }
+            }
+          
             return _obj;
         }
-        public VWProductEntity GetProVWByDetailId(int productdetailid)
+        public VWProductEntity GetProVWByDetailId(int productdetailid,bool iscache=false)
         {
-            string _cachekey = "GetProVWByDetailId_" + productdetailid.ToString() ;
-            object _objcache = MemCache.GetCache(_cachekey);
             VWProductEntity _obj = new VWProductEntity();
+            if (!iscache)
+            {
+                _obj = ProductDA.Instance.GetProVWByDetailId(productdetailid);
+                _obj.CGMemNickName = MemberInfoBLL.Instance.GetNickNameByMemId(_obj.CGMemId);
+                if (_obj != null && _obj.Unit > 0)
+                {
+                    _obj.UnitName = DicUnitEnumBLL.Instance.GetDicUnitEnum(_obj.Unit).Name;
+                }
+                else
+                {
+                    _obj.UnitName = "件";
+                }
+            }
+            else
+            {
+
+           
+                string _cachekey = "GetProVWByDetailId_" + productdetailid.ToString() ;
+            object _objcache = MemCache.GetCache(_cachekey);
             if (_objcache == null)
             {
                 _obj = ProductDA.Instance.GetProVWByDetailId(productdetailid);
@@ -231,6 +264,7 @@ namespace SuperMarket.BLL.ProductDB
             else
             {
                 _obj = (VWProductEntity)_objcache;
+                }
             }
             return _obj;
         }
@@ -256,9 +290,17 @@ namespace SuperMarket.BLL.ProductDB
             }
             return dt;
         }
-        public IList<VWProductEntity> GetListSpecsByStyleId(int styleid,int producttype ,int cgmemid)
+        public IList<VWProductEntity> GetListSpecsByStyleId(int styleid,int producttype ,int cgmemid,bool iscache=false)
         {
             IList<VWProductEntity> list = null;
+            if (!iscache)
+            {
+                list = ProductDA.Instance.GetListSpecsByStyleId(styleid, producttype, cgmemid);
+
+            }
+            else
+            {
+
             string _cachekey = "GetListProductByStyleId_"+ styleid+"_"+ producttype+ "_" + cgmemid;// SysCacheKey.ProductListKey;
             object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
@@ -269,6 +311,7 @@ namespace SuperMarket.BLL.ProductDB
             else
             {
                 list=(IList<VWProductEntity>)obj;
+                }
             }
             return list;
         }
@@ -332,7 +375,7 @@ namespace SuperMarket.BLL.ProductDB
         //                            orderbytype = StringUtils.GetDbInt(entity.CompareValue);
         //                        }
         //                        break;
-        //                    case SearchFieldName.ClassPropertiesStr:
+        //                    case SearchFieldName.BasicSitePropertiesStr:
         //                        {
         //                            propertistr = StringUtils.GetDbString(entity.CompareValue) ;
         //                        }

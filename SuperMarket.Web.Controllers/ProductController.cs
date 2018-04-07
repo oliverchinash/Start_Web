@@ -38,8 +38,7 @@ namespace SuperMarket.Web.MemberControllers
           
             _vwentity = ProductBLL.Instance.GetProVWByDetailId(_productdetailid);
             int  _productid = _vwentity.ProductId;
-
-            ViewBag.JiShiSong = _vwentity.JiShiSong;
+             
             _producttype = _vwentity.ProductType;
 
           //if(_vwentity.ProductType== (int)ProductType.SpecialPrice)
@@ -130,11 +129,10 @@ namespace SuperMarket.Web.MemberControllers
             int rediclassid = classid;//实际指向分类
             if (rediclassid == -1) rediclassid = 0;
             if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
-            int propertyid = _classentity.PropertiesClassId;
-            if(propertyid==0&& rediclassid>0)
+              siteid = _classentity.SiteId;
+            if(siteid == 0&& rediclassid>0)
             {
                 ClassesFoundEntity _classredirectentity = ClassesFoundBLL.Instance.GetClassesFound(rediclassid, true);
-                propertyid = _classredirectentity.PropertiesClassId==0? rediclassid: _classredirectentity.PropertiesClassId;
             }  
             if (brandid > 0&& classid==0)
             {
@@ -162,10 +160,10 @@ namespace SuperMarket.Web.MemberControllers
                     ViewBag.BrandList = brands;
                 } 
                 //获取分类属性
-                IList<ClassPropertiesEntity> _classpropertieslist = ClassPropertiesBLL.Instance.GetPropertiesByClassId(propertyid);
-                ViewBag.PropertiesList = _classpropertieslist; 
+                IList<BasicSitePropertiesEntity> _BasicSitePropertieslist = BasicSitePropertiesBLL.Instance.GetPropertiesBySiteId(siteid);
+                ViewBag.PropertiesList = _BasicSitePropertieslist; 
                 //获取分类属性值
-                IList<ClassProDetailsEntity> _classprodetailslist = ClassProDetailsBLL.Instance.GetProDetailsByClassId(propertyid);
+                IList<BasicSiteProDetailsEntity> _classprodetailslist = BasicSiteProDetailsBLL.Instance.GetProDetailsBySiteId(siteid);
                 ViewBag.ProDetailsList = _classprodetailslist;
             }
             if (brandid> 0)

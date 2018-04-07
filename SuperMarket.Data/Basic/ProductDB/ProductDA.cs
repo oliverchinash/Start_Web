@@ -459,7 +459,7 @@ namespace SuperMarket.Data.ProductDB
                     entity.IsBP = StringUtils.GetDbInt(reader["IsBP"]);  
                     entity.CGMemId = StringUtils.GetDbInt(reader["CGMemId"]);
                     entity.IsAhmTake = StringUtils.GetDbInt(reader["IsAhmTake"]); 
-                    entity.JiShiSong = StringUtils.GetDbInt(reader["JiShiSong"]);  
+                    entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);  
                     entity.IsOEM = StringUtils.GetDbInt(reader["IsOEM"]);
                     entity.ProductType = StringUtils.GetDbInt(reader["ProductType"]);
                     entity.ContentCms = StringUtils.GetDbString(reader["ContentCms"]);
@@ -634,7 +634,7 @@ WHERE a.Id=@ProductId and pd.ProductType=@ProductType ";
                     entity.ListShowMethod = StringUtils.GetDbInt(dr["ListShowMethod"]);
                     entity.CGMemId = StringUtils.GetDbInt(dr["CGMemId"]);
                     entity.IsAhmTake = StringUtils.GetDbInt(dr["IsAhmTake"]);
-                    entity.JiShiSong = StringUtils.GetDbInt(dr["JiShiSong"]);
+                    entity.SiteId = StringUtils.GetDbInt(dr["SiteId"]);
                     entityList.Add(entity);
                 }
             }

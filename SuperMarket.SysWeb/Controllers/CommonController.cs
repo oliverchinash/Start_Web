@@ -96,12 +96,12 @@ namespace SuperMarket.SysWeb.Controllers
         /// 根据分类得到对应属性
         /// </summary>
         /// <returns></returns>
-        public string GetPropertyByClass()
+        public string GetPropertyBySiteId()
         {
-            int _classid = FormString.IntSafeQ("classid");
+            int _siteid = FormString.IntSafeQ("siteid");
             int _pid = FormString.IntSafeQ("pid");//上级品牌Id，0代表第一级
-            IList<ClassPropertiesEntity> list = new List<ClassPropertiesEntity>();
-            list = ClassPropertiesBLL.Instance.GetListByClassId(_classid, _pid);
+            IList<BasicSitePropertiesEntity> list = new List<BasicSitePropertiesEntity>();
+            list = BasicSitePropertiesBLL.Instance.GetListByClassId(_siteid, _pid);
             var listfilter = list.Select(
                      p => new
                      {

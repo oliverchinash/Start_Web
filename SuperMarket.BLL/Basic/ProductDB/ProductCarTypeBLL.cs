@@ -186,13 +186,7 @@ namespace SuperMarket.BLL.ProductDB
         { 
             IList<ProductCarTypeEntity> list = null;
             list = ProductCarTypeDA.Instance.GetListByProductId(productid);
-            foreach (ProductCarTypeEntity _entity in list)
-            {
-                _entity.CarType1Name = CarTypeBLL.Instance.GetCarType(_entity.CarType1).Name;
-                _entity.CarType2Name = CarTypeBLL.Instance.GetCarType(_entity.CarType2).Name;
-                _entity.CarType3Name = CarTypeBLL.Instance.GetCarType(_entity.CarType3).Name;
-                _entity.CarType4Name = CarTypeBLL.Instance.GetCarType(_entity.CarType4).Name;
-            }
+          
             return list;
         }
         public async Task GetProductCarTypeAll()

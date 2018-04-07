@@ -736,16 +736,16 @@ namespace SuperMarket.Model
                 _IsAhmTake = value;
             }
         }
-        private int _JiShiSong;
-        public int JiShiSong
+        private int _SiteId;
+        public int SiteId
         {
             get
             {
-                return _JiShiSong;
+                return _SiteId;
             }
             set
             {
-                _JiShiSong = value;
+                _SiteId = value;
             }
         }
         
@@ -770,6 +770,22 @@ namespace SuperMarket.Model
         public IList<ProductStylePicsEntity> ProductPics;
         public IList<ProductPropertyEntity> ProductPropertys;
         public IList<ProductCarTypeEntity> ProductCarTypes;
+
+        public string Property1
+        {
+            get;
+            set;
+        }
+        public string Property2 { get; set; } 
+        public string Property3 { get; set; }
+        public string Property4 { get; set; }
+        public string Property5 { get; set; }
+        public string Property6 { get; set; }
+        public string Property7 { get; set; }
+        public string Property8 { get; set; }
+        public string Property9 { get; set; }
+        public string Property10 { get; set; }
+
         #endregion
     }
 }

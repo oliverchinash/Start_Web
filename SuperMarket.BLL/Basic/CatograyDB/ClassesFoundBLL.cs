@@ -463,7 +463,7 @@ namespace SuperMarket.BLL.CatograyDB
             return list;
         }
 
-        public IList<ClassesFoundEntity> GetClassesAllByPId(int parentid, bool iscache,int siteid, int classmenutype)
+        public IList<ClassesFoundEntity> GetClassesAllByPId(int parentid, bool iscache,int siteid, int classmenutype=0)
         {
             if (iscache == true)
             {

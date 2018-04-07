@@ -24,8 +24,8 @@ namespace SuperMarket.Model.Common
         public const string ProductId = "ProductId";
         public const string ClassId = "ClassId";
         public const string ClassIdStr = "ClassIdStr";
-        public const string ClassProperties = "ClassProperties";
-        public const string ClassPropertiesStr = "ClassPropertiesStr";
+        public const string BasicSiteProperties = "BasicSiteProperties";
+        public const string BasicSitePropertiesStr = "BasicSitePropertiesStr";
         public const string BrandId = "BrandId";
         public const string OrderByType = "OrderByType";
         public const string ProductType = "ProductType";

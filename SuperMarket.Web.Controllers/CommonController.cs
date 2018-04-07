@@ -97,8 +97,8 @@ namespace SuperMarket.Web.MemberControllers
         {
             int _classid = FormString.IntSafeQ("classid");
             int _parentid = FormString.IntSafeQ("pid");//上级 ，0代表第一级
-            IList<ClassPropertiesEntity> list = new List<ClassPropertiesEntity>();
-            list = ClassPropertiesBLL.Instance.GetListByClassId(_classid, _parentid);
+            IList<BasicSitePropertiesEntity> list = new List<BasicSitePropertiesEntity>();
+            list = BasicSitePropertiesBLL.Instance.GetListByClassId(_classid, _parentid);
             var listfilter = list.Select(
                      p => new
                      {
@@ -219,8 +219,8 @@ namespace SuperMarket.Web.MemberControllers
         public string GetSpecsShowByStyle()
         {
             int _styleid = FormString.IntSafeQ("styleid");
-            //IList<VWClassPropertiesEntity> _list = ClassPropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
-            IList<VWClassPropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
+            //IList<VWBasicSitePropertiesEntity> _list = BasicSitePropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
+            IList<VWBasicSitePropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
             string liststr = JsonJC.ObjectToJson(_list);
             return liststr;
         }

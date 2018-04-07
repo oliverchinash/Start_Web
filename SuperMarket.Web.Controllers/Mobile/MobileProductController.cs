@@ -336,8 +336,7 @@ namespace SuperMarket.Web.MemberControllers
             }
             VWProductNomalParamEntity paramentity = ProductExtBLL.Instance.GetProductNormalParamById(_vwentity.ProductId);
             ViewBag.VWProductEntity = _vwentity;
-            ViewBag.ProductParamEntity = paramentity; 
-            ViewBag.JiShiSong = _vwentity.JiShiSong;
+            ViewBag.ProductParamEntity = paramentity;  
             return View();
         }
         /// <summary>

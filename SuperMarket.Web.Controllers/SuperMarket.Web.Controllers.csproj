@@ -61,7 +61,6 @@
     <Compile Include="CashierController.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="CommentController.cs" />
-    <Compile Include="CommonController.cs" />
     <Compile Include="DiscussController.cs" />
     <Compile Include="ErrorController.cs" />
     <Compile Include="HelpController.cs" />

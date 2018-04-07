@@ -78,8 +78,8 @@
     <Compile Include="Basic\CatograyDB\ClassCGScopeDA.cs" />
     <Compile Include="Basic\CatograyDB\ClassesFoundDA.cs" />
     <Compile Include="Basic\CatograyDB\ClassesMenuADDA.cs" />
-    <Compile Include="Basic\CatograyDB\ClassProDetailsDA.cs" />
-    <Compile Include="Basic\CatograyDB\ClassPropertiesDA.cs" />
+    <Compile Include="Basic\CatograyDB\BasicSiteProDetailsDA.cs" />
+    <Compile Include="Basic\CatograyDB\BasicSitePropertiesDA.cs" />
     <Compile Include="Basic\CatograyDB\ComPropertyDA.cs" />
     <Compile Include="Basic\CatograyDB\ComPropertyDetailsDA.cs" />
     <Compile Include="Basic\CatograyDB\ConfigNavMenuDA.cs" />

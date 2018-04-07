@@ -346,13 +346,7 @@ namespace SuperMarket.Model
                 _ClassType = value;
             }
         }
-        public string ClassTypeName
-        {
-            get
-            {
-                return EnumEntityShow.Instance.GetEnumDes((CarTypeMenus)ClassType); 
-            }
-        }
+       
         /// <summary>
         /// 虚拟分类导向的分类 
         /// <summary>

@@ -69,16 +69,14 @@ namespace SuperMarket.SysWeb.Controllers
         /// </summary>
         /// <returns></returns>
         public int ClassInfoAdd()
-        {
-
-            int _pid = FormString.IntSafeQ("pid");
-
+        { 
+            int _pid = FormString.IntSafeQ("pid"); 
             int _adid = FormString.IntSafeQ("adid");
             int _ishot = FormString.IntSafeQ("ishot");
             int _isactive = FormString.IntSafeQ("isactive");
             int _sort = FormString.IntSafeQ("sort");
             int _hasproduct = FormString.IntSafeQ("hasproduct");
-            int _ClassType = FormString.IntSafeQ("classtype"); 
+            int _siteid = FormString.IntSafeQ("siteid"); 
             int _hasproperty = FormString.IntSafeQ("hasproperty");
             int _haspropertyclassid = FormString.IntSafeQ("haspropertyclassid");
             string _code = FormString.SafeQ("code");
@@ -94,7 +92,7 @@ namespace SuperMarket.SysWeb.Controllers
             entity.IsActive = _isactive;
             entity.Sort = _sort;
             entity.HasProduct = _hasproduct;
-            entity.ClassType = _ClassType; 
+            entity.SiteId = _siteid; 
             entity.HasProperties = _hasproperty;
             entity.PropertiesClassId = _haspropertyclassid;
             entity.Code = _code;
@@ -340,7 +338,7 @@ namespace SuperMarket.SysWeb.Controllers
         public ActionResult PropertiseManage()
         {  
             int _classid = QueryString.IntSafeQ("classid", -1);    
-            IList<ClassPropertiesEntity> entitylist = ClassPropertiesBLL.Instance.GetPropertiesByClassId(_classid, false);
+            IList<BasicSitePropertiesEntity> entitylist = BasicSitePropertiesBLL.Instance.GetPropertiesBySiteId(_classid, false);
             ViewBag.entitylist = entitylist;
             ViewBag.ClassId = _classid;
             return View();
@@ -349,12 +347,11 @@ namespace SuperMarket.SysWeb.Controllers
         { 
             int _classid = QueryString.IntSafeQ("classid", -1);
             int _propertyid = QueryString.IntSafeQ("propertyid", -1);
-            ClassPropertiesEntity entity = new ClassPropertiesEntity();
+            BasicSitePropertiesEntity entity = new BasicSitePropertiesEntity();
             if (_propertyid>0)
             {
-                entity = ClassPropertiesBLL.Instance.GetClassProperties(_propertyid,false);
-                ViewBag.ClassId = entity.ClassId;
-                ViewBag.ClassName = ClassesFoundBLL.Instance.GetClassesFound(entity.ClassId).Name; 
+                entity = BasicSitePropertiesBLL.Instance.GetBasicSiteProperties(_propertyid,false);
+                ViewBag.SiteId = entity.SiteId; 
             }
             else
             {
@@ -364,7 +361,7 @@ namespace SuperMarket.SysWeb.Controllers
             ViewBag.entity = entity; 
             return View();
         }
-        public int   ClassPropertiesEdit()
+        public int   BasicSitePropertiesEdit()
         {
             int _propid = FormString.IntSafeQ("propid");
             int _classid = FormString.IntSafeQ("classid");
@@ -372,13 +369,12 @@ namespace SuperMarket.SysWeb.Controllers
             int _isactive = FormString.IntSafeQ("isactive");
             int _sort = FormString.IntSafeQ("sort");
 
-            ClassPropertiesEntity entity = new ClassPropertiesEntity();
+            BasicSitePropertiesEntity entity = new BasicSitePropertiesEntity();
             if (_propid > 0)
             {
-                entity = ClassPropertiesBLL.Instance.GetClassProperties(_propid, false);
+                entity = BasicSitePropertiesBLL.Instance.GetBasicSiteProperties(_propid, false);
             }
-           
-            entity.ClassId = _classid;
+            
             entity.Name = _name;
             entity.Sort = _sort;
             entity.IsActive = _isactive;
@@ -392,7 +388,7 @@ namespace SuperMarket.SysWeb.Controllers
                 entity.RootPropertyId = 0; 
             }
           
-            int _result = ClassPropertiesBLL.Instance.AddClassProperties(entity);
+            int _result = BasicSitePropertiesBLL.Instance.AddBasicSiteProperties(entity);
             return _result;
 
         }
@@ -400,7 +396,7 @@ namespace SuperMarket.SysWeb.Controllers
         public ActionResult PropertiseDetailManage()
         {
             int _propid = QueryString.IntSafeQ("propid", -1); 
-            IList<ClassProDetailsEntity> entitylist = ClassProDetailsBLL.Instance.GetListByPropertyId(_propid, 0,false);
+            IList<BasicSiteProDetailsEntity> entitylist = BasicSiteProDetailsBLL.Instance.GetListByPropertyId(_propid, 0,false);
             ViewBag.entitylist = entitylist;
             ViewBag.PropertyId = _propid;
             return View();
@@ -409,14 +405,13 @@ namespace SuperMarket.SysWeb.Controllers
         { 
             int _propid = QueryString.IntSafeQ("propid", -1);
             int _pdid = QueryString.IntSafeQ("pdid", -1);
-            ClassProDetailsEntity entity = new ClassProDetailsEntity();
+            BasicSiteProDetailsEntity entity = new BasicSiteProDetailsEntity();
             if (_pdid > 0)
             { 
-                entity = ClassProDetailsBLL.Instance.GetClassProDetails(_pdid,false);
+                entity = BasicSiteProDetailsBLL.Instance.GetBasicSiteProDetails(_pdid,false);
                 ViewBag.PropertyId = entity.PropertyId;
-                ClassPropertiesEntity prp= ClassPropertiesBLL.Instance.GetClassProperties(entity.PropertyId);
-                ViewBag.PropertyName = prp.Name;
-                ViewBag.ClassName = ClassesFoundBLL.Instance.GetClassesFound(prp.ClassId).Name;
+                BasicSitePropertiesEntity prp= BasicSitePropertiesBLL.Instance.GetBasicSiteProperties(entity.PropertyId);
+                ViewBag.PropertyName = prp.Name; 
 
             }
             else
@@ -433,8 +428,8 @@ namespace SuperMarket.SysWeb.Controllers
             string _name = FormString.SafeQ("name");
             int _isactive = FormString.IntSafeQ("isactive");
             int _sort = FormString.IntSafeQ("sort");
-            ClassProDetailsEntity entity = new ClassProDetailsEntity();
-            if (_pdid > 0) entity = ClassProDetailsBLL.Instance.GetClassProDetails(_pdid);
+            BasicSiteProDetailsEntity entity = new BasicSiteProDetailsEntity();
+            if (_pdid > 0) entity = BasicSiteProDetailsBLL.Instance.GetBasicSiteProDetails(_pdid);
              
             entity.PropertyId = _propid;
             entity.Name = _name;
@@ -448,7 +443,7 @@ namespace SuperMarket.SysWeb.Controllers
                 entity.PicUrl = "";
               
             } 
-            int _result = ClassProDetailsBLL.Instance.AddClassProDetails(entity);
+            int _result = BasicSiteProDetailsBLL.Instance.AddBasicSiteProDetails(entity);
             return _result;
 
         }

@@ -137,14 +137,15 @@
             <li id="liClassType">
                 <div class="Backstage_td1">对应分类的类型：</div>
                 <div class="Backstage_td2">
-                    <select id="selClassType">
-                        <option value="1"  @(op == "add"? "" : (entity.ClassType == 1?"selected=selected":""))> 汽车用品 </option>
-                        <option value="0"  @(op == "add"? "" : (entity.ClassType == 0?"selected=selected":""))>  汽车配件  </option>
-                        <option value="2"  @(op == "add"? "" : (entity.ClassType == 2?"selected=selected":""))>  通用件  </option>
-                        <option value="3"  @(op == "add"? "" : (entity.ClassType == 3?"selected=selected":""))>  辅材  </option>
-                        <option value="4"  @(op == "add"? "" : (entity.ClassType == 4?"selected=selected":""))>  汽修工具  </option>
-                    </select>  
-                  
+                    <select id="selSiteId" name="">
+                        @{
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.WebSiteEnum>();
+                            foreach(SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
+                            {
+                                <option value="@entityu.EnumValue" @(entity.SiteId==entityu.EnumValue?"selected":"")>@entityu.EnumDes</option>
+                            }
+                        }
+                    </select>   
                 </div>
             </li>
 
@@ -215,13 +216,13 @@
             var _ishot = $("#selIsHot").val();
 
             var _hasproduct = $("#selHasProduct").val(); 
-            var _classtype = $("#selClassType").val();
+            var _siteid = $("#selSiteId").val();
 
             var _hasproperty = $("#selHasProperties").val();
             var _haspropertyclassid = $("#txtPropertiesClassId").val();
 
             $.post("/Class/ClassInfoAdd", {
-                hasproduct: _hasproduct,classtype: _classtype, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
+                hasproduct: _hasproduct,  siteid: _siteid, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
                 pid: _pid,
                 code: _code, name: _name, fullname: _fullname, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, ishot: _ishot, adid: _adid
             }, function (data) {

@@ -160,22 +160,46 @@ namespace SuperMarket.Web.CommonControllers
             string liststr = JsonJC.ObjectToJson(list);
             return liststr;
         }
+
+        
         /// <summary>
-        /// 根据分类得到对应属性
+        /// 获取分类
         /// </summary>
         /// <returns></returns>
-        public string GetPropertyByClass()
+        public string GetClassBySiteId()
         {
-            int _classid = FormString.IntSafeQ("classid");
+            int _siteid = FormString.IntSafeQ("siteid");
             int _parentid = FormString.IntSafeQ("pid");//上级 ，0代表第一级
-            IList<ClassPropertiesEntity> list = new List<ClassPropertiesEntity>();
-            list = ClassPropertiesBLL.Instance.GetListByClassId(_classid, _parentid);
+            IList<ClassesFoundEntity> list = new List<ClassesFoundEntity>();
+            list = ClassesFoundBLL.Instance.GetClassesAllByPId( _parentid,false, _siteid);
             var listfilter = list.Select(
                      p => new
                      {
                          Id = p.Id,
-                         Name = p.Name,
-                         IsSpec = p.IsSpec,
+                         Name = p.Name, 
+                         IsEnd = p.IsEnd,
+                         Sort = p.Sort
+                     });
+            string liststr = JsonJC.ObjectToJson(listfilter);
+            return liststr;
+        }
+
+        /// <summary>
+        /// 根据分类得到对应属性
+        /// </summary>
+        /// <returns></returns>
+        public string GetPropertyBySiteId()
+        {
+            int _siteid = FormString.IntSafeQ("siteid");
+            int _parentid = FormString.IntSafeQ("pid");//上级 ，0代表第一级
+            IList<BasicSitePropertiesEntity> list = new List<BasicSitePropertiesEntity>();
+            list = BasicSitePropertiesBLL.Instance.GetListBySiteId(_siteid, _parentid);
+            var listfilter = list.Select(
+                     p => new
+                     {
+                         Id = p.Id,
+                         Code = p.Code,
+                         Name = p.Name, 
                          Sort = p.Sort
                      });
             string liststr = JsonJC.ObjectToJson(listfilter);
@@ -190,8 +214,8 @@ namespace SuperMarket.Web.CommonControllers
         {
             int _propertyId = FormString.IntSafeQ("propertyId");
             int _pid = FormString.IntSafeQ("pid");//上级品牌Id，0代表第一级
-            IList<ClassProDetailsEntity> list = new List<ClassProDetailsEntity>();
-            list = ClassProDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
+            IList<BasicSiteProDetailsEntity> list = new List<BasicSiteProDetailsEntity>();
+            list = BasicSiteProDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
             //list = ComPropertyDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
             var listfilter = list.Select(
                      p => new
@@ -316,49 +340,12 @@ namespace SuperMarket.Web.CommonControllers
         public string GetSpecsShowByStyle()
         {
             int _styleid = FormString.IntSafeQ("styleid");
-            //IList<VWClassPropertiesEntity> _list = ClassPropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
-            IList<VWClassPropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
+            //IList<VWBasicSitePropertiesEntity> _list = BasicSitePropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
+            IList<VWBasicSitePropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
             string liststr = JsonJC.ObjectToJson(_list);
             return liststr;
         }
-        public string GetSpecValues()
-        {
-            int _hasproduct = FormString.IntSafeQ("hasproduct");
-            int _classid = FormString.IntSafeQ("classid");
-            int _styleid = FormString.IntSafeQ("styleid");
-            int _brandid = FormString.IntSafeQ("brandid");
-            IList<ClassProDetailsEntity> _list = null;
-            int _propertyid = FormString.IntSafeQ("propertyid");
-            if (_hasproduct == 1)
-            {
-                //_list= ProductSpecBLL.Instance.GetSpecValsByStyle(_styleid, _propertyid);
-            }
-            else
-            {
-                //_list= ProductStyleProBLL.Instance.GetSpecValsByBrand(_brandid, _classid, _propertyid);
-            }
-            //if (_hasproduct == 1)
-            //{
-            //    _productids = FormString.SafeQ("productids");
-            //    if (!string.IsNullOrEmpty(_productids))
-            //    {
-            //        ids = ids + "," + _productids;
-            //    }
-            //    _list = ProductSpecBLL.Instance.GetSpecValsByProducts(ids, _propertyid);
-            //}
-            //else
-            //{
-            //    _styleids = FormString.SafeQ("styleids");
-            //    if (!string.IsNullOrEmpty(_styleids))
-            //    {
-            //        ids = ids + "," + _styleids;
-            //    }
-            //    _list = ProductStyleProBLL.Instance.GetSpecValsByStyles(ids, _propertyid);
-            //} 
-            string liststr = JsonJC.ObjectToJson(_list);
-            return liststr;
-        }
-
+       
       
         /// <summary>
         /// 获取产品详情

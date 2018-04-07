@@ -381,24 +381,7 @@ namespace SuperMarket.Model
         [Description("前年订单")]
         YearPrevious = 3
     }
-    /// <summary>
-    /// 产品单位对应
-    /// </summary>
-    public enum UnitEnum
-    {
-        [Description("组")]
-        ZU = 1,
-        [Description("个")]
-        GE = 2,
-        [Description("件")]
-        JIAN = 3,
-        [Description("箱")]
-        XIANG = 4,
-        [Description("套")]
-        TAO = 5,
-        [Description("桶")]
-        TONG = 6
-    }
+   
     /// <summary>
     /// 分类属性类型
     /// </summary>
@@ -573,27 +556,7 @@ namespace SuperMarket.Model
         [Description("厂家")]
         Manufactor = 4
     }
-    /// <summary>
-    /// 商品类型：1汽车用品，0汽车配件,2通用件,3辅材,4汽修工具,5工程机械分类,6商用车汽车配件,7乘用车汽车配件
-    /// </summary>
-    public enum CarTypeMenus
-    {
-        [Description("汽车用品")]
-        QCYP = 1,
-        [Description("通用件")]
-        TYJ = 2,
-        [Description("辅材")]
-        FC = 3,
-        [Description("汽修工具")]
-        QXGJ = 4,
-        [Description("工程机械")]
-        GCJX = 5,
-        [Description("商用车配件")]
-        SYCPJ = 6,
-        [Description("乘用车配件")]
-        CYCPJ = 7,
-    }
-
+    
     /// <summary>
     /// 评论状态
     /// </summary>
@@ -1186,4 +1149,7 @@ namespace SuperMarket.Model
         Profit = 4,
     }
     #endregion
+
+
+   
 }

@@ -284,7 +284,7 @@ input{width:80px; height:30px; border:solid #ccc 1px; margin-left:8px; }
 .product-main-next{ width:120px; height:30px; float:left; margin-top:20px; margin-left:30px;border:solid #999 1px; background:#fff; font-family:"微软雅黑"; line-height:30px; font-size:14px; text-align:center; color:#333; cursor:pointer; margin-bottom:30px;}
 .product-main .product-main-template{ width:100%; height:500px; float:left; border:solid #999 1px; margin-top:10px;}
 .Attributes{ width:100%; height:auto; float:left; margin-left:10px}
-.Attributes > span{ width:48px; float:left; color:#333}
+.Attributes > span{ width:80px; float:left; color:#333}
 .Attributes select{ width:150px; float:left; height:25px; margin-top:2px;}
 #CategorySelector{
  clear:both;

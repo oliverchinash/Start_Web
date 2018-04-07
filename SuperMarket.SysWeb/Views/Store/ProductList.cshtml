@@ -157,21 +157,12 @@
 <script>
 
     function FunAddProduct(obj) {
-
-        debugger
-
-        var _styleId = $(obj).attr("styleId");
- 
-        if (_styleId == null || _styleId == "" || _styleId == undefined || _styleId == 0) {
-            window.location.href = "/Store/PStyleList";
-        }
-        else {
-            window.location.href = "/Store/ProductEdit?StyleId=" + _styleId;
-        }
+          
+            window.location.href = "/Store/ProductEdit?ProductId=0" ;
+      
     }
 
-    function FunSearchProduct() {
-        debugger
+    function FunSearchProduct() { 
         var _productName = $("#txtProductName").val();
         window.location.href = "/Store/ProductList?productName=" + _productName;
     }

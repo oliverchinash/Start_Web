@@ -74,16 +74,16 @@
 
     <div class="title_main">
         请选择类型:
-        <select id="selClassType"> 
-            <option value="-1">请选择类型</option> 
-            <option value="1">汽车用品</option> 
-            <option value="2">通用件</option> 
-            <option value="3">辅材</option> 
-            <option value="4">汽修工具</option>
-            <option value="5">工程机械</option>
-            <option value="6">商用车配件</option>
-            <option value="7">乘用车配件</option>  
+        <select id="selSiteId" name="">
+            @{
+                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.WebSiteEnum>();
+                foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
+                {
+                    <option value="@entityu.EnumValue" @(ViewBag.SiteId == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
+                }
+            }
         </select>
+        
         请选择层级:
         <select id="selLevel"> 
             <option value="0">请选择层级</option> 
@@ -138,8 +138,7 @@
                 {
                     <div class="admin_detail">
                         <ul>
-                            <li class="li_iterm" style="width:10%">@entity.Name</li>
-                            <li class="li_iterm" style="width:10%">@(entity.ClassTypeName)</li>
+                            <li class="li_iterm" style="width:10%">@entity.Name</li> 
                             <li class="li_iterm" style="width:10%">@(entity.ClassLevel)</li>
                             <li class="li_iterm" style="width:10%">@(entity.IsEnd==1?"是":"否")</li>
                             <li class="li_iterm" style="width:10%" id="@("isactive"+entity.Id)">@(entity.IsActive == 1 ? "有效" : "无效")</li>
@@ -191,8 +190,7 @@
                 </div>
             }
         }
-        <input value="@Request["level"]" type="hidden" id="hidlevel" />
-        <input value="@ViewBag.ClassType" type="hidden" id="hidClassType"/>
+        <input value="@Request["level"]" type="hidden" id="hidlevel" /> 
         
     </div>
 </div>
@@ -219,8 +217,8 @@
         var _level = $("#selLevel").val();
         var _isactive = $("#selIsActive").val();
         var _name = $("#txtName").val();
-        var _classtype = $("#selClassType").val();
-        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&classtype=" + _classtype;
+        var _siteid = $("#selSiteId").val();
+        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&siteid=" + _siteid;
     }
 
     function FunDisable(obj) { 

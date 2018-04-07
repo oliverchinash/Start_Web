@@ -9,7 +9,7 @@ using System.Data.Common;
 using SuperMarket.Model;
 
 /*****************************************
-功能描述：ClassProperties表的数据访问类。
+功能描述：BasicSiteProperties表的数据访问类。
 创建时间：2016/10/31 13:04:59
 创 建 人：jc001
 变更记录：
@@ -17,12 +17,12 @@ using SuperMarket.Model;
 namespace SuperMarket.Data.CatograyDB
 {
 	/// <summary>
-	/// ClassPropertiesEntity的数据访问操作
+	/// BasicSitePropertiesEntity的数据访问操作
 	/// </summary>
-	public partial class ClassPropertiesDA: BaseSuperMarketDB
+	public partial class BasicSitePropertiesDA: BaseSuperMarketDB
     {
         #region 实例化
-        public static ClassPropertiesDA Instance
+        public static BasicSitePropertiesDA Instance
         {
             get
             {
@@ -35,26 +35,26 @@ namespace SuperMarket.Data.CatograyDB
             static Nested()
             {
             }
-            internal static readonly ClassPropertiesDA instance = new ClassPropertiesDA();
+            internal static readonly BasicSitePropertiesDA instance = new BasicSitePropertiesDA();
         }
         #endregion
 		#region 代码生成
 		 #region  自动产生
 		/// <summary>
-		/// 插入一条记录到表ClassProperties，如果表中存在自增字段，则返回值为新记录的自增字段值，否则返回0
+		/// 插入一条记录到表BasicSiteProperties，如果表中存在自增字段，则返回值为新记录的自增字段值，否则返回0
 		/// </summary>
 		/// <param name="db">数据库操作对象</param>
-		/// <param name="classProperties">待插入的实体对象</param>
-		public int AddClassProperties(ClassPropertiesEntity entity)
+		/// <param name="BasicSiteProperties">待插入的实体对象</param>
+		public int AddBasicSiteProperties(BasicSitePropertiesEntity entity)
 		{
-		   string sql=@"insert into ClassProperties( [Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId])VALUES
-			            ( @Code,@Name,@ClassId,@ParentId,@IsActive,@Sort,@RootPropertyId,@CanInput,@IsSpec,@ComPropertyId);
+		   string sql= @"insert into BasicSiteProperties( [Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId])VALUES
+			            ( @Code,@Name,@SiteId,@ParentId,@IsActive,@Sort,@RootPropertyId,@CanInput,@IsSpec,@ComPropertyId);
 			SELECT SCOPE_IDENTITY();";
 	        DbCommand cmd = db.GetSqlStringCommand(sql);
 	   
 			db.AddInParameter(cmd,"@Code",  DbType.String,entity.Code);
 			db.AddInParameter(cmd,"@Name",  DbType.String,entity.Name);
-			db.AddInParameter(cmd,"@ClassId",  DbType.Int32,entity.ClassId);
+			db.AddInParameter(cmd, "@SiteId",  DbType.Int32,entity.SiteId);
 			db.AddInParameter(cmd,"@ParentId",  DbType.Int32,entity.ParentId);
 			db.AddInParameter(cmd,"@IsActive",  DbType.Int32,entity.IsActive);
 			db.AddInParameter(cmd,"@Sort",  DbType.Int32,entity.Sort);
@@ -72,18 +72,18 @@ namespace SuperMarket.Data.CatograyDB
 		/// 如果数据库有数据被更新了则返回True，否则返回False
 		/// </summary>
 		/// <param name="db">数据库操作对象</param>
-		/// <param name="classProperties">待更新的实体对象</param>
-		public   int UpdateClassProperties(ClassPropertiesEntity entity)
+		/// <param name="BasicSiteProperties">待更新的实体对象</param>
+		public   int UpdateBasicSiteProperties(BasicSitePropertiesEntity entity)
 		{
-			string sql=@" UPDATE dbo.[ClassProperties] SET
-                       [Code]=@Code,[Name]=@Name,[ClassId]=@ClassId,[ParentId]=@ParentId,[IsActive]=@IsActive,[Sort]=@Sort,[RootPropertyId]=@RootPropertyId,[CanInput]=@CanInput,[IsSpec]=@IsSpec,[ComPropertyId]=@ComPropertyId
+			string sql= @" UPDATE dbo.[BasicSiteProperties] SET
+                       [Code]=@Code,[Name]=@Name,[SiteId]=@SiteId,[ParentId]=@ParentId,[IsActive]=@IsActive,[Sort]=@Sort,[RootPropertyId]=@RootPropertyId,[CanInput]=@CanInput,[IsSpec]=@IsSpec,[ComPropertyId]=@ComPropertyId
                        WHERE [Id]=@id";
 		    DbCommand cmd = db.GetSqlStringCommand(sql);
 			
 			db.AddInParameter(cmd,"@Id",  DbType.Int32,entity.Id);
 			db.AddInParameter(cmd,"@Code",  DbType.String,entity.Code);
 			db.AddInParameter(cmd,"@Name",  DbType.String,entity.Name);
-			db.AddInParameter(cmd,"@ClassId",  DbType.Int32,entity.ClassId);
+			db.AddInParameter(cmd, "@SiteId",  DbType.Int32,entity.SiteId);
 			db.AddInParameter(cmd,"@ParentId",  DbType.Int32,entity.ParentId);
 			db.AddInParameter(cmd,"@IsActive",  DbType.Int32,entity.IsActive);
 			db.AddInParameter(cmd,"@Sort",  DbType.Int32,entity.Sort);
@@ -96,9 +96,9 @@ namespace SuperMarket.Data.CatograyDB
 			/// <summary>
 		/// 根据主键值删除记录。如果数据库不存在这条数据将返回0
 		/// </summary>
-		public  int  DeleteClassPropertiesByKey(int id)
+		public  int  DeleteBasicSitePropertiesByKey(int id)
 	    {
-			string sql=@"delete from ClassProperties where  and Id=@Id";
+			string sql=@"delete from BasicSiteProperties where  and Id=@Id";
 			DbCommand cmd = db.GetSqlStringCommand(sql);
 		    db.AddInParameter(cmd,"@Id", DbType.Int32,id); 
 			return  db.ExecuteNonQuery(cmd);
@@ -107,9 +107,9 @@ namespace SuperMarket.Data.CatograyDB
         /// 删除失效记录，默认保留2个月
         /// </summary>
         /// <returns></returns>
-        public int DeleteClassPropertiesDisabled()
+        public int DeleteBasicSitePropertiesDisabled()
         {
-            string sql = @"delete from  ClassProperties  where  IsActive=0 and DisabledTime<DATEADD(month, -2, getDate())";
+            string sql = @"delete from  BasicSiteProperties  where  IsActive=0 and DisabledTime<DATEADD(month, -2, getDate())";
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             return db.ExecuteNonQuery(cmd);
         }
@@ -118,9 +118,9 @@ namespace SuperMarket.Data.CatograyDB
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DeleteClassPropertiesByIds(string ids)
+        public int DeleteBasicSitePropertiesByIds(string ids)
         {
-            string sql = @"Delete from ClassProperties  where Id in (" + ids + ")";
+            string sql = @"Delete from BasicSiteProperties  where Id in (" + ids + ")";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             return db.ExecuteNonQuery(cmd);
         }
@@ -129,9 +129,9 @@ namespace SuperMarket.Data.CatograyDB
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DisableClassPropertiesByIds(string ids)
+        public int DisableBasicSitePropertiesByIds(string ids)
         {
-            string sql = @"Update   ClassProperties set IsActive=0  where Id in ("+ ids + ")";
+            string sql = @"Update   BasicSiteProperties set IsActive=0  where Id in ("+ ids + ")";
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             return db.ExecuteNonQuery(cmd);
         }
@@ -140,16 +140,16 @@ namespace SuperMarket.Data.CatograyDB
 		/// </summary>
 		/// <param name="db">数据库操作对象</param>
 		/// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
-		public   ClassPropertiesEntity GetClassProperties(int id)
+		public   BasicSitePropertiesEntity GetBasicSiteProperties(int id)
 		{
-			string sql=@"SELECT  [Id],[Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId]
+			string sql= @"SELECT  [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId]
 							FROM
-							dbo.[ClassProperties] WITH(NOLOCK)	
+							dbo.[BasicSiteProperties] WITH(NOLOCK)	
 							WHERE [Id]=@id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             
 			db.AddInParameter(cmd,"@Id", DbType.Int32,id);
-    		ClassPropertiesEntity entity=new ClassPropertiesEntity();
+    		BasicSitePropertiesEntity entity=new BasicSitePropertiesEntity();
 			using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 if (reader.Read())
@@ -157,7 +157,7 @@ namespace SuperMarket.Data.CatograyDB
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.Code=StringUtils.GetDbString(reader["Code"]);
 					entity.Name=StringUtils.GetDbString(reader["Name"]);
-					entity.ClassId=StringUtils.GetDbInt(reader["ClassId"]);
+					entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);
 					entity.ParentId=StringUtils.GetDbInt(reader["ParentId"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
 					entity.Sort=StringUtils.GetDbInt(reader["Sort"]);
@@ -171,7 +171,7 @@ namespace SuperMarket.Data.CatograyDB
 		}
         public int ProcBindProperties(int properclassid, string strproperties)
         {
-            string sql = @"EXEC Proc_ClassPropertiesEdit @ProperClassId, @PropertiesStr";
+            string sql = @"EXEC Proc_BasicSitePropertiesEdit @ProperClassId, @PropertiesStr";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@ProperClassId", DbType.Int32, properclassid);
@@ -180,36 +180,36 @@ namespace SuperMarket.Data.CatograyDB
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
         }
-        public int ProcGetProperties(int classid, string propertiesstr)
+        public int ProcGetProperties(int siteid, string propertiesstr)
         {
-            string sql = @"EXEC Proc_GetPropertiesIdBindClass @ClassId, @PropertiesStr";
+            string sql = @"EXEC Proc_GetPropertiesIdBindClass @SiteId, @PropertiesStr";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
-            db.AddInParameter(cmd, "@ClassId", DbType.Int32, classid);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
             db.AddInParameter(cmd, "@PropertiesStr", DbType.String, propertiesstr);
             object identity = db.ExecuteScalar(cmd);
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
         }
-        public int  GetPropertiesId(int classid, string propertiesstr)
+        public int  GetPropertiesId(int siteid, string propertiesstr)
         {
-            string sql = @"SELECT Id FROM dbo.ClassProperties WHERE ClassId=@ClassId AND name=@Name";
+            string sql = @"SELECT Id FROM dbo.BasicSiteProperties WHERE SiteId=@SiteId AND name=@Name";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
-            db.AddInParameter(cmd, "@ClassId", DbType.Int32, classid);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
             db.AddInParameter(cmd, "@Name", DbType.String, propertiesstr);
             object identity = db.ExecuteScalar(cmd);
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
         }
-        public int BindProperties(int classid, string propertname,int sort)
+        public int BindProperties(int siteid, string propertname,int sort)
         {
-            string sql = @"IF NOT EXISTS (SELECT 1 FROM dbo.ClassProperties WHERE ClassId=@ClassId AND name=@Name )
+            string sql = @"IF NOT EXISTS (SELECT 1 FROM dbo.BasicSiteProperties WHERE SiteId=@SiteId AND name=@Name )
 BEGIN 
- INSERT INTO   dbo.ClassProperties
+ INSERT INTO   dbo.BasicSiteProperties
          ( Code ,
            Name ,
-           ClassId ,
+           SiteId ,
            ParentId ,
            IsActive ,
            Sort ,
@@ -221,7 +221,7 @@ BEGIN
          )
  VALUES  ( '' , -- Code - varchar(20)
            @Name , -- Name - varchar(50)
-           @ClassId , -- ClassId - int
+           @SiteId , -- ClassId - int
            0 , -- ParentId - int
            1 , -- IsActive - int
            @Sort , -- Sort - int
@@ -234,7 +234,7 @@ BEGIN
 END";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
-            db.AddInParameter(cmd, "@ClassId", DbType.Int32, classid);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
             db.AddInParameter(cmd, "@Name", DbType.String, propertname);
             db.AddInParameter(cmd, "@Sort", DbType.Int32, sort);
             return  db.ExecuteNonQuery(cmd);
@@ -251,17 +251,17 @@ END";
         /// </summary>
         /// <param name="db">数据库操作对象</param>
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
-        public   IList<ClassPropertiesEntity> GetClassPropertiesList(int pagesize, int pageindex, ref  int recordCount )
+        public   IList<BasicSitePropertiesEntity> GetBasicSitePropertiesList(int pagesize, int pageindex, ref  int recordCount )
 		{
-			string sql=@"SELECT   [Id],[Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId]
+			string sql= @"SELECT   [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId]
 						FROM
 						(SELECT ROW_NUMBER() OVER (ORDER BY Id desc) AS ROWNUMBER,
-						 [Id],[Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[ClassProperties] WITH(NOLOCK)	
+						 [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[BasicSiteProperties] WITH(NOLOCK)	
 						WHERE  1=1 ) as temp 
 						where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
 			
-			string sql2=@"Select count(1) from dbo.[ClassProperties] with (nolock) ";
-            IList<ClassPropertiesEntity> entityList = new List< ClassPropertiesEntity>();
+			string sql2=@"Select count(1) from dbo.[BasicSiteProperties] with (nolock) ";
+            IList<BasicSitePropertiesEntity> entityList = new List< BasicSitePropertiesEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
 		    db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
 		    db.AddInParameter(cmd, "@PageSize", DbType.Int32, pagesize);
@@ -270,11 +270,11 @@ END";
             {
                 while (reader.Read())
                 {
-					ClassPropertiesEntity entity=new ClassPropertiesEntity();
+					BasicSitePropertiesEntity entity=new BasicSitePropertiesEntity();
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.Code=StringUtils.GetDbString(reader["Code"]);
 					entity.Name=StringUtils.GetDbString(reader["Name"]);
-					entity.ClassId=StringUtils.GetDbInt(reader["ClassId"]);
+					entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);
 					entity.ParentId=StringUtils.GetDbInt(reader["ParentId"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
 					entity.Sort=StringUtils.GetDbInt(reader["Sort"]);
@@ -299,23 +299,23 @@ END";
             }
             return entityList;
      	}
-        public IList<ClassPropertiesEntity> GetListByClassId(int classid,int parentid)
+        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid,int parentid)
         {
-            string sql = @"SELECT    [Id],[Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[ClassProperties] WITH(NOLOCK)
-where ClassId=@ClassId and ParentId=@ParentId Order by Sort desc";
-            IList<ClassPropertiesEntity> entityList = new List<ClassPropertiesEntity>();
+            string sql = @"SELECT    [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[BasicSiteProperties] WITH(NOLOCK)
+where SiteId=@SiteId and ParentId=@ParentId Order by Sort desc";
+            IList<BasicSitePropertiesEntity> entityList = new List<BasicSitePropertiesEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
-            db.AddInParameter(cmd, "@ClassId", DbType.Int32, classid);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
             db.AddInParameter(cmd, "@ParentId", DbType.Int32, parentid);
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 while (reader.Read())
                 {
-                    ClassPropertiesEntity entity = new ClassPropertiesEntity();
+                    BasicSitePropertiesEntity entity = new BasicSitePropertiesEntity();
                     entity.Id = StringUtils.GetDbInt(reader["Id"]);
                     entity.Code = StringUtils.GetDbString(reader["Code"]);
                     entity.Name = StringUtils.GetDbString(reader["Name"]);
-                    entity.ClassId = StringUtils.GetDbInt(reader["ClassId"]);
+                    entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);
                     entity.ParentId = StringUtils.GetDbInt(reader["ParentId"]);
                     entity.IsActive = StringUtils.GetDbInt(reader["IsActive"]);
                     entity.Sort = StringUtils.GetDbInt(reader["Sort"]);
@@ -333,21 +333,21 @@ where ClassId=@ClassId and ParentId=@ParentId Order by Sort desc";
         /// </summary>
         /// <param name="db">数据库操作对象</param>
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
-        public IList<ClassPropertiesEntity> GetClassPropertiesAll()
+        public IList<BasicSitePropertiesEntity> GetBasicSitePropertiesAll()
         {
 
-            string sql = @"SELECT    [Id],[Code],[Name],[ClassId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[ClassProperties] WITH(NOLOCK)	";
-		    IList<ClassPropertiesEntity> entityList = new List<ClassPropertiesEntity>();
+            string sql = @"SELECT    [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[BasicSiteProperties] WITH(NOLOCK)	";
+		    IList<BasicSitePropertiesEntity> entityList = new List<BasicSitePropertiesEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 while (reader.Read())
                 {
-                   ClassPropertiesEntity entity=new ClassPropertiesEntity();
+                   BasicSitePropertiesEntity entity=new BasicSitePropertiesEntity();
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.Code=StringUtils.GetDbString(reader["Code"]);
 					entity.Name=StringUtils.GetDbString(reader["Name"]);
-					entity.ClassId=StringUtils.GetDbInt(reader["ClassId"]);
+					entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);
 					entity.ParentId=StringUtils.GetDbInt(reader["ParentId"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
 					entity.Sort=StringUtils.GetDbInt(reader["Sort"]);
@@ -366,14 +366,14 @@ where ClassId=@ClassId and ParentId=@ParentId Order by Sort desc";
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public int  ExistNum(ClassPropertiesEntity entity)
+        public int  ExistNum(BasicSitePropertiesEntity entity)
         {
             ///id=0,判断总数，ID>0判断除自己之外的总数
-            string sql = @"Select count(1) from dbo.[ClassProperties] WITH(NOLOCK) ";
+            string sql = @"Select count(1) from dbo.[BasicSiteProperties] WITH(NOLOCK) ";
             string where = "where ";
             if (entity.Id == 0)
             {
-				  where = where+ "  (Name=@Name) and ClassId=@ClassId ";
+				  where = where+ "  (Name=@Name) and SiteId=@SiteId ";
 				 
             }
             else
@@ -388,7 +388,7 @@ where ClassId=@ClassId and ParentId=@ParentId Order by Sort desc";
             }
 					
             db.AddInParameter(cmd, "@Name", DbType.String, entity.Name); 
-            db.AddInParameter(cmd, "@ClassId", DbType.Int32, entity.ClassId); 
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, entity.SiteId); 
             object identity = db.ExecuteScalar(cmd);
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);

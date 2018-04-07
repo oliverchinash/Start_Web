@@ -23,35 +23,11 @@
 
     <input type="text" id="txtMemId" value="@ViewBag.MemId" />
     <input type="text" id="txtClassId" value="@ViewBag.ClassId" />
-    <input type="text" id="txtPropertiesClassId" value="@ViewBag.PropertiesClassId" />
-    <input type="text" id="txtStyleId" value="@ViewBag.StyleId" />
-    @*<input type="text" id="txtProductId" value="@_styleentity.ProductId" />*@
+    <input type="text" id="txtPropertiesSiteId" value="@ViewBag.SiteId" />  
     <input type="text" id="txtProductId" value="@Request["productid"]" />
     <input type="text" id="txtBrandId" value="@ViewBag.BrandId" />
     <input type="text" id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
-    <ul id="ulStylePics" class="hidpicuploaddiy" bindfield="StylePics" pictype="3" btntext="上传图片">
-        @{
-            if (_styleentity.ProductPics != null && _styleentity.ProductPics.Count > 0)
-            {
-                foreach (SuperMarket.Model.ProductStylePicsEntity _picentity in _styleentity.ProductPics)
-                {
-                    <li liitemcode="StylePics@_picentity.Id" action="@_picentity.HasCompress">@(_picentity.PicUrl + "." + _picentity.PicSuffix)</li>
-                }
-            }
-        }
-    </ul>
-
-    <ul id="ulProductPropertys" class="hidProductPropertys" bindfield="ProductPropertys">
-        @{
-            if (_styleentity.ProductPropertys != null && _styleentity.ProductPropertys.Count > 0)
-            {
-                foreach (SuperMarket.Model.ProductPropertyEntity _proentity in _styleentity.ProductPropertys)
-                {
-                    <li propertyId="@_proentity.PropertyId">@_proentity.PropertyDetailId</li>
-                }
-            }
-        }
-    </ul>
+    
 </div>
 
 <style>
@@ -66,21 +42,28 @@
 <div class="tip-title">产品管理<span style="color:#f4934e">></span>发布产品</div>
 <div class="product-main">
     <div class="product-main-search">
-        <div class="product-main-search-l">产品类别：</div>
+        <div class="product-main-search-l">产品类别：
+            <input type="hidden" id="txtClassId" value="@_styleentity.ClassId" />
+            <input type="hidden" id="txtClassId1" value="@_styleentity.ClassId" />
+            <input type="hidden" id="txtClassId2" value="@_styleentity.ClassId" />
+            <input type="hidden" id="txtClassId3" value="@_styleentity.ClassId" />
+        </div>
         <div class="product-main-search-r" style="margin-left:18px">
-            @ViewBag.ClassNamePath
+            <select id="selClassId1" class="selclass" targettxt="txtClassId1" level="1" onchange="funchangeclass(this)" ><option>sss</option></select>
+            <select id="selClassId2"  class="selclass" targettxt="txtClassId2" level="2" style="display:none;"><option>ss11s</option></select>
+            <select  id="selClassId3"  class="selclass" targettxt="txtClassId3"  level="3" style="display:none;"><option>ss11s</option></select>
         </div>
     </div>
     <div class="product-main-search">
         <div class="product-main-search-l">品牌：</div>
-        <div class="product-main-search-r" style="margin-left:18px">
-            @ViewBag.BrandName
+        <div class="product-main-search-r" style="margin-left:18px"> 
+            <input type="text" id="txtBrandName" value="@_styleentity.BrandName"  />
         </div>
     </div>
     <div class="product-main-search">
         <div class="product-main-search-l">产品标题：</div>
         <div class="product-main-search-r">
-            <input type="text" id="txtAdTitle" value="@_styleentity.AdTitle" autofocus: autofocus />
+            <input type="text" id="txtAdTitle" value="@_styleentity.AdTitle"  />
         </div>
     </div>
     <div class="product-main-search">
@@ -101,12 +84,6 @@
             <input type="text" id="txtName" value="@_styleentity.Name" />
         </div>
     </div>
-    <div class="product-main-search">
-        <div class="product-main-search-l">OE编码：</div>
-        <div class="product-main-search-r">
-            <input type="text" id="txtOECode" value="@_styleentity.OECode"/>
-        </div>
-    </div>
     <div class="product-main-search" id="divClassProperty" style="display:none;">
         <div class="product-main-search-l"><span style="color:#f00">*</span>产品属性：</div>
         <div class="product-main-search-r">
@@ -114,13 +91,13 @@
         </div>
     </div>
     <div class="product-main-search" id="divSpec1"  >
-        <div class="product-main-search-l"><span style="color:#f00">*</span>选择开心：</div>
+        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项1：</div>
         <div class="product-main-search-r">
             <input id="txtSpec1" value="@_styleentity.Spec1" />
         </div>
     </div>
     <div class="product-main-search" id="divSpec2"  >
-        <div class="product-main-search-l"><span style="color:#f00">*</span>选择快乐：</div>
+        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项2：</div>
         <div class="product-main-search-r">
             <input id="txtSpec2" value="@_styleentity.Spec2" />
         </div>
@@ -151,21 +128,17 @@
         <div class="product-main-search-l">单位：</div>
         <div class="product-main-search-r">
             <select id="selUnit" >
-                <option value="2">个</option>
-                <option value="1">组</option>
-                <option value="3">件</option>
-                <option value="4">箱</option>
-                <option value="5">套</option>
+                @{
+                    IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.UnitEnum>();
+                    foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
+                    {
+                        <option value="@entityu.EnumValue" @(_styleentity.Unit == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
+                    }
+                }
             </select>  
             <input type="hidden" id="hidUnit" value="@_styleentity.Unit" style="float:left; " />
         </div>
-    </div>
-    <div class="product-main-search">
-        <div class="product-main-search-l">价格类别：</div>
-        <div class="product-main-search-r">
-            <input type="text" id="txtIsOEM" value="@_styleentity.IsOEM" style="float:left; " />
-        </div>
-    </div>
+    </div> 
     <div class="product-main-search">
         <div class="product-main-search-l">毛重：</div>
         <div class="product-main-search-r">
@@ -177,134 +150,26 @@
         <div class="product-main-search-r">
             <input type="text" id="txtPlaceOrigin" value="@_styleentity.PlaceOrigin" style="float:left; " />
         </div>
-    </div>
-
-    <div style="display:none">
-
-        <div class="product-main-search">
-            <div class="product-main-search-l"><span style="color:#f00">*</span>选择适用车型：</div>
-
-            <div class="product-main-search-r">
-
-                <div class="product-main-search-r-t" style="margin-left:3px">
-                    <input type="hidden" id="hidCarType1" value="-1" />
-                    <input type="hidden" id="hidCarType2" value="-1" />
-                    <input type="hidden" id="hidCarType3" value="-1" />
-                    <input type="hidden" id="hidCarType4" value="-1" />
-                    <select id="selCarType1" class="clsCarType" level="1" isend="0" objcolumnid="CarType1" url="/Common/GetCarTypeList" nextcolumnid="CarType2">
-                        <option value="-1">--全部车型--</option>
-                    </select>
-                    <select id="selCarType2" class="clsCarType" level="2" isend="0" objcolumnid="CarType2" url="/Common/GetCarTypeList" precolumnid="CarType1" nextcolumnid="CarType3">
-                        <option value="-1">--全部品牌--</option>
-                    </select>
-                    <select id="selCarType3" class="clsCarType" level="3" isend="0" objcolumnid="CarType3" url="/Common/GetCarTypeList" precolumnid="CarType2" nextcolumnid="CarType4">
-                        <option value="-1">--全部车系--</option>
-                    </select>
-                    <select id="selCarType4" class="clsCarType" level="4" isend="1" objcolumnid="CarType4" url="/Common/GetCarTypeList" precolumnid="CarType3">
-                        <option value="-1">--全部型号--</option>
-                    </select>
-                    <input type="button" value="添加" onclick="AddCarTypeItem()" />
-                </div>
-
-                <div class="product-main-search-r-b" style="background:#f5f5f5;width:130%;margin-left:8px">
-                    <span>已选车型：</span>
-                    <div class="product-Models" id="divcontainerCarType">
-                        @{
-                        if (_styleentity.ProductCarTypes != null && _styleentity.ProductCarTypes.Count > 0)
-                        {
-                            foreach (SuperMarket.Model.ProductCarTypeEntity _carentity in _styleentity.ProductCarTypes)
-                            {
-                                if (_carentity.CarType1 != -1)
-                                {
-                                        <div class='product-Models-item divCarTypeitem' itemvalue='@(_carentity.CarType1.ToString() + "_" + _carentity.CarType2.ToString() + "_" + _carentity.CarType3.ToString() + "_" + _carentity.CarType4.ToString())'>
-                                            <ul>
-                                                <li>@_carentity.CarType1Name</li>
-                                                <li>@_carentity.CarType2Name</li>
-                                                <li>@_carentity.CarType3Name</li>
-                                                <li style="width:400px">@_carentity.CarType4Name</li>
-                                                <li class="delete"><a href='javascript:void(0)' ; onclick='DelCarTypeItem(this)'>删除</a></li>
-                                            </ul>
-                                        </div>
-                                }
-                            }
-                        }
-                        }
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="product-main-search">
-            <div class="product-main-search-l">显示图片类型：</div>
-            <div class="product-main-search-r">
-                <input type="hidden" id="hidShowPicType" value="@_styleentity.ShowPicType" />
-                <input type="radio" name="radShowPicType" value="1" checked onclick="SelShowPicTypeFun(this)" style="width:100px" /> 产品图片款式图片合并
-                <input type="radio" name="radShowPicType" value="2" onclick="SelShowPicTypeFun(this)" style="width:100px" /> 仅产品图片
-                <input type="radio" name="radShowPicType" value="3" onclick="SelShowPicTypeFun(this)" style="width:100px" /> 仅款式图片
-            </div>
-        </div>
-
-        <div class="product-main-search">
-            <div class="product-main-search-l"><span style="color:#f00">*</span>所选图片：</div>
-            <div class="product-main-search-r">
-                <div class="Upload">
-                    <div id="divcontainerProductPic" btntext="上传图片"><div></div></div>
-                    <div style="float:left; width:100%;">
-                        <div id="divProductPicList" bindfield="StylePics" style="margin-left:8px"></div>
-                    </div>
-                    <div style="float:left;  color:#f00; font-size:10px; line-height:30px;margin-left:8px">请控制在500K以内，支持格式为bmp、jpg、png.</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
+    </div> 
     <div class="product-footer">
         <div class="product-footer-l" style="cursor:pointer;" onclick="ProductSubmit()">确认   </div>
     </div>
+    <input type="hidden" id="hidProperty1" name="Property1" value="@_styleentity.Property1" />
+    <input type="hidden" id="hidProperty2" name="Property2" value="@_styleentity.Property2" />
+    <input type="hidden" id="hidProperty3" name="Property3" value="@_styleentity.Property3" />
+    <input type="hidden" id="hidProperty4" name="Property4" value="@_styleentity.Property4" />
+    <input type="hidden" id="hidProperty5" name="Property5" value="@_styleentity.Property5" />
+    <input type="hidden" id="hidProperty6" name="Property6" value="@_styleentity.Property6" />
+    <input type="hidden" id="hidProperty7" name="Property7" value="@_styleentity.Property7" />
+    <input type="hidden" id="hidProperty8" name="Property8" value="@_styleentity.Property8" />
+    <input type="hidden" id="hidProperty9" name="Property9" value="@_styleentity.Property9" />
+    <input type="hidden" id="hidProperty10" name="Property10" value="@_styleentity.Property10" />
 </div>
 
 <script type="text/javascript">
 
     var ue = null;
-    $(function () {
-
-        //var showpictype = $("#hidShowPicType").val();
-        //if (showpictype != "") {
-        //    $("input[name=radShowPicType][value=" + showpictype + "]").attr("checked", true);//选中*
-        //}
-        //else {
-        //    $("#hidShowPicType").val("1");
-        //}
-
-        //var arrimagespath = new Array();
-        //if ($.trim($("#ulStylePics").children().length > 0) != "") {
-        //    $("#ulStylePics").children().each(function () {
-        //        arrimagespath.push({
-        //            imageid: $(this).attr("liitemcode"),
-        //            imagepath: $("#txtPicServerRootUrl").val() + $(this).text()
-        //        });
-        //    });
-        //}
-
-        //$('#divProductPicList').diyUpload({
-        //    url: "/Store/UploadProductImages",
-        //    buttonText: $("#divcontainerProductPic").attr("btntext"),
-        //    imagedefaultpath: arrimagespath,
-        //    fileNumMax: 6,
-        //    formData: {
-        //    },
-        //    success: function (fileid, data) {
-        //        if (data != "" && data._raw != "") {
-        //            var listr = "<li liitemcode='" + fileid + "' action='0'>" + data._raw + "</li>";
-        //            $("#ulStylePics").append(listr);
-        //        }
-        //    },
-        //    error: function (err) {
-        //        alert(err);
-        //    }
-        //});
+    $(function () { 
         $("#selUnit").change(function () {
             $("#hidUnit").val($(this).val());
         })
@@ -313,49 +178,28 @@
             $("#selUnit").val($("#hidUnit").val());
         }
         //显示属性
-        BindProperties($("#txtPropertiesClassId").val(), 0);
-
-        //显示车型
-        //BindSelectData($("#selCarType1"), {});
-
-
-
-        ////$(".clsCarType").each(function () {
-        //    $(this).bind("change", function () {
-        //        ChangeSelectData($(this), {});
-        //    });
-        //});
-
+        BindProperties($("#txtPropertiesSiteId").val(), 0);
+        BindClassSelected($("#txtPropertiesSiteId").val(), 0, 1);
     });
 
     function ProductSubmit() {
 
-        var _memId = $("#txtMemId").val();
-        var _styleId = $("#txtStyleId").val();
+        var _memId = $("#txtMemId").val(); 
         var _classId = $("#txtClassId").val();
-        var _brandId = $("#txtBrandId").val();
+        var _siteid = $("#txtSiteId").val();
+        var _brandname = $("#txtBrandName").val();
         var _productId = $("#txtProductId").val();
         var _Code = $("#txtCode").val();
         var _adTitle = $("#txtAdTitle").val();
         var _name = $("#txtName").val();
         var _grossweight = $("#txtGrossWeight").val();
         var _placeorigin = $("#txtPlaceOrigin").val();
-        var _title = $("#txtTitle").val();
-        var _oECode = $("#txtOECode").val();
-        var _brandId = $("#txtBrandId").val();
+        var _title = $("#txtTitle").val();  
         var _spec1 = $("#txtSpec1").val();
-        var _spec2 = $("#txtSpec2").val();
-        var _pictype = $("#hidShowPicType").val();
+        var _spec2 = $("#txtSpec2").val(); 
         var _picUrl = "";
         var _unit = $("#hidUnit").val();
-        //if ($.trim(_spec1) == "" && $("divSpec1").is(":visible")) {
-        //    alert("请选择开心");
-        //    return;
-        //}
-        //if ($.trim(_spec2) == "" && $("divSpec2").is(":visible")) {
-        //    alert("请选择快乐");
-        //    return;
-        //}
+        
         var propertyselectall = true;
         $(".selclassproperty").each(function () {
             if ($(this).val() == 0) {
@@ -367,71 +211,26 @@
             alert("请选择所有产品属性");
             return;
         }
-        var _isort = 100;
-        //产品属性
-        var _productPropertysstr = "";
-        $("#ulProductPropertys li").each(function () {
-            if (_productPropertysstr == "") {
-                _productPropertysstr = _isort + "_" + $(this).attr("propertyId") + "_" + $(this).text();
-            }
-            else {
-                _productPropertysstr = _productPropertysstr + "|" + _isort + "_" + $(this).attr("propertyId") + "_" + $(this).text();
-            }
-            _isort = _isort - 1;
-        });
-
-        _isort = 100;
-        //所选车品牌
-        var _CarTypeStr = "";
-        var _CarTypeRelated = 1;
-        $(".divCarTypeitem").each(function () {
-            if (_CarTypeStr == "") {
-                _CarTypeStr = _isort + "_" + $(this).attr("itemvalue");
-            }
-            else {
-                _CarTypeStr = _CarTypeStr + "|" + _isort + "_" + $(this).attr("itemvalue");
-            }
-            _isort = _isort - 1;
-        });
-        if (_isort == 100 && _CarTypeStr == "") {
-            _CarTypeStr = _isort + "_-1_-1_-1_-1";
-            _CarTypeRelated = 1;
-        }
-        _isort = 100;
-        //所选图片
-        var _productpicsstr = "";
-        $("#ulStylePics li").each(function () {
-            if (_productpicsstr == "") {
-                _productpicsstr = _isort + "_" + $(this).text() + "_" + $(this).attr("action");
-                _picUrl = $(this).text();
-            }
-            else {
-                _productpicsstr = _productpicsstr + "|" + _isort + "_" + $(this).text() + "_" + $(this).attr("action");
-            }
-            _isort = _isort - 1;
-        });
+  
         var _num = $("#txtNum").val();
         var _price = $("#txtPrice").val();
         var _tradePrice = $("#txtTradePrice").val();
-        var _marketPrice = $("#txtMarketPrice").val();
-        var _isoem = $("#txtIsOEM").val();
+        var _marketPrice = $("#txtMarketPrice").val(); 
         var _freightFee = $("#txtFreightFee").val();
-        var _styleId = $("#txtStyleId").val();
 
         $.post("/Store/ProductSubmit", {
-            memid: _memId, Code: _Code
-            , styleId: _styleId, productId: _productId,
-            classId: _classId, adTitle: _adTitle, title: _title, oECode: _oECode, brandId: _brandId,
-            productPropertysstr: _productPropertysstr, CarTypeStr: "", productpicsstr: "", num: _num,
-            price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice, isoem: _isoem, pictype: _pictype,
-            freightFee: _freightFee, picUrl: _picUrl, cartyperelated: "",
+            memid: _memId, Code: _Code ,productId: _productId,
+            classId: _classId, adTitle: _adTitle, title: _title,  brandname: _brandname,
+            productPropertysstr: _productPropertysstr, num: _num,
+            price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice,  pictype: _pictype,
+            freightFee: _freightFee,
             placeorigin: _placeorigin, name: _name, grossweight: _grossweight, spec1: _spec1, spec2: _spec2,
             unit: _unit
         }, function (data) {
             var _returncode = (-data);
             if (_returncode == _TheArray[0]) {
                 alert(_TheArray[_returncode]);
-                window.location.href = "/Store/ProductList?styleid="+_styleId;
+                window.location.href = "/Store/ProductList?siteid=";
             }
             else {
                 alert("产品已存在!");
@@ -440,21 +239,14 @@
 
         });
     }
-
-    function SelShowPicTypeFun() {
-        var showpictype = $("input[name=radShowPicType]:checked").val();
-        $("#hidShowPicType").val(showpictype);
-
-    }
+     
 
     function BrandSelectFun(brandobj) {
-        $(".selclassproperty option:not(:first)").each(function () {
-
+        $(".selclassproperty option:not(:first)").each(function () { 
             if ($(this).attr("brandid") != null && $(this).attr("brandid") != "" && $(this).attr("brandid") != "0" && $(this).attr("brandid") != $(brandobj).val() && $(brandobj).val() != "" && $(brandobj).val() != "0") {
                 $(this).hide();
             }
-            else {
-
+            else { 
                 $(this).show();
             }
         });
@@ -463,34 +255,23 @@
 
 
     //绑定属性列表
-    function BindProperties(_classid, _pid) {
-        $.post("/Common/GetPropertyByClass", { classid: _classid, pid: _pid }, function (data) {
+    function BindProperties(_siteid, _pid) {
+        $.post("/Common/GetPropertyBySiteId", { siteid: _siteid, pid: _pid }, function (data) {
             var jsonobj = eval(data);
             if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
                 if (_pid == "" || _pid == 0) {
                     $("#divClassProperty").show();
-                    var divattributeobj = $("#divClassProperty").children(":last");
-
-                    for (var i = 0; i < jsonobj.length; i++) {
-                        if (jsonobj[i].IsSpec == 1) {
-                            $("#divSpec" + jsonobj[i].Sort).show();
-                        }
-                        else {
-                            var str = "<div class='Attributes'><span>" + jsonobj[i].Name + "</span><select class='selclassproperty' propertyId='" + jsonobj[i].Id + "' bindfield='ProductPropertys' isend='" + jsonobj[i].IsEnd + "' objid='PropertyId" + jsonobj[i].Id + "' id='selPropertyId" + jsonobj[i].Id + "'><option value='0'>--请选择--</option></select></div>";
+                    var divattributeobj = $("#divClassProperty").children(":last"); 
+                    for (var i = 0; i < jsonobj.length; i++) { 
+                        var str = "<div class='Attributes'><span>" + jsonobj[i].Name + "</span><input id='txt" + jsonobj[i].Code + "' class='txtproperty' code='" + jsonobj[i].Code + "' /><select class='selclassproperty' code='" + jsonobj[i].Code + "' onchange='funchangeproperty(this)'   isend='" + jsonobj[i].IsEnd + "'   id='selPropertyId" + jsonobj[i].Id + "'><option value='0'>--请选择--</option></select></div>";
                             $(divattributeobj).append(str);
-                            var objul = $("#ulProductPropertys li[propertyId=" + jsonobj[i].Id + "]");
-                            if (objul == null || objul == undefined || objul.length == 0) {
-                                var listr = "<li   propertyId='" + jsonobj[i].Id + "'>0</li>";
-                                $("#ulProductPropertys").append(listr);
-                            }
-                        }
+                          
                     }
                     $(".selclassproperty").each(function () {
                         var objid = $(this).attr("objid");
                         $(this).bind("change", function () {
-                            $("#ulProductPropertys li[propertyId=" + $("#sel" + objid).attr("propertyId") + "]").text($("#sel" + objid).val());
                             if ($(this).attr("isend") == "0") {
-                                BindProperties(_classid, $("#sel" + objid).val());
+                                BindProperties(_siteid, $("#sel" + objid).val());
                             }
                         });
                         BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
@@ -499,13 +280,13 @@
                 else {
                     var divattributeobj = $("#divClassProperty").children(":last").children(":last");
                     for (var i = 0; i < jsonobj.length; i++) {
-                        var str = "<select class='selclassproperty'  pid='" + _pid + "'  isend='" + jsonobj[i].IsEnd + "' propertyId='" + jsonobj[i].Id + "' objid='PropertyId" + jsonobj[i].Id + "'  bindfield='ProductPropertys' id='selPropertyId" + jsonobj[i].Id + "'><option value=''>--请选择--</option></select>";
+                        var str = "<input id='txt" + jsonobj[i].Code + "' class='txtproperty' code='" + jsonobj[i].Code + "' /><select class='selclassproperty'   onchange='funchangeproperty(this)'  isend='" + jsonobj[i].IsEnd + "' code='" + jsonobj[i].Code + "'  id='selPropertyId" + jsonobj[i].Id + "'><option value=''>--请选择--</option></select>";
                         $(divattributeobj).append(str);
                     }
                     $(divattributeobj).find(".selclassproperty:last").bind("change", function () {
                         $("#hid" + objid).val($("#sel" + objid).val());
                         if ($(this).attr("isend") == "0") {
-                            BindProperties(_classid, $("#sel" + objid).val());
+                            BindProperties(_siteid, $("#sel" + objid).val());
                         }
                     });
                     BindPropertiesValue($(divattributeobj).find(".selclassproperty:last"), $(divattributeobj).find(".selclassproperty:last").attr("propertyId"), 0);
@@ -519,131 +300,53 @@
     function BindPropertiesValue(obj, _propertyId, _pid) {
 
         var param = { propertyId: _propertyId, pid: _pid };
-        BindDropParent(obj, "/Common/GetPropertyValueList", param, $("#ulProductPropertys li[propertyId=" + $(obj).attr("propertyId") + "]").text());
+        BindDropParent(obj, "/Common/GetPropertyValueList", param,"").text());
     }
 
-    //绑定属性列表
-    function BindSpec(_classid, _pid) {
-        $.post("/Common/GetSpecByClass", { classid: _classid, pid: _pid }, function (data) {
-            var jsonobj = eval(data);
-            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
-                $("#divProductSpec").show();
-                var contianer = $("#divProductSpec div:last");
-                for (var i = 0; i < jsonobj.length; i++) {
-                    var str = "<div class='product-main-search-rb itemdivproductspec' specid='" + jsonobj[i].SpecId + "'><span>" + jsonobj[i].Name + "：</span><div class='product-main-search-r_col'><div class='product-main-search-r_col-t divchkcontainer'  specid='" + jsonobj[i].SpecId + "'></div></div></div>";
-                    $(contianer).append(str);
-                }
-                $("#divProductSpec.itemdivproductspec").each(function () {
-                    var specid = $(this).attr("specid");
-                    BindPropertiesValue($(this).find(".divchkcontainer"), $(this).attr("propertyId"), 0);
-                });
-            }
-        });
-    }
-
-
-    function BindSpecValue(chkcontainer, _specid, _classid) {
-        $.post("/Store/GetSpecValueList", { specid: _specid, pid: 0 }, function (data) {
+    function BindClassSelected(_siteid, _pid, _level) {
+        var selobj = $(".selclass[level=" + _level + "]");
+        $(selobj).empty();
+        $.post("/Common/GetClassBySiteId", { siteid: _siteid, pid: _pid }, function (data) {
             var jsonobj = eval(data);
             if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
                 for (var i = 0; i < jsonobj.length; i++) {
-                    var str = "<span><input class='chkclassproductspec' onclick='SelectSpecCheck()' type='checkbox' specvalue=" + jsonobj[i].Id + "   specname=" + jsonobj[i].Name + " /><span>" + jsonobj[i].Name + "  </span></span> ";
-                    $(chkcontainer).append(str);
+                    var option =  "<option isend="+jsonobj[i].IsEnd+" value="+jsonobj[i].Id+">"+jsonobj[i].Name+"</option>" ;
+                    $(selobj).append(option);
                 }
+                funchangeclass(selobj);
             }
         });
     }
-
-
-    function AddCarTypeItem() {
-        if ($("#hidCarType1").val() != "" && $("#hidCarType1").val() != "-1" && $("#hidCarType1").val() != "0") {
-            var hasCarType = false;
-            //var endorselall = false;//选中所有
-            var itemvalue = "";
-            for (var i = 1; i < 5; i++) {
-                if ($("#hidCarType" + i).val() != "" && $("#hidCarType" + i).val() != 0 && $("#hidCarType" + i).val() != -1) {
-                    if (itemvalue == "") {
-                        itemvalue = $("#hidCarType" + i).val();
-                    }
-                    else {
-                        itemvalue = itemvalue + "_" + $("#hidCarType" + i).val();
-                    }
-                }
-                else {
-                    break;
-                }
-            }
-            //alert(itemvalue);
-            //var itemvalue = $("#hidCarType1").val() + "_" + $("#hidCarType2").val() + "_" + $("#hidCarType3").val() + "_" + $("#hidCarType4").val();
-            $(".divCarTypeitem").each(function () {
-                var itemvaluetemp = $(this).attr("itemvalue");
-                if (itemvaluetemp == itemvalue) {
-                    hasCarType = true;
-                    return false;
-                }
-                var fdStart = itemvaluetemp.indexOf(itemvalue);
-                if (fdStart == 0) {
-                    $(this).remove();
-                    return false;
-                }
-                var fdStart2 = itemvalue.indexOf(itemvaluetemp);
-                if (fdStart2 > -1) {
-                    hasCarType = true;
-                    return false;
-                }
-                //alert(itemvaluetemp);
-                //alert(itemvalue);
-                //alert(fdStart);
-                //alert(fdStart2);
-            });
-            if (hasCarType) {
-                alert("该型号包含在选中列表中！");
+    //选择类别
+    function funchangeclass(selobj)
+    {
+        var level = $(selobj).attr("level");
+        var levelnext = level + 1;
+        var txt = $(selobj).attr("targettxt");
+        $("#" + txt).val($(selobj).val());
+        if ($(selobj).find("option:selected").attr("isend") == 1)
+        {
+            $("#txtClassId").val($(selobj).val()); 
+        }
+        if ($(".selclass[level=" + levelnext + "]").length > 0)
+        {
+            if ($(selobj).find("option:selected").attr("isend") == 0) {
+                $(".selclass[level=" + levelnext + "]").show();
             }
             else {
-                var itemtext = "<ul>";
-                for (var i = 1; i < 5; i++) {
-                    if ($("#selCarType" + i).val() != "" && $("#selCarType" + i).val() != 0 && $("#selCarType" + i).val() != -1) {
-                        if (i == 4) {
-                            itemtext = itemtext + "<li style=width:400px>" + $("#selCarType" + i).find("option:selected").text(); +"</li>";
-                        } else {
-                            itemtext = itemtext + "<li>" + $("#selCarType" + i).find("option:selected").text(); +"</li>";
-                        }
-                    }
-                    else {
-                        break;
-                    }
-                }
-                itemtext = itemtext + "<li class='delete'><a href='javascript:void(0);' onclick='DelCarTypeItem(this);'>删除</a></li></ul>";
-                $("#selCarType1").find("option:selected").text();
-                var str = "  <div class='product-Models-item divCarTypeitem'  itemvalue='" + itemvalue + "' >" + itemtext + "</div> ";
-                $("#divcontainerCarType").append(str);
-            }
+                $(".selclass[level=" + levelnext + "]").hide(); 
+            } 
+        } 
+    }
+
+    function funchangeproperty(selobj)
+    {
+        var code=$(selobj).attr("code");
+        if($(selobj).val()=="")
+        {
+            $(".txtproperty[code="+code+"]").val();
         }
-
     }
 
-
-    function DelCarTypeItem(obj) {
-        $(obj).closest("div").remove();
-    }
-
-    //选中规格后触发事件-未完成
-    function SelectSpecCheck() {
-        $("#divProductSpec div:last.divchkcontainer").each(function () {
-            var specid = $(this).attr("specid");
-            BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
-        });
-    }
-
-
-    function BindStyleContent() {
-        var _styleId = $("#txtStyleId").val();
-        $.post("/Common/GetContentCmsByStyleId", { styleId: _styleId }, function (data) {
-            var jsonobj = eval("(" + data + ")");
-            if (jsonobj != null && jsonobj != undefined) {
-                ue.setContent(jsonobj.ContentCms);
-            }
-        });
-    }
 
 </script>

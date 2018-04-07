@@ -147,7 +147,7 @@
     <Compile Include="Controllers\CheckController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\CmsController.cs" />
-    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\PageCommonController.cs" />
     <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\GYProvinceController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
@@ -779,6 +779,12 @@
     <Content Include="Js\ueditor\third-party\video-js\font\vjs.eot" />
     <Content Include="Js\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Js\ueditor\third-party\video-js\font\vjs.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PageCommon\SiteSelect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\PageCommon\_SiteSelect.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
