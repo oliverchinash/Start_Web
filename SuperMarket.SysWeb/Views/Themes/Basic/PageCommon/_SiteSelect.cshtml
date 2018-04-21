@@ -12,7 +12,7 @@
                 <div class="list-search-input">
                     <select id="selSiteId">
                         @{
-                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.WebSiteEnum>();
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
                             foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
                             {
                                 <option value="@entityu.EnumValue"  >@entityu.EnumDes</option>

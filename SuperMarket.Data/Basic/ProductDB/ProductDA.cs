@@ -692,6 +692,102 @@ WHERE a.Id=@ProductId   ";
             }
             return entityList;
         }
+        public IList<VWProductEntity> GetVWProductList(int pagesize, int pageindex, ref int recordCount, string productName, string classidstr, int _siteid)
+        {
+            string where = " where  1=1 ";
+            string innerstr = " ";
+            if (!string.IsNullOrEmpty(classidstr))
+            {
+                innerstr = " inner join dbo.fun_splitstr(@ClassIdStr,',') b  	on a.ClassId=b.Id ";
+            }
+            if (!string.IsNullOrEmpty(productName))
+            {
+                where += " and AdTitle like @AdTitle ";
+            }
+            if (_siteid > 0)
+            {
+                where += " and SiteId=@SiteId ";
+
+            }
+            string sql = @"SELECT   *
+            			FROM
+            			(SELECT ROW_NUMBER() OVER (ORDER BY a.Id desc) AS ROWNUMBER,
+            			 a.*,pd.Id  as ProductDetailId,pd.Status as ProductDetailStatus,pd.Price from dbo.[Product] a WITH(NOLOCK)	 LEFT JOIN ProductDetail pd  WITH(NOLOCK) on a.id=pd.ProductId
+              			" + innerstr + where + @") as temp 
+            			where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
+
+            string sql2 = @"Select count(1) from dbo.[Product] a with (nolock) " + innerstr + where;
+            IList<VWProductEntity> entityList = new List<VWProductEntity>();
+            DbCommand cmd = db.GetSqlStringCommand(sql);
+            db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
+            db.AddInParameter(cmd, "@PageSize", DbType.Int32, pagesize);
+            if (!string.IsNullOrEmpty(classidstr))
+            {
+                db.AddInParameter(cmd, "@ClassIdStr", DbType.String, classidstr);
+            }
+            if (!string.IsNullOrEmpty(productName))
+            {
+                db.AddInParameter(cmd, "@AdTitle", DbType.String, "%" + productName + "%");
+            }
+            if (_siteid > 0)
+            {
+                db.AddInParameter(cmd, "@SiteId", DbType.Int32, _siteid);
+
+            }
+            using (IDataReader reader = db.ExecuteReader(cmd))
+            {
+                while (reader.Read())
+                {
+                    VWProductEntity entity = new VWProductEntity();
+                    entity.ProductId = StringUtils.GetDbInt(reader["Id"]);
+                    entity.ProductDetailId = StringUtils.GetDbInt(reader["ProductDetailId"]);
+                    entity.ProductDetailStatus = StringUtils.GetDbInt(reader["ProductDetailStatus"]);
+                    entity.Code = StringUtils.GetDbString(reader["Code"]);
+                    entity.Title = StringUtils.GetDbString(reader["Title"]);
+                    entity.AdTitle = StringUtils.GetDbString(reader["AdTitle"]);
+                    entity.Unit = StringUtils.GetDbInt(reader["Unit"]); 
+                    entity.Spec1 = StringUtils.GetDbString(reader["Spec1"]);
+                    entity.Spec2 = StringUtils.GetDbString(reader["Spec2"]);
+                    entity.ShowPicType = StringUtils.GetDbInt(reader["ShowPicType"]);
+                    entity.PicUrl = StringUtils.GetDbString(reader["PicUrl"]);
+                    entity.PicSuffix = StringUtils.GetDbString(reader["PicSuffix"]);
+                    entity.Retail = StringUtils.GetDbInt(reader["Retail"]);
+                    entity.Wholesale = StringUtils.GetDbInt(reader["Wholesale"]);
+                    entity.Status = StringUtils.GetDbInt(reader["Status"]);
+                    entity.Price = StringUtils.GetDbDecimal(reader["Price"]);
+                    entityList.Add(entity);
+                }
+            }
+            cmd = db.GetSqlStringCommand(sql2);
+
+            if (!string.IsNullOrEmpty(classidstr))
+            {
+                db.AddInParameter(cmd, "@ClassIdStr", DbType.String, classidstr);
+            }
+            if (!string.IsNullOrEmpty(productName))
+            {
+                db.AddInParameter(cmd, "@AdTitle", DbType.String, "%" + productName + "%");
+            }
+
+
+            if (_siteid > 0)
+            {
+                db.AddInParameter(cmd, "@SiteId", DbType.Int32, _siteid);
+
+            }
+            using (IDataReader reader = db.ExecuteReader(cmd))
+            {
+                if (reader.Read())
+                {
+                    recordCount = StringUtils.GetDbInt(reader[0]);
+                }
+                else
+                {
+                    recordCount = 0;
+                }
+            }
+            return entityList;
+        }
         public DataSet GetDataTableByClassId(int classid ,int producttypeid, int productstatus)
         {
             string sql = @"

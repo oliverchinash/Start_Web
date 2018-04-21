@@ -57,6 +57,18 @@ namespace SuperMarket.Model
                 _ProductDetailId = value;
             }
         }
+        private int _ProductDetailStatus;
+        public int ProductDetailStatus
+        {
+            get
+            {
+                return _ProductDetailStatus;
+            }
+            set
+            {
+                _ProductDetailStatus = value;
+            }
+        }
         /// <summary>
         /// 编号
         /// <summary>

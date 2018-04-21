@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Main/_Member_Master.cshtml";
     ViewBag.Title = "已发布产品";
-    IList<SuperMarket.Model.ProductEntity> entitylist = ViewBag.entitylist;
+    IList<SuperMarket.Model.VWProductEntity> entitylist = ViewBag.entitylist;
 }
 
 <style type="text/css">
@@ -105,7 +105,10 @@
 
         <div class="admin_title">
             <ul> 
-                <li>产品标题</li> 
+                <li style="width:30%">产品标题</li>
+                <li style="width:10%">状态</li>
+                <li style="width:10%">售价</li>
+                <li style="width:10%">售价状态<li> 
                 <li style="width:40%">操作</li>
             </ul>
         </div>
@@ -116,11 +119,14 @@
         @{
             if (entitylist != null && entitylist.Count > 0)
             {
-                foreach (SuperMarket.Model.ProductEntity entity in entitylist)
+                foreach (SuperMarket.Model.VWProductEntity entity in entitylist)
                 {
                     <div class="admin_detail">
                         <ul>
-                            <li class="li_iterm">@entity.AdTitle </li>  
+                            <li class="li_iterm" style="width:30%">@entity.AdTitle </li>
+                            <li class="li_iterm" style="width:10%">@(entity.Status==1?"有效":"无效") </li>
+                            <li class="li_iterm"  style="width:10%">@entity.Price</li>
+                            <li class="li_iterm"  style="width:10%">@(entity.ProductDetailStatus==1?"上架":"下架")</li>  
                             <li class="li_iterm" style="width:40%">
                                 <a href="/Store/ProductEdit?productid=@entity.Id">编辑基本信息</a>&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;

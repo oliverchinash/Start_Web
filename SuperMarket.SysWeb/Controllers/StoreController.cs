@@ -378,7 +378,8 @@ namespace SuperMarket.SysWeb.Controllers
             int _recordCount = 0;
             string _productName = QueryString.SafeQ("productName");
              
-            IList<ProductEntity> entitylist = ProductBLL.Instance.GetProductList(_pagesize, _pageindex, ref _recordCount, _productName,"", _siteid);
+            IList<VWProductEntity> entitylist = ProductBLL.Instance.GetVWProductList(_pagesize, _pageindex, ref _recordCount, _productName,"", _siteid);
+            
             ViewBag.entitylist = entitylist;
 
             string _url = "/Store/ProductList?stylename=" + _productName;

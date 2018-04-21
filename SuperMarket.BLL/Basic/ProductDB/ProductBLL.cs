@@ -278,6 +278,15 @@ namespace SuperMarket.BLL.ProductDB
             return ProductDA.Instance.GetProductList(pageSize, pageIndex, ref recordCount, productName, classidstr , _siteid);
         }
 
+        ///// <summary>
+        ///// 获得数据列表
+        ///// </summary>
+        public IList<VWProductEntity> GetVWProductList(int pageSize, int pageIndex, ref int recordCount, string proname, string classidstr, int _siteid)
+        {
+            string productName = string.Empty;
+
+            return ProductDA.Instance.GetVWProductList(pageSize, pageIndex, ref recordCount, productName, classidstr, _siteid);
+        }
         public DataTable GetDataTableByClassId(int classid,int producttype,int productstatus)
         {
             DataTable dt=new DataTable();

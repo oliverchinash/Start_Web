@@ -76,7 +76,7 @@
         请选择类型:
         <select id="selSiteId" name="">
             @{
-                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.WebSiteEnum>();
+                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
                 foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
                 {
                     <option value="@entityu.EnumValue" @(ViewBag.SiteId == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
