@@ -762,21 +762,7 @@ namespace SuperMarket.Model
         [Description("通用件")]
         TYJ = 2,
     }
-    /// <summary>
-    /// 分类列表种类
-    /// </summary>
-    public enum ClassMenuTypeEnum
-    {
-        [Description("默认基础分类")]
-        Default = 1,
-        [Description("通用分类")]
-        Normal = 2,
-        [Description("PC端分类")]
-        NormalPC = 3,
-        [Description("及时达通用分类")]
-        JiShiDa = 4,
-
-    }
+   
     /// <summary>
     /// 列表方式
     /// </summary>

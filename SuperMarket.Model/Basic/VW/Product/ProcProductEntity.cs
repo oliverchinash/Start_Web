@@ -42,21 +42,6 @@ namespace SuperMarket.Model
         /// <summary>
         /// 
         /// <summary>
-        private int _StyleId;
-        public int StyleId
-        {
-            get
-            {
-                return _StyleId;
-            }
-            set
-            {
-                _StyleId = value;
-            }
-        }
-        /// <summary>
-        /// 
-        /// <summary>
         private string _Code;
         public string Code
         {
@@ -146,27 +131,26 @@ namespace SuperMarket.Model
             }
         }
 
-        /// <summary>
-        /// OE编码
-        /// <summary>
-        private string _OECode;
-        public string OECode
+            /// <summary>
+                  ///  
+                  /// <summary>
+        private int _SiteId;
+        public int SiteId
         {
             get
             {
-                return _OECode;
+                return _SiteId;
             }
             set
             {
-                _OECode = value;
+                _SiteId = value;
             }
         }
-
         /// <summary>
-        /// 品牌名称
+        /// 品牌 
         /// <summary>
-        private string _BrandId;
-        public string BrandId
+        private int _BrandId;
+        public int BrandId
         {
             get
             {
@@ -175,6 +159,18 @@ namespace SuperMarket.Model
             set
             {
                 _BrandId = value;
+            }
+        }
+        private string _BrandName;
+        public string BrandName
+        {
+            get
+            {
+                return _BrandName;
+            }
+            set
+            {
+                _BrandName = value;
             }
         }
         private int _Unit;
@@ -329,18 +325,6 @@ namespace SuperMarket.Model
                 _Num = value;
             }
         }
-        private decimal _CarTypeRelated;
-        public decimal CarTypeRelated
-        {
-            get
-            {
-                return _CarTypeRelated;
-            }
-            set
-            {
-                _CarTypeRelated = value;
-            }
-        }
         
         /// <summary>
         /// 是否包邮
@@ -426,18 +410,6 @@ namespace SuperMarket.Model
                 _ProductPropertysStr = value;
             }
         }
-        private string _CarTypesStr;
-        public string CarTypesStr
-        {
-            get
-            {
-                return _CarTypesStr;
-            }
-            set
-            {
-                _CarTypesStr = value;
-            }
-        }
         private string _ProductPicsStr;
         public string ProductPicsStr
         {
@@ -448,18 +420,6 @@ namespace SuperMarket.Model
             set
             {
                 _ProductPicsStr = value;
-            }
-        }
-        private int _IsOEM;
-        public int IsOEM
-        {
-            get
-            {
-                return _IsOEM;
-            }
-            set
-            {
-                _IsOEM = value;
             }
         }
         private int _ProductType;

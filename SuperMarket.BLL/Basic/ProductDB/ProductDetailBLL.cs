@@ -200,13 +200,13 @@ namespace SuperMarket.BLL.ProductDB
         /// </summary>
         /// <returns>ProductDetail实体</returns>
         /// <param name="columns">要返回的列</param>
-        public ProductDetailEntity GetProductDetail(int id)
+        public VWProductDetailEntity GetProductDetail(int id)
         {
             return ProductDetailDA.Instance.GetProductDetail(id);
         }
-        public ProductDetailEntity GetProductDetailByPId(int productid,int producttype)
+        public VWProductDetailEntity GetProductDetailByPId(int productid)
         {
-            return ProductDetailDA.Instance.GetProductDetailByPId(productid, producttype);
+            return ProductDetailDA.Instance.GetProductDetailByPId(productid);
         }
         public int  ReleaseStock(string productdetails)
         {

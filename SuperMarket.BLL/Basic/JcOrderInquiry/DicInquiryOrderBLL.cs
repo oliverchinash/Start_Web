@@ -133,7 +133,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
         {
             return DicInquiryOrderDA.Instance.GetDicInquiryOrderList(pageSize, pageIndex, ref recordCount);
         }
-        public IList<DicInquiryOrderEntity> GetDicInquiryOrderShow(int parentid,int classid, bool cache = true)
+        public IList<DicInquiryOrderEntity> GetDicInquiryOrderShow(int parentid,int classid, bool cache = false)
         {
             IList<DicInquiryOrderEntity> list = null;
             if (cache)
@@ -152,7 +152,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             }
             return list;
         }
-        public IList<DicInquiryOrderEntity> GetDicFromCode(string parentcode,string menucode, bool cache = true)
+        public IList<DicInquiryOrderEntity> GetDicFromCode(string parentcode,string menucode, bool cache = false)
         {
             IList<DicInquiryOrderEntity> list = null;
             if (cache)

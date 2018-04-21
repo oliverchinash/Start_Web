@@ -136,66 +136,22 @@ namespace SuperMarket.BLL.ProductDB
         {
             return ProductStylePicsDA.Instance.GetStylePics(id);
         }
-        ///// <summary>
-        ///// 获得数据列表
-        ///// </summary>
-        public IList<ProductStylePicsEntity> GetStylePicsList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
-        {
-            return ProductStylePicsDA.Instance.GetStylePicsList(pageSize, pageIndex, ref recordCount);
-        }
-        ///// <summary>
-        ///// 获得数据列表
-        ///// </summary>
+
+
         public IList<ProductStylePicsEntity> GetStylePicsNoComPress(int num)
         {
             return ProductStylePicsDA.Instance.GetStylePicsNoComPress(num);
 
         }
-        public IList<ProductStylePicsEntity> GetListByStyleId(int styleid)
-        {
-            IList<ProductStylePicsEntity> list = null;
-            list = ProductStylePicsDA.Instance.GetListPics(styleid,0,(int)ProductPicShowType.Combine); 
-            return list; 
-        }
         public IList<ProductStylePicsEntity> GetListPicsByProductId(int productid)
         {
             IList<ProductStylePicsEntity> list = null;
-            list = ProductStylePicsDA.Instance.GetListPics(0, productid, (int)ProductPicShowType.Combine);
+            list = ProductStylePicsDA.Instance.GetListPics( productid );
             return list;
         }
-        public IList<ProductStylePicsEntity> GetListPics(int styleid,int productid,int showpictype)
-        {
-            IList<ProductStylePicsEntity> list = null;
-            string _cachekey = "GetProductDetailPics_"+ styleid+"_"+ productid+"_"+ showpictype;// SysCacheKey.GetProductDetailPics_;
-            object obj = MemCache.GetCache(_cachekey);
-            if (obj == null)
-            {
-                list = ProductStylePicsDA.Instance.GetListPics(styleid, productid, showpictype); 
-                MemCache.AddCache(_cachekey, list);
-            }
-            else
-            {
-                list = (IList<ProductStylePicsEntity>)obj;
-            }
-
-            return list;
-        }
+    
        
-        public async Task GetStylePicsAll()
-        {
-            await Task.Run(() =>
-            {
-                string _cachekey = "StylePicsListKey";// SysCacheKey.StylePicsListKey;
-                object obj = MemCache.GetCache(_cachekey);
-                if (obj == null)
-                {
-                    IList<ProductStylePicsEntity> list = null;
-                    list = ProductStylePicsDA.Instance.GetStylePicsAll();
-                    MemCache.AddCache(_cachekey, list);
-                }
-            });
-        }
-        /// <summary>
+         /// <summary>
         /// 判断对象是否存在
         /// </summary>
         /// <param name="dicEnum"></param>

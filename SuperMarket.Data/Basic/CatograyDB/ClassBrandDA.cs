@@ -161,17 +161,13 @@ namespace SuperMarket.Data.CatograyDB
             }
             return entity;
         }
-        public IList<BrandEntity> GetBrandByClass(int classid, int pid)
+        public IList<BrandEntity> GetBrandByClass(int classid )
         {
             string where = " where b.[IsActive]=1 ";
             if (classid != -1)
             {
                 where += " and a.[ClassId]=@ClassId";
-            }
-            if (pid != -1)
-            {
-                where += " and b.[ParentId]=@ParentId";
-            }
+            } 
             string sql = @"SELECT  b.[Id]
                                   ,b.[Code]
                                   ,b.[Name]
@@ -180,8 +176,7 @@ namespace SuperMarket.Data.CatograyDB
                                   ,b.[PYFull]
                                   ,b.[Sort]
                                   ,b.[IsActive]
-                                  ,b.[IsHot]
-                                  ,b.[ParentId]
+                                  ,b.[IsHot] 
 							FROM
 							dbo.[ClassBrand] a WITH(NOLOCK)	inner join  dbo.Brand b WITH(NOLOCK) on a.BrandId=b.Id
 							 " + where + "  Order By b.[Sort] DESC ";
@@ -189,11 +184,7 @@ namespace SuperMarket.Data.CatograyDB
             if (classid != -1)
             {
                 db.AddInParameter(cmd, "@ClassId", DbType.Int32, classid);
-            }
-            if (pid != -1)
-            {
-                db.AddInParameter(cmd, "@ParentId", DbType.Int32, pid);
-            }
+            } 
             IList<BrandEntity> entityList = new List<BrandEntity>();
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
@@ -208,8 +199,7 @@ namespace SuperMarket.Data.CatograyDB
                     entity.PYFull = StringUtils.GetDbString(reader["PYFull"]);
                     entity.Sort = StringUtils.GetDbInt(reader["Sort"]);
                     entity.IsActive = StringUtils.GetDbInt(reader["IsActive"]);
-                    entity.IsHot = StringUtils.GetDbInt(reader["IsHot"]);
-                    entity.ParentId = StringUtils.GetDbInt(reader["ParentId"]);
+                    entity.IsHot = StringUtils.GetDbInt(reader["IsHot"]); 
                     entityList.Add(entity);
                 }
             }

@@ -80,6 +80,7 @@
     <Compile Include="Basic\CatograyDB\DicUnitEnumBLL.cs" />
     <Compile Include="Basic\CatograyDB\PartsCarBrandBLL.cs" />
     <Compile Include="Basic\CatograyDB\PartsProductFoundBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertiesBLL.cs" />
     <Compile Include="Basic\CatograyDB\StaticCarTypeBLL.cs" />
     <Compile Include="Basic\CatograyDB\StaticClassesFoundBLL.cs" />
     <Compile Include="Basic\CGOrderDB\CGOrderBLL.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Basic\ShoppingDB\WLPsOrderBLL.cs" />
     <Compile Include="Basic\ShoppingDB\WLPsOrderDetailBLL.cs" />
     <Compile Include="Basic\SysDB\CacheConfigBLL.cs" />
+    <Compile Include="Basic\SysDB\ConfigPicComPressBLL.cs" />
     <Compile Include="Basic\SysDB\DicEnumBLL.cs" />
     <Compile Include="Basic\SysDB\GYAuthBLL.cs" />
     <Compile Include="Basic\SysDB\GYCityBLL.cs" />

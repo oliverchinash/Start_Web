@@ -153,7 +153,7 @@ namespace SuperMarket.Data.ProductDB
 		}
         public IList<VWProductEntity> GetSupProductsByClassId(int classid,int producttype=1)
         {
-            string sql = @"SELECT top 5  pd.Id as ProductDetailId,b.Id AS [ProductId],b.StyleId,b.Name,b.Spec1,b.Spec2,b.PicURL as PicUrl,b.PicSuffix,pd.Price,pd.TradePrice,B.MarketPrice,
+            string sql = @"SELECT top 5  pd.Id as ProductDetailId,b.Id AS [ProductId],b.SiteId,b.Name,b.Spec1,b.Spec2,b.PicURL as PicUrl,b.PicSuffix,pd.Price,pd.TradePrice,B.MarketPrice,
 b.AdTitle,a.SalesNum
 							FROM
 							dbo.[ProductSimilarSup] a WITH(NOLOCK)	 INNER JOIN dbo.Product b  WITH(NOLOCK) 
@@ -171,7 +171,7 @@ b.AdTitle,a.SalesNum
                     VWProductEntity entity = new VWProductEntity(); 
                     entity.ProductDetailId = StringUtils.GetDbInt(reader["ProductDetailId"]);
                     entity.ProductId = StringUtils.GetDbInt(reader["ProductId"]);
-                    entity.StyleId = StringUtils.GetDbInt(reader["StyleId"]);
+                    entity.SiteId = StringUtils.GetDbInt(reader["SiteId"]);
                     entity.Name = StringUtils.GetDbString(reader["Name"]);
                     entity.Spec1 = StringUtils.GetDbString(reader["Spec1"]);
                     entity.Spec2 = StringUtils.GetDbString(reader["Spec2"]);

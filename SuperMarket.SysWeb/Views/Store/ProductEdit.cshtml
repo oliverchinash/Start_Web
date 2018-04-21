@@ -21,8 +21,7 @@
 
 <div style="display: none;">
 
-    <input type="text" id="txtMemId" value="@ViewBag.MemId" />
-    <input type="text" id="txtClassId" value="@ViewBag.ClassId" />
+    <input type="text" id="txtMemId" value="@ViewBag.MemId" /> 
     <input type="text" id="txtPropertiesSiteId" value="@ViewBag.SiteId" />  
     <input type="text" id="txtProductId" value="@Request["productid"]" />
     <input type="text" id="txtBrandId" value="@ViewBag.BrandId" />
@@ -44,9 +43,9 @@
     <div class="product-main-search">
         <div class="product-main-search-l">产品类别：
             <input type="hidden" id="txtClassId" value="@_styleentity.ClassId" />
-            <input type="hidden" id="txtClassId1" value="@_styleentity.ClassId" />
-            <input type="hidden" id="txtClassId2" value="@_styleentity.ClassId" />
-            <input type="hidden" id="txtClassId3" value="@_styleentity.ClassId" />
+            <input type="hidden" id="txtClassId1" value="@_styleentity.ClassId1" />
+            <input type="hidden" id="txtClassId2" value="@_styleentity.ClassId2" />
+            <input type="hidden" id="txtClassId3" value="@_styleentity.ClassId3" />
         </div>
         <div class="product-main-search-r" style="margin-left:18px">
             <select id="selClassId1" class="selclass" targettxt="txtClassId1" level="1" onchange="funchangeclass(this)" ><option>sss</option></select>
@@ -84,33 +83,16 @@
             <input type="text" id="txtName" value="@_styleentity.Name" />
         </div>
     </div>
-    <div class="product-main-search" id="divClassProperty" style="display:none;">
-        <div class="product-main-search-l"><span style="color:#f00">*</span>产品属性：</div>
-        <div class="product-main-search-r">
+    
 
-        </div>
-    </div>
-    <div class="product-main-search" id="divSpec1"  >
-        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项1：</div>
-        <div class="product-main-search-r">
-            <input id="txtSpec1" value="@_styleentity.Spec1" />
-        </div>
-    </div>
-    <div class="product-main-search" id="divSpec2"  >
-        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项2：</div>
-        <div class="product-main-search-r">
-            <input id="txtSpec2" value="@_styleentity.Spec2" />
-        </div>
-    </div>
-
-    <div class="product-main-search" style="display:none">
+    @*<div class="product-main-search">
         <div class="product-main-search-l">市场价：</div>
         <div class="product-main-search-r">
             <input type="text" id="txtMarketPrice" value="@_styleentity.MarketPrice" style="float:left; " />
         </div>
 
     </div>
-    <div class="product-main-search" style="display:none">
+    <div class="product-main-search" >
         <div class="product-main-search-l">零售价：</div>
         <div class="product-main-search-r">
             <input type="text" id="txtPrice" value="@_styleentity.Price" style="float:left; " />
@@ -118,12 +100,12 @@
     </div>
     <div  > 
         <div class="product-main-search">
-            <div class="product-main-search-l">批发价：</div>
+            <div class="product-main-search-l">进货价：</div>
             <div class="product-main-search-r">
                 <input type="text" id="txtTradePrice" value="@_styleentity.TradePrice" style="float:left; " />
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="product-main-search">
         <div class="product-main-search-l">单位：</div>
         <div class="product-main-search-r">
@@ -151,19 +133,22 @@
             <input type="text" id="txtPlaceOrigin" value="@_styleentity.PlaceOrigin" style="float:left; " />
         </div>
     </div> 
+
+    <div class="product-main-search" id="divSpec1">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项1：</div>
+        <div class="product-main-search-r">
+            <input id="txtSpec1" value="@_styleentity.Spec1" />
+        </div>
+    </div>
+    <div class="product-main-search" id="divSpec2">
+        <div class="product-main-search-l"><span style="color:#f00">*</span>选择项2：</div>
+        <div class="product-main-search-r">
+            <input id="txtSpec2" value="@_styleentity.Spec2" />
+        </div>
+    </div>
     <div class="product-footer">
         <div class="product-footer-l" style="cursor:pointer;" onclick="ProductSubmit()">确认   </div>
-    </div>
-    <input type="hidden" id="hidProperty1" name="Property1" value="@_styleentity.Property1" />
-    <input type="hidden" id="hidProperty2" name="Property2" value="@_styleentity.Property2" />
-    <input type="hidden" id="hidProperty3" name="Property3" value="@_styleentity.Property3" />
-    <input type="hidden" id="hidProperty4" name="Property4" value="@_styleentity.Property4" />
-    <input type="hidden" id="hidProperty5" name="Property5" value="@_styleentity.Property5" />
-    <input type="hidden" id="hidProperty6" name="Property6" value="@_styleentity.Property6" />
-    <input type="hidden" id="hidProperty7" name="Property7" value="@_styleentity.Property7" />
-    <input type="hidden" id="hidProperty8" name="Property8" value="@_styleentity.Property8" />
-    <input type="hidden" id="hidProperty9" name="Property9" value="@_styleentity.Property9" />
-    <input type="hidden" id="hidProperty10" name="Property10" value="@_styleentity.Property10" />
+    </div> 
 </div>
 
 <script type="text/javascript">
@@ -176,9 +161,7 @@
         if ($("#hidUnit").val() != "" || $("#hidUnit").val()!= "0")
         { 
             $("#selUnit").val($("#hidUnit").val());
-        }
-        //显示属性
-        BindProperties($("#txtPropertiesSiteId").val(), 0);
+        } 
         BindClassSelected($("#txtPropertiesSiteId").val(), 0, 1);
     });
 
@@ -198,32 +181,19 @@
         var _spec1 = $("#txtSpec1").val();
         var _spec2 = $("#txtSpec2").val(); 
         var _picUrl = "";
-        var _unit = $("#hidUnit").val();
-        
-        var propertyselectall = true;
-        $(".selclassproperty").each(function () {
-            if ($(this).val() == 0) {
-                propertyselectall = false;
-                return false;
-            }
-        });
-        if (!propertyselectall) {
-            alert("请选择所有产品属性");
-            return;
-        }
-  
+        var _unit = $("#hidUnit").val();   
         var _num = $("#txtNum").val();
         var _price = $("#txtPrice").val();
         var _tradePrice = $("#txtTradePrice").val();
-        var _marketPrice = $("#txtMarketPrice").val(); 
-        var _freightFee = $("#txtFreightFee").val();
+        var _marketPrice = $("#txtMarketPrice").val();  
+        var _siteid = $("#txtPropertiesSiteId").val();
+        alert(_unit);
 
         $.post("/Store/ProductSubmit", {
             memid: _memId, Code: _Code ,productId: _productId,
             classId: _classId, adTitle: _adTitle, title: _title,  brandname: _brandname,
-            productPropertysstr: _productPropertysstr, num: _num,
-            price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice,  pictype: _pictype,
-            freightFee: _freightFee,
+            num: _num, siteid:_siteid,
+            price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice,   
             placeorigin: _placeorigin, name: _name, grossweight: _grossweight, spec1: _spec1, spec2: _spec2,
             unit: _unit
         }, function (data) {
@@ -300,7 +270,7 @@
     function BindPropertiesValue(obj, _propertyId, _pid) {
 
         var param = { propertyId: _propertyId, pid: _pid };
-        BindDropParent(obj, "/Common/GetPropertyValueList", param,"").text());
+        BindDropParent(obj, "/Common/GetPropertyValueList", param,"");
     }
 
     function BindClassSelected(_siteid, _pid, _level) {

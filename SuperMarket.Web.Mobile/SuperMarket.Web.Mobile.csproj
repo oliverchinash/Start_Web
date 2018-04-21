@@ -558,9 +558,9 @@
       <Project>{506c0ac1-0d1d-47a8-b4e3-6cd3745a7433}</Project>
       <Name>SuperMarket.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SuperMarket.Web.MobileControllers\SuperMarket.Web.MobileControllers.csproj">
-      <Project>{d9cf611c-4dbe-44d8-99a4-9016962d46b9}</Project>
-      <Name>SuperMarket.Web.MobileControllers</Name>
+    <ProjectReference Include="..\SuperMarket.Web.Controllers\SuperMarket.Web.Controllers.csproj">
+      <Project>{9d46be54-4922-47b2-8bbc-60ab1a5a9ee5}</Project>
+      <Name>SuperMarket.Web.Controllers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -684,7 +684,6 @@
     <Content Include="Views\Themes\Basic\Home\_ForgetPwdSuccess.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_HelpContent.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Index.cshtml" />
-    <Content Include="Views\Themes\Basic\Home\_IndexJiShiSong.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Login.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_LogOut.cshtml" />
     <Content Include="Views\Themes\Basic\Home\_Register.cshtml" />
@@ -742,6 +741,12 @@
   <ItemGroup>
     <Content Include="Views\Cart\PreOrder.cshtml" />
     <Content Include="Views\Cart\ShopCart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Controls\_HomeCmsNavClass.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_HomeCmsNavClass.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

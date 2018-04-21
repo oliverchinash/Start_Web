@@ -93,7 +93,7 @@
 
     //成功初始化后执行api 分享事务  
     wxShare.readySuccessCall.push(function () {
-        var title = "阿哈马车服-国内最专业的汽车零部件及相关用品的在线采购网站",
+        var title = "小店-国内最专业的汽车零部件及相关用品的在线采购网站",
            link = window.location.href,
             imgUrl = "http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg",//分享接口显示的图片  
             desc = "分享接口测试",

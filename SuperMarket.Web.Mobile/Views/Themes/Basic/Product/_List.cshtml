@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>阿哈马-@((ViewBag.JiShiSong==(int)SuperMarket.Model.JiShiSongEnum.JiShi)?"及时达":"")产品列表</title>  
+    <title>阿哈马- 产品列表</title>  
     <meta name="renderer" content="webkit"> 
     <meta http-equiv="Cache-Control" content="no-siteapp" /> 
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
@@ -33,7 +33,7 @@
         $(function () {
             $(".am-form-group").click(function () {
                 var key = $("#txtSearchkey").val();
-                window.location.href = "/MobileHome/Search?key=" + key;
+                window.location.href = "/Home/Search?key=" + key;
             })
 
         //document.onkeydown = function (event) {
@@ -50,7 +50,7 @@
 </head>
 <body>
 @{ 
-    int classid = ViewBag.SelectClassId;
+    int classid = ViewBag.ClassId;
 }<div style="display:none;">
     <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
@@ -83,10 +83,7 @@
                         {
                             <li onclick="DelSearchCondition('spanselectbrand')"><span>@ViewBag.SelectBrandName</span></li>
                         }
-                        if (ViewBag.SelectCarTypeName != null)
-                        {
-                            <li onclick="DelSearchConditionCarType()"><span>@ViewBag.SelectCarTypeName</span></li>
-                        }
+                        
                     } 
                 </ul>
             </div>
@@ -102,7 +99,7 @@
                     <i class="am-menu-toggle-icon am-icon-bars"></i>
                 </a>
                 <!--------------油品开始--------------->
-                <ul class="am-menu-nav am-avg-sm-3">
+                <ul class="am-menu-nav am-avg-sm-2">
                     <li class="am-parent">
                         <a href="javascript:void(0)" class=""  onclick="FunOpenCanvas('divClassCanvas')">分类</a>
                     </li> 
@@ -110,10 +107,7 @@
                     <!----------------品牌开始---------------->
                     <li class="am-parent">
                         <a href="javascript:void(0)" class=""  onclick="FunOpenCanvas('divBrandCanvas')">品牌</a>
-                    </li> 
-                    <li class="am-parent">
-                        <a href="javascript:void(0)" class=""  onclick="FunOpenCanvas('divCarTypeBrandCanvas')">车型</a>
-                    </li> 
+                    </li>  
                 </ul> 
             </nav> 
         </div>
@@ -144,14 +138,7 @@
                                             <div class="am-fl" style="margin-top: .5rem; line-height:1.8rem">
                                                 <input id="txtProductNum@(_productentity.ProductDetailId)" style="width:100px;" class="alignment" hascreate="0" maxlimit="@_productentity.StockNum" value="1" />
                                             </div>
-                                            @if (_productentity.ActualPrice >= SuperMarket.Model.CommonKey.MaxPrice)
-                                            {
-
-                                            } 
-                                            else
-                                            {
-                                                <div class="am-fr clsaddtocart" jishi="@(_productentity.JiShiSong)" ProductDetailId="@(_productentity.ProductDetailId)" style="border: 1px solid #FF5000; border-radius: .5rem;padding: .3rem .5rem; color:#FF5000 ">加入购物车</div>
-                                            }
+                                          
                                          </div>
                                     </div>
                                 </li>
@@ -171,13 +158,10 @@
     @Html.Partial("controls/_FootBanner")
     <div class="divCanvasContainer">
         @Html.Partial("controls/_CmsNavClass")
-        @Html.Partial("controls/_CmsBrand",classid)
-        @Html.Partial("controls/_CmsCarType") 
+        @Html.Partial("controls/_CmsBrand",classid) 
     </div>
     <div style="display:none;">
-    <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
-    <span id="spanproducttype">@ViewBag.ProductType</span>
-    <span id="spanjishisong">@ViewBag.JiShiSong</span> 
+    <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span> 
     </div>
 
     <script id="divproductList-template" type="text/x-handlebars-template">
@@ -217,13 +201,7 @@
                             <div class="am-list-item-desced">
                                 <div class="am-fl" style="margin-top: .5rem; line-height:1.8rem">
                                     <input id="txtProductNum{{ProductDetailId}}" style="width:100px;" class="alignment"  hascreate="0"  value="1" />
-                                </div>
-                                {{#if AdTitle}}
-                                {{#compare ActualPrice @(SuperMarket.Model.CommonKey.MaxPrice - 1) }}
-                                {{else}}
-                                <div class="am-fr clsaddtocart" jishi="{{JiShiSong}}" ProductDetailId="{{ProductDetailId}}"  style="border: 1px solid #FF5000; border-radius: .5rem;padding: .3rem .5rem; color:#FF5000 ">加入购物车</div>
-                                {{/compare}}
-                                {{/if}}
+                                </div> 
                               </div>
                         </div>
                     </li>
@@ -243,14 +221,9 @@
 
     function FunGetForList(pageindex) {
         var classid = $("#spannavclass").html();
-        var brandid = $("#spanselectbrand").html();
-        var cartypebrandid = $("#spanSelectCarTypeBrand").html();
-        var cartypeseriesid = $("#spanSelectCarTypeSeries").html();
-        var cartypemodelid = $("#spanSelectCarTypeModel").html();
-        var key = $("#txtSearchkey").val();
-        var producttype = $("#spanproducttype").html();
-        var jishisong = $("#spanjishisong").html();
-        location.href = "/MobileProduct/List?js="+jishisong+"&cl=" + classid + "&pt=" + producttype + "&bd=" + brandid + "&ctbd=" + cartypebrandid + "&cts=" + cartypeseriesid + "&ctm=" + cartypemodelid + "&key=" + key;
+        var brandid = $("#spanselectbrand").html(); 
+        var key = $("#txtSearchkey").val(); 
+        location.href = "/Product/List?cid=" + classid + "&pt=" + producttype + "&bd=" + brandid + "&key=" + key;
     }
     function FunSearch(pageindex)
     {
@@ -261,14 +234,7 @@
     {
         $("#" + objid).html("");
         FunGetForList(1);
-    }
-    function DelSearchConditionCarType() {
-
-        $("#spanSelectCarTypeBrand").html("");
-        $("#spanSelectCarTypeSeries").html("");
-        $("#spanSelectCarTypeModel").html("");
-        FunGetForList(1);
-    }
+    } 
  
     $(function () {
         $(".product-list-ul").jqSwipe();
@@ -280,14 +246,10 @@
         var page = 1;
         var maxpage = $("#spanmaxpageindex").html();
         var classid = $("#spannavclass").html();
-        var brandid = $("#spanselectbrand").html();
-        var cartypebrandid = $("#spanSelectCarTypeBrand").html();
-        var cartypeseriesid = $("#spanSelectCarTypeSeries").html();
-        var cartypemodelid = $("#spanSelectCarTypeModel").html();
-        var producttype = $("#spanproducttype").html();
-        var jishisong = $("#spanjishisong").html(); 
+        var brandid = $("#spanselectbrand").html();   
         var key = $("#txtSearchkey").val();
-         
+        alert(maxpage);
+        alert(page);
         // dropload
         $("#divproductlistbox").dropload({
             scrollArea : window, 
@@ -302,8 +264,8 @@
                 var result = '';
                 $.ajax({
                     type: 'GET',
-                    url: '/MobileProduct/GetJsonList',
-                    data: { js:jishisong,cl: classid, bd: brandid, pt: producttype, ctbd: cartypebrandid, cts: cartypeseriesid, ctm: cartypemodelid, key: key, pageindex: page },
+                    url: '/Product/GetJsonList',
+                    data: {  cid: classid, bd: brandid,  key: key, pageindex: page },
                     dataType: 'json',
                     success: function (data) { 
                         if (page <= maxpage) {

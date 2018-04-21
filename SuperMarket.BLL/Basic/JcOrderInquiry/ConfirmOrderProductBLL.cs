@@ -174,7 +174,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
 
         }
 
-        public IList<VWConfirmOrderCGMemEntity> GetConfirmCGMemsByCode(string code, bool cache = true)
+        public IList<VWConfirmOrderCGMemEntity> GetConfirmCGMemsByCode(string code, bool cache = false)
         {
             IList<VWConfirmOrderCGMemEntity> list = null;
             if (cache)

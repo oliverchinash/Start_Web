@@ -85,8 +85,7 @@ namespace SuperMarket.BLL.ProductDB
         {
             return ProductDA.Instance.ChangeProductStatus(id, status);
         }
-
-
+         
         /// <summary>
         /// 更新一条Product记录。
         /// 该方法提供给界面等UI层调用
@@ -272,12 +271,11 @@ namespace SuperMarket.BLL.ProductDB
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<ProductEntity> GetProductList(int pageSize, int pageIndex, ref  int recordCount,string proname,string classidstr,int styleid)
+        public IList<ProductEntity> GetProductList(int pageSize, int pageIndex, ref  int recordCount,string proname,string classidstr, int _siteid )
         {
-            string productName = string.Empty;
-            int styleId = 0;
+            string productName = string.Empty; 
              
-            return ProductDA.Instance.GetProductList(pageSize, pageIndex, ref recordCount, productName, classidstr,styleId);
+            return ProductDA.Instance.GetProductList(pageSize, pageIndex, ref recordCount, productName, classidstr , _siteid);
         }
 
         public DataTable GetDataTableByClassId(int classid,int producttype,int productstatus)
@@ -430,9 +428,9 @@ namespace SuperMarket.BLL.ProductDB
         /// <param name="_classtype"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public IList<VWProductEntity> GetProductListProc(int pageIndex , int pageSize, ref int recordCount, string classidstr, int brandid, string propertstr, int orderbytype, int producttype, string key,int jishi,int status =1)
+        public IList<VWProductEntity> GetProductListProc(int pageIndex , int pageSize, ref int recordCount, string classidstr, int brandid, string propertstr, int orderbytype, string key,int status =1)
         {
-            IList<VWProductEntity> list= ProductDA.Instance.GetProductListFormProc(pageIndex, pageSize, ref recordCount, classidstr, brandid, propertstr, orderbytype, producttype,   key, jishi, status);
+            IList<VWProductEntity> list= ProductDA.Instance.GetProductListFormProc(pageIndex, pageSize, ref recordCount, classidstr, brandid, propertstr, orderbytype,  key,status);
             if (list != null && list.Count > 0)
             {
                 foreach (VWProductEntity entity in list)
@@ -452,68 +450,7 @@ namespace SuperMarket.BLL.ProductDB
             return list; 
         }
 
-
-        /// <summary>
-        /// 手机版乘用车获取产品列表
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="recordCount"></param>
-        /// <param name="classidstr"></param>
-        /// <param name="brandid"></param>
-        /// <param name="propertstr"></param>
-        /// <param name="orderbytype"></param>
-        /// <param name="producttype"></param>
-        /// <param name="cartypeid1"></param>
-        /// <param name="cartypeid2"></param>
-        /// <param name="cartypeid3"></param>
-        /// <param name="cartypeid4"></param>
-        /// <param name="key"></param>
-        /// <param name="_classtype"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        public IList<VWProductEntity> GetProductListProcCYC(int pageSize, int pageIndex, ref int recordCount, string classidstr, int brandid, string propertstr, int orderbytype, int producttype, int cartype ,    int jishi, int status = 1)
-        {
-            IList<VWProductEntity> list = ProductDA.Instance.GetProductListProcCYC(pageSize, pageIndex, ref recordCount, classidstr, brandid, propertstr, orderbytype, producttype, cartype , jishi, status);
-            if (list != null && list.Count > 0)
-            {
-                foreach (VWProductEntity entity in list)
-                {
-                    if (entity.Unit > 0)
-                    {
-                        entity.UnitName = DicUnitEnumBLL.Instance.GetDicUnitEnum(entity.Unit).Name;
-                    }
-                    else
-                    {
-                        entity.UnitName = "件";
-                    }
-                }
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// 获取产品列表，仅仅产品，不包括价格等
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="recordCount"></param>
-        /// <param name="classidstr"></param>
-        /// <param name="brandid"></param>
-        /// <param name="propertstr"></param>
-        /// <param name="orderbytype"></param>
-        /// <param name="producttype"></param>
-        /// <param name="cartypeid1"></param>
-        /// <param name="cartypeid2"></param>
-        /// <param name="cartypeid3"></param>
-        /// <param name="cartypeid4"></param>
-        /// <param name="key"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
-        public IList<VWProductEntity> GetProMsgListProc(int pageSize, int pageIndex, ref int recordCount, string classidstr, int brandid,   int orderbytype, int cartypeid1, int cartypeid2, int cartypeid3, int cartypeid4, string key, int memid, int cgappstatus,int classtype)
-        {
-            return ProductDA.Instance.GetProMsgListProc(pageSize, pageIndex, ref recordCount, classidstr, brandid, orderbytype,cartypeid1, cartypeid2, cartypeid3, cartypeid4, key,   memid, cgappstatus, classtype);
-        }
+         
         public async Task GetProductAll()
         {
             await Task.Run(() =>

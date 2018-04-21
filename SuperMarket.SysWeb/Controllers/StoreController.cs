@@ -57,45 +57,7 @@ namespace SuperMarket.SysWeb.Controllers
 
         #region 产品发布(0)
 
-        public ActionResult PRelease()
-        {
-            //判断是否是修改
-            int styleid = QueryString.IntSafeQ("styleid");
-            int classid = 0;
-            VWProductStyleEntity _styleentity = new VWProductStyleEntity();
-            if (styleid > 0)
-            {
-                _styleentity = ProductStyleBLL.Instance.GetProductStyle(styleid);
-                _styleentity.StylePics = ProductStylePicsBLL.Instance.GetListByStyleId(styleid);//获取样式图片列表
-                classid = _styleentity.ClassId;
-            }
-            else
-            {
-                classid = QueryString.IntSafeQ("classid");
-            }
-
-            if (classid == 0) RedirectToAction("PClass");
-            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
-            if (_classentity.IsEnd == 0) RedirectToAction("PClass");
-
-            string className = _classentity.Name;
-            int _pid = _classentity.ParentId;
-            for (int i = 1; i < _classentity.ClassLevel && _pid > 0; i++)
-            {
-                ClassesFoundEntity _pentity = ClassesFoundBLL.Instance.GetClassesFound(_pid, true);
-                _pid = _pentity.ParentId;
-                className = _pentity.Name + ">" + className;
-            }
-            ViewBag.ClassNamePath = className;
-            ViewBag.ClassId = classid;
-            ViewBag.ProductStyle = _styleentity;
-            ViewBag.MemId = memid;
-
-            VWStoreEntity _meminforntity = StoreBLL.Instance.GetVWStoreByMemId(memid);
-            ViewBag.Store = _meminforntity;
-            return View();
-        }
-
+     
         public ActionResult PPublished()
         {
             int _classid = QueryString.IntSafeQ("classid");
@@ -318,52 +280,46 @@ namespace SuperMarket.SysWeb.Controllers
             int _memid = FormString.IntSafeQ("memid");
             if (_memid == memid)
             {
-                int _productId = FormString.IntSafeQ("productId");
-                int _styleId = FormString.IntSafeQ("styleId");
+                int _productId = FormString.IntSafeQ("productId"); 
                 int _classId = FormString.IntSafeQ("classId");
                 string _adTitle = FormString.SafeQ("adTitle", 200);
                 string _title = FormString.SafeQ("title", 200);
                 string _code = FormString.SafeQ("Code");
-                string _oECode = FormString.SafeQ("oECode");
                 string _placeorigin = FormString.SafeQ("placeorigin");
                 string _name = FormString.SafeQ("name");
                 string _spec1 = FormString.SafeQ("spec1");
                 string _spec2 = FormString.SafeQ("spec2");
+                int _siteid = FormString.IntSafeQ("siteid");
                 decimal _grossweight = StringUtils.GetDbDecimal(FormString.SafeQ("grossweight"));
-                string _brandId = FormString.SafeQ("brandId");
-                int _cartyperelated = FormString.IntSafeQ("cartyperelated");
-                string _productPropertysstr = FormString.SafeQ("productPropertysstr", 4000);
-                string _CarTypeStr = FormString.SafeQ("CarTypeStr", 4000);
-                string _productpicsstr = FormString.SafeQ("productpicsstr", 8000);
+                string _brandname = FormString.SafeQ("brandname"); 
                 int _num = FormString.IntSafeQ("num");
                 decimal _price = StringUtils.GetDbDecimal(FormString.SafeQ("price", 200));
                 decimal _tradePrice = StringUtils.GetDbDecimal(FormString.SafeQ("tradePrice", 200));
                 decimal _marketPrice = StringUtils.GetDbDecimal(FormString.SafeQ("marketPrice", 200));
-                int _isoem = FormString.IntSafeQ("isoem");
                 int _transfeetype = FormString.IntSafeQ("transfeetype");
                 decimal _transfee = StringUtils.GetDbDecimal(FormString.SafeQ("transfee"));
-                string _contentcms = FormString.SafeQNo("contentcms", 8000);
-                string _picUrl = FormString.SafeQ("picUrl", 500);
                 int _unit = FormString.IntSafeQ("unit");
                 ProcProductEntity _entity = new ProcProductEntity();
-
-                _entity.StyleId = _styleId;
+                 
                 _entity.ClassId = _classId;
                 _entity.Code = _code;
                 _entity.AdTitle = _adTitle;
                 _entity.Title = _title;
-                _entity.CarTypesStr = _CarTypeStr;
-                _entity.BrandId = _brandId;
-                _entity.ContentCms = _contentcms;
-                _entity.IsOEM = _isoem;
+                _entity.SiteId = _siteid;
+                BrandEntity brand= BrandBLL.Instance.GetBrandByName(_brandname);
+                if(brand==null|| brand.Id==0)
+                {
+                    brand.Name = _brandname;
+                    _entity.BrandId = BrandBLL.Instance.AddBrand(brand);
+                    _entity.BrandName = _brandname;
+
+                }
                 _entity.ProductId = _productId;
                 _entity.TransFee = _transfee ;
                 _entity.HasHtml = 0;
                 _entity.TransFeeType = _transfeetype;
                 _entity.MarketPrice = _marketPrice;
                 _entity.Num = _num;
-                _entity.CarTypeRelated = _cartyperelated;
-                _entity.OECode = _oECode;
                 _entity.GrossWeight = _grossweight;
                 _entity.Name = _name;
                 _entity.Spec1 = _spec1;
@@ -372,16 +328,12 @@ namespace SuperMarket.SysWeb.Controllers
                 _entity.Unit = _unit;
                 _entity.PlaceOrigin = _placeorigin;
 
-                _entity.Price = _price;
-                _entity.StyleId = _styleId;
-                _entity.ProductPicsStr = _productpicsstr;
-                _entity.PicUrl = _picUrl;
-                _entity.ProductPropertysStr = _productPropertysstr;
+                _entity.Price = _price;  
                 _entity.TradePrice = _tradePrice;
-                _entity.CreateManId = memid;
-                _styleId = ProductBLL.Instance.AddProductProc(_entity);
+                _entity.CreateManId = memid; 
+               int productid=ProductBLL.Instance.AddProductProc(_entity);
 
-                if (_styleId > 0)
+                if (productid > 0)
                 {
                     return ((int)CommonStatus.Success).ToString();
                 }
@@ -407,152 +359,7 @@ namespace SuperMarket.SysWeb.Controllers
         #endregion
 
         #region  样式管理
-
-
-        /// <summary>
-        /// 样式列表
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult PStyleList()
-        {
-            int _classid = QueryString.IntSafeQ("classid");
-            int _brandid = QueryString.IntSafeQ("brandid");
-            int pageindex = QueryString.IntSafeQ("pageindex");
-            int orderby = QueryString.IntSafeQ("orderby");
-            int type = QueryString.IntSafeQ("type");
-            string stylename = QueryString.SafeQ("stylename");
-
-            if (pageindex == 0) pageindex = 1;
-            int _pagesize = CommonKey.PageSizeList;
-            int record = 0;
-
-            IList<ConditionUnit> wherelist = new List<ConditionUnit>();
-            wherelist.Add(new ConditionUnit { FieldName = SearchFieldName.ClassId, CompareValue = _classid.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = SearchFieldName.BrandId, CompareValue = _brandid.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = SearchFieldName.OrderByType, CompareValue = orderby.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = SearchFieldName.StyleName, CompareValue = stylename });
-
-            IList<ProductStyleEntity> _entitylist = ProductStyleBLL.Instance.GetProductStyleList(_pagesize, pageindex, ref record, wherelist);
-            //type==2 表示选取的是产品，本例：发布产品的时候是唯一款式自动到对应款式的添加产品项
-            if (type == 2 && _entitylist.Count == 1)
-            {
-                return RedirectToAction("ProductEdit");
-            }
-            ViewBag.EntityList = _entitylist;
-            string url = "/Store/PStyleList?class=" + _classid + "&brandid=" + _brandid + "&orderby=" + orderby;
-            ViewBag.PageStr = HTMLPage.SetProductListPage(record, _pagesize, pageindex, url);
-            return View();
-        }
-
-        /// <summary>
-        /// 样式编辑
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult PStyleEdit()
-        {
-            //判断是否是修改
-            int styleid = QueryString.IntSafeQ("styleid");
-            int classid = QueryString.IntSafeQ("classid");
-            int brandid = QueryString.IntSafeQ("brandid");
-            VWProductStyleEntity _styleentity = new VWProductStyleEntity();
-            if (styleid > 0)
-            {
-                _styleentity = ProductStyleBLL.Instance.GetProductStyle(styleid);
-                _styleentity.StylePics = ProductStylePicsBLL.Instance.GetListByStyleId(styleid);//获取样式图片列表
-                //_styleentity.StylePropertys = ProductStyleProBLL.Instance.GetListByStyleId(styleid);//获取样式属性列表
-                //_styleentity.ProductStyleCars = ProductStyleCarBLL.Instance.GetListByStyleId(styleid);//获取样式车型列表
-                classid = _styleentity.ClassId;
-                brandid = _styleentity.BrandId;
-            }
-
-
-            if (classid == 0 || brandid == 0) RedirectToAction("PClass");
-            BrandEntity _brandentity = BrandBLL.Instance.GetBrand(brandid, true);
-            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
-            if (_classentity.IsEnd == 0) RedirectToAction("PClass");
-            string className = _classentity.Name;
-            int _pid = _classentity.ParentId;
-            for (int i = 1; i < _classentity.ClassLevel && _pid > 0; i++)
-            {
-                ClassesFoundEntity _pentity = ClassesFoundBLL.Instance.GetClassesFound(_pid, true);
-                _pid = _pentity.ParentId;
-                className = _pentity.Name + ">" + className;
-            }
-            ViewBag.ClassNamePath = className;
-            ViewBag.ClassId = classid;
-            ViewBag.BrandId = _brandentity.Id;
-            ViewBag.BrandName = _brandentity.Name;
-            ViewBag.ProductStyle = _styleentity;
-            ViewBag.MemId = memid;
-
-            return View();
-        }
-
-
-        /// <summary>
-        /// 样式信息添加或修改
-        /// </summary>
-        /// <returns></returns>
-        [ValidateInput(false)]
-        public string StyleSubmit()
-        {
-            int _memid = FormString.IntSafeQ("memid");
-            if (_memid == memid)
-            {
-                int _styleId = FormString.IntSafeQ("styleId");
-                int _classId = FormString.IntSafeQ("classId");
-                string _adTitle = FormString.SafeQ("adTitle", 200);
-                string _title = FormString.SafeQ("title", 200);
-                //string _oECode = FormString.SafeQ("oECode");
-                int _brandId = FormString.IntSafeQ("brandId");
-                //string _stylePropertys = FormString.SafeQ("stylePropertys", 4000);
-                //string _brandCar = FormString.SafeQ("brandCar", 4000);
-                string _stylePics = FormString.SafeQ("stylePics", 8000);
-                //int _num = FormString.IntSafeQ("num");
-                //decimal _price = StringUtils.GetDbDecimal(FormString.SafeQ("price", 200));
-                //decimal _tradePrice = StringUtils.GetDbDecimal(FormString.SafeQ("tradePrice", 200));
-                //decimal _marketPrice = StringUtils.GetDbDecimal(FormString.SafeQ("marketPrice", 200));
-                //decimal _cost = StringUtils.GetDbDecimal(FormString.SafeQ("cost"));
-                int _transfeetype = FormString.IntSafeQ("transfeetype");
-                decimal _transfee = StringUtils.GetDbDecimal(FormString.SafeQ("transfee"));
-                string _contentcms = FormString.SafeQNo("contentcms", 8000);
-                string _picUrl = FormString.SafeQ("picUrl", 500);
-                VWProductStyleEntity _entity = new VWProductStyleEntity();
-
-                _entity.StyleId = _styleId;
-                _entity.ClassId = _classId;
-                _entity.AdTitle = _adTitle;
-                _entity.Title = _title;
-                //_entity.BrandCars = _brandCar;
-                _entity.BrandId = _brandId;
-                _entity.ContentCms = _contentcms;
-                //_entity.Cost = _cost;
-                _entity.DefaultProductId = 0;
-                _entity.TransFee = _transfee;
-                _entity.HasHtml = 0;
-                _entity.TransFeeType = _transfeetype;
-                //_entity.MarketPrice = _marketPrice;
-                //_entity.Num = _num;
-                //_entity.OECode = _oECode;
-
-                //_entity.Price = _price;
-                //_entity.SellerId = memid; 
-                _entity.StylePicsStr = _stylePics;
-                _entity.PicUrl = _picUrl;
-                //_entity.StylePropertys = _stylePropertys;
-                //_entity.TradePrice = _tradePrice;
-
-                _styleId = ProductStyleBLL.Instance.AddProductStyleProc(_entity);
-                if (_styleId > 0)
-                {
-                    return ((int)CommonStatus.Success).ToString();
-                }
-
-            }
-            return ((int)CommonStatus.Fail).ToString();
-        }
-
-
+         
 
         #endregion
 
@@ -565,19 +372,19 @@ namespace SuperMarket.SysWeb.Controllers
         public ActionResult ProductList()
         {
             int _flag = QueryString.IntSafeQ("flag");
-            int _styleId = QueryString.IntSafeQ("styleId");
+            int _siteid = QueryString.IntSafeQ("siteid");
             int _pageindex = QueryString.IntSafeQ("pageindex", 1);
             int _pagesize = CommonKey.PageSizeList;
             int _recordCount = 0;
             string _productName = QueryString.SafeQ("productName");
              
-            IList<ProductEntity> entitylist = ProductBLL.Instance.GetProductList(_pagesize, _pageindex, ref _recordCount, _productName,"", _styleId);
+            IList<ProductEntity> entitylist = ProductBLL.Instance.GetProductList(_pagesize, _pageindex, ref _recordCount, _productName,"", _siteid);
             ViewBag.entitylist = entitylist;
 
             string _url = "/Store/ProductList?stylename=" + _productName;
             string pagestr = HTMLPage.SetProductListPage(_recordCount, _pagesize, _pageindex, _url);
             ViewBag.PageStr = pagestr;
-            ViewBag.StyleId = _styleId;
+            ViewBag.SiteId = _siteid;
             ViewBag.Flag = _flag;
             return View();
         }
@@ -624,19 +431,41 @@ namespace SuperMarket.SysWeb.Controllers
             return View();
         }
 
+        public ActionResult ProductPropertyEdit(int pid)
+        {
 
+            VWProductEntity _vwproductentity = new VWProductEntity();
+            _vwproductentity = ProductBLL.Instance.GetProductVW(pid);
+            ViewBag.Product = _vwproductentity;
+            return View();
+        }
+        public ActionResult ProductPropertySubmit(ProductPropertiesEntity pp)
+        {
+            int result = 0;
+            if (pp.Id>0)
+            {
+                result = ProductPropertiesBLL.Instance.UpdateProductProperties(pp);
+
+            }
+            else
+            {
+                result = ProductPropertiesBLL.Instance.AddProductProperties(pp);
+            }
+            if(result>0)
+            return Content("更新成功！");
+            else
+            return Content("更新失败！"); 
+        }
         /// <summary>
         /// 产品图片添加
         /// </summary>
         /// <returns></returns>
         public ActionResult ProductPicsEdit()
         {
-            int _productid = QueryString.IntSafeQ("productid");
-            int _styleid = QueryString.IntSafeQ("styleid");
+            int _productid = QueryString.IntSafeQ("pid"); 
             ProductEntity _entity = ProductBLL.Instance.GetProduct(_productid);
             IList<ProductStylePicsEntity> _entityList = ProductStylePicsBLL.Instance.GetListPicsByProductId(_productid);
-            ViewBag.ProductId = _productid;
-            ViewBag.StyleId = _styleid;
+            ViewBag.ProductId = _productid; 
             ViewBag.Entity = _entity;
             ViewBag.EntityList = _entityList;
             return View();
@@ -656,74 +485,7 @@ namespace SuperMarket.SysWeb.Controllers
             return ProductStylePicsBLL.Instance.AddProcStylePics(_styleId, _productId, _productpicsstr, "");
         }
 
-        /// <summary>
-        /// 产品信息提交
-        /// </summary>
-        /// <returns></returns>
-        [ValidateInput(false)]
-        public string ProductEditSubmit()
-        {
-            int _memid = FormString.IntSafeQ("memid");
-            if (_memid == memid)
-            {
-                int _productId = FormString.IntSafeQ("productId");
-                int _styleId = FormString.IntSafeQ("styleId");
-                int _classId = FormString.IntSafeQ("classId");
-                string _adTitle = FormString.SafeQ("adTitle", 200);
-                string _title = FormString.SafeQ("title", 200);
-                string _oECode = FormString.SafeQ("oECode");
-                string _brandId = FormString.SafeQ("brandId");
-                int _cartyperelated = FormString.IntSafeQ("cartyperelated");
-                string _productPropertysstr = FormString.SafeQ("productPropertysstr", 4000);
-                string _CarTypeStr = FormString.SafeQ("CarTypeStr", 4000);
-                string _productpicsstr = FormString.SafeQ("productpicsstr", 8000);
-                int _num = FormString.IntSafeQ("num");
-                decimal _price = StringUtils.GetDbDecimal(FormString.SafeQ("price", 200));
-                decimal _tradePrice = StringUtils.GetDbDecimal(FormString.SafeQ("tradePrice", 200));
-                decimal _marketPrice = StringUtils.GetDbDecimal(FormString.SafeQ("marketPrice", 200));
-                decimal _cost = StringUtils.GetDbDecimal(FormString.SafeQ("cost"));
-                int _transfeetype = FormString.IntSafeQ("transfeetype");
-                decimal _transfee = StringUtils.GetDbDecimal(FormString.SafeQ("transfee"));
-                string _contentcms = FormString.SafeQNo("contentcms", 8000);
-                string _picUrl = FormString.SafeQ("picUrl", 500);
-                ProcProductEntity _entity = new ProcProductEntity();
-
-                _entity.StyleId = _styleId;
-                _entity.ClassId = _classId;
-                _entity.AdTitle = _adTitle;
-                _entity.Title = _title;
-                _entity.CarTypesStr = _CarTypeStr;
-                _entity.BrandId = _brandId;
-                _entity.ContentCms = _contentcms;
-                _entity.Cost = _cost;
-                _entity.ProductId = 0;
-                _entity.TransFee = _transfee;
-                _entity.HasHtml = 0;
-                _entity.TransFeeType = _transfeetype;
-                _entity.MarketPrice = _marketPrice;
-                _entity.Num = _num;
-                _entity.CarTypeRelated = _cartyperelated;
-                _entity.OECode = _oECode;
-
-                _entity.Price = _price;
-                _entity.StyleId = _styleId;
-                _entity.ProductPicsStr = _productpicsstr;
-                _entity.PicUrl = _picUrl;
-                _entity.ProductPropertysStr = _productPropertysstr;
-                _entity.TradePrice = _tradePrice;
-
-                _styleId = ProductBLL.Instance.AddProductProc(_entity);
-
-                if (_styleId > 0)
-                {
-                    return ((int)CommonStatus.Success).ToString();
-                }
-
-            }
-            return ((int)CommonStatus.Fail).ToString();
-        }
-
-
+       
         /// <summary>
         /// 上架或者下架产品
         /// </summary>
@@ -807,11 +569,10 @@ namespace SuperMarket.SysWeb.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult ReleaseProduct()
-        {
-            int _ptype = QueryString.IntSafeQ("ptype");
+        { 
             int _pdid = QueryString.IntSafeQ("pdid");
             int _pid = QueryString.IntSafeQ("pid");
-            ProductDetailEntity detailEntity = new ProductDetailEntity();
+            VWProductDetailEntity detailEntity = new VWProductDetailEntity();
             if (_pdid > 0)
             {
                 detailEntity = ProductDetailBLL.Instance.GetProductDetail(_pdid);
@@ -820,10 +581,9 @@ namespace SuperMarket.SysWeb.Controllers
             else if (_pid > 0)
             {
                 ViewBag.ProductId = _pid;
-                detailEntity = ProductDetailBLL.Instance.GetProductDetailByPId(_pid, _ptype);
+                detailEntity = ProductDetailBLL.Instance.GetProductDetailByPId(_pid );
             }
-            ViewBag.DetailEntity = detailEntity;
-            ViewBag.ProductType = _ptype;
+            ViewBag.DetailEntity = detailEntity; 
             return View();
         }
 
@@ -840,6 +600,7 @@ namespace SuperMarket.SysWeb.Controllers
             int _status = FormString.IntSafeQ("status");
             int _saleNum = FormString.IntSafeQ("saleNum");
             decimal _tradePrice = FormString.DecimalSafeQ("tradePrice");
+            decimal _price = FormString.DecimalSafeQ("price");
 
             int _stockNum = FormString.IntSafeQ("stockNum");
 
@@ -851,6 +612,7 @@ namespace SuperMarket.SysWeb.Controllers
             entity.Status = _status;
             entity.SaleNum = _saleNum;
             entity.TradePrice = _tradePrice;
+            entity.Price = _price;
 
             entity.StockNum = _stockNum;
             //if (_productType == (int)ProductType.SpecialPrice)
@@ -933,33 +695,7 @@ namespace SuperMarket.SysWeb.Controllers
             ViewBag.ProductName = ProductBLL.Instance.GetProduct(_pid).Name;
             return View();
         }
-        /// <summary>
-        /// 车型添加
-        /// </summary>
-        /// <returns></returns>
-        public string ProductCarTypeAdd()
-        {
-
-            int _pid = FormString.IntSafeQ("_pid");
-            int _cartype1 = FormString.IntSafeQ("_cartype1");
-            int _cartype2 = FormString.IntSafeQ("_cartype2");
-            int _cartype3 = FormString.IntSafeQ("_cartype3");
-            int _cartype4 = FormString.IntSafeQ("_cartype4");
-
-            ProductCarTypeEntity _entity = new ProductCarTypeEntity();
-            _entity.ProductId = _pid;
-            _entity.CarType1 = _cartype1;
-            _entity.CarType2 = _cartype2;
-            _entity.CarType3 = _cartype3;
-            _entity.CarType4 = _cartype4;
-
-            int _result = ProductCarTypeBLL.Instance.ExecProcProductCarTypeAdd(_entity);
-            _entity = ProductCarTypeBLL.Instance.GetProductCarType(_result);
-            return JsonJC.ObjectToJson(_entity);
-
-        }
-
-
+     
         /// <summary>
         /// 删除车型
         /// </summary>
@@ -980,7 +716,7 @@ namespace SuperMarket.SysWeb.Controllers
         /// <returns></returns>
         public ActionResult ProductDetailPicsEdit()
         {
-            int _pid = QueryString.IntSafeQ("productid", 0);
+            int _pid = QueryString.IntSafeQ("pid", 0);
             ProductExtEntity entity = ProductExtBLL.Instance.GetProductExtByProductId(_pid);
             ProductEntity productEntity = ProductBLL.Instance.GetProduct(_pid);
             ViewBag.Entity = entity;

@@ -155,16 +155,16 @@ namespace SuperMarket.Data.ProductDB
 		/// </summary>
 		/// <param name="db">数据库操作对象</param>
 		/// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
-		public   ProductDetailEntity GetProductDetail(int id)
+		public    VWProductDetailEntity GetProductDetail(int id)
 		{
-			string sql=@"SELECT  [Id],[ProductId],[Price],[TradePrice],[StockNum],[SaleNum],[ProductType],[Status],[TimeStampCode]
-							FROM
-							dbo.[ProductDetail] WITH(NOLOCK)	
-							WHERE [Id]=@id";
+			string sql= @"SELECT   a.*,b.AdTitle AS ProductAdTitle,b.Name AS ProductName
+							FROM Product b  WITH(NOLOCK) inner join
+							dbo.[ProductDetail] a WITH(NOLOCK)	  on a.ProductId=b.Id
+							WHERE a.[Id]=@Id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             
 			db.AddInParameter(cmd,"@Id", DbType.Int32,id);
-    		ProductDetailEntity entity=new ProductDetailEntity();
+    		VWProductDetailEntity entity=new VWProductDetailEntity();
 			using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 if (reader.Read())
@@ -172,7 +172,9 @@ namespace SuperMarket.Data.ProductDB
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.ProductId=StringUtils.GetDbInt(reader["ProductId"]);
 					entity.Price=StringUtils.GetDbDecimal(reader["Price"]);
-					entity.TradePrice=StringUtils.GetDbDecimal(reader["TradePrice"]);
+					entity.ProductName=StringUtils.GetDbString(reader["ProductName"]);
+					entity.ProductAdTitle=StringUtils.GetDbString(reader["ProductAdTitle"]);
+                    entity.TradePrice=StringUtils.GetDbDecimal(reader["TradePrice"]);
 					entity.StockNum=StringUtils.GetDbInt(reader["StockNum"]);
 					entity.SaleNum=StringUtils.GetDbInt(reader["SaleNum"]);
 					entity.ProductType=StringUtils.GetDbInt(reader["ProductType"]);
@@ -182,23 +184,24 @@ namespace SuperMarket.Data.ProductDB
    		    }
             return entity;
 		}
-        public ProductDetailEntity GetProductDetailByPId(int productid, int producttype)
+        public VWProductDetailEntity GetProductDetailByPId(int productid)
         {
-            string sql = @"SELECT  [Id],[ProductId],IsBP,[Price],[TradePrice],[StockNum],[SaleNum],[ProductType],[Status],[TimeStampCode]
-							FROM
-							dbo.[ProductDetail] WITH(NOLOCK)	
-							WHERE [ProductId]=@ProductId and ProductType=@ProductType";
+            string sql = @"SELECT   a.*,b.AdTitle AS ProductAdTitle,b.Name AS ProductName
+							FROM Product b  WITH(NOLOCK) LEFT join
+							dbo.[ProductDetail] a WITH(NOLOCK)	 on a.ProductId=b.Id
+							WHERE b.[Id]=@ProductId";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@ProductId", DbType.Int32, productid);
-            db.AddInParameter(cmd, "@ProductType", DbType.Int32, producttype);
-            ProductDetailEntity entity = new ProductDetailEntity();
+            VWProductDetailEntity entity = new VWProductDetailEntity();
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 if (reader.Read())
                 {
                     entity.Id = StringUtils.GetDbInt(reader["Id"]);
                     entity.ProductId = StringUtils.GetDbInt(reader["ProductId"]);
+                    entity.ProductName = StringUtils.GetDbString(reader["ProductName"]);
+                    entity.ProductAdTitle = StringUtils.GetDbString(reader["ProductAdTitle"]);
                     entity.Price = StringUtils.GetDbDecimal(reader["Price"]);
                     entity.TradePrice = StringUtils.GetDbDecimal(reader["TradePrice"]);
                     entity.StockNum = StringUtils.GetDbInt(reader["StockNum"]);

@@ -40,7 +40,7 @@
                                         </dd>
                                     </dl>
                                     @{
-                                        IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId, (int)ViewBag.ClassmMenuType, -1,true);
+                                        IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId,  -1,false);
                                         if (list != null && list.Count > 0)
                                         {
                                             foreach (SuperMarket.Model.VWClassesFoundEntity entity in list)

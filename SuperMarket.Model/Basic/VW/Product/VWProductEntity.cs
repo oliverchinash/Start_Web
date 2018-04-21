@@ -118,39 +118,7 @@ namespace SuperMarket.Model
             {
                 _AdTitle = value;
             }
-        }
-        /// <summary>
-        /// OECode
-        /// <summary>
-        private string _OECode;
-        public string OECode
-        {
-            get
-            {
-                return _OECode;
-            }
-            set
-            {
-                _OECode = value;
-            }
-        }
-       
-        /// <summary>
-        /// 款式Id
-        /// <summary>
-        private int _StyleId;
-        public int StyleId
-        {
-            get
-            {
-                return _StyleId;
-            }
-            set
-            {
-                _StyleId = value;
-            }
-        }
-
+        } 
         /// <summary>
         /// 是否已生成对应的产品静态页或缓存等
         /// <summary>
@@ -243,22 +211,7 @@ namespace SuperMarket.Model
                 _DealerPrice = value;
             }
         }
-        
-        private int _IsOEM;
-        /// <summary>
-        /// 批发价
-        /// </summary>
-        public int IsOEM
-        {
-            get
-            {
-                return _IsOEM;
-            }
-            set
-            {
-                _IsOEM = value;
-            }
-        }
+         
         private int _ProductType;
         /// <summary>
         /// 批发价
@@ -315,6 +268,45 @@ namespace SuperMarket.Model
             set
             {
                 _ClassId = value;
+            }
+        }
+
+        private int _ClassId1;
+        public int ClassId1
+        {
+            get
+            {
+                return _ClassId1;
+            }
+            set
+            {
+                _ClassId1 = value;
+            }
+        }
+
+        private int _ClassId2;
+        public int ClassId2
+        {
+            get
+            {
+                return _ClassId2;
+            }
+            set
+            {
+                _ClassId2 = value;
+            }
+        }
+
+        private int _ClassId3;
+        public int ClassId3
+        {
+            get
+            {
+                return _ClassId3;
+            }
+            set
+            {
+                _ClassId3 = value;
             }
         }
         private int _BrandId;
@@ -770,6 +762,12 @@ namespace SuperMarket.Model
         public IList<ProductStylePicsEntity> ProductPics;
         public IList<ProductPropertyEntity> ProductPropertys;
         public IList<ProductCarTypeEntity> ProductCarTypes;
+
+        public int PropertyId
+        {
+            get;
+            set;
+        }
 
         public string Property1
         {

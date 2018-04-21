@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    ViewBag.Title = "发布产品";
+}
+@section Head{ 
+    <link href="/css/amazonmenu.css" rel="stylesheet" /> 
+    <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
+
+}
+@{SuperMarket.Model.VWProductEntity _styleentity = ViewBag.Product;}
+
+<form action="/Store/ProductPropertySubmit" method="post" >
+    <div style="display: none;">
+
+        <input type="text" id="txtId" name="Id" value="@_styleentity.PropertyId" />
+        <input type="text" id="txtProductId" name="ProductId" value="@_styleentity.ProductId" />
+        <input type="text" id="txtPropertiesSiteId" value="@_styleentity.SiteId" />
+
+    </div>
+
+    <style>
+        input {
+            width: 200px;
+            padding: 5px;
+        }
+    </style>
+
+    <div class="tip-title">产品管理<span style="color:#f4934e">></span>发布产品</div>
+    <div class="product-main">
+        <div class="product-main-search">
+            <div class="product-main-search-l">产品标题：</div>
+            <div class="product-main-search-r">
+                @_styleentity.AdTitle
+            </div>
+        </div>
+        <div class="product-main-search" id="divClassProperty" style="display:none;">
+            <div class="product-main-search-l"><span style="color:#f00">*</span>产品属性：</div>
+            <div class="product-main-search-r">
+
+            </div>
+        </div>
+        <div class="product-footer">
+            <button type="submit">确认</button> 
+        </div>
+        <input type="hidden" id="hidProperty1"   value="@_styleentity.Property1" />
+        <input type="hidden" id="hidProperty2"   value="@_styleentity.Property2" />
+        <input type="hidden" id="hidProperty3"   value="@_styleentity.Property3" />
+        <input type="hidden" id="hidProperty4"   value="@_styleentity.Property4" />
+        <input type="hidden" id="hidProperty5" value="@_styleentity.Property5" />
+        <input type="hidden" id="hidProperty6"  value="@_styleentity.Property6" />
+        <input type="hidden" id="hidProperty7"   value="@_styleentity.Property7" />
+        <input type="hidden" id="hidProperty8"   value="@_styleentity.Property8" />
+        <input type="hidden" id="hidProperty9"   value="@_styleentity.Property9" />
+        <input type="hidden" id="hidProperty10"  value="@_styleentity.Property10" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+     
+        BindProperties($("#txtPropertiesSiteId").val(), 0);
+     
+    });
+   
+    //绑定属性列表
+    function BindProperties(_siteid, _pid) {
+        $.post("/Common/GetPropertyBySiteId", { siteid: _siteid, pid: _pid }, function (data) {
+            var jsonobj = eval(data);
+            if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                if (_pid == "" || _pid == 0) {
+                    $("#divClassProperty").show();
+                    var divattributeobj = $("#divClassProperty").children(":last"); 
+                    for (var i = 0; i < jsonobj.length; i++) { 
+                        var str = "<div class='Attributes'><span>" + jsonobj[i].Name + "</span><input id='txt" + jsonobj[i].Code + "' name='" + jsonobj[i].Code + "' class='txtproperty' code='" + jsonobj[i].Code + "' /><select class='selclassproperty' code='" + jsonobj[i].Code + "' onchange='funchangeproperty(this)'   isend='" + jsonobj[i].IsEnd + "'   id='selPropertyId" + jsonobj[i].Id + "'><option value='0'>--请选择--</option></select></div>";
+                            $(divattributeobj).append(str);
+                          
+                    }
+                    $(".selclassproperty").each(function () {
+                        var objid = $(this).attr("objid");
+                        $(this).bind("change", function () {
+                            if ($(this).attr("isend") == "0") {
+                                BindProperties(_siteid, $("#sel" + objid).val());
+                            }
+                        });
+                        BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
+                    });
+                    $(".txtproperty").each(function () {
+                        var code = $(this).attr("code");
+                        $(this).val($("#hid" + code).val());
+                    })
+                }
+                else {
+                    var divattributeobj = $("#divClassProperty").children(":last").children(":last");
+                    for (var i = 0; i < jsonobj.length; i++) {
+                        var str = "<input id='txt" + jsonobj[i].Code + "'  name='" + jsonobj[i].Code + "'  class='txtproperty' code='" + jsonobj[i].Code + "' /><select class='selclassproperty'   onchange='funchangeproperty(this)'  isend='" + jsonobj[i].IsEnd + "' code='" + jsonobj[i].Code + "'  id='selPropertyId" + jsonobj[i].Id + "'><option value=''>--请选择--</option></select>";
+                        $(divattributeobj).append(str);
+                    }
+                    $(divattributeobj).find(".selclassproperty:last").bind("change", function () {
+                        $("#hid" + objid).val($("#sel" + objid).val());
+                        if ($(this).attr("isend") == "0") {
+                            BindProperties(_siteid, $("#sel" + objid).val());
+                        }
+                    });
+                    BindPropertiesValue($(divattributeobj).find(".selclassproperty:last"), $(divattributeobj).find(".selclassproperty:last").attr("propertyId"), 0);
+                    $(".txtproperty").each(function () {
+                        var code = $(this).attr("code");
+                        $(this).val($("#hid" + code).val());
+                    })
+                }
+            }
+        });
+    }
+
+    //绑定属性值
+    function BindPropertiesValue(obj, _propertyId, _pid) {
+
+        var param = { propertyId: _propertyId, pid: _pid };
+        BindDropParent(obj, "/Common/GetPropertyValueList", param,"");
+    }
+      
+
+</script>

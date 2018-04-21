@@ -28,12 +28,8 @@ namespace SuperMarket.BLL.Common
                 //if(memtype==(int)CompanyType.Agency)//经销商
                 //{
                 //    return dealerprice;
-                //} 
-                if(isbp==1)
-                {
-                    return price; 
-                }
-                return tradprice;
+                //}  
+                return price;
             }
             else
             {

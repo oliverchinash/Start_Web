@@ -27,7 +27,7 @@ using System.Web;
 using System.Web.Mvc;
 using WeChatJsSdk.SdkCore;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class MobileHomeController : BaseCommonController
     {

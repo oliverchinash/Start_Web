@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web.Mvc;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class PayController : BaseCommonController
     {

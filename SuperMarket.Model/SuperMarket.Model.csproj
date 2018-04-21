@@ -169,6 +169,7 @@
     <Compile Include="Basic\ProductDB\ProductExtEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductFineEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductMenuEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertiesEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertyEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductSimilarHotEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductSimilarSupEntity.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Basic\ShoppingDB\WLPsOrderDetailEntity.cs" />
     <Compile Include="Basic\ShoppingDB\WLPsOrderEntity.cs" />
     <Compile Include="Basic\SysDB\CacheConfigEntity.cs" />
+    <Compile Include="Basic\SysDB\ConfigPicComPressEntity.cs" />
     <Compile Include="Basic\SysDB\DicEnumEntity.cs" />
     <Compile Include="Basic\SysDB\GYAuthEntity.cs" />
     <Compile Include="Basic\SysDB\GYCityEntity.cs" />
@@ -254,6 +256,7 @@
     <Compile Include="Basic\VW\PayDB\VWPayOrderEntity.cs" />
     <Compile Include="Basic\VW\Product\ProcProductEntity.cs" />
     <Compile Include="Basic\VW\Product\ProcProductStyleEntity.cs" />
+    <Compile Include="Basic\VW\Product\VWProductDetailEntity.cs" />
     <Compile Include="Basic\VW\Product\VWClassPropertiesEntity.cs" />
     <Compile Include="Basic\VW\Product\VWClassSpecEntity.cs" />
     <Compile Include="Basic\VW\Product\VWComPropertiesEntity.cs" />

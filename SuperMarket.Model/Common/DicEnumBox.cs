@@ -8,7 +8,31 @@ using System.Threading.Tasks;
 namespace SuperMarket.Model
 {
     #region
-    public enum WebSiteEnum
+
+    public enum SourcePicTypeEnum
+    {
+        [Description("默认产品图")]
+        Product = 1,
+         
+
+    }
+    /// <summary>
+    /// 分类列表种类
+    /// </summary>
+    public enum ClassMenuTypeEnum
+    {
+        [Description("默认基础分类")]
+        Default = 1,
+        [Description("通用分类")]
+        Normal = 2,
+        [Description("PC端分类")]
+        NormalPC = 3,
+        [Description("手机端首页展示位分类")]
+        HomeNavMobile = 4,
+
+    }
+
+    public enum SiteIdEnum
     {
         [Description("茶")]
         Tea = 1,

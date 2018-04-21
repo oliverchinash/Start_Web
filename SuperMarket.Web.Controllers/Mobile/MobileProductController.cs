@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class MobileProductController : BaseCommonController
     {
@@ -39,8 +39,7 @@ namespace SuperMarket.Web.MemberControllers
             if (siteid == 0) siteid = (int)SiteEnum.Default;
             int _classmenutype = (int)ClassMenuTypeEnum.Normal;//分类列表选择类型
             int jishi = QueryString.IntSafeQ("js");
-            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal;
-            if (jishi == (int)JiShiSongEnum.JiShi) _classmenutype = (int)ClassMenuTypeEnum.JiShiDa;
+            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal; 
             ViewBag.SiteId = siteid;
             ViewBag.ClassMenuType = _classmenutype;
             return View();
@@ -62,8 +61,7 @@ namespace SuperMarket.Web.MemberControllers
             int producttype = QueryString.IntSafeQ("pt");
             if(producttype==0)  producttype = (int)ProductType.Normal;
             int pageindex = QueryString.IntSafeQ("pageindex");
-            int _classmenutype = (int)ClassMenuTypeEnum.Normal;//分类列表选择类型
-            if (jishi == (int)JiShiSongEnum.JiShi) _classmenutype = (int)ClassMenuTypeEnum.JiShiDa;
+            int _classmenutype = (int)ClassMenuTypeEnum.Normal;//分类列表选择类型 
             int _pagesize = CommonKey.PageSizeList;
             int _recordCount = 0;
             int order_i = 0;//默认排序
@@ -139,14 +137,14 @@ namespace SuperMarket.Web.MemberControllers
             {
 
                 IList<int> classintlist = new List<int>();
-                classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid, _classmenutype);
+                classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid);
 
                 if (classintlist != null && classintlist.Count > 0)
                 {
                     classidstr = string.Join("_", classintlist);
                 }
             }
-            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProcCYC(_pagesize, pageindex, ref _recordCount, classidstr, brandid, "", order_i, producttype,  cartypemodelid,jishi);
+            IList<VWProductEntity> _productlist = new List<VWProductEntity>();// ProductBLL.Instance.GetProductListProcCYC(_pagesize, pageindex, ref _recordCount, classidstr, brandid, "", order_i, producttype,  cartypemodelid,jishi);
 
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null && member.MemId > 0)
@@ -220,112 +218,13 @@ namespace SuperMarket.Web.MemberControllers
             string liststr = JsonJC.ObjectToJson(result);
             return liststr;
         }
-        public string GetJsonList()
-        {
-            ListObj result = new ListObj();
-            int classid = QueryString.IntSafeQ("cl");
-            int brandid = QueryString.IntSafeQ("bd"); 
-            int cartype  = QueryString.IntSafeQ("ct"); 
-            int producttype = QueryString.IntSafeQ("pt");
-            int jishi = QueryString.IntSafeQ("js");
-            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal;
-            if (producttype==0)  producttype = (int)ProductType.Normal;
-            int siteid = QueryString.IntSafeQ("s");
-            if (siteid <= 0) siteid = (int)SiteEnum.Default;
-            int pageindex = QueryString.IntSafeQ("pageindex");
-            int pagesize = CommonKey.PageSizeList;
-            int record = 0;
-            int order_i = 0;//默认排序
-            int _classtype = -1;
-            _classtype = QueryString.IntSafeQ("clt");
-            ViewBag.ClassType = _classtype;
-            if (pageindex == 0) pageindex = 1;
-            ViewBag.SelectClassId = classid;
-            ViewBag.SelectBrandId = brandid; 
-            ViewBag.CarType  = cartype;
-            int _classmenutype = (int)ClassMenuTypeEnum.Normal;//分类列表选择类型
-            int rediclassid = classid;
-            string classidstr = "";//分类子集
-
-            //获取选择的车型
-            if (cartype  > 0)
-            {
-                CarTypeModelEntity cartypemodel = CarTypeModelBLL.Instance.GetCarTypeModel(cartype);
-                ViewBag.SelectCarTypeName = cartypemodel.ModelName;
-            }
-             
-            if (classid > 0)
-            {
-                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
-                if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
-                ViewBag.SelectClassName = _classentity.Name;
-                IList<int> classintlist = new List<int>();
-                if (_classentity.RedirectClassId > 0)
-                {
-                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(_classentity.RedirectClassId);
-                }
-                else
-                {
-                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(classid);
-                }
-                if (classintlist != null && classintlist.Count > 0)
-                {
-                    classidstr = string.Join("_", classintlist);
-                }
-                else if (_classentity.RedirectClassId > 0)
-                {
-                    classidstr = StringUtils.GetDbString(_classentity.RedirectClassId);
-                }
-                else
-                {
-                    classidstr = StringUtils.GetDbString(classid);
-                }
-            }
-            else
-            {
-
-                IList<int> classintlist = new List<int>();
-                classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid, _classmenutype);
-
-                if (classintlist != null && classintlist.Count > 0)
-                {
-                    classidstr = string.Join("_", classintlist);
-                }
-            }
-
-
-            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProcCYC(pagesize, pageindex, ref record, classidstr, brandid, "", order_i, producttype,  cartype ,jishi);
-
-            MemberLoginEntity member = CookieBLL.GetLoginCookie();
-            if (member != null && member.MemId > 0)
-            {
-                ViewBag.MemId = member.MemId;
-                ViewBag.MemStatus = member.Status;
-                foreach (VWProductEntity _entity in _productlist)
-                {
-                    _entity.ActualPrice = Calculate.GetPrice(member.Status,member.IsStore, member.StoreType, member.MemGrade, _entity.TradePrice, _entity.Price, _entity.IsBP, _entity.DealerPrice);
-                }
-            }
-            else
-            {
-                foreach (VWProductEntity _entity in _productlist)
-                {
-                    _entity.ActualPrice = 0;
-                }
-
-            }
-            result.Total = record;
-            result.List = _productlist;
-
-            string liststr = JsonJC.ObjectToJson(result);
-            return liststr;
-        }
+    
         public ActionResult Detail()
         {
             int _productdetailid = QueryString.IntSafeQ("pd");
             VWProductEntity _vwentity = new VWProductEntity(); 
             _vwentity = ProductBLL.Instance.GetProVWByDetailId(_productdetailid);
-            IList<ProductStylePicsEntity> productpiclist = ProductStylePicsBLL.Instance.GetListPics(_vwentity.StyleId, _vwentity.ProductId, _vwentity.ShowPicType);
+            IList<ProductStylePicsEntity> productpiclist = ProductStylePicsBLL.Instance.GetListPicsByProductId(  _vwentity.ProductId );
             _vwentity.ProductPics = productpiclist;
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null && member.MemId > 0)

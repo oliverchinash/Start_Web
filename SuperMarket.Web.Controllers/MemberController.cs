@@ -30,7 +30,7 @@ using SuperMarket.Web.CommonControllers;
 using SuperMarket.BLL.SysDB;
 using SuperMarket.BLL.WeiXin;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class MemberController : BaseMemberController
     {

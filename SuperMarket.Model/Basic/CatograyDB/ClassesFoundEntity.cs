@@ -301,21 +301,7 @@ namespace SuperMarket.Model
                 _HasProduct = value;
             }
         }
-        /// <summary>
-        /// 是否可对该分类添加产品1是0否
-        /// <summary>
-        private int _ListShowMethod;
-        public int ListShowMethod
-        {
-            get
-            {
-                return _ListShowMethod;
-            }
-            set
-            {
-                _ListShowMethod = value;
-            }
-        }
+       
         /// <summary>
         /// 关联的属性所属分类
         /// <summary>

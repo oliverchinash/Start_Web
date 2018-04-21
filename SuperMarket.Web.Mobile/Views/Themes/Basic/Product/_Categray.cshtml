@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>阿哈马车服分类</title> 
+    <title>小店分类</title> 
     <meta name="renderer" content="webkit"> 
     <meta http-equiv="Cache-Control" content="no-siteapp" /> 
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
@@ -40,7 +40,7 @@
                         <!------------内容列表的折叠面板开始--------------->
                         <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
                             @{
-                                IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId, (int)ViewBag.ClassMenuType, -1, false);
+                                IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId,   -1, false);
                                 if (list != null && list.Count > 0)
                                 {
                                     foreach (SuperMarket.Model.VWClassesFoundEntity entity in list)

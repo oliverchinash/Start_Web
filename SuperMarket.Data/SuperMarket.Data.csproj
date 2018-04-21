@@ -184,6 +184,7 @@
     <Compile Include="Basic\ProductDB\ProductExtDA.cs" />
     <Compile Include="Basic\ProductDB\ProductFineDA.cs" />
     <Compile Include="Basic\ProductDB\ProductMenuDA.cs" />
+    <Compile Include="Basic\ProductDB\ProductPropertiesDA.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertyDA.cs" />
     <Compile Include="Basic\ProductDB\ProductSimilarHotDA.cs" />
     <Compile Include="Basic\ProductDB\ProductSimilarSupDA.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Basic\ShoppingDB\WLPsOrderDA.cs" />
     <Compile Include="Basic\ShoppingDB\WLPsOrderDetailDA.cs" />
     <Compile Include="Basic\SysDB\CacheConfigDA.cs" />
+    <Compile Include="Basic\SysDB\ConfigPicComPressDA.cs" />
     <Compile Include="Basic\SysDB\DicEnumDA.cs" />
     <Compile Include="Basic\SysDB\DicEnumDAExt.cs" />
     <Compile Include="Basic\SysDB\GYAuthDA.cs" />

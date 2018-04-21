@@ -90,7 +90,7 @@ namespace SuperMarket.BLL.MemberDB
         /// </summary>
         /// <returns>Store实体</returns>
         /// <param name="columns">要返回的列</param>
-        public MemStoreEntity GetStoreByMemId(int memid, bool cache = true)
+        public MemStoreEntity GetStoreByMemId(int memid, bool cache = false)
         {
             MemStoreEntity entity = new MemStoreEntity();
             if (cache)

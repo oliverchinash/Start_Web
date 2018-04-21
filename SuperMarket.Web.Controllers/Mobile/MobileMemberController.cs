@@ -31,7 +31,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class MobileMemberController : BaseMemberController
     { 

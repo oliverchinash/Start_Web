@@ -53,7 +53,7 @@ namespace SuperMarket.Web.CommonControllers
             int siteid = -1;
             int _classmenutype = (int)ClassMenuTypeEnum.Default;
             IList<ClassesFoundEntity> list = new List<ClassesFoundEntity>();
-            list = ClassesFoundBLL.Instance.GetClassListByLevel(_pid, _level, siteid, _classmenutype);
+            list = ClassesFoundBLL.Instance.GetClassListByLevel(_pid, _level, siteid );
             foreach(ClassesFoundEntity entity in list)
             {
                 entity.Code = entity.Id.ToString() ;
@@ -73,7 +73,7 @@ namespace SuperMarket.Web.CommonControllers
             int siteid = FormString.IntSafeQ("siteid",-1);
             int _classmenutype = FormString.IntSafeQ("menutype",-1);
             IList<ClassesFoundEntity> list = new List<ClassesFoundEntity>();
-            list = ClassesFoundBLL.Instance.GetClassListByLevel(_pid, _level, siteid, _classmenutype);
+            list = ClassesFoundBLL.Instance.GetClassListByLevel(_pid, _level, siteid );
             string liststr = JsonJC.ObjectToJson(list);
             return liststr;
         }
@@ -85,22 +85,11 @@ namespace SuperMarket.Web.CommonControllers
         { 
             int _pid = FormString.IntSafeQ("pid", -1); 
             IList<ClassesFoundEntity> list = new List<ClassesFoundEntity>();
-            list = ClassesFoundBLL.Instance.GetClassesAllByPId(_pid, true, -1, -1);
+            list = ClassesFoundBLL.Instance.GetClassesAllByPId(_pid, true, -1 );
             string liststr = JsonJC.ObjectToJson(list);
             return liststr;
         }
-        ///<summary>
-        /// 根据styleid获取图片路径列表
-        /// <summary>
-        /// <returns></returns>
-        public string GetStylePicsById()
-        {
-            int _styleid = FormString.IntSafeQ("styleid");
-            IList<ProductStylePicsEntity> list = new List<ProductStylePicsEntity>();
-            list = ProductStylePicsBLL.Instance.GetListByStyleId(_styleid);
-            string liststr = JsonJC.ObjectToJson(list);
-            return liststr;
-        }
+   
         ///<summary> 
         /// 根据分类Id  获取对应分类的品牌列表
         /// </summary>
@@ -110,7 +99,7 @@ namespace SuperMarket.Web.CommonControllers
             int _classid = FormString.IntSafeQ("classid");
             int _pid = FormString.IntSafeQ("pid");//上级品牌Id，0代表第一级
             IList<BrandEntity> list = new List<BrandEntity>();
-            list = ClassBrandBLL.Instance.GetBrandByClass(_classid, _pid);
+            list = ClassBrandBLL.Instance.GetBrandByClass(_classid );
             var listfilter = list.Select(
                      p => new
                      {
@@ -193,7 +182,7 @@ namespace SuperMarket.Web.CommonControllers
             int _siteid = FormString.IntSafeQ("siteid");
             int _parentid = FormString.IntSafeQ("pid");//上级 ，0代表第一级
             IList<BasicSitePropertiesEntity> list = new List<BasicSitePropertiesEntity>();
-            list = BasicSitePropertiesBLL.Instance.GetListBySiteId(_siteid, _parentid);
+            list = BasicSitePropertiesBLL.Instance.GetListBySiteId(_siteid );
             var listfilter = list.Select(
                      p => new
                      {
@@ -205,7 +194,7 @@ namespace SuperMarket.Web.CommonControllers
             string liststr = JsonJC.ObjectToJson(listfilter);
             return liststr;
         }
-
+        
         /// <summary>
         /// 根据分类得到对应属性
         /// </summary>
@@ -285,27 +274,7 @@ namespace SuperMarket.Web.CommonControllers
             string liststr = JsonJC.ObjectToJson(listfilter);
             return liststr;
         }
-        /// <summary>
-        /// 获取款式图片
-        /// </summary>
-        /// <returns></returns>
-        public string GetPicList()
-        {
-            int _styleid = FormString.IntSafeQ("styleid");//上级品牌Id，0代表第一级
-            IList<ProductStylePicsEntity> list = new List<ProductStylePicsEntity>();
-            list = ProductStylePicsBLL.Instance.GetListByStyleId(_styleid);
-            var listfilter = list.Select(
-                     p => new
-                     {
-                         Id = p.Id,
-                         StyleId = p.StyleId,
-                         PicUrl = p.PicUrl,
-                         PicSuffix = p.PicSuffix,
-                         HasCompress = p.HasCompress
-                     });
-            string liststr = JsonJC.ObjectToJson(listfilter);
-            return liststr;
-        }
+       
 
         public string GetProsNeedShow()
         {

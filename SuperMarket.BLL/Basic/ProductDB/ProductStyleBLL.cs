@@ -224,8 +224,8 @@ namespace SuperMarket.BLL.ProductDB
             {
                 foreach (var item in _list)
                 {
-                    item.BrandName = BrandBLL.Instance.GetBrand(item.BrandId,true).Name;
-                    item.ClassName = ClassesFoundBLL.Instance.GetClassesFound(item.ClassId, true).Name;
+                    item.BrandName = BrandBLL.Instance.GetBrand(item.BrandId,false).Name;
+                    item.ClassName = ClassesFoundBLL.Instance.GetClassesFound(item.ClassId, false).Name;
                 }
             }
 

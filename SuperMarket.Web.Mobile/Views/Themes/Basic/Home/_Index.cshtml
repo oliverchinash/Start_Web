@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>阿哈马车服-国内最专业的汽车零部件及相关用品的在线采购网站</title>
+    <title>小店-国内最专业的汽车零部件及相关用品的在线采购网站</title>
     <meta name="keywords" content="阿哈马_车配网_汽配_汽车用品_汽车配件_乘用车配件_商用车配件_机油_汽修_辅料" />
-    <meta name="description" content="阿哈马车服是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+    <meta name="description" content="小店是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
     <meta http-equiv="Cache-Control" content="no-siteapp" /> 
     <link rel="stylesheet" href="/Themes/Basic/css/amazeui.min.css"> 
     <link rel="stylesheet" href="/Themes/Basic/css/basic.css?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.CssVersion.MemberStyle">
@@ -44,30 +44,28 @@
     <script src="/themes/basic/js/jquery.marquee.js"></script>
     
 </head>
-<body class="am-with-fixed-header am-with-fixed-navbar" >
-    <div style="display:none;"> 
-        <img src="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" alt="阿哈马车服" title="阿哈马车服" >  </div> 
+<body class="am-with-fixed-header am-with-fixed-navbar" > 
     <div style="display:none;"> 
          <span id="spanjishisong">@ViewBag.JiShiSong</span> 
     <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
-     <input name="title" value="阿哈马车服-国内最专业的汽车零部件及相关用品的在线采购网站" />
+     <input name="title" value="小店-致力于提供优质厂家直供的产品和服务" />
         <input name="imgUrl" value="http://m.aahama.com/Themes/Basic/img/ahamatitle.jpg" />
-        <input name="desc" value="阿哈马车服是国内最专业的汽车零部件及相关用品的在线采购网站。在线销售的产品齐全：机油、火花塞、电瓶、刹车片、滤清器、灯泡、养护品、雨刮片、发动机件、底盘件、车身件、内饰件、等全车件。品牌产品，诚信经营。" />
+        <input name="desc" value="小店是致力于提供优质厂家直供的产品和服务。" />
     </div>  <div class="home" id="homewrapper">
         <!----header开始----->
-        <header data-am-widget="header" class="am-header am-header-fixed home-header am-no-layout">
-            <div class="am-header-left am-header-nav">
-                <img src="/Themes/Basic/img/home_logo.png" width="116" height="34">
+        <header data-am-widget="header" class="am-header am-header-fixed home-header am-no-layout" style="background-color:red;">
+            <div class="am-header-left am-header-nav" style="color:#fff;">
+                良优生活
             </div>
-            <div class="am-header-title">
+            @*<div class="am-header-title">
                  <div class="am-form-group am-form-icon" style="width: 100%;">
                         <i class="am-icon-search" style="color: #999"></i>
                         <input type="text" id="txtSearchkey" class="am-form-field am-round" placeholder="搜索车型/品牌/OEM编号">
                   </div> 
-            </div>
+            </div>*@
             <div class="am-header-right am-header-nav home-login">
                 <a href="/MobileMember/Home">
-                    <i class="am-icon am-icon-user"></i>
+                    @*<i class="am-icon am-icon-user"></i>*@
                     <span class="am-header-nav-title"  id="aheadlogin">
                         登录
                     </span>
@@ -76,11 +74,11 @@
         </header>
         <!----header结束----->
         <!---slider开始----->
-        <div data-am-widget="slider" class="am-slider am-slider-a1 home-slider"  >
-            <ul class="am-slides">
+        <div data-am-widget="slider" class="am-slider am-slider-a1 home-slider" style="margin-top:44px;"  >
+            @*<ul class="am-slides">
                 <li>
                     <a href="#">
-                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/12mon_mobile.jpg">
+                        <img src="http://images.1dianxin.com/autoupload/banner/mobile/12mon_mobile.jpg">
                     </a>
                 </li> 
                 <li>
@@ -90,7 +88,7 @@
                 </li> 
                 <li>
                     <a href="/MobileProduct/List?bd=87">
-                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/bannerxinyi.jpg">
+                        <img src="http://images.1dianxin.com/autoupload/banner/mobile/bannerxinyi.jpg">
                     </a>
                 </li> 
                 <li>
@@ -100,7 +98,7 @@
                 </li>
                 <li>
                     <a href="/MobileProduct/ProductS?code=bs">
-                        <img src="http://images.ddbbqp.com/autoupload/banner/mobile/bannerboshi.jpg">
+                        <img src="http://images.1dianxin.com/autoupload/banner/mobile/bannerboshi.jpg">
                     </a>
                 </li>
                 <li>
@@ -108,78 +106,12 @@
                         <img src="/Themes/Basic/img/propic/shida3.jpg">
                     </a>
                 </li>
-            </ul>
+            </ul>*@
         </div>
         <!----slider结束---->
         <!-----产品分类开始---->
-        <div class="am-g home-list">
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?cl=4187">
-                    <img src="/Themes/Basic/img/home_tp1.png" class="am-img-responsive">
-                    <div class="">油品</div>
-                </a>
-            </div>
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?cl=4633">
-                    <img src="http://images.ddbbqp.com/mobile/tubiao/longtai.png" class="am-img-responsive">
-                    <div class="">轮胎</div>
-                </a>
-            </div>
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?cl=2575">
-                    <img src="~/Themes/Basic/img/propic/huohuasai.jpg" class="am-img-responsive">
-                    <div class="">火花塞</div>
-                </a>
-            </div>
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/Categray">
-                    <img src="/Themes/Basic/img/home_tp4.png" class="am-img-responsive">
-                    <div class="">全部分类</div>
-                </a>
-            </div> 
-            <div class="am-u-sm-3">
-                <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.InquiryWebUrl)/InquiryMem/Inquiry">
-                    <img src="/Themes/Basic/img/propic/fuliaohaocai.jpg" class="am-img-responsive">
-                    <div class="">询价系统</div>
-                </a>
-            </div>
-            @*<div class="am-u-sm-3">
-                <a href="/MobileProduct/List?cl=4185">
-                    <img src="/Themes/Basic/img/propic/fuliaohaocai.jpg" class="am-img-responsive">
-                    <div class="">辅料耗材</div>
-                </a>
-            </div>*@
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/Categray?s=2">
-                    <img src="http://images.ddbbqp.com/mobile/tubiao/shangyongche.png" class="am-img-responsive">
-                    <div class="">商用车</div>
-                </a>
-            </div>  
-            <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?cl=4186">
-                    <img src="/Themes/Basic/img/propic/qicheyongpin.jpg" class="am-img-responsive">
-                    <div class="">养护用品</div>
-                </a>
-            </div>
-            @if (SuperMarket.Core.ConfigCore.Instance.ConfigEntity.JiShiSong == 1)
-            {
-                <div class="am-u-sm-3">
-                    <a href="/MobileHome/Index?js=1">
-                        <img src="/Themes/Basic/img/hometpjishida.png" class="am-img-responsive">
-                        <div class="">及时送</div>
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="am-u-sm-3">
-                    <a href="/MobileProduct/List?cl=4463">
-                        <img src="/Themes/Basic/img/home_tp3.png" class="am-img-responsive">
-                        <div class="">四配套</div>
-                    </a>
-                </div>
-            } 
-        </div>
+         @Html.Partial("controls/_HomeCmsNavClass")
+  
         <!-----产品分类结束---->
         <!-----滚动广告效果---->
      
@@ -190,58 +122,58 @@
                     <div class="am-g am-cf">
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/ProductS?code=bs">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshiad.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/boshiad.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/ProductS?code=mf">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/meifuad.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/meifuad.jpg">
                             </a>
                         </div>
                     </div>
                     <div class="am-g am-cf">
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/List?pt=1&bd=87">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/xinyi.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/xinyi.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/List?pt=1&bd=71">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/fumaode.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/fumaode.jpg">
                             </a>
                         </div>
                     </div>
                     @*<div class="am-g am-cf">
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/ProductS?code=ad">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/shidaad.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/shidaad.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-6">
                             <a href="/MobileProduct/ProductS?code=lf">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/langfuad.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/langfuad.jpg">
                             </a>
                         </div>
                     </div>*@
                     <div class="am-g am-cf">
                         <div class="am-u-sm-3">
                             <a href="/MobileProduct/List?cl=4196&pt=1&bd=37">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshihhs.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/boshihhs.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-3">
                             <a href="/MobileProduct/List?cl=4203&pt=1&bd=37">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshiygp.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/boshiygp.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-3">
                             <a href="/MobileProduct/List?cl=4197&pt=1&bd=37">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshijylqq.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/boshijylqq.jpg">
                             </a>
                         </div>
                         <div class="am-u-sm-3">
                             <a href="/MobileProduct/List?cl=4199&pt=1&bd=37">
-                                <img src="http://images.ddbbqp.com/autoupload/ad/mobile/boshikqlqq.jpg">
+                                <img src="http://images.1dianxin.com/autoupload/ad/mobile/boshikqlqq.jpg">
                             </a>
                         </div>
                     </div>

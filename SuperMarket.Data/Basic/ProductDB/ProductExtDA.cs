@@ -47,19 +47,13 @@ namespace SuperMarket.Data.ProductDB
 		/// <param name="productExt">待插入的实体对象</param>
 		public int AddProductExt(ProductExtEntity entity)
 		{
-		   string sql= @"insert into ProductExt( [ProductId],[DetailDescrip],[SpecModel],[SpecPacking],[APPModels],[OEMPartNos],Manufacturer)VALUES
-			            ( @ProductId,@DetailDescrip,@SpecModel,@SpecPacking,@APPModels,@OEMPartNos,@Manufacturer);
+		   string sql= @"insert into ProductExt( [ProductId],[DetailDescrip] )VALUES
+			            ( @ProductId,@DetailDescrip );
 			SELECT SCOPE_IDENTITY();";
 	        DbCommand cmd = db.GetSqlStringCommand(sql);
 	   
 			db.AddInParameter(cmd,"@ProductId",  DbType.Int32,entity.ProductId);
-			db.AddInParameter(cmd,"@DetailDescrip",  DbType.String,entity.DetailDescrip);
-			db.AddInParameter(cmd,"@SpecModel",  DbType.String,entity.SpecModel);
-			db.AddInParameter(cmd,"@SpecPacking",  DbType.String,entity.SpecPacking);
-			db.AddInParameter(cmd,"@APPModels",  DbType.String,entity.APPModels);
-			db.AddInParameter(cmd,"@OEMPartNos",  DbType.String,entity.OEMPartNos);  
-			db.AddInParameter(cmd, "@Manufacturer",  DbType.String,entity.Manufacturer); 
-
+			db.AddInParameter(cmd,"@DetailDescrip",  DbType.String,entity.DetailDescrip); 
             object identity = db.ExecuteScalar(cmd); 
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
@@ -74,18 +68,13 @@ namespace SuperMarket.Data.ProductDB
 		public   int UpdateProductExt(ProductExtEntity entity)
 		{
 			string sql= @" UPDATE dbo.[ProductExt] SET
-                       [ProductId]=@ProductId,[DetailDescrip]=@DetailDescrip,[SpecModel]=@SpecModel,[SpecPacking]=@SpecPacking,[APPModels]=@APPModels,[OEMPartNos]=@OEMPartNos,Manufacturer=@Manufacturer
+                       [ProductId]=@ProductId,[DetailDescrip]=@DetailDescrip 
                        WHERE [Id]=@id";
 		    DbCommand cmd = db.GetSqlStringCommand(sql);
 			
 			db.AddInParameter(cmd,"@Id",  DbType.Int32,entity.Id);
 			db.AddInParameter(cmd,"@ProductId",  DbType.Int32,entity.ProductId);
-			db.AddInParameter(cmd,"@DetailDescrip",  DbType.String,entity.DetailDescrip);
-			db.AddInParameter(cmd,"@SpecModel",  DbType.String,entity.SpecModel);
-			db.AddInParameter(cmd,"@SpecPacking",  DbType.String,entity.SpecPacking);
-			db.AddInParameter(cmd,"@APPModels",  DbType.String,entity.APPModels);
-			db.AddInParameter(cmd,"@OEMPartNos",  DbType.String,entity.OEMPartNos);  
-			db.AddInParameter(cmd, "@Manufacturer",  DbType.String,entity.Manufacturer); 
+			db.AddInParameter(cmd,"@DetailDescrip",  DbType.String,entity.DetailDescrip); 
 
              return db.ExecuteNonQuery(cmd);
 		}		
@@ -138,7 +127,7 @@ namespace SuperMarket.Data.ProductDB
 		/// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
 		public   ProductExtEntity GetProductExt(int id)
 		{
-			string sql=@"SELECT  [Id],[ProductId],[DetailDescrip],[SpecModel],[SpecPacking],[APPModels],[OEMPartNos]
+			string sql=@"SELECT  [Id],[ProductId],[DetailDescrip] 
 							FROM
 							dbo.[ProductExt] WITH(NOLOCK)	
 							WHERE [Id]=@id";
@@ -152,11 +141,7 @@ namespace SuperMarket.Data.ProductDB
                 {
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.ProductId=StringUtils.GetDbInt(reader["ProductId"]);
-					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]);
-					entity.SpecModel=StringUtils.GetDbString(reader["SpecModel"]);
-					entity.SpecPacking=StringUtils.GetDbString(reader["SpecPacking"]);
-					entity.APPModels=StringUtils.GetDbString(reader["APPModels"]);
-					entity.OEMPartNos=StringUtils.GetDbString(reader["OEMPartNos"]);
+					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]); 
 				}
    		    }
             return entity;
@@ -170,7 +155,7 @@ namespace SuperMarket.Data.ProductDB
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
         public ProductExtEntity GetProductExtByProductId(int pid)
         {
-            string sql = @"SELECT [Id],[ProductId],[DetailDescrip],[SpecModel],[SpecPacking],[APPModels],[OEMPartNos]
+            string sql = @"SELECT [Id],[ProductId],[DetailDescrip] 
 							FROM
 							dbo.[ProductExt] WITH(NOLOCK)	
 							WHERE [ProductId]=@ProductId";
@@ -184,11 +169,7 @@ namespace SuperMarket.Data.ProductDB
                 {
                     entity.Id = StringUtils.GetDbInt(reader["Id"]);
                     entity.ProductId = StringUtils.GetDbInt(reader["ProductId"]);
-                    entity.DetailDescrip = StringUtils.GetDbString(reader["DetailDescrip"]);
-                    entity.SpecModel = StringUtils.GetDbString(reader["SpecModel"]);
-                    entity.SpecPacking = StringUtils.GetDbString(reader["SpecPacking"]);
-                    entity.APPModels = StringUtils.GetDbString(reader["APPModels"]);
-                    entity.OEMPartNos = StringUtils.GetDbString(reader["OEMPartNos"]);
+                    entity.DetailDescrip = StringUtils.GetDbString(reader["DetailDescrip"]); 
                 }
             }
             return entity;
@@ -196,7 +177,7 @@ namespace SuperMarket.Data.ProductDB
 
         public VWProductNomalParamEntity GetParamById(int pid)
         {
-            string sql = @"SELECT a.[Id] AS ProductId,a.Name,a.ClassId,a.BrandId,a.Code,a.Unit ,[DetailDescrip],[SpecModel],[SpecPacking],[APPModels],[OEMPartNos],Manufacturer
+            string sql = @"SELECT a.[Id] AS ProductId,a.Name,a.ClassId,a.BrandId,a.Code,a.Unit ,[DetailDescrip] 
 							FROM
 							dbo.[Product] a WITH(NOLOCK)  left JOIN  dbo.ProductExt b  WITH(NOLOCK)  ON a.id=b.ProductId 
 							WHERE a.Id= @ProductId";
@@ -214,12 +195,7 @@ namespace SuperMarket.Data.ProductDB
                     entity.BrandId = StringUtils.GetDbInt(reader["BrandId"]);
                     entity.FacCode = StringUtils.GetDbString(reader["Code"]);
                     entity.UnitId = StringUtils.GetDbInt(reader["Unit"]);
-                    entity.DetailDescrip = StringUtils.GetDbString(reader["DetailDescrip"]);
-                    entity.SpecModel = StringUtils.GetDbString(reader["SpecModel"]);
-                    entity.SpecPacking = StringUtils.GetDbString(reader["SpecPacking"]);
-                    entity.APPModels = StringUtils.GetDbString(reader["APPModels"]);
-                    entity.OEMPartNos = StringUtils.GetDbString(reader["OEMPartNos"]);
-                    entity.Factory = StringUtils.GetDbString(reader["Manufacturer"]); 
+                    entity.DetailDescrip = StringUtils.GetDbString(reader["DetailDescrip"]); 
                 }
             }
             return entity;
@@ -251,11 +227,7 @@ namespace SuperMarket.Data.ProductDB
 					ProductExtEntity entity=new ProductExtEntity();
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.ProductId=StringUtils.GetDbInt(reader["ProductId"]);
-					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]);
-					entity.SpecModel=StringUtils.GetDbString(reader["SpecModel"]);
-					entity.SpecPacking=StringUtils.GetDbString(reader["SpecPacking"]);
-					entity.APPModels=StringUtils.GetDbString(reader["APPModels"]);
-					entity.OEMPartNos=StringUtils.GetDbString(reader["OEMPartNos"]);
+					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]); 
 				    entityList.Add(entity);
 			    }
 			 }
@@ -282,7 +254,7 @@ namespace SuperMarket.Data.ProductDB
         public IList<ProductExtEntity> GetProductExtAll()
         {
 
-            string sql = @"SELECT    [Id],[ProductId],[DetailDescrip],[SpecModel],[SpecPacking],[APPModels],[OEMPartNos] from dbo.[ProductExt] WITH(NOLOCK)	";
+            string sql = @"SELECT    [Id],[ProductId],[DetailDescrip]  from dbo.[ProductExt] WITH(NOLOCK)	";
 		    IList<ProductExtEntity> entityList = new List<ProductExtEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             using (IDataReader reader = db.ExecuteReader(cmd))
@@ -292,11 +264,7 @@ namespace SuperMarket.Data.ProductDB
                    ProductExtEntity entity=new ProductExtEntity();
 					entity.Id=StringUtils.GetDbInt(reader["Id"]);
 					entity.ProductId=StringUtils.GetDbInt(reader["ProductId"]);
-					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]);
-					entity.SpecModel=StringUtils.GetDbString(reader["SpecModel"]);
-					entity.SpecPacking=StringUtils.GetDbString(reader["SpecPacking"]);
-					entity.APPModels=StringUtils.GetDbString(reader["APPModels"]);
-					entity.OEMPartNos=StringUtils.GetDbString(reader["OEMPartNos"]);
+					entity.DetailDescrip=StringUtils.GetDbString(reader["DetailDescrip"]); 
 				    entityList.Add(entity);
                 }
             } 

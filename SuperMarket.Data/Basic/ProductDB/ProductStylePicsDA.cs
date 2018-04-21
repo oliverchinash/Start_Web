@@ -280,10 +280,10 @@ SELECT * FROM #temp
 
         }
 
-        public IList<ProductStylePicsEntity> GetListPics(int styleid,int productid,int show)
+        public IList<ProductStylePicsEntity> GetListPics( int productid )
         {
             IList<ProductStylePicsEntity> entityList = new List<ProductStylePicsEntity>();
-            if (productid > 0 && show!=((int)ProductPicShowType.Style))
+            if (productid > 0  )
             {
                 string sql = @"SELECT    [Id],[ProductId],[StyleId],[PicUrl],PicSuffix,[Size_X],[Size_Y],[Weight],[Sort],[HasCompress],[CreateTime],[CompressTime] from dbo.[ProductStylePics] WITH(NOLOCK)
                                where  ProductId=@ProductId Order By Sort Desc";
@@ -293,33 +293,6 @@ SELECT * FROM #temp
                 {
                     while (reader.Read())
                     {
-                        ProductStylePicsEntity entity = new ProductStylePicsEntity();
-                        entity.Id = StringUtils.GetDbInt(reader["Id"]);
-                        entity.ProductId = StringUtils.GetDbInt(reader["ProductId"]);
-                        entity.StyleId = StringUtils.GetDbInt(reader["StyleId"]);
-                        entity.PicUrl = StringUtils.GetDbString(reader["PicUrl"]);  
-                        entity.PicSuffix = StringUtils.GetDbString(reader["PicSuffix"]); 
-                        entity.Size_X = StringUtils.GetDbInt(reader["Size_X"]);
-                        entity.Size_Y = StringUtils.GetDbInt(reader["Size_Y"]);
-                        entity.Weight = StringUtils.GetDbDecimal(reader["Weight"]);
-                        entity.Sort = StringUtils.GetDbInt(reader["Sort"]);
-                        entity.HasCompress = StringUtils.GetDbInt(reader["HasCompress"]);
-                        entity.CreateTime = StringUtils.GetDbDateTime(reader["CreateTime"]);
-                        entity.CompressTime = StringUtils.GetDbString(reader["CompressTime"]);
-                        entityList.Add(entity);
-                    }
-                }
-            }
-            if (styleid > 0 && show != ((int)ProductPicShowType.Product))
-            {
-                string sql = @"SELECT    [Id],[ProductId],[StyleId],[PicUrl],PicSuffix,[Size_X],[Size_Y],[Weight],[Sort],[HasCompress],[CreateTime],[CompressTime] from dbo.[ProductStylePics] WITH(NOLOCK)
-                               where StyleId=@StyleId  and ProductId=0  Order By Sort Desc ";
-                DbCommand cmd = db.GetSqlStringCommand(sql);
-                db.AddInParameter(cmd, "@StyleId", DbType.Int32, styleid); 
-                using (IDataReader reader = db.ExecuteReader(cmd))
-                {
-                    while (reader.Read())
-                    { 
                         ProductStylePicsEntity entity = new ProductStylePicsEntity();
                         entity.Id = StringUtils.GetDbInt(reader["Id"]);
                         entity.ProductId = StringUtils.GetDbInt(reader["ProductId"]);

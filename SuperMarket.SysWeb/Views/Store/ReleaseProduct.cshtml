@@ -1,9 +1,7 @@
 ﻿@{
-    Layout = "~/Views/Main/_Member_Master.cshtml"; 
-    SuperMarket.Model.ProductDetailEntity detailEntity = ViewBag.DetailEntity;
-    int _ProductType = ViewBag.ProductType;
+    Layout = "~/Views/Main/_Member_Master.cshtml";
+    SuperMarket.Model.VWProductDetailEntity detailEntity = ViewBag.DetailEntity;
 }
-
 <style>
 
     input[type="text"]{
@@ -14,30 +12,23 @@
     }
 
 </style>
-
-<input id="hidProductType" value="@ViewBag.ProductType" type="hidden" />
+ 
 <input id="hidProductId" value="@ViewBag.ProductId" type="hidden" />
 <input id="hidProductDetailId" value="@detailEntity.Id" type="hidden"/>
 <div class="tip-title">产品管理<span style="color:#f4934e">></span>@(detailEntity.Id==0? "产品发布":"产品修改")</div>
 
-<div class="product-main">
-
-    <div class="product-main-search">
-        <div class="product-main-search-l">产品种类：</div>
-        <div class="product-main-search-r">
-            <div style="float:left;margin-left:8px">普通产品:</div>
-            <input type="radio" name="radProductType" @(_ProductType==1?"checked=checked":"")  value="1" onclick="FunSelectProductType(this)" />
-            <div style="float:left;margin-left:8px">特价产品:</div>
-            <input type="radio" name="radProductType"  @(_ProductType==2?"checked=checked":"")  value="2" onclick="FunSelectProductType(this)"/>
+<div class="product-main"> 
+    <div class="product-main-search"  >
+        <div class="product-main-search-l"> 产品标题：</div>
+        <div class="product-main-search-r">@(detailEntity.ProductAdTitle) 
         </div>
     </div>
-
     <div class="product-main-search">
         <div class="product-main-search-l">上架/下架：</div>
         <div class="product-main-search-r">
-            <div style="float:left;margin-left:8px">选择上架:</div>
+            <div style="float:left;margin-left:8px">上架:</div>
             <input type="radio" name="radStatus" @(detailEntity.Status == 1  ? "checked=checked" : "")  value="1"/>
-            <div style="float:left;margin-left:8px">选择下架:</div>
+            <div style="float:left;margin-left:8px">下架:</div>
             <input type="radio" name="radStatus" @(detailEntity.Status == 0 ? "checked=checked" : "")  value="0"/>
         </div>
     </div>
@@ -62,7 +53,12 @@
             <input type="text" id="txtTradePrice"  value="@(detailEntity.TradePrice.ToString())"/>
         </div>
     </div>
- 
+    <div class="product-main-search">
+        <div class="product-main-search-l">零售价：</div>
+        <div class="product-main-search-r">
+            <input type="text" id="txtPrice" value="@(detailEntity.Price.ToString())" />
+        </div>
+    </div>
 
     <div class="product-footer">
         <div class="product-footer-l" style="cursor:pointer;margin-left:100px" onclick="ProductSubmit()">确认</div>
@@ -82,14 +78,13 @@
 
       
         var _productId = $("#hidProductId").val();
-        var _productDetailId = $("#hidProductDetailId").val();
-        var _productType = $("input[type=radio][name=radProductType]:checked").val();
+        var _productDetailId = $("#hidProductDetailId").val(); 
         var _status = $("input[type=radio][name=radStatus]:checked").val();
         var _saleNum = $("#txtSaleNum").val();//销售数量
         var _tradePrice = $("#txtTradePrice").val();//批发价
+        var _price = $("#txtPrice").val();//零售价
 
-        var _stockNum = $("#txtStockNum").val();//库存数量
-        var _ptype = $("#hidProductType").val();
+        var _stockNum = $("#txtStockNum").val();//库存数量 
         var strmsg = "确认上架商品？请确保信息正确";
         if (_status == "0")
         {
@@ -98,16 +93,13 @@
         if (confirm(strmsg))
         {
             $.post("/Store/ProductDetailEdit", {
-                productId: _productId, productDetailId: _productDetailId,
-                productType: _productType, status: _status, saleNum: _saleNum, tradePrice: _tradePrice, stockNum: _stockNum
+                productId: _productId, productDetailId: _productDetailId, status: _status, saleNum: _saleNum, tradePrice: _tradePrice,price: _price, stockNum: _stockNum
             }, function (data) {
                 if (data > 0) {
                     alert("成功!");
-                    if (_ptype == 1) {
-                        window.location.href = "/Store/ConventionalPList?productType=1";
-                    } else if (_ptype == 2) {
-                        window.location.href = "/Store/SpecialPList?productType=2";
-                    }
+                    
+                        window.location.href = "/Store/ProductList?siteid=2";
+                   
                 } else {
                     alert("该产品已存在!");
                 }

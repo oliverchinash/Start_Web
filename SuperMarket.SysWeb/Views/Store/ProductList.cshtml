@@ -77,6 +77,17 @@
     </div>
 
     <div class="title_main">
+        所属类别
+        <select id="selSiteId"><option value="0">--请选择--</option>
+
+            @{
+                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
+                foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
+                {
+                    <option value="@entityu.EnumValue" @(ViewBag.SiteId== entityu.EnumValue ?"selected":"")> @entityu.EnumDes</option>
+                }
+            }
+        </select>
 
         按产品名称查询:
         <input value="@Request["productName"]" id="txtProductName" />
@@ -93,11 +104,8 @@
 
 
         <div class="admin_title">
-            <ul>
-                <li>产品名称</li>
-                <li>产品标题</li>
-                <li style="width:10%">是否支持批发</li>
-                <li style="width:10%">是否支持零售</li>
+            <ul> 
+                <li>产品标题</li> 
                 <li style="width:40%">操作</li>
             </ul>
         </div>
@@ -112,28 +120,16 @@
                 {
                     <div class="admin_detail">
                         <ul>
-                            <li class="li_iterm">@entity.AdTitle </li>
-                            <li class="li_iterm">@entity.Title</li>
-                            <li class="li_iterm" style="width:10%">@(entity.Wholesale==1?"支持批发":"不支持批发")</li>
-                            <li class="li_iterm" style="width:10%">@(entity.Retail==1? "支持零售" : "不支持零售")</li>
+                            <li class="li_iterm">@entity.AdTitle </li>  
                             <li class="li_iterm" style="width:40%">
-                                <a href="/Store/ProductEdit?productid=@entity.Id&styleid=@entity.StyleId">编辑</a>&nbsp;&nbsp;&nbsp;
-                                @if (entity.Status==1)
-                                {
-                                    <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,0)">下架</a>
-                                }
-                                else
-                                {
-                                    <a href="javascipt:void(0)" onclick="FunChangeProductStatus(@entity.Id,1)" style="color:red">上架</a>
-                                }
+                                <a href="/Store/ProductEdit?productid=@entity.Id">编辑基本信息</a>&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ReleaseProduct?pid=@entity.Id&flag=@ViewBag.Flag" target="_blank">发布产品</a>
+                                <a href="/Store/ProductPropertyEdit?pid=@entity.Id" target="_blank">产品属性</a>
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductCarTypeManage?pid=@entity.Id" target="_blank">适用车型</a>
+                                <a href="/Store/ProductPicsEdit?&pid=@entity.Id" target="_blank">添加产品图片</a>
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductPicsEdit?&productid=@entity.Id&styleid=@entity.StyleId" target="_blank">添加产品图片</a>
-                                &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductDetailPicsEdit?&productid=@entity.Id" target="_blank">添加产品详情图片</a>
+                                <a href="/Store/ProductDetailPicsEdit?&pid=@entity.Id" target="_blank">添加产品详情</a>                                &nbsp;&nbsp;&nbsp;
+                                <a href="/Store/ReleaseProduct?pid=@entity.Id&flag=@ViewBag.Flag" target="_blank">上下架</a>
                             </li>
                         </ul>
                     </div>
@@ -157,14 +153,18 @@
 <script>
 
     function FunAddProduct(obj) {
-          
-            window.location.href = "/Store/ProductEdit?ProductId=0" ;
+        var url = "/Store/ProductEdit?ProductId=0";
+        var siteid = $("#selSiteId").val();
+        if (siteid > 0)
+            url += "&siteid=" + siteid
+            window.location.href = url;
       
     }
 
-    function FunSearchProduct() { 
+    function FunSearchProduct() {
+        var siteid = $("#selSiteId").val();
         var _productName = $("#txtProductName").val();
-        window.location.href = "/Store/ProductList?productName=" + _productName;
+        window.location.href = "/Store/ProductList?siteid=" + siteid + "&productName=" + _productName;
     }
 
     function FunChangeProductStatus(id,status) {

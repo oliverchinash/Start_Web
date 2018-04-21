@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc; 
 using SuperMarket.Model;
-using SuperMarket.Web.MemberControllers;
+using SuperMarket.Web.Controllers;
 using SuperMarket.BLL;
 using SuperMarket.Core.Safe;
 using SuperMarket.Model.Common;
@@ -21,7 +21,7 @@ using SuperMarket.BLL.CatograyDB;
 using SuperMarket.BLL.ProductDB; 
 using SuperMarket.Web.CommonControllers;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class ProductController : BaseCommonController
     {
@@ -53,7 +53,7 @@ namespace SuperMarket.Web.MemberControllers
             BrandEntity _brandrntity = BrandBLL.Instance.GetBrand(_vwentity.BrandId, true);
             ViewBag.RavClassList = ListRavStr(_classentity);
             ViewBag.Brand = _brandrntity;
-            productpiclist = ProductStylePicsBLL.Instance.GetListPics(_vwentity.StyleId, _productid, _vwentity.ShowPicType);
+            productpiclist = ProductStylePicsBLL.Instance.GetListPicsByProductId(  _productid );
             _vwentity.ProductPics = productpiclist;
 
             IList<ProductPropertyEntity> productpropertylist = ProductPropertyBLL.Instance.GetListByProductId(_productid);
@@ -62,7 +62,7 @@ namespace SuperMarket.Web.MemberControllers
             if (!string.IsNullOrEmpty(_vwentity.Spec1))
             {
                 ViewBag.Spec1Name = _vwentity.Spec1;
-                IList<VWProductEntity> plist = ProductBLL.Instance.GetListSpecsByStyleId(_vwentity.StyleId, _vwentity.ProductType, _vwentity.CGMemId);
+                IList<VWProductEntity> plist = ProductBLL.Instance.GetListSpecsByStyleId(_vwentity.SiteId, _vwentity.ProductType, _vwentity.CGMemId);
                 //ViewBag.SpecList = plist;
                 var listfilter = (from c in plist
                                   select new { c.Spec1, c.Spec2, c.PicUrlLittle, c.ProductId,c.ProductDetailId });
@@ -99,30 +99,28 @@ namespace SuperMarket.Web.MemberControllers
         /// 常规商品列表
         /// </summary>
         /// <returns></returns>
-        public ActionResult ProductList()
+        public ActionResult List()
         {
             string title =   "易店心,";
             string _key = QueryString.SafeQ("key");
-            int classid= QueryString.IntSafeQ("cl");
+            int classid= QueryString.IntSafeQ("cid");
             int brandid= QueryString.IntSafeQ("bd");
             int order_i= QueryString.IntSafeQ("px");//排序类型
-            //if (classid == 0) { return Redirect("/");  }
-            int producttype = (int)ProductType.Normal; 
+            //if (classid == 0) { return Redirect("/");  } 
             int siteid = QueryString.IntSafeQ("s");
-            int jishi = QueryString.IntSafeQ("js");//是否及时达1是2否
-            if (jishi < (int)JiShiSongEnum.JiShi) jishi = (int)JiShiSongEnum.Normal;
-            if (siteid<=0) siteid = (int)SiteEnum.Default; 
-            int _classmenutype = -1; 
-            _classmenutype = (int)ClassMenuTypeEnum.Normal;
-            int showmethod = (int)ListShowMethodEnum.Default;
+            if (siteid<=0) siteid = (int)SiteEnum.Default;
+            ViewBag.SiteId = siteid;
+            ///获取已选择的分类属性
+            string propertiesstr = QueryString.SafeQ("pp");
             //if (classid == 0) RedirectToAction("Home", "Index");
-            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
+            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
             if(_classentity!=null&& _classentity.Id>0)
             { 
                 title += "类别：" + _classentity.Name + ",";
-                showmethod = _classentity.ListShowMethod;
             }
             ViewBag.ClassId = classid;
+            ViewBag.SelectClassName = _classentity.Name;
+            ViewBag.SiteId = _classentity.SiteId;
             ViewBag.OrderBy = order_i;
             ViewBag.ClassEntity = _classentity;
             ViewBag.BrandId = brandid;
@@ -132,12 +130,12 @@ namespace SuperMarket.Web.MemberControllers
               siteid = _classentity.SiteId;
             if(siteid == 0&& rediclassid>0)
             {
-                ClassesFoundEntity _classredirectentity = ClassesFoundBLL.Instance.GetClassesFound(rediclassid, true);
+                ClassesFoundEntity _classredirectentity = ClassesFoundBLL.Instance.GetClassesFound(rediclassid, false);
             }  
             if (brandid > 0&& classid==0)
             {
                 //获取子集分类
-                IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByBrandId(siteid, brandid, true);
+                IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByBrandId(siteid, brandid, false);
                 ViewBag.ClassList = classes; 
             }
             else
@@ -146,7 +144,7 @@ namespace SuperMarket.Web.MemberControllers
                 if (_classentity.IsEnd == 0)
                 {
                     //获取子集分类
-                    IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByPId(rediclassid, true, siteid, _classmenutype);
+                    IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByPId(rediclassid, true, siteid);
                     ViewBag.ClassList = classes;
                 }
             } 
@@ -156,37 +154,22 @@ namespace SuperMarket.Web.MemberControllers
                 if (brandid == 0)
                 {
                     //获取分类对应品牌
-                    IList<BrandEntity> brands = ClassBrandBLL.Instance.GetBrandByClass(rediclassid, 0);
+                    IList<BrandEntity> brands = ClassBrandBLL.Instance.GetBrandByClass(rediclassid );
                     ViewBag.BrandList = brands;
                 } 
                 //获取分类属性
-                IList<BasicSitePropertiesEntity> _BasicSitePropertieslist = BasicSitePropertiesBLL.Instance.GetPropertiesBySiteId(siteid);
+                IList<BasicSitePropertiesEntity> _BasicSitePropertieslist = BasicSitePropertiesBLL.Instance.GetAllPropertyBySiteId(siteid);
                 ViewBag.PropertiesList = _BasicSitePropertieslist; 
-                //获取分类属性值
-                IList<BasicSiteProDetailsEntity> _classprodetailslist = BasicSiteProDetailsBLL.Instance.GetProDetailsBySiteId(siteid);
-                ViewBag.ProDetailsList = _classprodetailslist;
             }
             if (brandid> 0)
             {
-                BrandEntity brand = BrandBLL.Instance.GetBrand(brandid, true);
+                BrandEntity brand = BrandBLL.Instance.GetBrand(brandid, false);
+                ViewBag.SelectBrandName = brand.Name;
                 ViewBag.BrandSelect = brand;
                 title += "品牌：" + brand.Name+",";
             }
-            ///获取已选择的分类属性
-            string propertiesstr = QueryString.SafeQ("pp");
             ViewBag.PropertiesStr = propertiesstr;
-            Dictionary<int, int> _Propertis = new Dictionary<int, int>();
-            if (propertiesstr != "")
-            {
-                string[] strattr = propertiesstr.Split('|');
-                foreach (string str in strattr)
-                {
-                    _Propertis.Add(StringUtils.GetDbInt(str.Split('_')[0]), StringUtils.GetDbInt(str.Split('_')[1]));
-                }
-            }
-            ViewBag.SelectPropertiesDic = _Propertis;
-            ViewBag.SelectPropertiesStr = propertiesstr;
-
+     
             int pageindex = QueryString.IntSafeQ("pageindex");
             int pagesize = CommonKey.PageSizeList;
             int record = 0;
@@ -220,7 +203,7 @@ namespace SuperMarket.Web.MemberControllers
             {
                
                     IList<int> classintlist = new List<int>();
-                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid, _classmenutype);
+                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid );
                     
                     if (classintlist != null && classintlist.Count > 0)
                     {
@@ -234,8 +217,102 @@ namespace SuperMarket.Web.MemberControllers
                     {
                         classidstr = StringUtils.GetDbString(classid);
                     } 
+            }
+            IList<VWProductEntity> _productlist = new List<VWProductEntity>();// ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i,     _key  );
+           _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i, _key);
+
+            MemberLoginEntity member = CookieBLL.GetLoginCookie();
+            if (member != null && member.MemId > 0)
+            {
+                ViewBag.MemId = member.MemId;
+                ViewBag.MemStatus = member.Status;
+                foreach (VWProductEntity _entity in _productlist)
+                { 
+                    _entity.ActualPrice = Calculate.GetPrice(member.Status,member.IsStore, member.StoreType, member.MemGrade, _entity.TradePrice, _entity.Price, _entity.IsBP, _entity.DealerPrice);
+                }
+            }
+            else
+            {
+                foreach (VWProductEntity _entity in _productlist)
+                { 
+                    _entity.ActualPrice = 0;
+                } 
             } 
-            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i, producttype,   _key,jishi );
+            ViewBag.Title = title;
+            ViewBag.ProductList = _productlist;
+            ViewBag.TotalNum = record; 
+            //ViewBag.ListShowMethod = (int)ListShowMethodEnum.Normal;
+            string url = "/Product/list.html?px=" + order_i + "&cid=" + classid + "&bd=" + brandid + "&pp=" + propertiesstr+ "&s=" + siteid +"&ct=0&key=" + _key;
+            ViewBag.SiteId = siteid;
+            string pagehtml = HTMLPage.SetOrderListPage(record, pagesize, pageindex, url);
+            ViewBag.PageHtml = pagehtml;
+            int maxpage = record / pagesize;
+            if (record % pagesize > 0) maxpage = maxpage + 1;
+            ViewBag.MaxPageIndex = maxpage;
+            return View();
+        }
+
+        public string GetJsonList()
+        {
+            ListObj result = new ListObj();
+            string _key = QueryString.SafeQ("key");
+            int classid = QueryString.IntSafeQ("cid");
+            int brandid = QueryString.IntSafeQ("bd");   
+            int siteid = QueryString.IntSafeQ("s");
+            if (siteid <= 0) siteid = (int)SiteEnum.Default;
+            int pageindex = QueryString.IntSafeQ("pageindex");
+            int pagesize = CommonKey.PageSizeList;
+            int record = 0;
+            int order_i = 0;//默认排序
+            if (pageindex == 0) pageindex = 1;
+            ViewBag.SelectClassId = classid;
+            ViewBag.SelectBrandId = brandid; 
+            int rediclassid = classid;
+            string classidstr = "";//分类子集
+
+            
+
+            if (classid > 0)
+            {
+                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
+                if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
+                IList<int> classintlist = new List<int>();
+                if (_classentity.RedirectClassId > 0)
+                {
+                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(_classentity.RedirectClassId);
+                }
+                else
+                {
+                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(classid);
+                }
+                if (classintlist != null && classintlist.Count > 0)
+                {
+                    classidstr = string.Join("_", classintlist);
+                }
+                else if (_classentity.RedirectClassId > 0)
+                {
+                    classidstr = StringUtils.GetDbString(_classentity.RedirectClassId);
+                }
+                else
+                {
+                    classidstr = StringUtils.GetDbString(classid);
+                }
+            }
+            else
+            {
+
+                IList<int> classintlist = new List<int>();
+                classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid);
+
+                if (classintlist != null && classintlist.Count > 0)
+                {
+                    classidstr = string.Join("_", classintlist);
+                }
+            }
+
+
+            IList<VWProductEntity> _productlist = new List<VWProductEntity>();// ProductBLL.Instance.GetProductListProcCYC(pagesize, pageindex, ref record, classidstr, brandid, "", order_i, producttype,  cartype ,jishi);
+            _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, "", order_i, _key);
 
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null && member.MemId > 0)
@@ -244,29 +321,22 @@ namespace SuperMarket.Web.MemberControllers
                 ViewBag.MemStatus = member.Status;
                 foreach (VWProductEntity _entity in _productlist)
                 {
-                    if (_entity.ListShowMethod == (int)ListShowMethodEnum.Normal) showmethod = _entity.ListShowMethod;
-                    _entity.ActualPrice = Calculate.GetPrice(member.Status,member.IsStore, member.StoreType, member.MemGrade, _entity.TradePrice, _entity.Price, _entity.IsBP, _entity.DealerPrice);
+                    _entity.ActualPrice = Calculate.GetPrice(member.Status, member.IsStore, member.StoreType, member.MemGrade, _entity.TradePrice, _entity.Price, _entity.IsBP, _entity.DealerPrice);
                 }
             }
             else
             {
                 foreach (VWProductEntity _entity in _productlist)
                 {
-                    if (_entity.ListShowMethod == (int)ListShowMethodEnum.Normal) showmethod = _entity.ListShowMethod;
                     _entity.ActualPrice = 0;
-                } 
-            } 
-            ViewBag.Title = title;
-            ViewBag.ProductList = _productlist;
-            ViewBag.TotalNum = record;
-            ViewBag.ListShowMethod = showmethod;
-            ViewBag.JiShiSong = jishi;
-            //ViewBag.ListShowMethod = (int)ListShowMethodEnum.Normal;
-            string url = "/Product/list.html?js=" + jishi + "&px=" + order_i + "&cl=" + classid + "&bd=" + brandid + "&pp=" + propertiesstr+ "&s=" + siteid +"&ct=0&key=" + _key;
-            ViewBag.SiteId = siteid;
-            string pagehtml = HTMLPage.SetOrderListPage(record, pagesize, pageindex, url);
-            ViewBag.PageHtml = pagehtml;
-            return View();
+                }
+
+            }
+            result.Total = record;
+            result.List = _productlist;
+
+            string liststr = JsonJC.ObjectToJson(result);
+            return liststr;
         }
 
         public ActionResult Search()
@@ -376,7 +446,7 @@ namespace SuperMarket.Web.MemberControllers
             if (pageindex == 0) pageindex = 1;
             string propertiesstr = "";
             string classidstr = "";
-            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i, producttype,  _key, _jishi);
+            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i,  _key );
 
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null && member.MemId > 0)
@@ -411,17 +481,15 @@ namespace SuperMarket.Web.MemberControllers
             string title = "易店心,四配套专区";
             string _key = ""; 
             int brandid = 0;
-            int order_i = 0;//排序类型 
-            int producttype = (int)ProductType.Normal;
-
-            int _jishi = (int)JiShiSongEnum.Normal;//不支持及时送
+            int order_i = 0;//排序类型  
+             
             int pageindex = QueryString.IntSafeQ("pageindex");
             int pagesize = CommonKey.PageSizeList;
             int record = 0;
             if (pageindex == 0) pageindex = 1;
             string propertiesstr = "";
             string classidstr = "846";
-            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i, producttype,   _key, _jishi);
+            IList<VWProductEntity> _productlist = ProductBLL.Instance.GetProductListProc(pagesize, pageindex, ref record, classidstr, brandid, propertiesstr, order_i,   _key );
 
             MemberLoginEntity member = CookieBLL.GetLoginCookie();
             if (member != null && member.MemId > 0)
@@ -623,7 +691,7 @@ namespace SuperMarket.Web.MemberControllers
             int _pdid = FormString.IntSafeQ("pdid");//上级品牌Id，0代表第一级
             if (_pdid > 0)
             {
-                ProductDetailEntity entity = ProductDetailBLL.Instance.GetProductDetail(_pdid);
+                VWProductDetailEntity entity = ProductDetailBLL.Instance.GetProductDetail(_pdid);
                 if(entity!=null&& entity.Id>0)
                 {
                     result = entity.StockNum.ToString();

@@ -1,0 +1,22 @@
+﻿@{
+    IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll(0,0);
+}
+    <div class="am-g home-list">
+        @{
+            if (list != null && list.Count > 0)
+            {
+                foreach (SuperMarket.Model.VWClassesFoundEntity en in list)
+                {
+                    <div class="am-u-sm-3">
+                        <a href="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.MainMobileWebUrl)/Product/List?cid=@en.Id">
+                           @if (!string.IsNullOrEmpty(en.PicUrl))
+                           {
+                            <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + en.PicUrl + en.PicUrlSuffix)" class="am-img-responsive">
+                           }
+                            <div class="">@en.Name</div>
+                        </a>
+                    </div>
+                }
+            }
+            } 
+    </div>

@@ -1,12 +1,13 @@
-﻿ /*****************************************
+﻿/*****************************************
 Table  Name:BasicSiteProperties
 Create Time:2016/10/31 13:00:04
 Creator    :jc001
 ******************************************/
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Text; 
- 
+using System.Text;
+
 //?DataEntityattrbute
 namespace SuperMarket.Model
 { 	
@@ -176,11 +177,12 @@ namespace SuperMarket.Model
 				_IsSpec=value;
 			}
 		}
+        public IList<BasicSiteProDetailsEntity> ProDetails;
 
-	    /// <summary>
-		/// 通用属性的Id,0:代表不适用通用属性
-		/// <summary>
-		private  int _ComPropertyId;
+        /// <summary>
+        /// 通用属性的Id,0:代表不适用通用属性
+        /// <summary>
+        private int _ComPropertyId;
 	 	public int ComPropertyId
 		{
 			get
@@ -192,7 +194,6 @@ namespace SuperMarket.Model
 				_ComPropertyId=value;
 			}
 		}
-
 		#endregion				
 	}
 }

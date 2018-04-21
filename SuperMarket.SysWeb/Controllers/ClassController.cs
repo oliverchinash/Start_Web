@@ -203,7 +203,7 @@ namespace SuperMarket.SysWeb.Controllers
                 _result = ClassesFoundBLL.Instance.DeleteClassesFoundByKey(_id);//删除一级节点
                 if (_result > 0)
                 {
-                    IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesAllByPId(_id, false,-1,-1);
+                    IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesAllByPId(_id, false,-1 );
                     if (entitylist!=null&&entitylist.Count>0)
                     {
                         foreach (ClassesFoundEntity item in entitylist)

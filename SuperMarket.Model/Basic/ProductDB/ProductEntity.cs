@@ -110,21 +110,6 @@ namespace SuperMarket.Model
         /// <summary>
         ///  
         /// <summary>
-        private string _OECode;
-        public string OECode
-        {
-            get
-            {
-                return _OECode;
-            }
-            set
-            {
-                _OECode = value;
-            }
-        }
-        /// <summary>
-        ///  
-        /// <summary>
         private int _IsOEM;
         public int IsOEM
         {
@@ -137,22 +122,7 @@ namespace SuperMarket.Model
                 _IsOEM = value;
             }
         }
-        
-        /// <summary>
-        /// 款式Id
-        /// <summary>
-        private  int _StyleId;
-	 	public int StyleId
-		{
-			get
-			{
-				return _StyleId;
-			}
-			set
-			{
-                _StyleId = value;
-			}
-		}
+         
         public int ClassId;
         public int BrandId;
         /// <summary>

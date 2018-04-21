@@ -221,7 +221,7 @@ namespace SuperMarket.Data.CatograyDB
         public ClassesFoundEntity GetClassesFound(int id)
         {
             string sql = @"SELECT  [Id],[Code],[FullName],[Name],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[HasProperties],[HasProduct],PropertiesClassId, [ParentId],
-RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [Id]=@Id";
+RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [Id]=@Id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@Id", DbType.Int32, id);
@@ -247,8 +247,7 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
                     entity.IsEnd = StringUtils.GetDbInt(reader["IsEnd"]);
                     entity.HasProperties = StringUtils.GetDbInt(reader["HasProperties"]);
                     entity.HasProduct = StringUtils.GetDbInt(reader["HasProduct"]);
-                    entity.PropertiesClassId = StringUtils.GetDbInt(reader["PropertiesClassId"]);
-                    entity.ListShowMethod = StringUtils.GetDbInt(reader["ListShowMethod"]);
+                    entity.PropertiesClassId = StringUtils.GetDbInt(reader["PropertiesClassId"]); 
                     
                     entity.ClassType = StringUtils.GetDbInt(reader["ClassType"]);
                     entity.ParentId = StringUtils.GetDbInt(reader["ParentId"]);
@@ -513,44 +512,28 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
         /// <param name="classnenutype"></param>
         /// <param name="parentid"></param>
         /// <returns></returns>
-        public IList<VWClassesFoundEntity> GetClassMenuAll(int siteid, int classnenutype, int parentid,int classtype=-1 )
+        public IList<VWClassesFoundEntity> GetClassMenuAll(int siteid,   int parentid  )
         {
             string where = " where 1=1 and IsActive=1";
-            if(siteid != -1)
+            if(siteid>0)
             {
                 where += " and SiteId=@SiteId";
-            }
-            if (classnenutype != -1)
-            {
-                where += " and ClassMenuType=@ClassMenuType";
-            }
+            } 
             if (parentid != -1)
             {
                 where += " and ParentId=@ParentId";
-            }
-            if (classtype != -1)
-            {
-                where += " and Classtype=@Classtype";
-            }
-            string sql = @"SELECT    [Id],[Code],[Name],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[HasProperties],[ParentId],PropertiesClassId,HasProduct,ClassType ,RedirectClassId  from dbo.[ClassesFound] WITH(NOLOCK)	" + where + " Order By parentid ,Sort desc";
+            } 
+            string sql = @"SELECT    [Id],[Code],[Name],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[HasProperties],[ParentId],PropertiesClassId,HasProduct, RedirectClassId  from dbo.[ClassesFound] WITH(NOLOCK)	" + where + " Order By parentid ,Sort desc";
             IList<VWClassesFoundEntity> entityList = new List<VWClassesFoundEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
             if (siteid != -1)
             {
                 db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
-            }
-            if (classnenutype != -1)
-            {
-                db.AddInParameter(cmd, "@ClassMenuType", DbType.Int32, classnenutype); 
-            }
+            } 
             if (parentid != -1)
             {
                 db.AddInParameter(cmd, "@ParentId", DbType.Int32, parentid); 
-            }
-            if (classtype != -1)
-            {
-                db.AddInParameter(cmd, "@Classtype", DbType.Int32, classtype);  
-            }
+            } 
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 while (reader.Read())
@@ -573,15 +556,14 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
                     entity.HasProperties = StringUtils.GetDbInt(reader["HasProperties"]);
                     entity.PropertiesClassId = StringUtils.GetDbInt(reader["PropertiesClassId"]);
                     entity.HasProduct = StringUtils.GetDbInt(reader["HasProduct"]);
-                    entity.ParentId = StringUtils.GetDbInt(reader["ParentId"]);
-                    entity.ClassType = StringUtils.GetDbInt(reader["ClassType"]);
+                    entity.ParentId = StringUtils.GetDbInt(reader["ParentId"]); 
                     entity.RedirectClassId = StringUtils.GetDbInt(reader["RedirectClassId"]);
                     entityList.Add(entity);
                 }
             }
             return entityList;
         }
-        public IList<ClassesFoundEntity> GetClassesAllByPId(int pid, int level, int siteid, int classmenutype)
+        public IList<ClassesFoundEntity> GetClassesAllByPId(int pid, int level, int siteid)
         {
             string where = " where 1=1 and IsActive=1";
 
@@ -593,12 +575,8 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
             {
                 if (pid == 0)
                 {
-                    where += " and ParentId=@ParentId";
+                    where += " and ParentId=0";
                 }
-                if (level != -1)
-                {
-                    where += " and ClassLevel=@ClassLevel";
-                }  
                 if (siteid != -1)
                 {
 
@@ -614,15 +592,7 @@ RedirectClassId,ClassType,ListShowMethod,SiteId  FROM dbo.[ClassesFound] WITH(NO
                 db.AddInParameter(cmd, "@ParentId", DbType.Int32, pid);
             }
             else
-            {
-                if (pid == 0)
-                { 
-                    db.AddInParameter(cmd, "@ParentId", DbType.Int32, pid);
-                }
-                if (level != -1)
-                {
-                    db.AddInParameter(cmd, "@ClassLevel", DbType.Int32, level);
-                } 
+            { 
                 if (pid <= 0 && siteid != -1)
                 {
                     db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);

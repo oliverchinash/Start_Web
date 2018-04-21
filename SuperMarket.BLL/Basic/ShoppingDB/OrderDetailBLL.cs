@@ -310,8 +310,7 @@ namespace SuperMarket.BLL.ShoppingDB
                 if (entityList!=null&& entityList.Count>0)
                 {
                     foreach (var item in entityList)
-                    {
-                        item.OEM = ProductBLL.Instance.GetProduct(item.ProductId).OECode;
+                    { 
                         item.OriginalPlace = ProductBLL.Instance.GetProduct(item.ProductId).PlaceOrigin;
                     }
                 }

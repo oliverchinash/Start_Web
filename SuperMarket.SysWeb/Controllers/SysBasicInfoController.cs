@@ -222,7 +222,7 @@ namespace SuperMarket.SysWeb.Controllers
                 classidstr += classid + ",";
             }
             classidstr.TrimEnd(',');
-            IList<ProductEntity> entitylist = ProductBLL.Instance.GetProductList(_pagesize, _pageindex, ref _recordCount, _productName, classidstr, _styleId);
+            IList<ProductEntity> entitylist = ProductBLL.Instance.GetProductList(_pagesize, _pageindex, ref _recordCount, _productName, classidstr ,0);
             ViewBag.entitylist = entitylist; 
             string _url = "/SysBasicInfo/ProductList?pid1=" + pid1+ "&pid2=" + pid2 + "&pid3=" + pid3 + "&key=" + _productName;
             string pagestr = HTMLPage.SetProductListPage(_recordCount, _pagesize, _pageindex, _url);

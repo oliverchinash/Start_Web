@@ -299,14 +299,13 @@ END";
             }
             return entityList;
      	}
-        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid,int parentid)
+        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid )
         {
             string sql = @"SELECT    [Id],[Code],[Name],[SiteId],[ParentId],[IsActive],[Sort],[RootPropertyId],[CanInput],[IsSpec],[ComPropertyId] from dbo.[BasicSiteProperties] WITH(NOLOCK)
-where SiteId=@SiteId and ParentId=@ParentId Order by Sort desc";
+where SiteId=@SiteId   Order by Sort desc";
             IList<BasicSitePropertiesEntity> entityList = new List<BasicSitePropertiesEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
-            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
-            db.AddInParameter(cmd, "@ParentId", DbType.Int32, parentid);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid); 
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
                 while (reader.Read())

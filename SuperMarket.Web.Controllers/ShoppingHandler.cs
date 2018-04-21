@@ -17,7 +17,7 @@ using SuperMarket.Core.Json;
 using SuperMarket.Core.Util;
 using SuperMarket.Web.CommonControllers;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class ShoppingHandlerController : BaseCommonController
     {

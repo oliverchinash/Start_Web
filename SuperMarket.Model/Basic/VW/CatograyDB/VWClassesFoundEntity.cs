@@ -378,6 +378,9 @@ namespace SuperMarket.Model
                 _ClassMenuType = value;
             }
         }
+        public string PicUrl { get; set; }
+        public string PicUrlSuffix { get; set; }
+
         public IList<VWClassesFoundEntity> Children;
         public IList<BrandEntity> MenuBrands;
         public IList<VWProductEntity> MenuProducts;

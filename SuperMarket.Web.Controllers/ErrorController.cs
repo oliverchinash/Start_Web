@@ -18,7 +18,7 @@ using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SuperMarket.Web.MemberControllers
+namespace SuperMarket.Web.Controllers
 {
     public class ErrorController : BaseCommonController
     {

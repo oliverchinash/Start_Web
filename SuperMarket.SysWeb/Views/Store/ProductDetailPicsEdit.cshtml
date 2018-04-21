@@ -4,12 +4,7 @@
 @section Head{
 
     <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
-    <link href="/css/amazonmenu.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
-    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
-    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
-    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
+    <link href="/css/amazonmenu.css" rel="stylesheet" /> 
     <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
     <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
@@ -26,7 +21,7 @@
 <div style="display: none;">
 
     <input id="txtProductExtId" value="@entity.Id" />
-    <input id="txtPid" value="@productEntity.Id" />
+    <input id="txtProductid" value="@productEntity.Id" />
     <input id="txtDetailDescrip" value="@entity.DetailDescrip" />
      
 </div>
@@ -99,7 +94,7 @@
         debugger
 
         var _productExtId = $("#txtProductExtId").val();
-        var _pid = $("#txtPid").val();
+        var _pid = $("#txtProductid").val();
         var _detailDes = ue.getContent();
         $.post("/Store/ProductDetailPicsAdd", { productExtId: _productExtId, pid: _pid, detailDes: _detailDes }, function (data) {
 

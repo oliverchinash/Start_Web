@@ -185,16 +185,16 @@ namespace SuperMarket.BLL.CatograyDB
                /// <param name="classid"></param>
                /// <param name="pid"></param>
                /// <returns></returns> 
-        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid,int parentid,bool cache=false)
+        public IList<BasicSitePropertiesEntity> GetListBySiteId(int siteid, bool cache=false)
         {
             IList<BasicSitePropertiesEntity> _objlistall = null;
             if (cache)
             {
-                string _cachekey = "BasicSitePropertiesList_" + siteid + "_" + parentid;// SysCacheKey.VWBasicSitePropertiesListKey;
+                string _cachekey = "BasicSitePropertiesList_" + siteid;// SysCacheKey.VWBasicSitePropertiesListKey;
                 object _objcache = MemCache.GetCache(_cachekey);
                 if (_objcache == null)
                 {
-                    _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid, parentid);
+                    _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid);
                 }
                 else
                 {
@@ -204,22 +204,33 @@ namespace SuperMarket.BLL.CatograyDB
             }
             else
             {
-                _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid, parentid);
+                _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid );
 
             }
             return _objlistall; 
         }
-
+        public IList<BasicSitePropertiesEntity> GetAllPropertyBySiteId(int siteid,bool iscache =false)
+        {
+            IList<BasicSitePropertiesEntity> _objlistall = null;
+            _objlistall = BasicSitePropertiesDA.Instance.GetListBySiteId(siteid  );
+            if(_objlistall!=null&& _objlistall.Count>0)
+            {
+                foreach(BasicSitePropertiesEntity en in _objlistall)
+                {
+                    en.ProDetails = BasicSiteProDetailsBLL.Instance.GetListByPropertyId(en.Id,0);
+                }
+            }
+            return _objlistall;
+        }
         /// <summary>
         /// 根据分类id 获取对应的分类产品属性
         /// </summary>
         /// <param name="classid"></param>
         /// <param name="pid"></param>
         /// <returns></returns> 
-        public IList<BasicSitePropertiesEntity> GetPropertiesBySiteId(int siteid, bool cache=false )
+        public IList<BasicSitePropertiesEntity> GetPropertiesBySiteId(int classid, bool cache=false )
         {
-            IList<BasicSitePropertiesEntity> list= GetListBySiteId(siteid, 0, cache);
-            var objlist = list.Where(p => p.IsSpec == 0);
+            IList<BasicSitePropertiesEntity> objlist = GetListBySiteId(classid,   cache); 
             if(objlist!=null)
             {
                 return objlist.ToList<BasicSitePropertiesEntity>();

@@ -125,7 +125,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="columns">要返回的列</param>
         public BrandEntity GetBrand(int id, bool iscache=false)
         {
-            if (iscache == true)
+            if (iscache == false)
             {
                 string _cachekey = "Brand_" + id.ToString();
                 object _objcache = MemCache.GetCache(_cachekey);
@@ -172,7 +172,7 @@ namespace SuperMarket.BLL.CatograyDB
             string classidstr = "";
             if (classid > 0)
             {
-                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
+                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
 
                 IList<int> classintlist = new List<int>();
                 if (_classentity.RedirectClassId > 0)
@@ -248,15 +248,82 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <param name="classid"></param>
         /// <returns></returns>
-        public IList<VWTreeBrandEntity> GetTreeBrandAll(int classid)
+        public IList<VWTreeBrandEntity> GetTreeBrandAll(int classid,bool iscache=false)
         {
             IList<VWTreeBrandEntity> resultlist = new List<VWTreeBrandEntity>();
-            string _cachekey = "GetTreeBrandAll"+ classid; 
-            object obj = MemCache.GetCache(_cachekey);
-            if (obj == null)
+           
+            string _cachekey = "GetTreeBrandAll"+ classid;
+            if (iscache)
+            {
+                object obj = MemCache.GetCache(_cachekey);
+                if (obj == null)
+                {
+                    int rediclassid = classid;
+                    ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
+                    if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
+                    IList<int> classintlist = new List<int>();
+                    classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(rediclassid);
+                    string classidstr = "";
+                    if (classintlist != null && classintlist.Count > 0)
+                    {
+                        classidstr = string.Join("_", classintlist);
+                    }
+                    else
+                    {
+                        classidstr = StringUtils.GetDbString(classid);
+                    }
+
+                    IList<VWTreeBrandEntity> list = null;
+                    list = BrandDA.Instance.GetBrandAllByClassStr(classidstr);
+                    if (list != null && list.Count > 0)
+                    {
+                        //string[] firstletter = new Array();
+                        ArrayList firstletter = new ArrayList();
+                        foreach (VWTreeBrandEntity entity in list)
+                        {
+                            if (!firstletter.Contains(entity.PYFirst))
+                            {
+                                firstletter.Add(entity.PYFirst);
+                            }
+                            firstletter.Sort();
+                        }
+                        foreach (string letter in firstletter)
+                        {
+                            VWTreeBrandEntity entity = new VWTreeBrandEntity();
+                            entity.PYFirst = letter;
+                            resultlist.Add(entity);
+                        }
+                        foreach (VWTreeBrandEntity entity in list)
+                        {
+                            foreach (VWTreeBrandEntity entity2 in resultlist)
+                            {
+                                if (entity.PYFirst == entity2.PYFirst)
+                                {
+                                    if (entity2.Children == null)
+                                    {
+                                        entity2.Children = new List<VWTreeBrandEntity>();
+                                    }
+                                    entity2.Children.Add(entity);
+                                    break;
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+                    MemCache.AddCache(_cachekey, resultlist);
+                }
+                else
+                {
+                    resultlist = (IList<VWTreeBrandEntity>)obj;
+                }
+            }
+            else
             {
                 int rediclassid = classid;
-                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
+                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
                 if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
                 IList<int> classintlist = new List<int>();
                 classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(rediclassid);
@@ -284,36 +351,32 @@ namespace SuperMarket.BLL.CatograyDB
                         }
                         firstletter.Sort();
                     }
-                    foreach(string letter in firstletter)
+                    foreach (string letter in firstletter)
                     {
                         VWTreeBrandEntity entity = new VWTreeBrandEntity();
                         entity.PYFirst = letter;
                         resultlist.Add(entity);
                     }
-                    foreach(VWTreeBrandEntity entity in list) {  
-                        foreach(VWTreeBrandEntity entity2 in resultlist)
+                    foreach (VWTreeBrandEntity entity in list)
+                    {
+                        foreach (VWTreeBrandEntity entity2 in resultlist)
                         {
-                                if (entity.PYFirst == entity2.PYFirst)
+                            if (entity.PYFirst == entity2.PYFirst)
+                            {
+                                if (entity2.Children == null)
                                 {
-                                    if (entity2.Children == null)
-                                    {
-                                        entity2.Children = new List<VWTreeBrandEntity>();
-                                    }
-                                    entity2.Children.Add(entity);
-                                    break; 
+                                    entity2.Children = new List<VWTreeBrandEntity>();
                                 }
+                                entity2.Children.Add(entity);
+                                break;
+                            }
 
                         }
-                               
-                            
+
+
                     }
 
                 }
-                MemCache.AddCache(_cachekey, resultlist);
-            }
-           else
-            {
-                resultlist = (IList<VWTreeBrandEntity>)obj; 
             }
             return resultlist;
         }

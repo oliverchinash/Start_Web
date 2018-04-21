@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.MemPersonWebCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Web.Mobile", "SuperMarket.Web.Mobile\SuperMarket.Web.Mobile.csproj", "{77634C37-4EB5-466A-B9E2-FCC4F539CA39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMarket.Web.MobileControllers", "SuperMarket.Web.MobileControllers\SuperMarket.Web.MobileControllers.csproj", "{D9CF611C-4DBE-44D8-99A4-9016962D46B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuPerMarket.BackgroundTask", "SuPerMarket.BackgroundTask\SuPerMarket.BackgroundTask.csproj", "{9B618A9A-32D7-46A6-883C-98E385BC4B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,10 +107,10 @@ Global
 		{77634C37-4EB5-466A-B9E2-FCC4F539CA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77634C37-4EB5-466A-B9E2-FCC4F539CA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77634C37-4EB5-466A-B9E2-FCC4F539CA39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9CF611C-4DBE-44D8-99A4-9016962D46B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9CF611C-4DBE-44D8-99A4-9016962D46B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9CF611C-4DBE-44D8-99A4-9016962D46B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9CF611C-4DBE-44D8-99A4-9016962D46B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B618A9A-32D7-46A6-883C-98E385BC4B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B618A9A-32D7-46A6-883C-98E385BC4B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B618A9A-32D7-46A6-883C-98E385BC4B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B618A9A-32D7-46A6-883C-98E385BC4B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

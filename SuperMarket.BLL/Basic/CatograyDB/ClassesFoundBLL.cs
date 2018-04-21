@@ -150,7 +150,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// </summary>
         /// <returns>ClassesFound实体</returns>
         /// <param name="columns">要返回的列</param>
-        public ClassesFoundEntity GetClassesFound(int id, bool iscache = true)
+        public ClassesFoundEntity GetClassesFound(int id, bool iscache = false)
         {
             if (iscache)
             {
@@ -195,12 +195,12 @@ namespace SuperMarket.BLL.CatograyDB
             return _obj;
 
         }
-        public IList<ClassesFoundEntity> GetClassListByLevel(int pid, int level, int siteid, int classmenutype)
+        public IList<ClassesFoundEntity> GetClassListByLevel(int pid, int level, int siteid )
         {
-            string _cachekey = "GetClassListByLevel_" + pid.ToString() + "_" + level.ToString() + "_" + siteid.ToString()+"_"+ classmenutype;// SysCacheKey.ClassesFoundListKey;
+            string _cachekey = "GetClassListByLevel_" + pid.ToString() + "_" + level.ToString() + "_" + siteid.ToString() ;// SysCacheKey.ClassesFoundListKey;
             object _objcache = MemCache.GetCache(_cachekey);
             IList<ClassesFoundEntity> _objlistall = new List<ClassesFoundEntity>();
-            _objlistall = ClassesFoundDA.Instance.GetClassesAllByPId(pid, level, siteid, classmenutype);
+            _objlistall = ClassesFoundDA.Instance.GetClassesAllByPId(pid, level, siteid );
             MemCache.AddCache(_cachekey, _objlistall);
             return _objlistall;
         }
@@ -215,7 +215,7 @@ namespace SuperMarket.BLL.CatograyDB
                 _listint.Add(redirectclassid);
                 if (_entity.IsEnd == 0 && redirectclassid > 0)
                 {
-                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, cache, -1, -1);
+                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, cache, -1 );
                     if (_entitylist2 != null && _entitylist2.Count > 0)
                     {
                         foreach (ClassesFoundEntity _entity2 in _entitylist2)
@@ -232,13 +232,13 @@ namespace SuperMarket.BLL.CatograyDB
                 object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
-                    ClassesFoundEntity _entity = GetClassesFound(classid, true);
+                    ClassesFoundEntity _entity = GetClassesFound(classid, false);
                     int redirectclassid = _entity.RedirectClassId;
                     if (redirectclassid == 0) redirectclassid = _entity.Id;
                     _listint.Add(redirectclassid);
                     if (_entity.IsEnd == 0 && redirectclassid > 0)
                     {
-                        IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, true, -1, -1);
+                        IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, true, -1 );
                         if (_entitylist2 != null && _entitylist2.Count > 0)
                         {
                             foreach (ClassesFoundEntity _entity2 in _entitylist2)
@@ -259,14 +259,14 @@ namespace SuperMarket.BLL.CatograyDB
             return _listint;
         }
 
-        public   List<int> GetSubClassEndListBySite(int siteid,int classnenutype)
+        public   List<int> GetSubClassEndListBySite(int siteid)
         {
-            string _cachekey = "GetSubClassEndListBySite_" + siteid+"_"+ classnenutype;
+            string _cachekey = "GetSubClassEndListBySite_" + siteid;
             object obj = MemCache.GetCache(_cachekey);
             List<int> _listint = new List<int>();
             if (obj == null)
             {  
-                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(0, true, siteid, classnenutype);
+                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(0, true, siteid );
                     if (_entitylist2 != null && _entitylist2.Count > 0)
                     {
                      foreach(ClassesFoundEntity entity in _entitylist2)
@@ -344,18 +344,18 @@ namespace SuperMarket.BLL.CatograyDB
        /// <param name="parentid"></param>
        /// <param name="iscache"></param>
        /// <returns></returns>
-        public IList<VWClassesFoundEntity> GetClassMenuAll(int siteid,int classnenutype, int parentid, bool iscache)
+        public IList<VWClassesFoundEntity> GetClassMenuAll(int siteid,  int parentid, bool iscache=false)
         {
             IList<VWClassesFoundEntity> list = new List<VWClassesFoundEntity>();
-            if (iscache == true)
+            if (iscache)
             {
-                string _cachekey = "GetClassMenuAll_" + siteid + "_"+ classnenutype + "_" + parentid;
+                string _cachekey = "GetClassMenuAll_" + siteid + "_" + parentid;
                 object obj = MemCache.GetCache(_cachekey);
 
                 if (obj == null)
                 {
                     IList<VWClassesFoundEntity> listtemp = null;
-                    listtemp = ClassesFoundDA.Instance.GetClassMenuAll(siteid, classnenutype, parentid);
+                    listtemp = ClassesFoundDA.Instance.GetClassMenuAll(siteid, parentid);
                     if (listtemp != null && listtemp.Count > 0)
                     {
                         Dictionary<int, VWClassesFoundEntity> IDCTEMP = new Dictionary<int, VWClassesFoundEntity>();
@@ -394,7 +394,7 @@ namespace SuperMarket.BLL.CatograyDB
             else
             {
                 IList<VWClassesFoundEntity> listtemp = null;
-                listtemp = ClassesFoundDA.Instance.GetClassMenuAll(siteid, classnenutype, parentid);
+                listtemp = ClassesFoundDA.Instance.GetClassMenuAll(siteid,   parentid);
                 if (listtemp != null && listtemp.Count > 0)
                 {
                     Dictionary<int, VWClassesFoundEntity> IDCTEMP = new Dictionary<int, VWClassesFoundEntity>();
@@ -437,17 +437,17 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="parentid"></param>
         /// <param name="iscache"></param>
         /// <returns></returns>
-        public IList<VWClassesFoundEntity> GetClassFoundAll(int siteid, int classnenutype, int parentid,int classtype, bool iscache)
+        public IList<VWClassesFoundEntity> GetClassFoundAll(int siteid,  int parentid , bool iscache=false)
         {
             IList<VWClassesFoundEntity> list = new List<VWClassesFoundEntity>();
-            if (iscache == true)
+            if (iscache == false)
             {
-                string _cachekey = "GetClassFoundAll_" + siteid + "_" + classnenutype + "_" + parentid+"_"+ classtype;
+                string _cachekey = "GetClassFoundAll_" + siteid + "_" + parentid ;
                 object obj = MemCache.GetCache(_cachekey);
 
                 if (obj == null)
                 {
-                    list = ClassesFoundDA.Instance.GetClassMenuAll(siteid, classnenutype, parentid, classtype);
+                    list = ClassesFoundDA.Instance.GetClassMenuAll(siteid,   parentid );
                    
                     MemCache.AddCache(_cachekey, list);
                 }
@@ -458,21 +458,21 @@ namespace SuperMarket.BLL.CatograyDB
             }
             else
             {
-                list = ClassesFoundDA.Instance.GetClassMenuAll(siteid, classnenutype, parentid, classtype); 
+                list = ClassesFoundDA.Instance.GetClassMenuAll(siteid,   parentid ); 
             } 
             return list;
         }
 
-        public IList<ClassesFoundEntity> GetClassesAllByPId(int parentid, bool iscache,int siteid, int classmenutype=0)
+        public IList<ClassesFoundEntity> GetClassesAllByPId(int parentid, bool iscache,int siteid)
         {
-            if (iscache == true)
+            if (iscache == false)
             {
-                string _cachekey = "GetClassesAllByPId_" + parentid+"_"+ siteid + "_"+classmenutype;
+                string _cachekey = "GetClassesAllByPId_" + parentid+"_"+ siteid ;
                 object obj = MemCache.GetCache(_cachekey);
                 IList<ClassesFoundEntity> list = null;
                 if (obj == null)
                 {
-                    list = ClassesFoundDA.Instance.GetClassesAllByPId(parentid, -1, siteid, classmenutype);
+                    list = ClassesFoundDA.Instance.GetClassesAllByPId(parentid, -1, siteid);
                     MemCache.AddCache(_cachekey, list);
                 }
                 else
@@ -484,7 +484,7 @@ namespace SuperMarket.BLL.CatograyDB
             else
             {
                 IList<ClassesFoundEntity> list = null;
-                list = ClassesFoundDA.Instance.GetClassesAllByPId(parentid, -1, siteid, classmenutype);
+                list = ClassesFoundDA.Instance.GetClassesAllByPId(parentid, -1, siteid );
                 return list;
             }
 
@@ -492,7 +492,7 @@ namespace SuperMarket.BLL.CatograyDB
 
         public IList<ClassesFoundEntity> GetClassesAllByBrandId(int siteid, int brandid,bool iscache)
         {
-            if (iscache == true)
+            if (iscache == false)
             {
                 string _cachekey = "GetClassesAllByBrandId_" + siteid + "_" + brandid ;
                 object obj = MemCache.GetCache(_cachekey);
