@@ -74,9 +74,9 @@
 
     <div class="title_main">
         请选择类型:
-        <select id="selSiteId" name="">
+        <select id="selClassTypeId" name="">
             @{
-                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
+                IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ClassTypeEnum>();
                 foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
                 {
                     <option value="@entityu.EnumValue" @(ViewBag.SiteId == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
@@ -217,8 +217,8 @@
         var _level = $("#selLevel").val();
         var _isactive = $("#selIsActive").val();
         var _name = $("#txtName").val();
-        var _siteid = $("#selSiteId").val();
-        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&siteid=" + _siteid;
+        var _classtype = $("#selClassTypeId").val();
+        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&classtype=" + _classtype
     }
 
     function FunDisable(obj) { 

@@ -79,8 +79,8 @@ namespace SuperMarket.Data.CatograyDB
         /// <param name="classesFound">待插入的实体对象</param>
         public int AddClassesFound(ClassesFoundEntity entity)
         {
-            string sql = @"insert into ClassesFound( [Code],[Name],[FullName],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[ParentId],[HasProperties],[PropertiesClassId],[HasProduct],[SiteId])VALUES
-			            ( @Code,@Name,@FullName,@PYFirst,@PYShort,@PYFull,@AdId,@Sort,@IsActive,@IsHot,@CreateTime,@UpdateTime,@ClassLevel,@IsEnd,@ParentId,@HasProperties,@PropertiesClassId,@HasProduct,@SiteId);
+            string sql = @"insert into ClassesFound( [Code],[Name],[FullName],[PYFirst],[PYShort],[PYFull],[AdId],[Sort],[IsActive],[IsHot],[CreateTime],[UpdateTime],[ClassLevel],[IsEnd],[ParentId],[HasProperties],[PropertiesClassId],[HasProduct],[SiteId],ClassType)VALUES
+			            ( @Code,@Name,@FullName,@PYFirst,@PYShort,@PYFull,@AdId,@Sort,@IsActive,@IsHot,@CreateTime,@UpdateTime,@ClassLevel,@IsEnd,@ParentId,@HasProperties,@PropertiesClassId,@HasProduct,@SiteId,@ClassType);
 			SELECT SCOPE_IDENTITY();";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -102,7 +102,8 @@ namespace SuperMarket.Data.CatograyDB
             db.AddInParameter(cmd, "@HasProperties", DbType.Int32, entity.HasProperties);
             db.AddInParameter(cmd, "@PropertiesClassId", DbType.Int32, entity.PropertiesClassId);
             db.AddInParameter(cmd, "@HasProduct", DbType.Int32, entity.HasProduct);
-            db.AddInParameter(cmd, "@SiteId", DbType.Int32, entity.SiteId);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, entity.SiteId); 
+            db.AddInParameter(cmd, "@ClassType", DbType.Int32, entity.ClassType); 
             object identity = db.ExecuteScalar(cmd);
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
@@ -117,7 +118,7 @@ namespace SuperMarket.Data.CatograyDB
         public int UpdateClassesFound(ClassesFoundEntity entity)
         {
             string sql = @" UPDATE dbo.[ClassesFound] SET
-                       [Code]=@Code,[Name]=@Name,[FullName]=@FullName,[PYFirst]=@PYFirst,[PYShort]=@PYShort,[PYFull]=@PYFull,[AdId]=@AdId,[Sort]=@Sort,[IsActive]=@IsActive,[IsHot]=@IsHot,[CreateTime]=@CreateTime,[UpdateTime]=@UpdateTime,[ClassLevel]=@ClassLevel,[IsEnd]=@IsEnd,[HasProperties]=@HasProperties, [ParentId]=@ParentId 
+                       [Code]=@Code,[Name]=@Name,[FullName]=@FullName,[PYFirst]=@PYFirst,[PYShort]=@PYShort,[PYFull]=@PYFull,[AdId]=@AdId,[Sort]=@Sort,[IsActive]=@IsActive,[IsHot]=@IsHot,[CreateTime]=@CreateTime,[UpdateTime]=@UpdateTime,[ClassLevel]=@ClassLevel,[IsEnd]=@IsEnd,[HasProperties]=@HasProperties, [ParentId]=@ParentId, [ClassType]=@ClassType 
                        WHERE [Id]=@id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 

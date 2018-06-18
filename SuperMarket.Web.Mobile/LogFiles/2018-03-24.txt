@@ -1,0 +1,28 @@
+2018-03-24 11:55:23[7] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 11:55:23[11] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 11:55:24[7] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.7211372727669723&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 11:55:24[11] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.6823534339943527&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 12:08:49[23] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 12:08:49[23] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.008678639733444182&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 12:09:55[22] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 12:09:55[22] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.3457308387194593&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 12:10:05[28] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 12:10:05[28] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.7597575846451394&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 12:12:03[11] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 12:12:03[11] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.9000496630469195&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack
+2018-03-24 12:16:18[29] ERROR index (null) - cookie域
+System.Exception: 未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)
+		rrrrr			
+2018-03-24 12:16:18[29] ERROR index (null) - Title=cookie域,LogMsg=未能加载文件或程序集“Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed”或它的某一个依赖项。找到的程序集清单定义与程序集引用不匹配。 (异常来自 HRESULT:0x80131040)	127.0.0.1	http://sys.1dianxin.com/	/CommonHandler/CommonHandler?roid=0.09027706862694207&action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack

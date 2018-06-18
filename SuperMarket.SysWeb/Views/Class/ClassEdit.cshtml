@@ -78,11 +78,9 @@
             </li>
 
             <li>
-                <div class="Backstage_td1">序号：</div>
+                <div class="Backstage_td1">排序号：</div>
                 <div class="Backstage_td2"><input id="txtSort" value="@(op=="add"?"":entity.Sort.ToString())" /></div>
-            </li>
-
-
+            </li> 
             <li>
                 <div class="Backstage_td1">是否有效：</div>
                 <div class="Backstage_td2">
@@ -98,20 +96,16 @@
                         </option>
                     </select>
                 </div>
-            </li>
-
+            </li> 
             <li>
-                <div class="Backstage_td1">是否热门：</div>
+                <div class="Backstage_td1">是否叶子分类：</div>
                 <div class="Backstage_td2">
-                    <select id="selIsHot">
-                        <option value="-1">
-                            -----------请选择是否热门-------------
+                    <select id="selIsEnd"> 
+                        <option value="1" @(op == "add"?"":(entity.IsEnd == 1 ? "selected=selected" : ""))>
+                           是
                         </option>
-                        <option value="1" @(op == "add"?"":(entity.IsHot == 1 ? "selected=selected" : ""))>
-                            --------------- 热门----------------
-                        </option>
-                        <option value="0" @(op == "add"?"":(entity.IsHot == 0 ? "selected=selected" : ""))>
-                            ----------------冷门----------------
+                        <option value="0" @(op == "add"?"":(entity.IsEnd == 0 ? "selected=selected" : ""))>
+                           否
                         </option>
                     </select>
                 </div>
@@ -137,12 +131,13 @@
             <li id="liClassType">
                 <div class="Backstage_td1">对应分类的类型：</div>
                 <div class="Backstage_td2">
-                    <select id="selSiteId" name="">
+                    <select id="selClassType" name="">
+                        <option>--清选择--</option>
                         @{
-                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
+                            IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ClassTypeEnum>();
                             foreach(SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
                             {
-                                <option value="@entityu.EnumValue" @(entity.SiteId==entityu.EnumValue?"selected":"")>@entityu.EnumDes</option>
+                                <option value="@entityu.EnumValue" @(entity.ClassType == entityu.EnumValue?"selected":"")>@entityu.EnumDes</option>
                             }
                         }
                     </select>   
@@ -213,18 +208,18 @@
 
             var _sort = $("#txtSort").val();
             var _isactive = $("#selIsActive").val();
-            var _ishot = $("#selIsHot").val();
+            var _isend = $("#selIsEnd").val();
 
             var _hasproduct = $("#selHasProduct").val(); 
-            var _siteid = $("#selSiteId").val();
+            var _classtype = $("#selClassType").val();
 
             var _hasproperty = $("#selHasProperties").val();
             var _haspropertyclassid = $("#txtPropertiesClassId").val();
 
             $.post("/Class/ClassInfoAdd", {
-                hasproduct: _hasproduct,  siteid: _siteid, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
+                hasproduct: _hasproduct,  classtype: _classtype, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
                 pid: _pid,
-                code: _code, name: _name, fullname: _fullname, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, ishot: _ishot, adid: _adid
+                code: _code, name: _name, fullname: _fullname, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, isend: _isend, adid: _adid
             }, function (data) {
                 if (data > 0) {
                     alert("添加成功!");
@@ -257,13 +252,14 @@
             var _ishot = $("#selIsHot").val();
 
             var _hasproduct = $("#selHasProduct").val();
+            var _classtype = $("#selClassType").val();
             var _productnum = $("#txtProductNum").val();
 
             var _hasproperty = $("#selHasProperties").val();
             var _haspropertyclassid = $("#txtPropertiesClassId").val();
 
             $.post("/Class/ClassInfoUpdate", {
-                hasproduct: _hasproduct, productnum: _productnum, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
+                hasproduct: _hasproduct, classtype:_classtype, productnum: _productnum, hasproperty: _hasproperty, haspropertyclassid: _haspropertyclassid,
                 id: _id,
                 code: _code, name: _name, fullname: _fullname, pyshort: _pyshort, pyfull: _pyfull, sort: _sort, isactive: _isactive, ishot: _ishot, adid: _adid
             }, function (data) {

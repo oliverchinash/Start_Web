@@ -72,11 +72,11 @@ namespace SuperMarket.SysWeb.Controllers
         { 
             int _pid = FormString.IntSafeQ("pid"); 
             int _adid = FormString.IntSafeQ("adid");
-            int _ishot = FormString.IntSafeQ("ishot");
+            int _isend = FormString.IntSafeQ("isend");
             int _isactive = FormString.IntSafeQ("isactive");
             int _sort = FormString.IntSafeQ("sort");
             int _hasproduct = FormString.IntSafeQ("hasproduct");
-            int _siteid = FormString.IntSafeQ("siteid"); 
+            int _classtype = FormString.IntSafeQ("classtype"); 
             int _hasproperty = FormString.IntSafeQ("hasproperty");
             int _haspropertyclassid = FormString.IntSafeQ("haspropertyclassid");
             string _code = FormString.SafeQ("code");
@@ -88,11 +88,11 @@ namespace SuperMarket.SysWeb.Controllers
             ClassesFoundEntity entity = new ClassesFoundEntity();
 
             entity.AdId = _adid;
-            entity.IsHot = _ishot;
+            entity.IsEnd = _isend;
             entity.IsActive = _isactive;
             entity.Sort = _sort;
             entity.HasProduct = _hasproduct;
-            entity.SiteId = _siteid; 
+            entity.ClassType = _classtype; 
             entity.HasProperties = _hasproperty;
             entity.PropertiesClassId = _haspropertyclassid;
             entity.Code = _code;
@@ -114,14 +114,14 @@ namespace SuperMarket.SysWeb.Controllers
                 ClassesFoundEntity temp = ClassesFoundBLL.Instance.GetClassesFound(_pid, false);
                 entity.ClassLevel = temp.ClassLevel + 1;
                 entity.ParentId = temp.Id;
-                if (entity.ClassLevel == 4)
-                {
-                    entity.IsEnd = 1;
-                }
-                else
-                {
-                    entity.IsEnd = 0;
-                }
+                //if (entity.ClassLevel == 4)
+                //{
+                //    entity.IsEnd = 1;
+                //}
+                //else
+                //{
+                //    entity.IsEnd = 0;
+                //}
             }
 
             int _result = ClassesFoundBLL.Instance.AddClassesFound(entity);
@@ -149,6 +149,7 @@ namespace SuperMarket.SysWeb.Controllers
             int _haspropertyclassid = FormString.IntSafeQ("haspropertyclassid");
             string _code = FormString.SafeQ("code");
             string _name = FormString.SafeQ("name");
+            int _classtype = FormString.IntSafeQ("classtype");
             string _fullname = FormString.SafeQ("fullname");
             string _pyshort = FormString.SafeQ("pyshort");
             string _pyfull = FormString.SafeQ("pyfull");
@@ -166,6 +167,7 @@ namespace SuperMarket.SysWeb.Controllers
             entity.Code = _code;
             entity.Name = _name;
             entity.FullName = _fullname;
+            entity.ClassType = _classtype;
             entity.PYShort = _pyshort;
             entity.PYFull = _pyfull;
 

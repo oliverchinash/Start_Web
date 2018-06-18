@@ -34,10 +34,15 @@ namespace SuperMarket.Model
 
     public enum SiteIdEnum
     {
-        [Description("茶")]
+        [Description("初始站点")]
         Tea = 1,
         [Description("玩具")]
         Toys = 2,
+    }
+    public enum ClassTypeEnum
+    {
+        [Description("基础分类")]
+        Tea = 1001, 
     }
     #endregion
     /// <summary>

@@ -55,9 +55,9 @@ input{ outline:none;}
 .detail_main{ width:100%; float:left; height:auto;}
 .detail_main > ul{ width:100%; margin-top:10px; }
 .detail_main > ul > li{ width:100%; height:auto; float:left; margin-top:3px;}
-.Backstage_td1{ text-align:right; font-size:12px; color:#333; float:left; width:20%; line-height:46px; } 
+.Backstage_td1{ text-align:right; font-size:12px; color:#333; float:left; width:20%;   } 
 .Backstage_td2{ width:76%; height:auto; margin-left:1%; float:left; line-height: 46px;}
-.Backstage_td2 > input{ width:auto; min-width:200px; height:26px; margin-top:8px; border:solid 1px #d3d3d3; padding:3px 10px;}
+.Backstage_td2 > input{ width:auto; min-width:200px; height:26px; border:solid 1px #d3d3d3; }
 .deserve{ width:100px; height:30px; background:#279cd3; float:left; border:none; color:#fff; margin-left:21%; font-size:14px; text-align:center; line-height:30px; margin-top:15px; margin-bottom:20px; border-radius:10px;}
 .webwidget_scroller_tab {
 	font-size: 12px;
