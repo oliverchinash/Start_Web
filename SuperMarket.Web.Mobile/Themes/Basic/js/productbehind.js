@@ -33,14 +33,14 @@ function FunBuyImmediate() {
     var pdid = $("#txtProductDetailId").val();
     var num = $("#txtProductNum" + pdid).val();
     if (num == 0 || num == "" || num == undefined) num = 1;
-    location.href = "/MobileCart/ShopCart?pids=" + pdid + "&nums=" + num;
+    location.href = "/Cart/ShopCart?pids=" + pdid + "&nums=" + num;
 }
 function FunBuyImmediateXuQiu() {
     var pdid = $("#txtProductDetailId").val();
     var num = $("#txtProductNum" + pdid).val();
     var jishi = $("#spanjishisong").html();
     if (num == 0 || num == "" || num == undefined) num = 1;
-    location.href = "/MobileCart/ShopCart?js=" + jishi + "&pids=" + pdid + "&nums=" + num;
+    location.href = "/Cart/ShopCart?js=" + jishi + "&pids=" + pdid + "&nums=" + num;
 }
 
 $(function () { 

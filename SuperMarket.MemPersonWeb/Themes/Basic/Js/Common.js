@@ -93,6 +93,6 @@ function FunSearchByKey(pageindex) {
     if ($("#spanselectbrand").length>0) {
         bdid = $("#spanselectbrand").html();
     } 
-    location.href = "/MobileProduct/Search?cl=" + clid + "&bd=" + bdid + "&key=" + key;
+    location.href = "/Product/Search?cl=" + clid + "&bd=" + bdid + "&key=" + key;
 }
  

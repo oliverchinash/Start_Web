@@ -34,6 +34,110 @@ namespace SuperMarket.Web.Controllers
 {
     public class MemberController : BaseMemberController
     {
+        public ActionResult Home()
+        {
+            VWMemberEntity _memberentity = MemberInfoBLL.Instance.GetVWMemberInfoByMemId(memid);
+            VWOrderMsgEntity _msgentity = OrderMsgMemBLL.Instance.GetVWOrderMsgByMemId(memid);
+            ViewBag.VWOrderMsg = _msgentity;
+            ViewBag.Member = _memberentity;
+            int FavoritNum = MemFavoritesBLL.Instance.GetMemFavoritesNum(memid);
+            ViewBag.FavoritesNum = FavoritNum;
+            int CouponsNum = MemCouponsBLL.Instance.GetCanUseCouponsNum(memid);
+            ViewBag.CouponsNum = CouponsNum;
+            ViewBag.PageMenu = "4";
+            return View();
+        }
+
+        public ActionResult Favorites()
+        {
+            int _pagesize = CommonKey.PageSizeFavoritsMobile;
+            int _pageindex = QueryString.IntSafeQ("pageindex", 1);
+            int _recordCount = 0;
+            int active = 1;//是否有效
+            IList<VWMemFavoritesEntity> list = MemFavoritesBLL.Instance.GetVWMemFavoritesList(_pageindex, _pagesize, ref _recordCount, memid, active);
+            if (list != null && list.Count > 0)
+            {
+                foreach (VWMemFavoritesEntity entity in list)
+                {
+                    entity.ProductEntity.ActualPrice = Calculate.GetPrice(member.Status, member.IsStore, member.StoreType, member.MemGrade, entity.ProductEntity.TradePrice, entity.ProductEntity.Price, entity.ProductEntity.IsBP, entity.ProductEntity.DealerPrice);
+                }
+            }
+            ViewBag.List = list;
+            ViewBag.TotalNum = _recordCount;
+            int maxpage = _recordCount / _pagesize;
+            if (_recordCount % _pagesize > 0) maxpage = maxpage + 1;
+            ViewBag.MaxPageIndex = maxpage;
+            return View();
+        }
+
+        public ActionResult BrowseLog()
+        {
+            int _pagesize = CommonKey.PageSizeFavoritsMobile;
+            int _pageindex = QueryString.IntSafeQ("pageindex", 1);
+            int _recordCount = 0;
+            IList<VWMemBrowseLogEntity> list = MemBrowseLogBLL.Instance.GetVWMemBrowseLogList(_pageindex, _pagesize, ref _recordCount, memid);
+            if (list != null && list.Count > 0)
+            {
+                foreach (VWMemBrowseLogEntity entity in list)
+                {
+                    entity.ProductEntity.ActualPrice = Calculate.GetPrice(member.Status, member.IsStore, member.StoreType, member.MemGrade, entity.ProductEntity.TradePrice, entity.ProductEntity.Price, entity.ProductEntity.IsBP, entity.ProductEntity.DealerPrice);
+                }
+            }
+            ViewBag.List = list;
+            ViewBag.TotalNum = _recordCount;
+            int maxpage = _recordCount / _pagesize;
+            if (_recordCount % _pagesize > 0) maxpage = maxpage + 1;
+            ViewBag.MaxPageIndex = maxpage;
+            return View();
+        }
+
+
+        /// <summary>
+        /// 跟微信同
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult WeChatCode()
+        {
+            string code = QueryString.SafeQ("wechatcode");
+            VWMemberEntity mem = new VWMemberEntity();
+            mem = MemberBLL.Instance.GetVWMember(memid);
+            if (!string.IsNullOrEmpty(code) && string.IsNullOrEmpty(mem.WeChat))
+            {
+                MemWeChatMsgEntity shortmsg = WeiXinJsSdk.Instance.GetWeChatShortInfo(code);
+                if (!string.IsNullOrEmpty(shortmsg.OpenId) && !string.IsNullOrEmpty(shortmsg.UnionId))
+                {
+                    MemWeChatMsgEntity entity = new MemWeChatMsgEntity();
+                    entity.AppId = WeiXinConfig.GetAppId();
+                    entity.Status = (int)WeChatStatus.ShortInfo;
+                    entity.UnionId = shortmsg.UnionId;
+                    entity.OpenId = shortmsg.OpenId;
+                    MemWeChatMsgBLL.Instance.WeChatLogin(entity);
+                    MemberBLL.Instance.BindMemWeChat(memid, shortmsg.UnionId, mem.TimeStampTab);
+                    mem = MemberBLL.Instance.GetVWMember(memid);
+                }
+            }
+            ViewBag.VWMember = mem;
+
+            return View();
+        }
+
+        public ActionResult PersonalMsg()
+        {
+            VWMemberEntity mem = MemberBLL.Instance.GetVWMember(memid);
+            ViewBag.VWMember = mem;
+            return View();
+        }
+        public ActionResult Address()
+        {
+            return View();
+        }
+        public ActionResult Promote()
+        {
+            string url = "http://www.baidu.com";
+          ViewBag.CodeUrl=  System.Web.HttpUtility.UrlDecode(url);
+            return View();
+        }
+        
 
         #region  个人信息页
 
@@ -2147,7 +2251,7 @@ namespace SuperMarket.Web.Controllers
         public string WeChatBind()
         {
             ResultObj result = new ResultObj(); 
-            string redirecturl = ConfigCore.Instance.ConfigCommonEntity.MainMobileWebUrl + "/MobileMember/WeChatCode";
+            string redirecturl = ConfigCore.Instance.ConfigCommonEntity.MainMobileWebUrl + "/Member/WeChatCode";
             //int navid = WeChatNavigationBLL.Instance.GetIdByUrl(redirecturl);
            //string url = string.Format(WeiXinConfig.URL_FORMAT_KHRedirect, WeiXinConfig.GetAppId(), SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.WeChatWebUrl, navid);
             string url = string.Format(WeiXinConfig.URL_WeiXin_Redirect, WeiXinConfig.GetAppId(), System.Web.HttpContext.Current.Server.UrlEncode(redirecturl), "0");

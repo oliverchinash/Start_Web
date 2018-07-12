@@ -133,7 +133,7 @@ function FunSearchByKey(pageindex) {
     //if ($("#spanjishisong").length > 0) {
     //    js = $("#spanjishisong").html();
     //}
-    location.href = "/MobileProduct/Search?js=" + js + "&cl=" + clid + "&bd=" + bdid + "&key=" + key;
+    location.href = "/Product/Search?js=" + js + "&cl=" + clid + "&bd=" + bdid + "&key=" + key;
 }
 
 //添加收藏

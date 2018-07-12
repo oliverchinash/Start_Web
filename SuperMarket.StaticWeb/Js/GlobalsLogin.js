@@ -1,18 +1,15 @@
 ﻿
 
-function NewCheckIsLogin() {
-    debugger
-    var url = $("#hidMainCommonDomain").val();
-    alert(url);
+function NewCheckIsLogin() { 
+    var url = $("#hidMainCommonDomain").val(); 
     var jsonp = new JsonpUtil();
-    jsonp.url = url + "/CommonHandler/CommonHandler";
+    jsonp.url = url + "/ShoppingHandler/ShoppingHandler";
     jsonp.param = "action=GetDefaultCusName&callBack=NewCheckIsLoginCallBack";
     jsonp.process();
     
 }
 
-function NewCheckIsLoginCallBack(str) {
-    alert(str);
+function NewCheckIsLoginCallBack(str) { 
     if (str != "") {
         var shopcartDomain = $("#hidMainCommonDomain").val();
         $("#logininfo").html('<span>' + str + ',欢迎您 </span> <a style="text-decoration:none;cursor:pointer;" onclick="FunRedirectLogOut()" target=_blank><font color=#999999>退出</font></a>');

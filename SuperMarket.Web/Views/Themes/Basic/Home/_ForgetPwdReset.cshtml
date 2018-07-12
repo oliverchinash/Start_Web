@@ -78,7 +78,7 @@
 
         $.post("/Home/SubmitPwdInfo", { newpassword: _newpassword }, function (data) {
             if (data == _TheArray[0]) {
-                window.location.href = "/MobileHome/ForgetPwdSuccess?k=" + $("#txtkey").val();
+                window.location.href = "/Home/ForgetPwdSuccess?k=" + $("#txtkey").val();
             } else {
                 alert("修改失败!");
             }

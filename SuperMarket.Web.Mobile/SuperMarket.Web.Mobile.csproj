@@ -748,6 +748,18 @@
   <ItemGroup>
     <Content Include="Views\Shared\Controls\_HomeCmsNavClass.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Member\Promote.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Member\_Promote.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Themes\Basic\Controls\_HomeProductBox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Controls\_HomeProductBox.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

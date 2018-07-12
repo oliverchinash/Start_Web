@@ -51,7 +51,7 @@
                                             </dt>
                                             <dd class="am-accordion-bd am-collapse">
                                                 <div class="am-accordion-content">
-                                                    <a href="/MobileProduct/List?cl=@entity.Id"   class="classify-list-a">
+                                                    <a href="/Product/List?cl=@entity.Id"   class="classify-list-a">
                                                         <div class="classify-list">
                                                             全部
                                                         </div>
@@ -60,7 +60,7 @@
                                                     {
                                                         foreach (SuperMarket.Model.VWClassesFoundEntity entity2 in entity.Children)
                                                         {
-                                                            <a href="/MobileProduct/List?cl=@entity2.Id"   class="classify-list-a">
+                                                            <a href="/Product/List?cl=@entity2.Id"   class="classify-list-a">
                                                                 <div class="classify-list">
                                                                     @entity2.Name
                                                                 </div>

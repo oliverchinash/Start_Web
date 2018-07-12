@@ -141,6 +141,7 @@ namespace SuperMarket.BLL
                   p => new
                   {
                       Id = p.Id,
+                      Code = p.Code,
                       Name = p.Name
                   });
                 json = JsonJC.ObjectToJson(listfilter);

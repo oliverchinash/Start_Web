@@ -159,7 +159,7 @@ namespace SuperMarket.BLL.MessageDB
             await Task.Run(() =>
             {
                 string _cachekey ="SMSTempletListKey";// SysCacheKey.SMSTempletListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<SMSTempletEntity> list = null;

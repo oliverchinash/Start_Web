@@ -47,8 +47,8 @@ namespace SuperMarket.Data.ProductDB
 		/// <param name="productFine">待插入的实体对象</param>
 		public int AddProductFine(ProductFineEntity entity)
 		{
-		   string sql=@"insert into ProductFine( [ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType])VALUES
-			            ( @ProductDetailId,@Sort,@BeginTime,@EndTime,@IsActive,@FineType);
+		   string sql=@"insert into ProductFine( [ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId])VALUES
+			            ( @ProductDetailId,@Sort,@BeginTime,@EndTime,@IsActive,@FineModuleId);
 			SELECT SCOPE_IDENTITY();";
 	        DbCommand cmd = db.GetSqlStringCommand(sql);
 	   
@@ -57,7 +57,7 @@ namespace SuperMarket.Data.ProductDB
 			db.AddInParameter(cmd,"@BeginTime",  DbType.DateTime,entity.BeginTime);
 			db.AddInParameter(cmd,"@EndTime",  DbType.DateTime,entity.EndTime);
 			db.AddInParameter(cmd,"@IsActive",  DbType.Int32,entity.IsActive);
-			db.AddInParameter(cmd,"@FineType",  DbType.Int32,entity.FineType);
+			db.AddInParameter(cmd,"@FineModuleId",  DbType.Int32,entity.FineModuleId);
 			object identity = db.ExecuteScalar(cmd); 
             if (identity == null || identity == DBNull.Value) return 0;
             return Convert.ToInt32(identity);
@@ -72,7 +72,7 @@ namespace SuperMarket.Data.ProductDB
 		public   int UpdateProductFine(ProductFineEntity entity)
 		{
 			string sql=@" UPDATE dbo.[ProductFine] SET
-                       [ProductDetailId]=@ProductDetailId,[Sort]=@Sort,[BeginTime]=@BeginTime,[EndTime]=@EndTime,[IsActive]=@IsActive,[FineType]=@FineType
+                       [ProductDetailId]=@ProductDetailId,[Sort]=@Sort,[BeginTime]=@BeginTime,[EndTime]=@EndTime,[IsActive]=@IsActive,[FineModuleId]=@FineModuleId
                        WHERE [Id]=@id";
 		    DbCommand cmd = db.GetSqlStringCommand(sql);
 			
@@ -82,7 +82,7 @@ namespace SuperMarket.Data.ProductDB
 			db.AddInParameter(cmd,"@BeginTime",  DbType.DateTime,entity.BeginTime);
 			db.AddInParameter(cmd,"@EndTime",  DbType.DateTime,entity.EndTime);
 			db.AddInParameter(cmd,"@IsActive",  DbType.Int32,entity.IsActive);
-			db.AddInParameter(cmd,"@FineType",  DbType.Int32,entity.FineType);
+			db.AddInParameter(cmd,"@FineModuleId",  DbType.Int32,entity.FineModuleId);
     	 	return db.ExecuteNonQuery(cmd);
 		}		
 			/// <summary>
@@ -134,7 +134,7 @@ namespace SuperMarket.Data.ProductDB
 		/// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
 		public   ProductFineEntity GetProductFine(int id)
 		{
-			string sql=@"SELECT  [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType]
+			string sql=@"SELECT  [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId]
 							FROM
 							dbo.[ProductFine] WITH(NOLOCK)	
 							WHERE [Id]=@id";
@@ -152,7 +152,7 @@ namespace SuperMarket.Data.ProductDB
 					entity.BeginTime=StringUtils.GetDbDateTime(reader["BeginTime"]);
 					entity.EndTime=StringUtils.GetDbDateTime(reader["EndTime"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
-					entity.FineType=StringUtils.GetDbInt(reader["FineType"]);
+					entity.FineModuleId=StringUtils.GetDbInt(reader["FineModuleId"]);
 				}
    		    }
             return entity;
@@ -168,12 +168,12 @@ namespace SuperMarket.Data.ProductDB
             string where = " where 1=1 ";
             if(finetype!=-1)
             {
-                where += " and FineType=@FineType ";
+                where += " and FineModuleId=@FineModuleId ";
             }
-			string sql=@"SELECT   [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType]
+			string sql=@"SELECT   [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId]
 						FROM
 						(SELECT ROW_NUMBER() OVER (ORDER BY Id desc) AS ROWNUMBER,
-						 [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType] from dbo.[ProductFine] WITH(NOLOCK)	
+						 [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId] from dbo.[ProductFine] WITH(NOLOCK)	
 						"+ where+@" ) as temp 
 						where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
 			
@@ -184,7 +184,7 @@ namespace SuperMarket.Data.ProductDB
 		    db.AddInParameter(cmd, "@PageSize", DbType.Int32, pagesize);
             if (finetype != -1)
             {
-                db.AddInParameter(cmd, "@FineType", DbType.Int32, finetype); 
+                db.AddInParameter(cmd, "@FineModuleId", DbType.Int32, finetype); 
             }
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
@@ -197,14 +197,14 @@ namespace SuperMarket.Data.ProductDB
 					entity.BeginTime=StringUtils.GetDbDateTime(reader["BeginTime"]);
 					entity.EndTime=StringUtils.GetDbDateTime(reader["EndTime"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
-					entity.FineType=StringUtils.GetDbInt(reader["FineType"]);
+					entity.FineModuleId=StringUtils.GetDbInt(reader["FineModuleId"]);
 				    entityList.Add(entity);
 			    }
 			 }
 			cmd = db.GetSqlStringCommand(sql2);
             if (finetype != -1)
             {
-                db.AddInParameter(cmd, "@FineType", DbType.Int32, finetype);
+                db.AddInParameter(cmd, "@FineModuleId", DbType.Int32, finetype);
             }
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
@@ -224,17 +224,17 @@ namespace SuperMarket.Data.ProductDB
             string where = " where 1=1 ";
             if (finetype != -1)
             {
-                where += " and FineType=@FineType ";
+                where += " and FineModuleId=@FineModuleId ";
             }
             string sql = @"SELECT    top "+ num + @"
-						 [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType] from dbo.[ProductFine] WITH(NOLOCK)	
+						 [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId] from dbo.[ProductFine] WITH(NOLOCK)	
 						" + where +  " Order By Sort Desc ";
 
              IList<VWProductFineEntity> entityList = new List<VWProductFineEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
             if (finetype != -1)
             {
-                db.AddInParameter(cmd, "@FineType", DbType.Int32, finetype);
+                db.AddInParameter(cmd, "@FineModuleId", DbType.Int32, finetype);
             }
             using (IDataReader reader = db.ExecuteReader(cmd))
             {
@@ -247,7 +247,7 @@ namespace SuperMarket.Data.ProductDB
                     entity.BeginTime = StringUtils.GetDbDateTime(reader["BeginTime"]);
                     entity.EndTime = StringUtils.GetDbDateTime(reader["EndTime"]);
                     entity.IsActive = StringUtils.GetDbInt(reader["IsActive"]);
-                    entity.FineType = StringUtils.GetDbInt(reader["FineType"]);
+                    entity.FineModuleId = StringUtils.GetDbInt(reader["FineModuleId"]);
                     entityList.Add(entity);
                 }
             }
@@ -262,7 +262,7 @@ namespace SuperMarket.Data.ProductDB
         public IList<ProductFineEntity> GetProductFineAll()
         {
 
-            string sql = @"SELECT    [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineType] from dbo.[ProductFine] WITH(NOLOCK)	";
+            string sql = @"SELECT    [Id],[ProductDetailId],[Sort],[BeginTime],[EndTime],[IsActive],[FineModuleId] from dbo.[ProductFine] WITH(NOLOCK)	";
 		    IList<ProductFineEntity> entityList = new List<ProductFineEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             using (IDataReader reader = db.ExecuteReader(cmd))
@@ -276,7 +276,7 @@ namespace SuperMarket.Data.ProductDB
 					entity.BeginTime=StringUtils.GetDbDateTime(reader["BeginTime"]);
 					entity.EndTime=StringUtils.GetDbDateTime(reader["EndTime"]);
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
-					entity.FineType=StringUtils.GetDbInt(reader["FineType"]);
+					entity.FineModuleId=StringUtils.GetDbInt(reader["FineModuleId"]);
 				    entityList.Add(entity);
                 }
             } 

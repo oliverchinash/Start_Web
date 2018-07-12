@@ -124,6 +124,6 @@ namespace SuperMarket.Model
                 _IsSpec = value;
             }
         }
-        public IList<BasicSiteProDetailsEntity> Details; 
+        public IList<ClassProDetailsEntity> Details; 
     }
 }

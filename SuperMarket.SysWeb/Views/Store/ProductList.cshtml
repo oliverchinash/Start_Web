@@ -128,14 +128,14 @@
                             <li class="li_iterm"  style="width:10%">@entity.Price</li>
                             <li class="li_iterm"  style="width:10%">@(entity.ProductDetailStatus==1?"上架":"下架")</li>  
                             <li class="li_iterm" style="width:40%">
-                                <a href="/Store/ProductEdit?productid=@entity.Id">编辑基本信息</a>&nbsp;&nbsp;&nbsp;
+                                <a href="/Store/ProductEdit?productid=@entity.ProductId">编辑基本信息</a>&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductPropertyEdit?pid=@entity.Id" target="_blank">产品属性</a>
+                                <a href="/Store/ProductPropertyEdit?pid=@entity.ProductId" target="_blank">产品属性</a>
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductPicsEdit?&pid=@entity.Id" target="_blank">添加产品图片</a>
+                                <a href="/Store/ProductPicsEdit?&pid=@entity.ProductId" target="_blank">添加产品图片</a>
                                 &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ProductDetailPicsEdit?&pid=@entity.Id" target="_blank">添加产品详情</a>                                &nbsp;&nbsp;&nbsp;
-                                <a href="/Store/ReleaseProduct?pid=@entity.Id&flag=@ViewBag.Flag" target="_blank">上下架</a>
+                                <a href="/Store/ProductDetailPicsEdit?&pid=@entity.ProductId" target="_blank">添加产品详情</a>                                &nbsp;&nbsp;&nbsp;
+                                <a href="/Store/ReleaseProduct?pid=@entity.ProductId&flag=@ViewBag.Flag" target="_blank">上下架</a>
                             </li>
                         </ul>
                     </div>

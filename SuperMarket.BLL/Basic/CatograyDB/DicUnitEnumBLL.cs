@@ -124,7 +124,7 @@ namespace SuperMarket.BLL.CatograyDB
             else
             {
             string _cachekey = "GetDicUnitEnum"+ id;// SysCacheKey.DicUnitEnumListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 entity= DicUnitEnumDA.Instance.GetDicUnitEnum(id);
@@ -156,7 +156,7 @@ namespace SuperMarket.BLL.CatograyDB
         {
                 IList<DicUnitEnumEntity> list = null;
                 string _cachekey = "GetDicUnitEnumAll";// SysCacheKey.DicUnitEnumListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                  

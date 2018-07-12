@@ -194,14 +194,15 @@ namespace SuperMarket.Data.SysDB
                 while (reader.Read())
                 {
                     ConfigPicComPressEntity entity = new ConfigPicComPressEntity();
-                    entity.Id = StringUtils.GetDbInt(reader["Id"]); ;
-                    entity.Title = StringUtils.GetDbString(reader["Title"]); ;
-                    entity.Width = StringUtils.GetDbInt(reader["Width"]); ;
-                    entity.Height = StringUtils.GetDbInt(reader["Height"]); ;
-                    entity.PicName = StringUtils.GetDbString(reader["PicName"]); ;
-                    entity.PicNameType = StringUtils.GetDbInt(reader["PicNameType"]); ;
-                    entity.SourcePicType = StringUtils.GetDbInt(reader["SourcePicType"]); ;
-                    entity.CreateTime = StringUtils.GetDbDateTime(reader["CreateTime"]); ;
+                    entity.Id = StringUtils.GetDbInt(reader["Id"]);
+                    entity.Title = StringUtils.GetDbString(reader["Title"]);
+                    entity.Width = StringUtils.GetDbInt(reader["Width"]);
+                    entity.Height = StringUtils.GetDbInt(reader["Height"]);
+                    entity.PicName = StringUtils.GetDbString(reader["PicName"]);
+                    entity.PicNameType = StringUtils.GetDbInt(reader["PicNameType"]);
+                    entity.SourcePicType = StringUtils.GetDbInt(reader["SourcePicType"]);
+                    entity.CreateTime = StringUtils.GetDbDateTime(reader["CreateTime"]);
+                    entityList.Add(entity);
                 }
             } 
             return entityList;

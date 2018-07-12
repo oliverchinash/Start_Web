@@ -14,7 +14,7 @@
 
         <input type="text" id="txtId" name="Id" value="@_styleentity.PropertyId" />
         <input type="text" id="txtProductId" name="ProductId" value="@_styleentity.ProductId" />
-        <input type="text" id="txtPropertiesSiteId" value="@_styleentity.SiteId" />
+        <input type="text" id="txtPropertiesClassId" value="@_styleentity.ClassId" />
 
     </div>
 
@@ -57,13 +57,13 @@
 <script type="text/javascript">
     $(function () {
      
-        BindProperties($("#txtPropertiesSiteId").val(), 0);
+        BindProperties($("#txtPropertiesClassId").val(), 0);
      
     });
    
     //绑定属性列表
-    function BindProperties(_siteid, _pid) {
-        $.post("/Common/GetPropertyBySiteId", { siteid: _siteid, pid: _pid }, function (data) {
+    function BindProperties(_classid, _pid) {
+        $.post("/Common/GetPropertyByClassId", { classid: _classid, pid: _pid }, function (data) {
             var jsonobj = eval(data);
             if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
                 if (_pid == "" || _pid == 0) {
@@ -78,7 +78,7 @@
                         var objid = $(this).attr("objid");
                         $(this).bind("change", function () {
                             if ($(this).attr("isend") == "0") {
-                                BindProperties(_siteid, $("#sel" + objid).val());
+                                BindProperties(_classid, $("#sel" + objid).val());
                             }
                         });
                         BindPropertiesValue($(this), $(this).attr("propertyId"), 0);
@@ -97,7 +97,7 @@
                     $(divattributeobj).find(".selclassproperty:last").bind("change", function () {
                         $("#hid" + objid).val($("#sel" + objid).val());
                         if ($(this).attr("isend") == "0") {
-                            BindProperties(_siteid, $("#sel" + objid).val());
+                            BindProperties(_classid, $("#sel" + objid).val());
                         }
                     });
                     BindPropertiesValue($(divattributeobj).find(".selclassproperty:last"), $(divattributeobj).find(".selclassproperty:last").attr("propertyId"), 0);

@@ -36,7 +36,29 @@ function FunBindAddressListBox()
         }
     }); 
 }
+//选中地址事件
+function FunSelectAddress(liobj) {
+    BindSelectAddress($(liobj).attr("AddressId"), $(liobj).attr("AccepterName"), $(liobj).attr("MobilePhone"), $(liobj).attr("ProvinceId"), $(liobj).attr("CityId"), $(liobj).attr("ProvinceName"), $(liobj).attr("CityName"), $(liobj).attr("Address"), $(liobj).attr("IsDefault"), $(liobj).attr("Email"));
+}
 
+function BindSelectAddress(addressid, AccepterName, MobilePhone, ProvinceId, CityId, ProvinceName, CityName, Address, IsDefault, Email) {
+ 
+    setcookie("seladdressid", addressid);
+  
+    var obj = { Id: addressid, AccepterName: AccepterName, MobilePhone: MobilePhone, ProvinceName: ProvinceName, CityName: CityName, Address: Address, IsDefault: IsDefault, Email: Email, ProvinceId: ProvinceId, CityId: CityId };
+ 
+    var myTemplateentity = Handlebars.compile($("#AddressSelectBox-template").html());
+ 
+    $('#divSelectAddress').html(myTemplateentity(obj));
+
+    $("#txtSelectAddressId").val(addressid);
+    $("#txtSelectAccepterName").val(AccepterName);
+    $("#txtSelectProvince").val(ProvinceId);
+    $("#txtSelectCity").val(CityId);
+    $("#txtSelectAddress").val(Address);
+    $("#txtSelectMobilePhone").val(MobilePhone);
+    $("#ulAddressListBox li[AddressId='" + addressid + "']").addClass("active").siblings().removeClass("active");
+}
 //提交新地址或者更改后的地址
 function FunSaveAddressEdit() {
 
@@ -86,23 +108,31 @@ function FunSaveAddressEdit() {
         var _returnsult = eval("(" + data + ")");
         var status = -_returnsult.Status;
         if (status == _TheArray[0]) {
-            var jsonobj = _returnsult.Obj; 
-            if (jsonobj != null && jsonobj != undefined) {
-                var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
+            var jsonobj = _returnsult.Obj;
+             if (jsonobj != null && jsonobj != undefined) { 
+                 var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
+                 Handlebars.registerHelper("compare", function (v1, v2, options) {
+                     if (v1 == v2) {
+                         return options.fn(this);
+                     } else {
+                         return options.inverse(this);
+                     }
+                 });  
                 var liobj = $("#ulAddressListBox").children("*[AddressId='" + jsonobj.Id + "']");
-            
                 if (liobj != null && liobj != undefined && liobj.length > 0)
-                { 
-                    //$(liobj).html(myTemplate(jsonobj)); 
+                {
+                       //$(liobj).html(myTemplate(jsonobj)); 
                     $(liobj).after(myTemplate(jsonobj));
-                    $(liobj).remove();
+                     $(liobj).remove();
+                
                 }
-                else {
-                    $("#ulAddressListBox").append(myTemplate(jsonobj)); 
-                }
-                FunSelectAddress($("#ulAddressListBox").children("*[AddressId='" + jsonobj.Id + "']"));
-                FunAddressEditBoxhide();
-
+                else {   
+                    $("#ulAddressListBox").append(myTemplate(jsonobj));
+                    
+                } 
+               FunSelectAddress($("#ulAddressListBox").children("*[AddressId='" + jsonobj.Id + "']"));
+               FunAddressEditBoxhide();
+              
             }
         }
         else {

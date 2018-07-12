@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SuperMarket.Model
 {
     [Serializable]
-    public partial class VWBasicSitePropertiesEntity
+    public partial class VWClassPropertiesEntity
     {
 
         #region Public Properties	

@@ -25,7 +25,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "Big."+ PicSuffix;
+                return PicUrl + "800_800."+ PicSuffix;
             }
         }
         /// <summary>
@@ -35,7 +35,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "List." + PicSuffix;
+                return PicUrl + "200_200." + PicSuffix;
             }
         }
         /// <summary>
@@ -45,7 +45,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "Ad." + PicSuffix;
+                return PicUrl + "60_60." + PicSuffix;
             }
         }
         /// <summary>
@@ -55,7 +55,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "Normal." + PicSuffix;
+                return PicUrl + "360_360." + PicSuffix;
             }
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "Small." + PicSuffix;
+                return PicUrl + "60_60." + PicSuffix;
             }
         }
         /// <summary>
@@ -75,7 +75,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return PicUrl + "Little." + PicSuffix;
+                return PicUrl + "36_36." + PicSuffix;
             }
         }
     }

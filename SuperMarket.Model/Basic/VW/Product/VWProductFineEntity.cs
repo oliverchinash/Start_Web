@@ -140,16 +140,16 @@ namespace SuperMarket.Model
                 _Sort = value;
             }
         }
-        private int _FineType;
-        public int FineType
+        private int _FineModuleId;
+        public int FineModuleId
         {
             get
             {
-                return _FineType;
+                return _FineModuleId;
             }
             set
             {
-                _FineType = value;
+                _FineModuleId = value;
             }
         }
         

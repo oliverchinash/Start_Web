@@ -34,10 +34,7 @@ namespace SuperMarket.Web.Controllers
 
         public ActionResult Search()
         {
-            string key = QueryString.SafeQ("key");//精选类型
-            int jishi = QueryString.IntSafeQ("js", -1);
-            if (jishi == -1) jishi = (int)JiShiSongEnum.Normal;
-            ViewBag.JiShiSong = jishi;
+            string key = QueryString.SafeQ("key");//精选类型 
             ViewBag.SearchKey = key;
             return View();
         }
@@ -50,35 +47,10 @@ namespace SuperMarket.Web.Controllers
         {
 
             int jishi = QueryString.IntSafeQ("js");
-            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal;
-            ViewBag.JiShiSong = jishi;
+            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal; 
             int _pagesize = CommonKey.PageSizeList;
             int total = 0;
-            if (jishi == (int)JiShiSongEnum.JiShi)
-            {
-                //获取精选的第一页
-                int _finetype = FormString.IntSafeQ("ft", (int)ProductFineTypeEnum.MobileHomeJiShiSong);//精选类型
-                IList<VWProductFineEntity> listjx = ProductFineBLL.Instance.GetProductFineList(1, _pagesize, ref total, _finetype);
-
-                MemberLoginEntity member = CookieBLL.GetLoginCookie();
-                if (member != null && member.MemId > 0)
-                {
-                    ViewBag.MemId = member.MemId;
-                    ViewBag.MemStatus = member.Status;
-                    if (listjx != null && listjx.Count > 0)
-                    {
-                        foreach (VWProductFineEntity entity in listjx)
-                        {
-                            if (entity.ProductDetail != null && entity.ProductDetail.ProductId > 0)
-                                entity.Price = Calculate.GetPrice(member.Status, member.IsStore, member.StoreType, member.MemGrade, entity.ProductDetail.TradePrice, entity.ProductDetail.Price, entity.ProductDetail.IsBP, entity.ProductDetail.DealerPrice);
-                        }
-                    }
-                }
-                ViewBag.ListJinXuan = listjx;
-
-            }
-            else
-            {
+            
                 IList<VWProductMenuEntity> listbrand = ProductMenuBLL.Instance.GetProductMenuAll((int)ProductMenuType.BPBrand, 1);
                 ViewBag.ListBrand = listbrand;
                 //爆品-限量乐购
@@ -87,7 +59,7 @@ namespace SuperMarket.Web.Controllers
 
 
                 //获取精选的第一页
-                int _finetype = FormString.IntSafeQ("ft", (int)ProductFineTypeEnum.MobileHome);//精选类型
+                int _finetype = FormString.IntSafeQ("ft", (int)ProductFineModuleIdEnum.MobileHome);//精选类型
 
                  IList<VWProductFineEntity> listjx = ProductFineBLL.Instance.GetProductFineList(1, _pagesize, ref total, _finetype);
 
@@ -117,7 +89,7 @@ namespace SuperMarket.Web.Controllers
                 ViewBag.ListProduct = listbpproduct;
 
                 ViewBag.ListJinXuan = listjx;
-            }
+            
            
             ViewBag.PageMenu = "1";
 

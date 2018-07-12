@@ -135,7 +135,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="ProductCarTypeModelListKey";// SysCacheKey.ProductCarTypeModelListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ProductCarTypeModelEntity> list = null;

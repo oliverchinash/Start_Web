@@ -16,7 +16,7 @@
     <script src="/Themes/Basic/Js/amazeui.min.js"></script>
     <script src="/themes/basic/js/handlebars.js"></script>
     <script src="/themes/basic/js/commoncontrolbind.js"></script>
-    <script src="/themes/basic/js/commonboxadderss.js"></script>
+    <script src="/themes/basic/js/commonboxadderss.js"></script> 
     <script src="/themes/basic/js/common.js"></script>
     <script>  
 
@@ -29,11 +29,11 @@
             FunAddressEditBoxShow();
             UpdateReceiptAddress(obj);
         }
-        function BindListUpdateBeh(jsonobj) {
-            var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
-            var liobj = $("#ulAddressListBox ul[AddressId='" + jsonobj.Id + "']");
-            $(liobj).html(myTemplate(jsonobj));
-        }
+        //function BindListUpdateBeh(jsonobj) {
+        //    var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
+        //    var liobj = $("#ulAddressListBox ul[AddressId='" + jsonobj.Id + "']");
+        //    $(liobj).html(myTemplate(jsonobj));
+        //}
         function  FunAddressEditBoxShow()
         {
             $(".paycheck").hide(); 
@@ -142,6 +142,10 @@
                 </a>
             </li>
         </ul> 
+    </script>
+    <script id="AddressSelectBox-template" type="text/x-handlebars-template">
+        <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
+        <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
     </script>
 </body>
 </html>

@@ -146,7 +146,7 @@ namespace SuperMarket.BLL
             await Task.Run(() =>
             {
                 string _cachekey ="InquiryRecordsListKey";// SysCacheKey.InquiryRecordsListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<InquiryRecordsEntity> list = null;

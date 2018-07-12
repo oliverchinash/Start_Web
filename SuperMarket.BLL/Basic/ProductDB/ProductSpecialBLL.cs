@@ -147,7 +147,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="ProductSpecialListKey";// SysCacheKey.ProductSpecialListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ProductSpecialEntity> list = null;

@@ -34,8 +34,8 @@ namespace SuperMarket.Model
 
     public enum SiteIdEnum
     {
-        [Description("初始站点")]
-        Tea = 1,
+        [Description("卫浴五金")]
+        BathRoom = 1,
         [Description("玩具")]
         Toys = 2,
     }
@@ -65,4 +65,9 @@ namespace SuperMarket.Model
         [Description("盒")]
         HE = 7
     }
-}
+    public enum ProductFineModuleType
+    {
+        [Description("首页介绍产品")]
+        HomeBox =1,
+    }
+    }

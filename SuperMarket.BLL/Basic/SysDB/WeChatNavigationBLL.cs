@@ -135,7 +135,7 @@ namespace SuperMarket.BLL.SysDB
             await Task.Run(() =>
             {
                 string _cachekey ="WeChatNavigationListKey";// SysCacheKey.WeChatNavigationListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<WeChatNavigationEntity> list = null;

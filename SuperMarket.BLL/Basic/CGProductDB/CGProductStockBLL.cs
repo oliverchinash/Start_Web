@@ -172,7 +172,7 @@ namespace SuperMarket.BLL.CGProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="CGProductStockListKey";// SysCacheKey.CGProductStockListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<CGProductStockEntity> list = null;

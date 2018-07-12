@@ -191,22 +191,32 @@ namespace SuperMarket.BLL.MemberDB
         {
             return MemberInfoDA.Instance.GetMemberInfoList(pageSize, pageIndex, ref recordCount);
         }
-     public string   GetNickNameByMemId(int memid)
+     public string   GetNickNameByMemId(int memid,bool iscache=false)
         {
             string nickname = "";
-            string _cachekey = "GetNickNameByMemId"+ memid;// SysCacheKey.MemberInfoListKey;
-            object obj = MemCache.GetCache(_cachekey);
-            if (obj == null)
+            if(iscache)
             {
-                MemberInfoEntity  entity = null;
-                entity = MemberInfoDA.Instance.GetMemberInfoByMemId(memid);
-                nickname = entity.Nickname;
-                MemCache.AddCache(_cachekey, nickname);
+                string _cachekey = "GetNickNameByMemId" + memid;// SysCacheKey.MemberInfoListKey;
+                object obj = MemCache.GetCache(_cachekey);
+                if (obj == null)
+                {
+                    MemberInfoEntity entity = null;
+                    entity = MemberInfoDA.Instance.GetMemberInfoByMemId(memid);
+                    nickname = entity.Nickname;
+                    MemCache.AddCache(_cachekey, nickname);
+                }
+                else
+                {
+                    nickname = obj.ToString();
+                }
             }
             else
             {
-                nickname = obj.ToString();
+                MemberInfoEntity entity = null;
+                entity = MemberInfoDA.Instance.GetMemberInfoByMemId(memid);
+                nickname = entity.Nickname;
             }
+    
             return nickname;
         }
         public async Task GetMemberInfoAll()

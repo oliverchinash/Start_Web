@@ -189,7 +189,7 @@ namespace SuperMarket.BLL.PayDB
             await Task.Run(() =>
             {
                 string _cachekey ="PayOrderListKey";// SysCacheKey.PayOrderListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<PayOrderEntity> list = null;

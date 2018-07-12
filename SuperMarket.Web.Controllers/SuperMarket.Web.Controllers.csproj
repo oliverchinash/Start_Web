@@ -65,10 +65,9 @@
     <Compile Include="HelpController.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="MemberController.cs" />
-    <Compile Include="Mobile\MobileCartController.cs" />
+    <Compile Include="CartController.cs" />
     <Compile Include="Mobile\MobileCashierController.cs" />
     <Compile Include="Mobile\MobileHomeController.cs" />
-    <Compile Include="Mobile\MobileMemberController.cs" />
     <Compile Include="Mobile\MobileOrderController.cs" />
     <Compile Include="Mobile\MobilePayController.cs" />
     <Compile Include="Mobile\MobileProductController.cs" />
@@ -80,6 +79,10 @@
     <Compile Include="ShoppingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataMatrix.net\DataMatrix.net.csproj">
+      <Project>{74e675e8-11ce-46da-aef4-ae7c996c4c62}</Project>
+      <Name>DataMatrix.net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SuperMarket.BLL\SuperMarket.BLL.csproj">
       <Project>{81dbd8d6-519a-4850-a5e4-bc94102572f1}</Project>
       <Name>SuperMarket.BLL</Name>

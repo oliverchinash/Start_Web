@@ -189,7 +189,7 @@ namespace SuperMarket.BLL.MessageDB
             await Task.Run(() =>
             {
                 string _cachekey ="SMSNoticeListKey";// SysCacheKey.SMSNoticeListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<SMSNoticeEntity> list = null;

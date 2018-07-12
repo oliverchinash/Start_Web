@@ -21,13 +21,13 @@ function FunAddressEditBoxhide() {
     $(".paycheck").show();
     $(".divCanvasContainer").show();
 }
-//修改后绑定到列表
-function BindListUpdateBeh(jsonobj)
-{
-    var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
-    var liobj = $("#ulAddressListBox li[AddressId='" + jsonobj.Id + "']");
-    $(liobj).html(myTemplate(jsonobj));
-}
+////修改后绑定到列表
+//function BindListUpdateBeh(jsonobj)
+//{
+//    var myTemplate = Handlebars.compile($("#liAddressEdit-template").html());
+//    var liobj = $("#ulAddressListBox li[AddressId='" + jsonobj.Id + "']");
+//    $(liobj).html(myTemplate(jsonobj));
+//}
 //找到默认的发票类型并绑定显示
 function FindDefaultAddressCheck() {
     hasdefault = false;
@@ -55,26 +55,11 @@ function FindDefaultAddressCheck() {
     } 
 }
 
-function BindSelectAddress(addressid, AccepterName, MobilePhone, ProvinceId, CityId, ProvinceName, CityName, Address, IsDefault, Email) {
-     
-    setcookie("seladdressid", addressid);
-    var obj = { Id: addressid, AccepterName: AccepterName, MobilePhone: MobilePhone, ProvinceName: ProvinceName, CityName: CityName, Address: Address, IsDefault: IsDefault, Email: Email, ProvinceId: ProvinceId, CityId: CityId };
-    var myTemplateentity = Handlebars.compile($("#AddressSelectBox-template").html());
-    $('#divSelectAddress').html(myTemplateentity(obj));
-
-    $("#txtSelectAddressId").val(addressid);
-    $("#txtSelectAccepterName").val( AccepterName);
-    $("#txtSelectProvince").val( ProvinceId);
-    $("#txtSelectCity").val( CityId);
-    $("#txtSelectAddress").val( Address);  
-    $("#txtSelectMobilePhone").val(MobilePhone);
-    $("#ulAddressListBox li[AddressId='" + addressid + "']").addClass("active").siblings().removeClass("active");
-}
-//选中地址事件
-function FunSelectAddress(liobj)
-{
-    BindSelectAddress($(liobj).attr("AddressId"), $(liobj).attr("AccepterName"), $(liobj).attr("MobilePhone"), $(liobj).attr("ProvinceId"), $(liobj).attr("CityId"), $(liobj).attr("ProvinceName"), $(liobj).attr("CityName"), $(liobj).attr("Address"), $(liobj).attr("IsDefault"), $(liobj).attr("Email"));
-}
+////选中地址事件
+//function FunSelectAddress(liobj)
+//{
+//    BindSelectAddress($(liobj).attr("AddressId"), $(liobj).attr("AccepterName"), $(liobj).attr("MobilePhone"), $(liobj).attr("ProvinceId"), $(liobj).attr("CityId"), $(liobj).attr("ProvinceName"), $(liobj).attr("CityName"), $(liobj).attr("Address"), $(liobj).attr("IsDefault"), $(liobj).attr("Email"));
+//}
 //发票
 function FunBillEditBoxShow() {
     $(".paycheck").hide();

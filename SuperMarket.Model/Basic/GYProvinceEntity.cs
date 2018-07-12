@@ -23,9 +23,13 @@ namespace SuperMarket.Model
 			get;
 			set;
 		}
-         
-		// 省名称
-	 	public string Name
+        public string Code
+        {
+            get;
+            set;
+        }
+        // 省名称
+        public string Name
 		{
 			get;
 			set;

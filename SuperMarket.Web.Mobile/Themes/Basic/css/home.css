@@ -260,7 +260,7 @@ img{
     font-weight:bold;
 }
 
-/*******阿哈马新发现*******/
+/*******小店新发现*******/
 .home-faxian{
     font-size: 20px;
     color:#CC1B23;
@@ -272,7 +272,7 @@ img{
 .home-main1 ul{
     padding-right:3rem;
 }
-/*******阿哈马超实惠********/
+/*******小店超实惠********/
 .home-main2{
     background: #fff;
 }
@@ -313,7 +313,7 @@ img{
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-/********阿哈马品牌街***********/
+/********小店品牌街***********/
 .home-main3{
     background: #fff;
 }

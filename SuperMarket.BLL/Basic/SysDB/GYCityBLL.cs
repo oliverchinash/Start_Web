@@ -158,35 +158,62 @@ namespace SuperMarket.BLL.SysDB
                 }
             });
         }
-        public IList<GYCityEntity> GetGYCityAllByPid(string pcode)
+        public IList<GYCityEntity> GetGYCityAllByPid(string pcode,bool iscache=false)
         {
-          
+                  IList<GYCityEntity> listall = null; if (iscache)
+            {
+
                 string _cachekey = "GYCityListKey";// SysCacheKey.GYCityListKey;
                 object _objcache = MemCache.GetCache(_cachekey);
-             IList<GYCityEntity> listall = null;
-            if (_objcache == null)
-            { 
-                listall = GYCityDA.Instance.GetGYCityAllByPid(pcode);
-                return listall;
+         
+                if (_objcache == null)
+                {
+                    listall = GYCityDA.Instance.GetGYCityAllByPid(pcode);
+                    return listall;
+                }
+                else
+                {
+                    listall = (IList<GYCityEntity>)_objcache;
+                    var templist = from c in listall
+                                   where c.ParentCode == pcode
+                                   orderby c.Sort descending, c.Name
+                                   select c;
+                    return templist.ToList<GYCityEntity>();
+                }
             }
             else
             {
-                listall = (IList<GYCityEntity>)_objcache;
-                var templist = from c in listall
-                               where c.ParentCode== pcode
-                               orderby c.Sort descending ,  c.Name
-                               select c;
-                return templist.ToList<GYCityEntity>();
+                listall = GYCityDA.Instance.GetGYCityAllByPid(pcode);
+                return listall;
             }
             
         }
 
-        public string GetGYCityJsonByPid(string pcode)
+        public string GetGYCityJsonByPid(string pcode,bool iscache=false)
         {
-            string _cachekey = "GetGYCityJsonByPid_"+ pcode;// SysCacheKey.GYCityListKey;
-            object _objcache = MemCache.GetCache(_cachekey);
             string liststr = "";
-            if (_objcache == null)
+            if (iscache)
+            {
+
+                string _cachekey = "GetGYCityJsonByPid_" + pcode;// SysCacheKey.GYCityListKey;
+                object _objcache = MemCache.GetCache(_cachekey);
+                 if (_objcache == null)
+                {
+                    IList<GYCityEntity> list = GetGYCityAllByPid(pcode);
+                    var listfilter = list.Select(
+                       p => new
+                       {
+                           Code = p.Code,
+                           Name = p.Name
+                       });
+                    liststr = JsonJC.ObjectToJson(listfilter);
+                }
+                else
+                {
+                    liststr = (string)_objcache;
+                }
+            }
+            else
             {
                 IList<GYCityEntity> list = GetGYCityAllByPid(pcode);
                 var listfilter = list.Select(
@@ -195,11 +222,7 @@ namespace SuperMarket.BLL.SysDB
                        Code = p.Code,
                        Name = p.Name
                    });
-                  liststr = JsonJC.ObjectToJson(listfilter);
-            }
-            else
-            {
-                liststr = (string)_objcache;
+                liststr = JsonJC.ObjectToJson(listfilter);
             }
             return liststr;
         }

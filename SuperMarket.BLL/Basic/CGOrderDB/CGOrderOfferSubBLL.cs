@@ -155,7 +155,7 @@ namespace SuperMarket.BLL.CGOrderDB
             await Task.Run(() =>
             {
                 string _cachekey ="CGOrderOfferSubListKey";// SysCacheKey.CGOrderOfferSubListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<CGOrderOfferSubEntity> list = null;

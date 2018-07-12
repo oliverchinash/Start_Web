@@ -143,7 +143,7 @@ namespace SuperMarket.BLL.ProductDB
             {
 
                 string _cachekey = "GetProductFineList" + pageIndex + "_" + pageSize + "_" + finetype;// SysCacheKey.ProductFineListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = ProductFineDA.Instance.GetProductFineList(pageSize, pageIndex, ref recordCount, finetype);
@@ -170,7 +170,7 @@ namespace SuperMarket.BLL.ProductDB
         {
             IList<VWProductFineEntity> list = null;
             string _cachekey = "GetProductFineTopNum" + finetype + "_" + num;// SysCacheKey.ProductFineListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 list = ProductFineDA.Instance.GetProductFineTopNum(finetype, num);
@@ -194,7 +194,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="ProductFineListKey";// SysCacheKey.ProductFineListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ProductFineEntity> list = null;

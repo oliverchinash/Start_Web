@@ -137,7 +137,7 @@ namespace SuperMarket.BLL.CatograyDB
         {
             VWTreeCTModelEntity  resultlist = null;
             string _cachekey = "GetTreeCTModel_" + seriesid;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 IList<CarTypeModelEntity> list =CarTypeModelDA.Instance.GetCarTypeModelAll(seriesid);
@@ -179,7 +179,7 @@ namespace SuperMarket.BLL.CatograyDB
             if (cache)
             {
                 string _cachekey = "GetCarTypeModelAll_" + seriesid;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = CarTypeModelDA.Instance.GetCarTypeModelAll(seriesid);

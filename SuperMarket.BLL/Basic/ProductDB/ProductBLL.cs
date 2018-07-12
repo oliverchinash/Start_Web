@@ -382,7 +382,7 @@ namespace SuperMarket.BLL.ProductDB
         //                            orderbytype = StringUtils.GetDbInt(entity.CompareValue);
         //                        }
         //                        break;
-        //                    case SearchFieldName.BasicSitePropertiesStr:
+        //                    case SearchFieldName.ClassPropertiesStr:
         //                        {
         //                            propertistr = StringUtils.GetDbString(entity.CompareValue) ;
         //                        }

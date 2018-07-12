@@ -116,16 +116,16 @@ namespace SuperMarket.Model
 	    /// <summary>
 		/// 精选类型:1手机首页精选
 		/// <summary>
-		private  int _FineType;
-	 	public int FineType
+		private  int _FineModuleId;
+	 	public int FineModuleId
 		{
 			get
 			{
-				return _FineType;
+				return _FineModuleId;
 			}
 			set
 			{
-				_FineType=value;
+				_FineModuleId=value;
 			}
 		}
 

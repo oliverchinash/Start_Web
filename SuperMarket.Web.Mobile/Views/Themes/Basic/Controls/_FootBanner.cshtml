@@ -4,13 +4,13 @@
 <div data-am-widget="navbar" class="am-navbar am-cf footer-navbar am-no-layout" id="">
     <ul class="am-navbar-nav am-cf am-avg-sm-5">
         <li class="@(ViewBag.PageMenu=="1"?"footer-active":"")">
-            <a href="/MobileHome/Index" class="">
+            <a href="/Home/Index" class="">
                 <span class="am-icon-home"></span>
                 <span class="am-navbar-label">首页</span>
             </a>
         </li>
         <li class="@(ViewBag.PageMenu=="2"?"footer-active":"")">
-            <a href="/MobileProduct/Categray?js=@(ViewBag.JiShiSong)&s=@(ViewBag.SiteId)" class="">
+            <a href="/Product/Categray?js=@(ViewBag.JiShiSong)&s=@(ViewBag.SiteId)" class="">
                 <span class="am-icon-list"></span>
                 <span class="am-navbar-label">分类</span>
             </a>
@@ -22,13 +22,13 @@
             </a>
         </li>
         <li class="@(ViewBag.PageMenu=="3"?"footer-active":"")">
-            <a href="/MobileCart/ShopCart?js=@(ViewBag.JiShiSong)" class="">
+            <a href="/Cart/ShopCart?js=@(ViewBag.JiShiSong)" class="">
                 <span class="am-icon-shopping-bag"></span>
                 <span class="am-navbar-label">购物车</span>
             </a>
         </li>
         <li  class="@(ViewBag.PageMenu=="4"?"footer-active":"")">
-            <a href="/MobileMember/Home" class="">
+            <a href="/Member/Home" class="">
                 <span class="am-icon-user"></span>
                 <span class="am-navbar-label">我的</span>
             </a>

@@ -139,7 +139,7 @@ namespace SuperMarket.BLL.CatograyDB
 
             IList<VWConfigNavMenuEntity> resultlist = new List<VWConfigNavMenuEntity>(); 
             string _cachekey = "GetConfigNavMenuAll_" + navtype;// SysCacheKey.ConfigNavMenuListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 IList<VWConfigNavMenuEntity> list = null ;

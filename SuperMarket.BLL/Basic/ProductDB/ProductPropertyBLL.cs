@@ -161,8 +161,8 @@ namespace SuperMarket.BLL.ProductDB
                     list = ProductPropertyDA.Instance.GetPropertyByProductId(productid);
                     foreach (ProductPropertyEntity _entity in list)
                     {
-                        _entity.PropertyName = BasicSitePropertiesBLL.Instance.GetBasicSiteProperties(_entity.PropertyId).Name;
-                        _entity.PropertyDetailName = BasicSiteProDetailsBLL.Instance.GetBasicSiteProDetails(_entity.PropertyDetailId).Name;
+                        _entity.PropertyName = ClassPropertiesBLL.Instance.GetClassProperties(_entity.PropertyId).Name;
+                        _entity.PropertyDetailName = ClassProDetailsBLL.Instance.GetClassProDetails(_entity.PropertyDetailId).Name;
                     }
                     MemCache.AddCache(_cachekey, list);
                 }
@@ -176,8 +176,8 @@ namespace SuperMarket.BLL.ProductDB
                 list = ProductPropertyDA.Instance.GetPropertyByProductId(productid);
                 foreach (ProductPropertyEntity _entity in list)
                 {
-                    _entity.PropertyName = BasicSitePropertiesBLL.Instance.GetBasicSiteProperties(_entity.PropertyId,false).Name;
-                    _entity.PropertyDetailName = BasicSiteProDetailsBLL.Instance.GetBasicSiteProDetails(_entity.PropertyDetailId, false).Name;
+                    _entity.PropertyName = ClassPropertiesBLL.Instance.GetClassProperties(_entity.PropertyId,false).Name;
+                    _entity.PropertyDetailName = ClassProDetailsBLL.Instance.GetClassProDetails(_entity.PropertyDetailId, false).Name;
                 }
             }
          

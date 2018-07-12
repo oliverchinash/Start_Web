@@ -131,7 +131,7 @@ namespace SuperMarket.BLL.MessageDB
             await Task.Run(() =>
             {
                 string _cachekey ="WeChatTokenLogListKey";// SysCacheKey.WeChatTokenLogListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<WeChatTokenLogEntity> list = null;

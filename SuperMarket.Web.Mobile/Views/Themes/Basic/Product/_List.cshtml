@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>阿哈马- 产品列表</title>  
+    <title>小店- 产品列表</title>  
     <meta name="renderer" content="webkit"> 
     <meta http-equiv="Cache-Control" content="no-siteapp" /> 
     <link rel="shortcut icon" href="/Themes/Basic/img/favicon.ico" type="image/x-icon" />
@@ -126,12 +126,12 @@
                                 <!--缩略图在标题左边-->
                                 <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                     <div class="am-u-sm-4 am-list-thumb">
-                                        <a href="/MobileProduct/Detail?pd=@(_productentity.ProductDetailId)" class="">
+                                        <a href="/Product/Detail?pd=@(_productentity.ProductDetailId)" class="">
                                             <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _productentity.PicUrlList)" class="am-img-responsive" />
                                         </a>
                                     </div>
                                     <div class="am-u-sm-8 am-list-main">
-                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(_productentity.ProductDetailId)" class="">@_productentity.AdTitle</a></h3>
+                                        <h3 class="am-list-item-hd"><a href="/Product/Detail?pd=@(_productentity.ProductDetailId)" class="">@_productentity.AdTitle</a></h3>
 
                                         <div class="am-list-item-text">价格:@(_productentity.ActualPrice == 0 ? "会员可见" : _productentity.ActualPrice >=SuperMarket.Model.CommonKey.MaxPrice?"实时报价": _productentity.ActualPrice.ToString("0.00"))</div>
                                         <div class="am-list-item-desced">
@@ -172,12 +172,12 @@
                     <!--缩略图在标题左边-->
                     <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                         <div class="am-u-sm-4 am-list-thumb">
-                            <a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">
+                            <a href="/Product/Detail?pd={{ProductDetailId}}" class="">
                                 <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" />
                             </a>
                         </div>
                         <div class="am-u-sm-8 am-list-main">
-                            <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{AdTitle}}</a></h3>
+                            <h3 class="am-list-item-hd"><a href="/Product/Detail?pd={{ProductDetailId}}" class="">{{AdTitle}}</a></h3>
                             {{#if AdTitle}}
                             {{#compare ActualPrice @(SuperMarket.Model.CommonKey.MaxPrice-1) }}
                             <div class="am-list-item-text">

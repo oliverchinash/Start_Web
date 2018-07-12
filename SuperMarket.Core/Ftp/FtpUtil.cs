@@ -37,7 +37,7 @@ namespace SuperMarket.Core.Ftp
         /// <summary>
         /// 构造实例
         /// </summary>
-        /// <param name="ip">IP地址，例如 127.0.0.1或127.0.0.1:其他端口号</param>
+        /// <param name="ip">IP地址，例如 (local)或(local):其他端口号</param>
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         public FtpUtil()
@@ -50,7 +50,7 @@ namespace SuperMarket.Core.Ftp
         /// <summary>
         /// 构造实例
         /// </summary>
-        /// <param name="ip">IP地址，例如 127.0.0.1或127.0.0.1:其他端口号</param>
+        /// <param name="ip">IP地址，例如 (local)或(local):其他端口号</param>
         /// <param name="userName">用户名</param>
         /// <param name="password">密码</param>
         public FtpUtil(string ip, string userName, string password)

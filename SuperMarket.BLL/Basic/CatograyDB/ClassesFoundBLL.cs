@@ -238,7 +238,7 @@ namespace SuperMarket.BLL.CatograyDB
                     _listint.Add(redirectclassid);
                     if (_entity.IsEnd == 0 && redirectclassid > 0)
                     {
-                        IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, true, -1 );
+                        IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(redirectclassid, false, -1 );
                         if (_entitylist2 != null && _entitylist2.Count > 0)
                         {
                             foreach (ClassesFoundEntity _entity2 in _entitylist2)
@@ -259,26 +259,42 @@ namespace SuperMarket.BLL.CatograyDB
             return _listint;
         }
 
-        public   List<int> GetSubClassEndListBySite(int siteid)
+        public   List<int> GetSubClassEndListBySite(int siteid,bool iscache=false)
         {
-            string _cachekey = "GetSubClassEndListBySite_" + siteid;
-            object obj = MemCache.GetCache(_cachekey);
             List<int> _listint = new List<int>();
-            if (obj == null)
-            {  
-                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(0, true, siteid );
+            if (iscache)
+            {
+                string _cachekey = "GetSubClassEndListBySite_" + siteid;
+                object obj = MemCache.GetCache(_cachekey);
+                if (obj == null)
+                {
+                    IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(0, false, siteid);
                     if (_entitylist2 != null && _entitylist2.Count > 0)
                     {
-                     foreach(ClassesFoundEntity entity in _entitylist2)
-                    {
-                        List<int> listsub= GetSubClassEndList(entity.Id);
-                        _listint.AddRange(listsub);
-                    } 
-                } 
+                        foreach (ClassesFoundEntity entity in _entitylist2)
+                        {
+                            List<int> listsub = GetSubClassEndList(entity.Id);
+                            _listint.AddRange(listsub);
+                        }
+                        MemCache.AddCache(_cachekey, _listint);
+                    }
+                }
+                else
+                {
+                    _listint = (List<int>)obj;
+                }
             }
             else
             {
-                _listint = ( List<int>)obj;
+                IList<ClassesFoundEntity> _entitylist2 = GetClassesAllByPId(0, false, siteid);
+                if (_entitylist2 != null && _entitylist2.Count > 0)
+                {
+                    foreach (ClassesFoundEntity entity in _entitylist2)
+                    {
+                        List<int> listsub = GetSubClassEndList(entity.Id);
+                        _listint.AddRange(listsub);
+                    }
+                }
             }
             return _listint;
         }
@@ -292,6 +308,7 @@ namespace SuperMarket.BLL.CatograyDB
             int _parentid = -1;
             int _classtype = -1;
             int _classmenutype = 1;
+            int _siteid = 1;
             string _name = string.Empty;
 
             if (wherelist != null && wherelist.Count > 0)
@@ -331,10 +348,15 @@ namespace SuperMarket.BLL.CatograyDB
                                 _classmenutype = StringUtils.GetDbInt(item.CompareValue);
                                 break;
                             }
+                        case "SiteId":
+                            {
+                                _siteid = StringUtils.GetDbInt(item.CompareValue);
+                                break;
+                            }
                     }
                 }
             }
-            return ClassesFoundDA.Instance.GetClassesFoundList(pageSize, pageIndex, ref recordCount, _level, _name, _parentid, _isactive, _classtype, _classmenutype);
+            return ClassesFoundDA.Instance.GetClassesFoundList(pageSize, pageIndex, ref recordCount, _level, _name, _parentid, _isactive, _classtype, _classmenutype, _siteid);
         }
        /// <summary>
        /// 货物分类导航
@@ -465,7 +487,7 @@ namespace SuperMarket.BLL.CatograyDB
 
         public IList<ClassesFoundEntity> GetClassesAllByPId(int parentid, bool iscache,int siteid)
         {
-            if (iscache == false)
+            if (iscache )
             {
                 string _cachekey = "GetClassesAllByPId_" + parentid+"_"+ siteid ;
                 object obj = MemCache.GetCache(_cachekey);

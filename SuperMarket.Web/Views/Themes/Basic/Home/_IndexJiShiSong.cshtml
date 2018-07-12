@@ -28,7 +28,7 @@
     <script>
         $(function () {
             $(".am-form-group").click(function () {
-                window.location.href = "/MobileHome/Search";
+                window.location.href = "/Home/Search";
             })   
             NewCheckIsLogin();
         })
@@ -54,7 +54,7 @@
             </a>
         </h1>
         <div class="am-header-right am-header-nav">
-            <a href="/MobileHome/Search?js=1" class="">
+            <a href="/Home/Search?js=1" class="">
                 <i class="am-header-icon am-icon-search" style="font-size: 1.8rem"></i>
             </a>
         </div>
@@ -85,25 +85,25 @@
         <!-----产品分类开始---->
         <div class="am-g home-list">
             <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?js=1&cl=4639">
+                <a href="/Product/List?js=1&cl=4639">
                     <img src="~/Themes/Basic/img/propic/huohuasai.jpg" class="am-img-responsive">
                     <div class="">火花塞</div>
                 </a>
             </div>
             <div class="am-u-sm-3">
-                <a href="/MobileProduct/List?js=1&cl=4645">
+                <a href="/Product/List?js=1&cl=4645">
                     <img src="~/Themes/Basic/img/propic/huohuasai.jpg" class="am-img-responsive">
                     <div class="">刹车片</div>
                 </a>
             </div>
             <div class="am-u-sm-3">
-                <a href="/MobileProduct/Categray">
+                <a href="/Product/Categray">
                     <img src="/Themes/Basic/img/home_tp4.png" class="am-img-responsive">
                     <div class="">常规分类</div>
                 </a>
             </div>
             <div class="am-u-sm-3">
-                <a href="/MobileProduct/Categray?s=2">
+                <a href="/Product/Categray?s=2">
                     <img src="http://images.1dianxin.com/mobile/tubiao/shangyongche.png" class="am-img-responsive">
                     <div class="">商用车</div>
                 </a>
@@ -120,7 +120,7 @@
                         @foreach (SuperMarket.Model.VWProductFineEntity entity in listjinxuan)
                         { <div class="am-u-sm-6 home-main5-li">
                             <div class="home-main5-li-div">
-                                <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)">
+                                <a href="/Product/Detail?pd=@(entity.ProductDetailId)">
                                     @if (!string.IsNullOrEmpty(entity.ProductDetail.PicUrlList))
                                     {
                                         <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl+entity.ProductDetail.PicUrlList)">
@@ -134,7 +134,7 @@
                                 </a>
                                 @if (entity.Price > 0)
                                 {
-                                    <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" style="color: red; text-align: left">￥@entity.Price.ToString("0.00")</a>
+                                    <a href="/Product/Detail?pd=@(entity.ProductDetailId)" style="color: red; text-align: left">￥@entity.Price.ToString("0.00")</a>
                                 }
                                 else
                                 {

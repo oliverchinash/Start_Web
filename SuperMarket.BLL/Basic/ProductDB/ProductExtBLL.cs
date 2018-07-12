@@ -70,7 +70,7 @@ namespace SuperMarket.BLL.ProductDB
         {
             VWProductNomalParamEntity entity = new VWProductNomalParamEntity();
             string _cachekey = "GetProductNormalParamById"+ pid;// SysCacheKey.ProductExtListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 entity= ProductExtDA.Instance.GetParamById(pid);
@@ -187,7 +187,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="ProductExtListKey";// SysCacheKey.ProductExtListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ProductExtEntity> list = null;

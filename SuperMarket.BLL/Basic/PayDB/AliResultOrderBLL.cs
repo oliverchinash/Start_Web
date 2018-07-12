@@ -134,7 +134,7 @@ namespace SuperMarket.BLL.PayDB
             await Task.Run(() =>
             {
                 string _cachekey ="AliResultOrderListKey";// SysCacheKey.AliResultOrderListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<AliResultOrderEntity> list = null;

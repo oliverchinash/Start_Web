@@ -23,7 +23,7 @@ namespace SuperMarket.BLL.Common
         /// <returns></returns>
         public static decimal GetPrice(int status,int isstore,int memtype,int memlevel,  decimal tradprice, decimal price,int isbp, decimal dealerprice)
         {
-            if (status == (int)MemberStatus.Active && isstore == 1)
+            if (status == (int)MemberStatus.Active )
             {
                 //if(memtype==(int)CompanyType.Agency)//经销商
                 //{

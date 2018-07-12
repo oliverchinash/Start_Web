@@ -280,6 +280,51 @@ namespace SuperMarket.Model
             }
         }
         /// <summary>
+        /// 终极分类Id
+        /// <summary>
+        private int _ClassId1;
+        public int ClassId1
+        {
+            get
+            {
+                return _ClassId1;
+            }
+            set
+            {
+                _ClassId1 = value;
+            }
+        }
+        /// <summary>
+        /// 终极分类Id
+        /// <summary>
+        private int _ClassId2;
+        public int ClassId2
+        {
+            get
+            {
+                return _ClassId2;
+            }
+            set
+            {
+                _ClassId2 = value;
+            }
+        }
+        /// <summary>
+        /// 终极分类Id
+        /// <summary>
+        private int _ClassId3;
+        public int ClassId3
+        {
+            get
+            {
+                return _ClassId3;
+            }
+            set
+            {
+                _ClassId3 = value;
+            }
+        }
+        /// <summary>
         ///  
         /// <summary>
         private int _CreateManId;

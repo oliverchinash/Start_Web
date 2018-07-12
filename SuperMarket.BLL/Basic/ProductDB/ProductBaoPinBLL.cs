@@ -136,7 +136,7 @@ namespace SuperMarket.BLL.ProductDB
             IList<VWProductBaoPinEntity> list = null;
             string _cachekey = "GetProductBaoPinList_"+ pageIndex+"_"+ pageSize+"_"+ isactive+ showproduct; 
             string _cachekeynum = "GetProductBaoPinListNum_"+ pageIndex+"_"+ pageSize+"_"+ isactive+ showproduct; 
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 list = ProductBaoPinDA.Instance.GetProductBaoPinList(pageSize, pageIndex, ref recordCount,  isactive,showproduct);
@@ -186,7 +186,7 @@ namespace SuperMarket.BLL.ProductDB
             {
 
                 string _cachekey = "GetProductBaoPinShowList";// SysCacheKey.ProductBaoPinListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = ProductBaoPinDA.Instance.GetProductBaoPinShowList();

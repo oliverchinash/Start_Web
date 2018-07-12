@@ -125,7 +125,7 @@ namespace SuperMarket.BLL.CatograyDB
         /// <param name="columns">要返回的列</param>
         public BrandEntity GetBrand(int id, bool iscache=false)
         {
-            if (iscache == false)
+            if (iscache)
             {
                 string _cachekey = "Brand_" + id.ToString();
                 object _objcache = MemCache.GetCache(_cachekey);

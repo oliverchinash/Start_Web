@@ -128,7 +128,7 @@ namespace SuperMarket.BLL.ShoppingDB
             await Task.Run(() =>
             {
                 string _cachekey ="OrderPayLineConfirmListKey";// SysCacheKey.OrderPayLineConfirmListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<OrderPayLineConfirmEntity> list = null;

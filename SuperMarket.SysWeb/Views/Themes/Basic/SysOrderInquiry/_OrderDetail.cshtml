@@ -1,5 +1,5 @@
 ﻿@{ 
-    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder; ;
+    SuperMarket.Model.VWInquiryOrderEntity vworder = ViewBag.VWOrder;
     IList<SuperMarket.Model.VWCGMemQuotedEntity> quotecgmemlist = ViewBag.QuotedCGMemList;
     IList<SuperMarket.Model.InquiryProductEntity> productlist = vworder.OrderProducts;
     Dictionary<int, IList<SuperMarket.Model.InquiryProductSubEntity>> productsubdic = ViewBag.ProductSubDIc;

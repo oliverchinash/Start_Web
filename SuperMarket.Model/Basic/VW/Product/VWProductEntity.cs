@@ -635,7 +635,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "Big." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "800_800." + PicSuffix;
             }
         }
         /// <summary>
@@ -645,7 +645,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "Normal." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "350_350." + PicSuffix;
             }
         }
         /// <summary>
@@ -655,7 +655,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "Small." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "36_36." + PicSuffix;
             }
         }
         /// <summary>
@@ -665,7 +665,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "Little." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "60_60." + PicSuffix;
             }
         }
         /// <summary>
@@ -675,7 +675,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "List." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "200_200." + PicSuffix;
             }
         }
    

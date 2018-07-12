@@ -292,7 +292,7 @@ namespace SuperMarket.BLL.CatograyDB
             if (cache)
             {
                 string _cachekey = "GetConfigSmsProviderAll_" + smstype + "_" + isactive;// SysCacheKey.ConfigSmsProviderListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = ConfigSmsProviderDA.Instance.GetConfigSmsProviderAll(smstype, isactive);

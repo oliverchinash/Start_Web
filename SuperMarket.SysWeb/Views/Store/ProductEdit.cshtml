@@ -5,15 +5,7 @@
 @section Head{
 
     <link href="/js/ueditor/themes/default/css/editorext.css" rel="stylesheet" />
-    <link href="/css/amazonmenu.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/webuploader.css">
-    <link rel="stylesheet" type="text/css" href="/js/diyUpload/css/diyUpload.css">
-    <script type="text/javascript" src="/js/diyUpload/js/webuploader.html5only.min.js"></script>
-    <script type="text/javascript" src="/js/diyUpload/js/diyUpload.js"></script>
-    <script type="text/javascript" src="/js/diyupload/js/diyuploadext.js"></script>
-    <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/js/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" src="/js/ueditor/editorext.js"></script>
+    <link href="/css/amazonmenu.css" rel="stylesheet" />  
     <script type="text/javascript" src="/js/common/commoncontrolbind.js"></script>
 
 }
@@ -22,7 +14,8 @@
 <div style="display: none;">
 
     <input type="text" id="txtMemId" value="@ViewBag.MemId" /> 
-    <input type="text" id="txtPropertiesSiteId" value="@ViewBag.SiteId" />  
+    <input type="text" id="txtSiteId" value="@ViewBag.SiteId" />
+    <input type="text" id="txtPropertiesClassId" value="@ViewBag.RedirectClassId" />  
     <input type="text" id="txtProductId" value="@Request["productid"]" />
     <input type="text" id="txtBrandId" value="@ViewBag.BrandId" />
     <input type="text" id="txtPicServerRootUrl" value="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl)" />
@@ -41,14 +34,14 @@
 <div class="tip-title">产品管理<span style="color:#f4934e">></span>发布产品</div>
 <div class="product-main">
     <div class="product-main-search">
-        <div class="product-main-search-l">产品类别：
+        <div class="product-main-search-l">产品类别： 
             <input type="hidden" id="txtClassId" value="@_styleentity.ClassId" />
             <input type="hidden" id="txtClassId1" value="@_styleentity.ClassId1" />
             <input type="hidden" id="txtClassId2" value="@_styleentity.ClassId2" />
             <input type="hidden" id="txtClassId3" value="@_styleentity.ClassId3" />
         </div>
         <div class="product-main-search-r" style="margin-left:18px">
-            <select id="selClassId1" class="selclass" targettxt="txtClassId1" level="1" onchange="funchangeclass(this)" ><option>sss</option></select>
+            <select id="selClassId1" class="selclass" targettxt="txtClassId1" level="1" onchange="funchangeclass(this)" ><option>---请选择--</option><option>sss</option></select>
             <select id="selClassId2"  class="selclass" targettxt="txtClassId2" level="2" style="display:none;"><option>ss11s</option></select>
             <select  id="selClassId3"  class="selclass" targettxt="txtClassId3"  level="3" style="display:none;"><option>ss11s</option></select>
         </div>
@@ -161,14 +154,34 @@
         if ($("#hidUnit").val() != "" || $("#hidUnit").val()!= "0")
         { 
             $("#selUnit").val($("#hidUnit").val());
-        } 
-        BindClassSelected($("#txtPropertiesSiteId").val(), 0, 1);
+        }  
+        for (var level = 1; level <= 3; level++) {
+            var _pid = 0;
+            if (level > 1) {
+                var plevel = level - 1;
+                _pid = $("#txtClassId" + plevel).val();
+            }
+            if ($("#txtClassId" + level) != null && $("#txtClassId" + level) != undefined && $("#txtClassId" + level).val() != "" && $("#txtClassId" + level).val() != "0") {
+                BindClassSelected($("#txtSiteId").val(), _pid, level, $("#txtClassId" + level).val());
+            }
+           
+        }
+        $(".selclass").change(function () {
+            var level = parseInt($(this).attr("level"));
+            level=level+1;
+            BindClassSelected($("#txtSiteId").val(), $(this).val(), level, 0);
+            funchangeclass(this);
+        })
     });
 
     function ProductSubmit() {
 
         var _memId = $("#txtMemId").val(); 
         var _classId = $("#txtClassId").val();
+        var _classId1= $("#txtClassId1").val();
+        var _classId2 = $("#txtClassId2").val();
+        var _classId3 = $("#txtClassId3").val();
+         
         var _siteid = $("#txtSiteId").val();
         var _brandname = $("#txtBrandName").val();
         var _productId = $("#txtProductId").val();
@@ -186,12 +199,11 @@
         var _price = $("#txtPrice").val();
         var _tradePrice = $("#txtTradePrice").val();
         var _marketPrice = $("#txtMarketPrice").val();  
-        var _siteid = $("#txtPropertiesSiteId").val();
-        alert(_unit);
-
+        var _siteid = $("#txtSiteId").val();
+   
         $.post("/Store/ProductSubmit", {
             memid: _memId, Code: _Code ,productId: _productId,
-            classId: _classId, adTitle: _adTitle, title: _title,  brandname: _brandname,
+            classId: _classId, classId1: _classId1, classId2: _classId2, classId3: _classId3, adTitle: _adTitle, title: _title, brandname: _brandname,
             num: _num, siteid:_siteid,
             price: _price, tradePrice: _tradePrice, marketPrice: _marketPrice,   
             placeorigin: _placeorigin, name: _name, grossweight: _grossweight, spec1: _spec1, spec2: _spec2,
@@ -273,23 +285,33 @@
         BindDropParent(obj, "/Common/GetPropertyValueList", param,"");
     }
 
-    function BindClassSelected(_siteid, _pid, _level) {
+    function BindClassSelected(_siteid, _pid, _level,selectedvalue) {
+         
         var selobj = $(".selclass[level=" + _level + "]");
+        for (var i = 3; i > 1 && i > _level; i--)
+        {
+            $(".selclass[level=" + i + "]").hide();
+        }
         $(selobj).empty();
         $.post("/Common/GetClassBySiteId", { siteid: _siteid, pid: _pid }, function (data) {
             var jsonobj = eval(data);
             if (jsonobj != null && jsonobj != undefined && jsonobj.length > 0) {
+                var option = "<option  value=0>--请选择--</option>";
+                $(selobj).append(option);
                 for (var i = 0; i < jsonobj.length; i++) {
                     var option =  "<option isend="+jsonobj[i].IsEnd+" value="+jsonobj[i].Id+">"+jsonobj[i].Name+"</option>" ;
                     $(selobj).append(option);
                 }
-                funchangeclass(selobj);
+                $(selobj).val(selectedvalue);
+                //funchangeclass(selobj);  
+                $(selobj).show();
             }
         });
     }
     //选择类别
     function funchangeclass(selobj)
     {
+         
         var level = $(selobj).attr("level");
         var levelnext = level + 1;
         var txt = $(selobj).attr("targettxt");

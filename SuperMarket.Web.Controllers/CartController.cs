@@ -29,9 +29,10 @@ using System.Web.Mvc;
 
 namespace SuperMarket.Web.Controllers
 {
-    public class MobileCartController : BaseMemberController
-    { 
+    public class CartController : BaseMemberController
+    {
         #region 展示
+
         /// <summary>
         /// 网站首页
         /// </summary>
@@ -39,38 +40,25 @@ namespace SuperMarket.Web.Controllers
         public ActionResult ShopCart()
         {
             string pids = QueryString.SafeQ("pids", 500);
-            string nums = QueryString.SafeQ("nums", 500);
-            int jishi= QueryString.IntSafeQ("js");
-            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal;
-             VWShoppingCartInfo shoppingCart = new VWShoppingCartInfo();
-            if(jishi==(int)JiShiSongEnum.JiShi)
-            {
-                shoppingCart= SessionUtil.GetXuQiuSession();
-            }
-            else
-            {
-                shoppingCart = SessionUtil.GetCartSession();
-            }
-           
+            string nums = QueryString.SafeQ("nums", 500);  
+            VWShoppingCartInfo shoppingCart = new VWShoppingCartInfo();
+
+            shoppingCart = SessionUtil.GetCartSession();
+
 
             IList<MemShoppCarEntity> clist = new List<MemShoppCarEntity>();
-         
+
             if (shoppingCart != null && shoppingCart.CartItems != null && shoppingCart.CartItems.Count > 0)
             {
-                IList<ShoppCookie> shopcoolist= shoppingCart.CartItems.OrderByDescending(c => c.C).ThenByDescending(c => c.S).ToList();
+                IList<ShoppCookie> shopcoolist = shoppingCart.CartItems.OrderByDescending(c => c.C).ThenByDescending(c => c.S).ToList();
                 //shoppingCart.CartItemsL = new List<ShoppCarEntity>();
                 foreach (ShoppCookie entity in shopcoolist)
                 {
                     if (entity.ProDId <= 0)
                     {
-                        if (jishi == (int)JiShiSongEnum.JiShi)
-                        {
-                            ShoppingXuQiuProcessor.RemoveXuQiuItem(shoppingCart, entity.ProDId);
-                        }
-                        else
-                        {
-                            ShoppingCartProcessor.RemoveCartItem(shoppingCart, entity.ProDId);
-                        }
+
+                        ShoppingCartProcessor.RemoveCartItem(shoppingCart, entity.ProDId);
+
                     }
                     else
                     {
@@ -88,7 +76,7 @@ namespace SuperMarket.Web.Controllers
                         shopcarentity.ProductType = vwpentity.ProductType;
                         shopcarentity.ProductId = vwpentity.ProductId;
                         shopcarentity.StockNum = vwpentity.StockNum;
-                        shopcarentity.Check = entity.C==1;
+                        shopcarentity.Check = entity.C == 1;
                         shopcarentity.ProductDetailId = entity.ProDId;
                         clist.Add(shopcarentity);
                     }
@@ -99,28 +87,23 @@ namespace SuperMarket.Web.Controllers
             {
                 string[] pidattr = pids.Split('_');
                 string[] numattr = nums.Split('_');
-                IList<ShoppCookie> list = new List<ShoppCookie>(); 
+                IList<ShoppCookie> list = new List<ShoppCookie>();
                 for (int i = 0; i < pidattr.Length; i++)
                 {
                     VWProductEntity _productentity = ProductBLL.Instance.GetProVWByDetailId(StringUtils.GetDbInt(pidattr[i]));
                     if (_productentity.ProductDetailId > 0)
                     {
                         ShoppCookie cookentity = new ShoppCookie();
-                        cookentity.C  = 1;
+                        cookentity.C = 1;
                         cookentity.Num = StringUtils.GetDbInt(numattr[i]);
                         cookentity.ProDId = _productentity.ProductDetailId;
                         list.Add(cookentity);
                     }
 
                 }
-                if (jishi == (int)JiShiSongEnum.JiShi)
-                {
-                    shoppingCart = ShoppingXuQiuProcessor.BuyContinue(shoppingCart, list);
-                }
-                else
-                {
-                    shoppingCart = ShoppingCartProcessor.BuyContinue(shoppingCart, list);
-                }
+
+                shoppingCart = ShoppingCartProcessor.BuyContinue(shoppingCart, list);
+
 
                 clist = new List<MemShoppCarEntity>();
                 IList<ShoppCookie> shopcoolist = shoppingCart.CartItems.OrderByDescending(c => c.C).ThenByDescending(c => c.S).ToList();
@@ -129,14 +112,9 @@ namespace SuperMarket.Web.Controllers
                 {
                     if (entity.ProDId <= 0)
                     {
-                        if (jishi == (int)JiShiSongEnum.JiShi)
-                        {
-                            ShoppingXuQiuProcessor.RemoveXuQiuItem(shoppingCart, entity.ProDId);
-                        }
-                        else
-                        {
-                            ShoppingCartProcessor.RemoveCartItem(shoppingCart, entity.ProDId);
-                        }
+
+                        ShoppingCartProcessor.RemoveCartItem(shoppingCart, entity.ProDId);
+
                     }
                     else
                     {
@@ -154,7 +132,7 @@ namespace SuperMarket.Web.Controllers
                         shopcarentity.ProductType = vwpentity.ProductType;
                         shopcarentity.ProductId = vwpentity.ProductId;
                         shopcarentity.StockNum = vwpentity.StockNum;
-                        shopcarentity.Check = entity.C==1;
+                        shopcarentity.Check = entity.C == 1;
                         shopcarentity.ProductDetailId = entity.ProDId;
                         clist.Add(shopcarentity);
                     }
@@ -163,13 +141,10 @@ namespace SuperMarket.Web.Controllers
             }
             ViewBag.ShoppingCart = shoppingCart;
             ViewBag.MemId = memid;
-            ViewBag.JiShiSong = jishi;
-            
+
             ViewBag.PageMenu = "3";
             return View();
         }
-
-
         //public ActionResult PreOrder()
         //{
         //    //PostAddressEntity address= PostAddressBLL.Instance.GetDefaultPostAddress(memid);

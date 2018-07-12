@@ -37,7 +37,7 @@
             <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span></div>
         <ul class="am-g myComment-tab">
             <li class="myComment-active am-u-sm-4"><a href="javascript:void(0);">待评论</a></li>
-            <li class="am-u-sm-4"><a href="/MobileMember/Evaluated">已评论</a></li> 
+            <li class="am-u-sm-4"><a href="/Member/Evaluated">已评论</a></li> 
         </ul> 
         <div class="myComment-list"><div id="divordercommentbox">
     @if (list != null && list.Count > 0)
@@ -60,17 +60,17 @@
                                         <ul class="am-list">
                                             <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                                 <div class="am-u-sm-4 am-list-thumb">
-                                                    <a href="/MobileProduct/Detail?pd=@(orderdetailentity.ProductDetailId)">
+                                                    <a href="/Product/Detail?pd=@(orderdetailentity.ProductDetailId)">
                                                         <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + orderdetailentity.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                     </a>
                                                 </div>
                                                 <div class="am-u-sm-8 am-list-main">
-                                                    <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(orderdetailentity.ProductDetailId)" class="">@orderdetailentity.ProductName</a></h3>
+                                                    <h3 class="am-list-item-hd"><a href="/Product/Detail?pd=@(orderdetailentity.ProductDetailId)" class="">@orderdetailentity.ProductName</a></h3>
                                                     <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
                                                         <a href="javascript:void(1)" class="am-fl">￥@orderdetailentity.TotalPrice.ToString()</a>
                                                         <span class="am-fr">x@(orderdetailentity.Num)</span>
                                                     </div>
-                                                    <div class="am-list-item-desced"><a href="/MobileMember/Evaluate?odid=@(orderdetailentity.OrderDetailId)" class="myComment-comment am-fr">评论</a></div>
+                                                    <div class="am-list-item-desced"><a href="/Member/Evaluate?odid=@(orderdetailentity.OrderDetailId)" class="myComment-comment am-fr">评论</a></div>
                                                 </div>
                                             </li> 
                                         </ul>
@@ -105,14 +105,14 @@
                                     <ul class="am-list">
                                         <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                             <div class="am-u-sm-4 am-list-thumb">
-                                                <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                                <a href="/Product/Detail?pd={{ProductDetailId}}">
                                                     <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                 </a>
                                             </div>
                                             <div class="am-u-sm-8 am-list-main">
-                                                <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                                <h3 class="am-list-item-hd"><a href="/Product/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
                                                 <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
-                                                    <a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="am-fl">￥{{transformat Price}}</a>
+                                                    <a href="/Product/Detail?pd={{ProductDetailId}}" class="am-fl">￥{{transformat Price}}</a>
                                                     <span class="am-fr">x{{Num}}</span>
                                                 </div>
                                                 <div class="am-list-item-desced"><a href="javascript:void(0)" class="myComment-comment am-fr">评论</a></div>

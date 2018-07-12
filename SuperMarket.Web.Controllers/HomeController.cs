@@ -48,23 +48,11 @@ namespace SuperMarket.Web.Controllers
             {
               return   Redirect("http://m.aahama.com");
             }
-            int jishi = QueryString.IntSafeQ("js");
-            ViewBag.JiShiSong = jishi;
-            //爆品-限量乐购
-            IList<VWProductBaoPinEntity> listbpproduct = ProductBaoPinBLL.Instance.GetProductBaoPinShowList(); 
-            MemberLoginEntity member = CookieBLL.GetLoginCookie();
-            if (member != null && member.MemId > 0)
-            { 
-                if (listbpproduct != null && listbpproduct.Count > 0)
-                {
-                    foreach (VWProductBaoPinEntity entity in listbpproduct)
-                    {
-                        if (entity.ProductDetail != null && entity.ProductDetail.ProductId > 0)
-                            entity.Price = Calculate.GetPrice(member.Status,member.IsStore, member.StoreType,member.MemGrade, entity.ProductDetail.TradePrice, entity.ProductDetail.Price, entity.ProductDetail.IsBP, entity.ProductDetail.DealerPrice);
-                    }
-                } 
-            } 
-            ViewBag.ListProduct = listbpproduct;   
+            int siteid=QueryString.IntSafeQ("s");
+            if (siteid == 0) siteid = 1;
+            ViewBag.SiteId =siteid;
+
+
             return View();
         }
         /// <summary>

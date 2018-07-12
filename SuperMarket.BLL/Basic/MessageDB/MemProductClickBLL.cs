@@ -125,7 +125,7 @@ namespace SuperMarket.BLL.MessageDB
             await Task.Run(() =>
             {
                 string _cachekey ="MemProductClickListKey";// SysCacheKey.MemProductClickListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<MemProductClickEntity> list = null;

@@ -125,7 +125,7 @@ namespace SuperMarket.BLL.MessageDB
             await Task.Run(() =>
             {
                 string _cachekey ="SuggestRecordListKey";// SysCacheKey.SuggestRecordListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<SuggestRecordEntity> list = null;

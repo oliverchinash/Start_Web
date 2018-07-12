@@ -125,7 +125,7 @@ namespace SuperMarket.BLL.PayDB
             await Task.Run(() =>
             {
                 string _cachekey ="WeChatResultListKey";// SysCacheKey.WeChatResultListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<WeChatResultEntity> list = null;

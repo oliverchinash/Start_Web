@@ -220,7 +220,7 @@ namespace SuperMarket.Data.SysDB
         public IList<GYProvinceEntity> GetGYProvinceAll()
         {
 
-            string sql = @"SELECT    [Id], [Name],[FullName], [IsActive],[PYFirst],[PYFull],[DisableTime],Sort from dbo.[GYProvince] WITH(NOLOCK)	";
+            string sql = @"SELECT    [Id],Code, [Name],[FullName], [IsActive],[PYFirst],[PYFull],[DisableTime],Sort from dbo.[GYProvince] WITH(NOLOCK)	";
 		    IList<GYProvinceEntity> entityList = new List<GYProvinceEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             using (IDataReader reader = db.ExecuteReader(cmd))
@@ -229,8 +229,9 @@ namespace SuperMarket.Data.SysDB
                 {
                    GYProvinceEntity entity=new GYProvinceEntity();
 					entity.Id=StringUtils.GetDbInt(reader["Id"]); 
+					entity.Code=StringUtils.GetDbString(reader["Code"]);
 					entity.Name=StringUtils.GetDbString(reader["Name"]);
-					entity.FullName=StringUtils.GetDbString(reader["FullName"]); 
+                    entity.FullName=StringUtils.GetDbString(reader["FullName"]); 
 					entity.IsActive=StringUtils.GetDbInt(reader["IsActive"]);
 					entity.PYFirst=StringUtils.GetDbString(reader["PYFirst"]);
 					entity.PYFull=StringUtils.GetDbString(reader["PYFull"]);

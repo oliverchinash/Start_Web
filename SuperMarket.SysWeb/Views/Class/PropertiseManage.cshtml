@@ -5,7 +5,7 @@
 
 @{
 
-    IList<SuperMarket.Model.BasicSitePropertiesEntity> entitylist = ViewBag.entitylist;
+    IList<SuperMarket.Model.ClassPropertiesEntity> entitylist = ViewBag.entitylist;
 }
 
 <style type="text/css">
@@ -86,7 +86,7 @@
         @{
             if (entitylist != null && entitylist.Count > 0)
             {
-                foreach (SuperMarket.Model.BasicSitePropertiesEntity entity in entitylist)
+                foreach (SuperMarket.Model.ClassPropertiesEntity entity in entitylist)
                 {
                     <div class="admin_detail">
                         <ul>

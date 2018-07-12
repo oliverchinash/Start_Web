@@ -202,7 +202,7 @@ namespace SuperMarket.BLL.CatograyDB
         {
             IList<CarTypeSeriesEntity> list = null;
             string _cachekey = "GetCarTypeSeriesAll_"+ standbrandid + "_"+ ParentBrandId;// SysCacheKey.CarTypeSeriesListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 list = CarTypeSeriesDA.Instance.GetCarTypeSeriesAll(standbrandid, ParentBrandId);

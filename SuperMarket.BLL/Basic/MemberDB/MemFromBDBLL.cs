@@ -138,7 +138,7 @@ namespace SuperMarket.BLL.MemberDB
             await Task.Run(() =>
             {
                 string _cachekey ="MemFromBDListKey";// SysCacheKey.MemFromBDListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<MemFromBDEntity> list = null;

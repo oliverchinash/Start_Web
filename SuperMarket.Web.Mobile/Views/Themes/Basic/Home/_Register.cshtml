@@ -52,7 +52,7 @@
                 <!---同意加盟---->
                 <div class="register-text">
                     <i class="am-icon-check-circle am-fl" style="padding-top:1.5rem; color:red;"></i>
-                    <p class="am-fl">我同意<a href="/MobileHome/HelpContent?title=阿哈马注册协议" style="color:red">小店协议</a></p>
+                    <p class="am-fl">我同意<a href="/Home/HelpContent?title=小店注册协议" style="color:red">小店协议</a></p>
                 </div>
             </form>
             <div style="padding: 1rem 2rem">
@@ -163,7 +163,7 @@
                 $("#txtMobile").focus();
                 return;
             } 
-            location.href = "/MobileHome/RegMsg?mobile=" + txtMobile + "&vCode=" + txtMobileYZCode;
+            location.href = "/Home/RegMsg?mobile=" + txtMobile + "&vCode=" + txtMobileYZCode;
 
             return false;
         }

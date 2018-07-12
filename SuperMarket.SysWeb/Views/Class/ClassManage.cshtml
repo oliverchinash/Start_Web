@@ -67,19 +67,29 @@
         <img src="~/Themes/Img/home.png" />
         <div class="title_text">您当前的位置：后台管理系统><span>分类管理</span></div>
         <div class="add_admin">
-                <span><a href="/Class/ClassEdit?id=0&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加一级分类</a></span>
+                <span><a href="/Class/ClassEdit?parentid=@(ViewBag.ParentId)&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加分类</a></span>
             </div>
     </div>
 
 
-    <div class="title_main">
+    <div class="title_main">    请选择站点:
+<select id="selSiteId" name="">
+    @{
+        IList<SuperMarket.Core.Enums.EnumUnitEntity> lists = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
+        foreach (SuperMarket.Core.Enums.EnumUnitEntity entitys in lists)
+        {
+            <option value="@entitys.EnumValue" @(ViewBag.SiteId == entitys.EnumValue ? "selected" : "")>@entitys.EnumDes</option>
+        }
+    }
+</select>
+
         请选择类型:
         <select id="selClassTypeId" name="">
             @{
                 IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ClassTypeEnum>();
                 foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
                 {
-                    <option value="@entityu.EnumValue" @(ViewBag.SiteId == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
+                    <option value="@entityu.EnumValue" @(ViewBag.ClassType == entityu.EnumValue ? "selected" : "")>@entityu.EnumDes</option>
                 }
             }
         </select>
@@ -158,7 +168,7 @@
 
                                 @if (entity.IsEnd == 0)
                                 {
-                                    <a href="/Class/ClassEdit?id=@entity.Id&op=add" target="_blank">添加子分类</a>
+                                    <a href="/Class/ClassEdit?parentid=@entity.Id&op=add" target="_blank">添加子分类</a>
                                 }
                                 &nbsp; &nbsp;
 
@@ -217,8 +227,9 @@
         var _level = $("#selLevel").val();
         var _isactive = $("#selIsActive").val();
         var _name = $("#txtName").val();
-        var _classtype = $("#selClassTypeId").val();
-        window.location.href = "/Class/ClassManage?level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&classtype=" + _classtype
+        var _classtype = $("#selClassTypeId").val();  
+        var _siteid= $("#selSiteId").val();
+        window.location.href = "/Class/ClassManage?siteid=" + _siteid + "&level=" + _level + "&name=" + _name + "&isactive=" + _isactive + "&classtype=" + _classtype
     }
 
     function FunDisable(obj) { 

@@ -23,15 +23,14 @@
     <script src="/themes/basic/js/globalcart.js?type=@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.JsVersion.GlobalCarts"></script>
 </head>
 <body>@{
-    SuperMarket.Model.VWProductEntity product = ViewBag.VWProductEntity;
-    SuperMarket.Model.VWProductNomalParamEntity productparam = ViewBag.ProductParamEntity;
+    SuperMarket.Model.VWProductEntity product = ViewBag.VWProductEntity; 
 }<div style="display:none;">
     <input type="hidden" id="hidLoginWebUrl" value="@SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.LoginWebUrl" />
 </div>
     <!----header开始----->
     <header data-am-widget="header" class="am-header am-header-fixed details-header">
         <div style="display: none"><input id="txtProductDetailId" value="@product.ProductDetailId" />
-            <span id="spanjishisong">@product.JiShiSong</span>  </div>
+  </div>
         <h1 style="display: none">头部</h1>
         @Html.Partial("controls/_HeadBanner")
         <div class="am-header-title">
@@ -103,8 +102,7 @@
         <ul class="details-canshu am-g am-cf">
             <li class="am-u-sm-6"><span>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位</span><span style="margin-left:20px;">@(product.UnitName)</span></li>
             <li class="am-u-sm-6"><span>库&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</span><span style="margin-left:20px;">@(product.StockNum)</span></li>
-            <li class="am-u-sm-12"><span>包装规格</span><span style="margin-left:20px;">@(productparam.SpecPacking)</span></li>
-            <li class="am-u-sm-12"><span>规格型号</span><span style="margin-left:20px;">@(productparam.SpecModel)</span></li>
+ 
         </ul>
         <!-----商品参数结束------>
         <!------图片详情------>
@@ -120,40 +118,13 @@
             <p>基本参数</p>
             <ul class="am-g am-cf"> 
                 <li class="am-cf">
-                    <label class="am-u-sm-3">商品品牌</label>
-                    <span class="am-u-sm-9">@productparam.BrandName</span>
+                    <label class="am-u-sm-12">商品品牌</label> 
                 </li>
-                <li class="am-cf">
-                    <label class="am-u-sm-3">生产厂家</label>
-                    <span class="am-u-sm-9">@productparam.Factory</span>
-                </li>
-                <li class="am-cf">
-                    <label class="am-u-sm-3">规格型号</label>
-                    <span class="am-u-sm-9">@productparam.SpecModel</span>
-                </li>
-                <li class="am-cf">
-                    <label class="am-u-sm-3">计量单位</label>
-                    <span class="am-u-sm-9">@productparam.UnitName</span>
-                </li>
-                <li class="am-cf">
-                    <label class="am-u-sm-3">包装规格</label>
-                    <span class="am-u-sm-9">@productparam.SpecPacking</span>
-                </li>
-                <li class="am-cf">
-                    <label class="am-u-sm-3">出厂编码</label>
-                    <span class="am-u-sm-9">@(productparam.FacCode)</span>
-                </li> 
+                
             </ul> 
         </div>
     </div>
-
-    <!-----------规格参数结束------------->
-    <!-------------适用车型开始-------------->
-    <div class="details-table none">
-        <div class="apply">
-           @Html.Raw(productparam.APPModels)
-        </div>
-    </div>
+     
     <!-------------适用车型结束-------------->
     <!-------收藏购买开始--------->
     <div class="details-navbar am-g am-cf">
@@ -176,20 +147,7 @@
                     <p>400-999-8411</p>
                 </a>
             </div>
-        }
-        else if (product.JiShiSong == (int)SuperMarket.Model.JiShiSongEnum.JiShi)
-        {
-            <div class="details-navbar-li2 addcar am-u-sm-4">
-                <a href="javascript:void(0);" class="clsaddtocart" jishi="@(product.JiShiSong)" ProductDetailId="@(product.ProductDetailId)">
-                    <p>加入需求清单</p>
-                </a>
-            </div>
-            <div class="details-navbar-li3 am-u-sm-4">
-                <a href="javascript:void(0);" class="" onclick="FunBuyImmediateXuQiu()">
-                    <p>立即下单</p>
-                </a>
-            </div>
-        }
+        } 
         else
         {
             <div class="details-navbar-li2 addcar am-u-sm-4">

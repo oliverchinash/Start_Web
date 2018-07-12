@@ -72,7 +72,7 @@ namespace SuperMarket.Data.MemberDB
 		/// <param name="wZShopCart">待更新的实体对象</param>
 		public   int UpdateWZShopCart( MemWZShopCartEntity entity)
 		{
-			string sql= @" UPDATE dbo.[WZShopCart] SET [BuyDate]=@BuyDate,[EndDate]=@EndDate,[AddDate]=@AddDate,[CookieValue]=@CookieValue, [CookieId]=@CookieId
+			string sql= @" UPDATE dbo.[MemWZShopCart] SET [BuyDate]=@BuyDate,[EndDate]=@EndDate,[AddDate]=@AddDate,[CookieValue]=@CookieValue, [CookieId]=@CookieId
                        WHERE [MemId]=@MemId";
 		    DbCommand cmd = db.GetSqlStringCommand(sql); 
 			db.AddInParameter(cmd,"@MemId",  DbType.Int32,entity.MemId);
@@ -87,7 +87,7 @@ namespace SuperMarket.Data.MemberDB
         public int UpdateWZShopCartXuQiu( MemWZShopCartEntity entity)
              
         {
-            string sql = @" UPDATE dbo.[WZShopCart] SET [BuyDate]=@BuyDate,[EndDate]=@EndDate,[CookieValueXuQiu]=@CookieValueXuQiu 
+            string sql = @" UPDATE dbo.[MemWZShopCart] SET [BuyDate]=@BuyDate,[EndDate]=@EndDate,[CookieValueXuQiu]=@CookieValueXuQiu 
                        WHERE [MemId]=@MemId";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@MemId", DbType.Int32, entity.MemId);
@@ -147,7 +147,7 @@ namespace SuperMarket.Data.MemberDB
 		{
 			string sql=@"SELECT  [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId]
 							FROM
-							dbo.[WZShopCart] WITH(NOLOCK)	
+							dbo.[MemWZShopCart] WITH(NOLOCK)	
 							WHERE [Id]=@id";
             DbCommand cmd = db.GetSqlStringCommand(sql);
             
@@ -172,7 +172,7 @@ namespace SuperMarket.Data.MemberDB
         {
             string sql = @"SELECT top 1  [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieValueXuQiu],[CookieId]
 							FROM
-							dbo.[WZShopCart] WITH(NOLOCK)	
+							dbo.[MemWZShopCart] WITH(NOLOCK)	
 							WHERE [MemId]=@MemId order by id desc";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -204,11 +204,11 @@ namespace SuperMarket.Data.MemberDB
 			string sql=@"SELECT   [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId]
 						FROM
 						(SELECT ROW_NUMBER() OVER (ORDER BY Id desc) AS ROWNUMBER,
-						 [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId] from dbo.[WZShopCart] WITH(NOLOCK)	
+						 [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId] from dbo.[MemWZShopCart] WITH(NOLOCK)	
 						WHERE  1=1 ) as temp 
 						where rownumber BETWEEN ((@PageIndex - 1) * @PageSize + 1) AND @PageIndex * @PageSize";
 			
-			string sql2=@"Select count(1) from dbo.[WZShopCart] with (nolock) ";
+			string sql2=@"Select count(1) from dbo.[MemWZShopCart] with (nolock) ";
             IList< MemWZShopCartEntity> entityList = new List< MemWZShopCartEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql);
 		    db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
@@ -252,7 +252,7 @@ namespace SuperMarket.Data.MemberDB
         public IList< MemWZShopCartEntity> GetWZShopCartAll()
         {
 
-            string sql = @"SELECT    [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId] from dbo.[WZShopCart] WITH(NOLOCK)	";
+            string sql = @"SELECT    [Id],[MemId],[BuyDate],[EndDate],[AddDate],[CookieValue],[CookieId] from dbo.[MemWZShopCart] WITH(NOLOCK)	";
 		    IList< MemWZShopCartEntity> entityList = new List< MemWZShopCartEntity>();
             DbCommand cmd = db.GetSqlStringCommand(sql); 
             using (IDataReader reader = db.ExecuteReader(cmd))
@@ -281,7 +281,7 @@ namespace SuperMarket.Data.MemberDB
         public int  ExistNum( MemWZShopCartEntity entity)
         {
             ///id=0,判断总数，ID>0判断除自己之外的总数
-            string sql = @" Select count(1) from dbo.[WZShopCart] WITH(NOLOCK) WHERE MemId=@MemId ";
+            string sql = @" Select count(1) from dbo.[MemWZShopCart] WITH(NOLOCK) WHERE MemId=@MemId ";
         
             DbCommand cmd = db.GetSqlStringCommand(sql); 
              db.AddInParameter(cmd, "@MemId", DbType.Int32, entity.MemId);

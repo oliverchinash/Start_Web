@@ -123,7 +123,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             await Task.Run(() =>
             {
                 string _cachekey ="InquiryOrderMemberListKey";// SysCacheKey.InquiryOrderMemberListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<InquiryOrderMemberEntity> list = null;

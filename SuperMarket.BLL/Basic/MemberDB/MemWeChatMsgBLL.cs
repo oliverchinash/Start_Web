@@ -148,7 +148,7 @@ namespace SuperMarket.BLL.MemberDB
             await Task.Run(() =>
             {
                 string _cachekey ="MemWeChatMsgListKey";// SysCacheKey.MemWeChatMsgListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<MemWeChatMsgEntity> list = null;

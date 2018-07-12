@@ -5,7 +5,7 @@ function FunSearchOrderList(obj)
     var s = $(obj).attr("Status");
     var t = $("#txtTerm").val();
     var os = $("#txtOrderStyle").val();
-    var url = "/MobileMember/OrderList?os=" + os + "&t=" + t + "&s=" + s + "&k=" + k;
+    var url = "/Member/OrderList?os=" + os + "&t=" + t + "&s=" + s + "&k=" + k;
     location.href = url;
 } 
 $(function () {
@@ -38,7 +38,7 @@ $(function () {
             var result = '';
             $.ajax({
                 type: 'GET',
-                url: '/MobileMember/GetOrderListJson',
+                url: '/Member/GetOrderListJson',
                 data: {os:os, k: k, s: s, t: t, pageindex: page },
                 dataType: 'json',
                 success: function (data) { 
@@ -149,10 +149,10 @@ function BugFromOrder(ordercode)
     {
         if (orderstyle == 2)//需求订单,需求订单由及时送产品产生
         {
-            location.href = "/MobileCart/ShopCart?js=1&pids=" + products + "&nums=" + nums; 
+            location.href = "/Cart/ShopCart?js=1&pids=" + products + "&nums=" + nums; 
         }
         else { 
-        location.href = "/MobileCart/ShopCart?pids=" + products + "&nums=" + nums;
+        location.href = "/Cart/ShopCart?pids=" + products + "&nums=" + nums;
         }
     }
 }

@@ -168,6 +168,7 @@
     <Compile Include="Basic\ProductDB\ProductEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductExtEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductFineEntity.cs" />
+    <Compile Include="Basic\ProductDB\ProductFineModuleEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductMenuEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertiesEntity.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertyEntity.cs" />

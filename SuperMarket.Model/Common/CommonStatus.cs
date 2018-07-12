@@ -773,14 +773,7 @@ namespace SuperMarket.Model
         [Description("横向列表")]
         Normal = 2  
     }
-    //所属站点
-    public enum SiteEnum
-    {
-        [Description("乘用车")]
-        Default = 1,
-        [Description("商用车")]
-        SYC = 2,
-    }
+   
     public enum ReBackIntegralStatus 
     {   [Description("待退")]
         WaitReback = 0,
@@ -848,7 +841,7 @@ namespace SuperMarket.Model
     /// <summary>
     /// 产品精选类型
     /// </summary>
-    public enum ProductFineTypeEnum
+    public enum ProductFineModuleIdEnum
     {
         [Description("手机首页产品精选")]
         MobileHome = 1,

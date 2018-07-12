@@ -33,7 +33,7 @@ using System.Web.Mvc;
 
 namespace SuperMarket.Web.Controllers
 {
-    public class MobileMemberController : BaseMemberController
+    public class MemberController : BaseMemberController
     { 
         #region 展示
 
@@ -94,7 +94,7 @@ namespace SuperMarket.Web.Controllers
             VWOrderMsgEntity _msgentity = OrderMsgMemBLL.Instance.GetVWOrderMsgByMemId(memid);
             ViewBag.SearchOrderStatus = _status;
             ViewBag.SearchOrderTerm = _term; 
-            string _url = "/MobileMember/OrderList?os="+ orderstyle + "&s=" + _status + "&t=" + _term + "&k=" + _keyword;
+            string _url = "/Member/OrderList?os="+ orderstyle + "&s=" + _status + "&t=" + _term + "&k=" + _keyword;
             string _pageStr = HTMLPage.SetOrderListPage(_recordCount, _pagesize, _pageindex, _url);
             ViewBag.PageStr = _pageStr;
             ViewBag.Orderlist = _Orderlist;
@@ -154,7 +154,7 @@ namespace SuperMarket.Web.Controllers
             IList<IntegralChangeEntity> _changelist = IntegralChangeBLL.Instance.GetIntegralChangeList(_pagesize, _pageindex, ref recordCount, memid);
             ViewBag.ChangeList = _changelist;
             ViewBag.Integral = _integral;
-            string _url = "/MobileMember/Integral?1=1";
+            string _url = "/Member/Integral?1=1";
             string _pageStr = HTMLPage.SetOrderListPage(recordCount, _pagesize, _pageindex, _url);
 
             ViewBag.PageStr = _pageStr; 

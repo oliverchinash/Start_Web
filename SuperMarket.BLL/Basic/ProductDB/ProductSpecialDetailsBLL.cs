@@ -130,7 +130,7 @@ namespace SuperMarket.BLL.ProductDB
             IList<VWProductSpecialDetailsEntity> list = null;
             string _cachekey = "GetProductSpecialDetailsList_"+ pageIndex+"_"+ pageSize+"_"+ specialid +"_"+ isactive; 
             string _cachekeynum = "GetProductSpecialDetailsListNum_"+ pageIndex + "_"+ pageSize+"_"+ specialid +"_"+ isactive; 
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                list = ProductSpecialDetailsDA.Instance.GetProductSpecialDetailsList(pageIndex, pageSize,  ref recordCount, specialid, isactive);
@@ -162,7 +162,7 @@ namespace SuperMarket.BLL.ProductDB
         {
             IList<VWProductSpecialDetailsEntity> list = null;
             string _cachekey = "GetSpecialDetailsForMenuAD_" + specialid + "_" + num; 
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 list = ProductSpecialDetailsDA.Instance.GetSpecialDetailsForMenuAD(specialid, num);
@@ -188,7 +188,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="ProductSpecialDetailsListKey";// SysCacheKey.ProductSpecialDetailsListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ProductSpecialDetailsEntity> list = null;

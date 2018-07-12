@@ -37,13 +37,7 @@ namespace SuperMarket.Web.Controllers
         public ActionResult PreOrder()
         { 
             long _preordercode = QueryString.LongIntSafeQ("code");
-            int _jishi = QueryString.IntSafeQ("js");
-            if (_jishi == (int)JiShiSongEnum.JiShi)
-            {
-                XuQiuPreOrderMethod(_preordercode);
-            }
-            else
-            {
+               
                 ///可正常销售的产品
                 IList<OrderDetailPreTempEntity> _listproduct = OrderDetailPreTempBLL.Instance.GetOrderPreTempByCode(_preordercode, 1);
 
@@ -58,8 +52,7 @@ namespace SuperMarket.Web.Controllers
 
                 IntegralEntity _entity = IntegralBLL.Instance.GetIntegralByMemId(memid);
                 ViewBag.Integral = _entity;
-            }
-            ViewBag.JiShiSong = _jishi;
+           
             return View();
         }
         /// <summary>

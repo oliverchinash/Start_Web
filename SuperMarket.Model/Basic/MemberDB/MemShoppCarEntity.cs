@@ -225,7 +225,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "List." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "200_200." + PicSuffix;
             }
 
         }
@@ -236,7 +236,7 @@ namespace SuperMarket.Model
         {
             get
             {
-                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "Small." + PicSuffix;
+                return string.IsNullOrEmpty(PicUrl) ? "" : PicUrl + "60_60." + PicSuffix;
             }
 
         }

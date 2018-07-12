@@ -62,13 +62,13 @@
                             <ul class="am-list">
                                 <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left payHistory-list-li">
                                     <div class="am-u-sm-4 am-list-thumb">
-                                        <a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" class="">
+                                        <a href="/Product/Detail?pd=@(entity.ProductDetailId)" class="">
                                             <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + entity.ProductEntity.PicUrlList)" class="am-img-responsive" />
                                         </a>
                                     </div>
 
                                     <div class="am-u-sm-8 am-list-main">
-                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd=@(entity.ProductDetailId)" class="">@entity.ProductEntity.AdTitle</a></h3>
+                                        <h3 class="am-list-item-hd"><a href="/Product/Detail?pd=@(entity.ProductDetailId)" class="">@entity.ProductEntity.AdTitle</a></h3>
 
                                         <div class="am-list-item-text am-cf">
                                             <a href="" class="am-fl">@entity.ProductEntity.ActualPrice.ToString("0.00")</a>

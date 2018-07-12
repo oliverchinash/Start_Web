@@ -151,7 +151,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             if (cache)
             {
                 string _cachekey = "GetInquiryProductSubAll_"+ ordercode +"_"+ proid;// SysCacheKey.InquiryProductSubListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = InquiryProductSubDA.Instance.GetInquiryProductSubAll(ordercode, proid);

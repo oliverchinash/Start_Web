@@ -282,6 +282,9 @@ namespace SuperMarket.SysWeb.Controllers
             {
                 int _productId = FormString.IntSafeQ("productId"); 
                 int _classId = FormString.IntSafeQ("classId");
+                int _classId1 = FormString.IntSafeQ("classId1");
+                int _classId2 = FormString.IntSafeQ("classId2");
+                int _classId3 = FormString.IntSafeQ("classId3");
                 string _adTitle = FormString.SafeQ("adTitle", 200);
                 string _title = FormString.SafeQ("title", 200);
                 string _code = FormString.SafeQ("Code");
@@ -302,6 +305,9 @@ namespace SuperMarket.SysWeb.Controllers
                 ProcProductEntity _entity = new ProcProductEntity();
                  
                 _entity.ClassId = _classId;
+                _entity.ClassId1 = _classId1;
+                _entity.ClassId2 = _classId2;
+                _entity.ClassId3 = _classId3;
                 _entity.Code = _code;
                 _entity.AdTitle = _adTitle;
                 _entity.Title = _title;
@@ -310,10 +316,12 @@ namespace SuperMarket.SysWeb.Controllers
                 if(brand==null|| brand.Id==0)
                 {
                     brand.Name = _brandname;
-                    _entity.BrandId = BrandBLL.Instance.AddBrand(brand);
-                    _entity.BrandName = _brandname;
+                    brand.Id = BrandBLL.Instance.AddBrand(brand);
+
 
                 }
+                _entity.BrandId = brand.Id;
+                _entity.BrandName = _brandname;
                 _entity.ProductId = _productId;
                 _entity.TransFee = _transfee ;
                 _entity.HasHtml = 0;

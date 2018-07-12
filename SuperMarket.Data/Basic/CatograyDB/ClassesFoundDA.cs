@@ -378,10 +378,11 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
         /// </summary>
         /// <param name="db">数据库操作对象</param>
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
-        public IList<ClassesFoundEntity> GetClassesFoundList(int pagesize, int pageindex, ref int recordCount, int level, string name,int parentid,int isactive,int classtype,int classmenutype)
+        public IList<ClassesFoundEntity> GetClassesFoundList(int pagesize, int pageindex, ref int recordCount, int level, string name,int parentid,int isactive,int classtype,int classmenutype,int siteid)
         { 
             
             string where = "WHERE  1=1";
+              where += " and   SiteId=@SiteId ";
             if (level > 0)
             {
                 where += " And ClassLevel=@ClassLevel";
@@ -418,6 +419,7 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
             db.AddInParameter(cmd, "@PageSize", DbType.Int32, pagesize);
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
 
             if (level > 0)
             {
@@ -470,6 +472,7 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
             }
             cmd = db.GetSqlStringCommand(sql2);
 
+            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
             if (level > 0)
             {
                 db.AddInParameter(cmd, "@ClassLevel", DbType.Int32, level);

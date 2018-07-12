@@ -1,5 +1,5 @@
 ﻿@{
-    IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll(0,0);
+    IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll(ViewBag.SiteId,0);
 }
     <div class="am-g home-list">
         @{

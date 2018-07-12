@@ -155,7 +155,7 @@ namespace SuperMarket.BLL.ShoppingDB
             await Task.Run(() =>
             {
                 string _cachekey = "ReturnXSWLListKey";// SysCacheKey.ReturnXSWLListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ReturnXSWLEntity> list = null;

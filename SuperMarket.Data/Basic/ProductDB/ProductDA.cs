@@ -76,7 +76,7 @@ namespace SuperMarket.Data.ProductDB
         public int AddProductProc(ProcProductEntity  entity)
         { 
             string sql = @"EXEC Proc_ProductEditNew  @Code,@AdTitle,@Title,@GrossWeight,@PlaceOrigin,@Name,@BrandId,@BrandName,@ProductId,@Spec1,
-    @Spec2,@Unit,@ClassId, @CreateManId,@Num ,@SiteId ";
+    @Spec2,@Unit,@ClassId,@ClassId1,@ClassId2,@ClassId3, @CreateManId,@Num ,@SiteId ";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
             db.AddInParameter(cmd, "@Code", DbType.String, entity.Code);
@@ -92,6 +92,9 @@ namespace SuperMarket.Data.ProductDB
             db.AddInParameter(cmd, "@Spec2", DbType.String, entity.Spec2);
             db.AddInParameter(cmd, "@Unit", DbType.Int32, entity.Unit);
             db.AddInParameter(cmd, "@ClassId", DbType.Int32, entity.ClassId); 
+            db.AddInParameter(cmd, "@ClassId1", DbType.Int32, entity.ClassId1); 
+            db.AddInParameter(cmd, "@ClassId2", DbType.Int32, entity.ClassId2); 
+            db.AddInParameter(cmd, "@ClassId3", DbType.Int32, entity.ClassId3);
             db.AddInParameter(cmd, "@CreateManId", DbType.Int32, entity.CreateManId);
             db.AddInParameter(cmd, "@Num", DbType.Int32, entity.Num);   
             db.AddInParameter(cmd, "@SiteId", DbType.Int32, entity.SiteId);
@@ -414,7 +417,7 @@ namespace SuperMarket.Data.ProductDB
         public VWProductEntity GetProductVW(int productid )
         {
             string sql = @" SELECT  a.Id as  ProductId,a.Code, a.[AdTitle] ,a.[Title] ,  a.[BrandId], a.[BrandName],a.[Cost],
- a.[MarketPrice],  a.[PicUrl],a.PicSuffix  ,a.[ClassId],pd.[StockNum] ,pd.TradePrice ,a.[Status] , a.Sort,a.Unit,a.Spec1,a.Spec2,a.ShowPicType,a.Retail,a.Wholesale,
+ a.[MarketPrice],  a.[PicUrl],a.PicSuffix  ,a.[ClassId],a.[ClassId1],a.[ClassId2],a.[ClassId3],pd.[StockNum] ,pd.TradePrice ,a.[Status] , a.Sort,a.Unit,a.Spec1,a.Spec2,a.ShowPicType,a.Retail,a.Wholesale,
 a.Name,a.GrossWeight,a.PlaceOrigin,a.SiteId,pp.Id as PropertyId, pp.Property1, pp.Property2,pp.Property3,pp.Property4,pp.Property5,pp.Property6,pp.Property7,pp.Property8,pp.Property9,pp.Property10, pe.DetailDescrip AS  ContentCms 
 FROM  dbo.[Product] a  WITH(NOLOCK)  left join ProductDetail pd WITH(NOLOCK) on a.id=pd.ProductId
   left join ProductProperties pp WITH(NOLOCK) on a.id=pp.ProductId
@@ -437,6 +440,9 @@ WHERE a.Id=@ProductId   ";
                     entity.BrandId = StringUtils.GetDbInt(reader["BrandId"]); 
                     entity.BrandName = StringUtils.GetDbString(reader["BrandName"]);
                     entity.ClassId = StringUtils.GetDbInt(reader["ClassId"]); 
+                    entity.ClassId1 = StringUtils.GetDbInt(reader["ClassId1"]); 
+                    entity.ClassId2 = StringUtils.GetDbInt(reader["ClassId2"]); 
+                    entity.ClassId3 = StringUtils.GetDbInt(reader["ClassId3"]);
                     entity.Cost = StringUtils.GetDbDecimal(reader["Cost"]); 
                     entity.Spec1 = StringUtils.GetDbString(reader["Spec1"]);
                     entity.Spec2 = StringUtils.GetDbString(reader["Spec2"]);
@@ -495,7 +501,7 @@ WHERE a.Id=@ProductId   ";
                 foreach (DataRow dr in _dt.Rows)
                 {
                     VWProductEntity entity = new VWProductEntity();
-                    entity.SiteId = StringUtils.GetDbInt(dr["SiteId"]);
+                    //entity.ClassId = StringUtils.GetDbInt(dr["ClassId"]);
                     entity.AdTitle = StringUtils.GetDbString(dr["AdTitle"]);
                     entity.Title = StringUtils.GetDbString(dr["Title"]); 
                     entity.BrandId = StringUtils.GetDbInt(dr["BrandId"]);

@@ -112,14 +112,14 @@
                                                             <ul class="am-list">
                                                                 <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                                                     <div class="am-u-sm-4 am-list-thumb">
-                                                                        <a href="/MobileProduct/Detail?pd=@(_orderdetail.ProductDetailId)">
+                                                                        <a href="/Product/Detail?pd=@(_orderdetail.ProductDetailId)">
                                                                             <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl + _orderdetail.PicUrlList)" class="am-img-responsive" style="border: 1px solid #ddd" />
                                                                         </a>
                                                                     </div>
                                                                     <div class="am-u-sm-8 am-list-main">
                                                                         <h3 class="am-list-item-hd"><a href="javascript:void(0)" class="">@_orderdetail.ProductName</a></h3>
                                                                         <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
-                                                                            <a href="/MobileProduct/Detail?pd=@(_orderdetail.ProductDetailId)" class="am-fl">￥@_orderdetail.ActualPrice</a>
+                                                                            <a href="/Product/Detail?pd=@(_orderdetail.ProductDetailId)" class="am-fl">￥@_orderdetail.ActualPrice</a>
                                                                             <span class="am-fr">x@_orderdetail.Num</span>
                                                                         </div>
                                                                         <div class="am-list-item-desced">
@@ -187,12 +187,12 @@
                         <ul class="am-list"> 
                                 <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                     <div class="am-u-sm-4 am-list-thumb">
-                                        <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                        <a href="/Product/Detail?pd={{ProductDetailId}}">
                                             <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
                                         </a>
                                     </div>
                                     <div class="am-u-sm-8 am-list-main">
-                                        <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                        <h3 class="am-list-item-hd"><a href="/Product/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
                                         <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
                                             <a href="javascript:void(0)" class="am-fl">￥{{transformat ActualPrice}}</a>
                                             <span class="am-fr">x{{Num}}</span>
@@ -249,12 +249,12 @@
                         <ul class="am-list">
                             <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
                                 <div class="am-u-sm-4 am-list-thumb">
-                                    <a href="/MobileProduct/Detail?pd={{ProductDetailId}}">
+                                    <a href="/Product/Detail?pd={{ProductDetailId}}">
                                         <img src="@(SuperMarket.Core.ConfigCore.Instance.ConfigCommonEntity.ImagesServerUrl){{PicUrlList}}" class="am-img-responsive" style="border: 1px solid #ddd" />
                                     </a>
                                 </div>
                                 <div class="am-u-sm-8 am-list-main">
-                                    <h3 class="am-list-item-hd"><a href="/MobileProduct/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
+                                    <h3 class="am-list-item-hd"><a href="/Product/Detail?pd={{ProductDetailId}}" class="">{{ProductName}}</a></h3>
                                     <div class="am-list-item-desced am-cf" style="margin-top: .5rem">
                                         <a href="javascript:void(0)" class="am-fl">￥{{transformat ActualPrice}}</a>
                                         <span class="am-fr">x{{Num}}</span>

@@ -322,7 +322,7 @@ namespace SuperMarket.Data.PayDB
 					entity.Status=StringUtils.GetDbInt(reader["Status"]);;
 					entity.PayTime=StringUtils.GetDbDateTime(reader["PayTime"]);;
 					entity.PayPrice=StringUtils.GetDbDecimal(reader["PayPrice"]);;
-					entity.ExternalCode=StringUtils.GetDbString(reader["ExternalCode"]); ;
+					entity.ExternalCode=StringUtils.GetDbString(reader["ExternalCode"]);
                     entityList.Add(entity);
 			    }
 			 }

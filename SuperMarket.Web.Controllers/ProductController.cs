@@ -25,7 +25,7 @@ namespace SuperMarket.Web.Controllers
 {
     public class ProductController : BaseCommonController
     {
-        public ActionResult ProductDetail()
+        public ActionResult Detail()
         {
             string title = "易店心,";
             int _productdetailid = QueryString.IntSafeQ("pd");
@@ -49,8 +49,8 @@ namespace SuperMarket.Web.Controllers
             ViewBag.Title = title;
             IList<ProductStylePicsEntity> productpiclist = null;
 
-            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(_vwentity.ClassId, true);
-            BrandEntity _brandrntity = BrandBLL.Instance.GetBrand(_vwentity.BrandId, true);
+            ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(_vwentity.ClassId, false);
+            BrandEntity _brandrntity = BrandBLL.Instance.GetBrand(_vwentity.BrandId, false);
             ViewBag.RavClassList = ListRavStr(_classentity);
             ViewBag.Brand = _brandrntity;
             productpiclist = ProductStylePicsBLL.Instance.GetListPicsByProductId(  _productid );
@@ -108,7 +108,7 @@ namespace SuperMarket.Web.Controllers
             int order_i= QueryString.IntSafeQ("px");//排序类型
             //if (classid == 0) { return Redirect("/");  } 
             int siteid = QueryString.IntSafeQ("s");
-            if (siteid<=0) siteid = (int)SiteEnum.Default;
+            if (siteid<=0) siteid = (int)SiteIdEnum.BathRoom;
             ViewBag.SiteId = siteid;
             ///获取已选择的分类属性
             string propertiesstr = QueryString.SafeQ("pp");
@@ -128,10 +128,10 @@ namespace SuperMarket.Web.Controllers
             if (rediclassid == -1) rediclassid = 0;
             if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
               siteid = _classentity.SiteId;
-            if(siteid == 0&& rediclassid>0)
-            {
-                ClassesFoundEntity _classredirectentity = ClassesFoundBLL.Instance.GetClassesFound(rediclassid, false);
-            }  
+            //if(siteid == 0&& rediclassid>0)
+            //{
+            //    ClassesFoundEntity _classredirectentity = ClassesFoundBLL.Instance.GetClassesFound(rediclassid, false);
+            //}  
             if (brandid > 0&& classid==0)
             {
                 //获取子集分类
@@ -144,22 +144,22 @@ namespace SuperMarket.Web.Controllers
                 if (_classentity.IsEnd == 0)
                 {
                     //获取子集分类
-                    IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByPId(rediclassid, true, siteid);
+                    IList<ClassesFoundEntity> classes = ClassesFoundBLL.Instance.GetClassesAllByPId(rediclassid, false, siteid);
                     ViewBag.ClassList = classes;
                 }
             } 
             if (classid > 0)
             {
-                ViewBag.RavClassList = ListRavStr(_classentity); 
+                //ViewBag.RavClassList = ListRavStr(_classentity); 
                 if (brandid == 0)
                 {
                     //获取分类对应品牌
                     IList<BrandEntity> brands = ClassBrandBLL.Instance.GetBrandByClass(rediclassid );
                     ViewBag.BrandList = brands;
                 } 
-                //获取分类属性
-                IList<BasicSitePropertiesEntity> _BasicSitePropertieslist = BasicSitePropertiesBLL.Instance.GetAllPropertyBySiteId(siteid);
-                ViewBag.PropertiesList = _BasicSitePropertieslist; 
+                ////获取分类属性
+                //IList<ClassPropertiesEntity> _ClassPropertieslist = ClassPropertiesBLL.Instance.GetAllPropertyByClassId(classid);
+                //ViewBag.PropertiesList = _ClassPropertieslist; 
             }
             if (brandid> 0)
             {
@@ -168,7 +168,7 @@ namespace SuperMarket.Web.Controllers
                 ViewBag.BrandSelect = brand;
                 title += "品牌：" + brand.Name+",";
             }
-            ViewBag.PropertiesStr = propertiesstr;
+            //ViewBag.PropertiesStr = propertiesstr;
      
             int pageindex = QueryString.IntSafeQ("pageindex");
             int pagesize = CommonKey.PageSizeList;
@@ -186,6 +186,8 @@ namespace SuperMarket.Web.Controllers
                 {
                     classintlist = ClassesFoundBLL.Instance.GetSubClassEndList(classid); 
                 }
+                if (classintlist != null && classintlist.Count > 100)
+                    classintlist = classintlist.Take(100).ToList<int>();
                 if (classintlist != null && classintlist.Count > 0)
                 {
                     classidstr = string.Join("_", classintlist);
@@ -204,8 +206,10 @@ namespace SuperMarket.Web.Controllers
                
                     IList<int> classintlist = new List<int>();
                     classintlist = ClassesFoundBLL.Instance.GetSubClassEndListBySite(siteid );
-                    
-                    if (classintlist != null && classintlist.Count > 0)
+                if (classintlist != null && classintlist.Count > 100)
+                    classintlist = classintlist.Take(100).ToList<int>();
+
+                if (classintlist != null && classintlist.Count > 0)
                     {
                         classidstr = string.Join("_", classintlist);
                     }
@@ -259,7 +263,7 @@ namespace SuperMarket.Web.Controllers
             int classid = QueryString.IntSafeQ("cid");
             int brandid = QueryString.IntSafeQ("bd");   
             int siteid = QueryString.IntSafeQ("s");
-            if (siteid <= 0) siteid = (int)SiteEnum.Default;
+            if (siteid <= 0) siteid = (int)SiteIdEnum.BathRoom;
             int pageindex = QueryString.IntSafeQ("pageindex");
             int pagesize = CommonKey.PageSizeList;
             int record = 0;
@@ -274,7 +278,7 @@ namespace SuperMarket.Web.Controllers
 
             if (classid > 0)
             {
-                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, true);
+                ClassesFoundEntity _classentity = ClassesFoundBLL.Instance.GetClassesFound(classid, false);
                 if (_classentity.RedirectClassId > 0) rediclassid = _classentity.RedirectClassId;
                 IList<int> classintlist = new List<int>();
                 if (_classentity.RedirectClassId > 0)
@@ -343,9 +347,7 @@ namespace SuperMarket.Web.Controllers
         { 
             int classid = QueryString.IntSafeQ("cl");
             int brandid = QueryString.IntSafeQ("bd");
-            int siteid = QueryString.IntSafeQ("s");
-            int jishi = QueryString.IntSafeQ("js", -1);
-            if (jishi == -1) jishi = (int)JiShiSongEnum.Normal;
+            int siteid = QueryString.IntSafeQ("s"); 
             int pageindex = QueryString.IntSafeQ("pageindex");
             if (pageindex < 1) pageindex = 1;
             int pagesize = CommonKey.PageSizeList;
@@ -413,7 +415,7 @@ namespace SuperMarket.Web.Controllers
             //    } 
             //}
             //int record = luceneentity.Count;
-            string url = "/Product/Search.html?s="+siteid+"&js="+jishi+"&cl="+classid+"&bd="+brandid+"&key=" + querykey; 
+            string url = "/Product/Search.html?s="+siteid+"&cl="+classid+"&bd="+brandid+"&key=" + querykey; 
             //string pagehtml = HTMLPage.SetOrderListPage(record, pagesize, pageindex, url);
             //ViewBag.PageHtml = pagehtml;
             //ViewBag.ListShowMethod = listmethod;
@@ -423,8 +425,7 @@ namespace SuperMarket.Web.Controllers
             //ViewBag.SearchKey = querykey;
             //ViewBag.ProductList = _productlist;
             //ViewBag.ClassList = listclass;
-            //ViewBag.BrandList = listbrand;
-            ViewBag.JiShiSong = jishi;
+            //ViewBag.BrandList = listbrand; 
             return View();
         }
 
@@ -437,8 +438,7 @@ namespace SuperMarket.Web.Controllers
             int order_i = 0;//排序类型 
             int producttype = (int)ProductType.SpecialPrice;
   
-            int _classtype = -1;
-            int _jishi = (int)JiShiSongEnum.Normal;//不支持及时送
+            int _classtype = -1; 
             _classtype = QueryString.IntSafeQ("clt"); 
             int pageindex = QueryString.IntSafeQ("pageindex");
             int pagesize = CommonKey.PageSizeList;
@@ -520,7 +520,7 @@ namespace SuperMarket.Web.Controllers
 
         public ActionResult Special()
         {
-            string title = "阿哈马专区-";
+            string title = "小店专区-";
             int _specialid = QueryString.IntSafeQ("sid");
             string _specialcode = QueryString.SafeQ("code");
             int pageindex = QueryString.IntSafeQ("pageindex");
@@ -579,16 +579,16 @@ namespace SuperMarket.Web.Controllers
             {
                 if (_classentity.ParentId > 0)
                 {
-                    ClassesFoundEntity _classentity2 = ClassesFoundBLL.Instance.GetClassesFound(_classentity.ParentId, true);
+                    ClassesFoundEntity _classentity2 = ClassesFoundBLL.Instance.GetClassesFound(_classentity.ParentId, false);
                     if (_classentity.Name != _classentity2.Name) list.Add(_classentity2);
                     if (_classentity2.ParentId > 0)
                     {
-                        ClassesFoundEntity _classentity3 = ClassesFoundBLL.Instance.GetClassesFound(_classentity2.ParentId, true);
+                        ClassesFoundEntity _classentity3 = ClassesFoundBLL.Instance.GetClassesFound(_classentity2.ParentId, false);
                         if(_classentity2.Name!= _classentity3.Name)
                         list.Add(_classentity3);
                         if (_classentity3.ParentId > 0)
                         {
-                            ClassesFoundEntity _classentity4 = ClassesFoundBLL.Instance.GetClassesFound(_classentity3.ParentId, true);
+                            ClassesFoundEntity _classentity4 = ClassesFoundBLL.Instance.GetClassesFound(_classentity3.ParentId, false);
                             if (_classentity3.Name != _classentity4.Name)
                                 list.Add(_classentity4);
                         }

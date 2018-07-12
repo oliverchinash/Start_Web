@@ -129,7 +129,7 @@ namespace SuperMarket.BLL.CatograyDB
             {
 
                 string _cachekey = "GetDicCoupons" + id;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     entity = DicCouponsDA.Instance.GetDicCoupons(id);
@@ -199,7 +199,7 @@ namespace SuperMarket.BLL.CatograyDB
             await Task.Run(() =>
             {
                 string _cachekey ="DicCouponsListKey";// SysCacheKey.DicCouponsListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<DicCouponsEntity> list = null;

@@ -64,7 +64,7 @@
                 </li>
                 <li class="am-u-sm-6">
                     <i class="am-icon-lock"></i>
-                    <a href="/MobileHome/ForgetPwd">忘记密码？</a>
+                    <a href="/Home/ForgetPwd">忘记密码？</a>
                 </li>
             </ul>
         </div>
@@ -109,7 +109,7 @@
                 returnurl = returnurl.replace(/&amp;/g, "&");
                 if (loginmemobj.Status == 1) {
                     if (returnurl == null || returnurl == "" || returnurl.indexOf("Register") > 0 || returnurl.indexOf("Login") > 0 || returnurl.indexOf("RegMsg") != -1) {
-                        window.location.href = "/MobileHome/Index";
+                        window.location.href = "/Home/Index";
                     }
                     else if (returnurl.indexOf("http://") == 0) {
                         window.location.href = returnurl;

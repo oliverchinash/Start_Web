@@ -90,6 +90,7 @@
     <Compile Include="Basic\CGProductDB\CGProductLLogBLL.cs" />
     <Compile Include="Basic\CGProductDB\CGProductsTransverseBLL.cs" />
     <Compile Include="Basic\CMSDB\CmsTemProductBLL.cs" />
+    <Compile Include="Basic\ProductDB\ProductFineModuleBLL.cs" />
     <Compile Include="Basic\ProductDB\ProductPropertiesBLL.cs" />
     <Compile Include="Basic\CGOrderDB\CGOrderBLL.cs" />
     <Compile Include="Basic\CGOrderDB\CGOrderOfferSubBLL.cs" />

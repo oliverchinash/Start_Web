@@ -139,7 +139,7 @@ namespace SuperMarket.BLL.ProductDB
             await Task.Run(() =>
             {
                 string _cachekey ="StatisticTradeListKey";// SysCacheKey.StatisticTradeListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<StatisticTradeEntity> list = null;

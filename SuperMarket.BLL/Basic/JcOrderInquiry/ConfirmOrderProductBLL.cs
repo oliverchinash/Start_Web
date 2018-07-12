@@ -154,7 +154,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             if (cache)
             {
                 string _cachekey = "GetConfirmProductAllByCode_"+ code+"_"+ cgmemid;// SysCacheKey.ConfirmOrderProductListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = ConfirmOrderProductDA.Instance.GetConfirmProductAllByCode(code, cgmemid);
@@ -180,7 +180,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             if (cache)
             {
                 string _cachekey = "GetConfirmCGMemsByCode_" + code;// SysCacheKey.ConfirmOrderProductListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = ConfirmOrderProductDA.Instance.GetConfirmCGMemsByCode(code);

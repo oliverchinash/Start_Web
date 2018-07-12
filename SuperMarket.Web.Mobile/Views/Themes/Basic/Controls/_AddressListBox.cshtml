@@ -25,38 +25,3 @@
     </div>
 </div>
 
-
-<script id="liAddressList-template" type="text/x-handlebars-template">
-   {{#each this}}
-    <li   AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' ProvinceName='{{ProvinceName}}' CityName='{{CityName}}'  Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}'  class='am-g' returnobjid="txtSelectAddressId" onclick="FunSelectAddress(this)">
-        <div class='paycheck-dizhi-main am-u-sm-10'>
-            <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
-            <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
-            <div class='paycheck-dizhi-moren am-cf'>
-              {{#if Id}}
-                {{#compare IsDefault 1}}
-                <p style='color:#FF532B' class='am-fl'>默认</p>
-                {{/compare}}
-              {{/if}}
-                <a href='#' AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}'  class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>编辑</a>
-            </div>
-         </div>
-    </li>   
-   {{/each}}
-</script>
-<script id="liAddressEdit-template" type="text/x-handlebars-template"> 
-    <li AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' ProvinceName='{{ProvinceName}}' CityName='{{CityName}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-g' returnobjid="txtSelectAddressId" onclick="FunSelectAddress(this)">
-        <div class='paycheck-dizhi-main am-u-sm-10'>
-            <p>收货人：{{AccepterName}}<span style='padding-left: 1rem'>{{MobilePhone}}</span></p>
-            <p>收货地址：{{ProvinceName}} {{CityName}} {{Address}} </p>
-            <div class='paycheck-dizhi-moren am-cf'>
-                {{#if Id}}
-                {{#compare IsDefault 1}}
-                <p style='color:#FF532B' class='am-fl'>默认</p>
-                {{/compare}}
-                {{/if}}
-                <a href='#' AddressId='{{Id}}' IsDefault='{{IsDefault}}' Email='{{Email}}' ProvinceId='{{ProvinceId}}' Address='{{Address}}' CityId='{{CityId}}' AccepterName='{{AccepterName}}' MobilePhone='{{MobilePhone}}' class='am-fr paycheck-dizhi-bianji' onclick='FunAddressEdit(this)'>编辑</a>
-            </div>
-        </div>
-    </li>
-</script>

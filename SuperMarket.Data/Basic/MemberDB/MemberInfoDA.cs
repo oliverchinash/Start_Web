@@ -366,13 +366,11 @@ namespace SuperMarket.Data.MemberDB
         /// <param name="columns">需要返回的列，不提供任何列名时默认将返回所有列</param>
         public VWMemberEntity GetVWMemberInfoByMemId(int memid)
         {
-            string sql = @"SELECT   a.[MemCode],a.[PassWord],a.[CreateTime],[LastLoginTime],[LoginNum],[CreateIp],[CreateClientType],[IsStore],a.[Status],MemGrade,RecommendCode,
-a.Id AS [MemId],NickName,[MemName],[IdentityNo],IdentityNoCheck,[Telephone],b.[MobilePhone],[MobilePhoneCheck],b.[Email],[EmailCheck],b.[QQ],[QQCheck], 
-c.GradeLevel,b.HeadPicUrl,c.CompanyName
+            string sql = @"SELECT   a.[MemCode],a.[PassWord],a.[CreateTime],[LastLoginTime],[LoginNum],[CreateIp],[CreateClientType],[IsStore],a.[Status],a.MemGrade,RecommendCode,
+a.Id AS [MemId],NickName,[MemName],[IdentityNo],IdentityNoCheck,[Telephone],b.[MobilePhone],[MobilePhoneCheck],b.[Email],[EmailCheck],b.[QQ],[QQCheck] 
 							FROM
 							dbo.[Member] a WITH(NOLOCK)  left join 
-							dbo.[MemberInfo]  b WITH(NOLOCK) ON a.id=b.MemId	left join 
-							dbo.MemStore  c WITH(NOLOCK) ON a.id=c.MemId
+							dbo.[MemberInfo]  b WITH(NOLOCK) ON a.id=b.MemId
 							WHERE a.[Id]=@MemId";
             DbCommand cmd = db.GetSqlStringCommand(sql);
 
@@ -390,10 +388,7 @@ c.GradeLevel,b.HeadPicUrl,c.CompanyName
                     entity.CreateClientType = StringUtils.GetDbInt(reader["CreateClientType"]);
                     entity.IsStore = StringUtils.GetDbInt(reader["IsStore"]);
                     entity.Status = StringUtils.GetDbInt(reader["Status"]);
-                    entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);
-                    entity.HeadPicUrl = StringUtils.GetDbString(reader["HeadPicUrl"]);
-                    entity.CompanyName = StringUtils.GetDbString(reader["CompanyName"]);
-
+                    entity.MemGrade = StringUtils.GetDbInt(reader["MemGrade"]);  
                     entity.RecommendCode = StringUtils.GetDbString(reader["RecommendCode"]);
                     entity.MemId = StringUtils.GetDbInt(reader["MemId"]);
                     entity.MemName = StringUtils.GetDbString(reader["MemName"]);
@@ -406,8 +401,7 @@ c.GradeLevel,b.HeadPicUrl,c.CompanyName
                     entity.EmailCheck = StringUtils.GetDbInt(reader["EmailCheck"]);
                     entity.QQ = StringUtils.GetDbString(reader["QQ"]);
                     entity.QQCheck = StringUtils.GetDbInt(reader["QQCheck"]); 
-
-                    entity.GradeLevel = StringUtils.GetDbInt(reader["GradeLevel"]);
+                     
                 }
             }
             return entity;

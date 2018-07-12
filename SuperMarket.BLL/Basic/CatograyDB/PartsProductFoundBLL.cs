@@ -151,7 +151,7 @@ namespace SuperMarket.BLL.CatograyDB
             string _cachekey = "GetPartsProductFoundShow_" + key+"_"+ scopetype+"_"+ scopeid;// SysCacheKey.PartsProductFoundListKey;
             if (cache)
             {
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj != null)
                 {
                     list = (IList<PartsProductFoundEntity>)obj;
@@ -204,7 +204,7 @@ namespace SuperMarket.BLL.CatograyDB
             await Task.Run(() =>
             {
                 string _cachekey ="PartsProductFoundListKey";// SysCacheKey.PartsProductFoundListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<PartsProductFoundEntity> list = null;

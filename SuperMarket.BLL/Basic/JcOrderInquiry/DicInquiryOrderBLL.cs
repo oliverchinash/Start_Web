@@ -139,7 +139,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             if (cache)
             {
                 string _cachekey = "GetDicInquiryOrderShow_" + parentid+"_"+ classid; 
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 { 
                     list = DicInquiryOrderDA.Instance.GetDicInquiryOrderShow(parentid, classid);
@@ -158,7 +158,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             if (cache)
             {
                 string _cachekey = "GetDicFromCode_" + parentcode + "_" + menucode;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     list = DicInquiryOrderDA.Instance.GetDicFromCode(parentcode, menucode);
@@ -177,7 +177,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
         if(cache)
             {
                 string _cachekey = "GetInquiryDicAllByMenuCode"+ menucode;// SysCacheKey.DicInquiryOrderListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                    

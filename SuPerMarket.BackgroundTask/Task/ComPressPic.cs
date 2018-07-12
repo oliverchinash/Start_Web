@@ -60,11 +60,13 @@ namespace SuPerMarket.BackgroundTask
                             {
                                 if (IsFtpServer)
                                 {
-                                    Image sourceImg = Image.FromFile(filepath);
-                                    ImageFormat _imgf = sourceImg.RawFormat;
+                                  
+                            
                                     foreach (ConfigPicComPressEntity en in picconfig)
                                     {
-                                        string savepath = FtpServerPath + ImagePath.Replace("/", "\\") + o.PicUrl.Replace("/", "\\") + "\\" + en.PicName + "." + o.PicSuffix;
+                                        Image sourceImg = Image.FromFile(filepath);
+                                        ImageFormat _imgf = sourceImg.RawFormat;
+                                        string savepath = FtpServerPath + ImagePath.Replace("/", "\\") + o.PicUrl.Replace("/", "\\") +  en.PicName + "." + o.PicSuffix;
 
                                         int Width = en.Width;
                                         int Height = en.Height;

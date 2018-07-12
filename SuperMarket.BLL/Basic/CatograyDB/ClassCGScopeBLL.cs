@@ -137,7 +137,7 @@ namespace SuperMarket.BLL.CatograyDB
             IList<VWClassCGScopeEntity> result = new List<VWClassCGScopeEntity>();
 
             string _cachekey = "GetClassCGScopeTree";// SysCacheKey.ClassCGScopeListKey;
-            object obj = MemCache.GetCache(_cachekey); ;
+            object obj = MemCache.GetCache(_cachekey);
             if (obj == null)
             {
                 Dictionary<int, IList<VWClassCGScopeEntity>> diclist = new Dictionary<int, IList<VWClassCGScopeEntity>>();
@@ -185,7 +185,7 @@ namespace SuperMarket.BLL.CatograyDB
         {
            IList<VWClassCGScopeEntity> list = null;
         string _cachekey = "GetClassCGScopeAll_"+ scopetype+"_"+ isroot +"_"+ isactive;// SysCacheKey.ClassCGScopeListKey;
-        object obj = MemCache.GetCache(_cachekey); ;
+        object obj = MemCache.GetCache(_cachekey);
         if (obj == null)
         { 
             list = ClassCGScopeDA.Instance.GetClassCGScopeAll(scopetype,isroot, isactive);

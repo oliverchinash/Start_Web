@@ -35,6 +35,24 @@ namespace SuperMarket.Web.CommonControllers
 {
     public class CommonController : Controller
     {
+
+        public void GetBowseImage(string code)
+        { 
+            if (code != null && code != "")
+            {
+
+                QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
+                qrCodeEncoder.QRCodeEncodeMode = QRCodeEncoder.ENCODE_MODE.BYTE;
+                qrCodeEncoder.QRCodeScale = 4;
+                qrCodeEncoder.QRCodeVersion = 7;
+                qrCodeEncoder.QRCodeErrorCorrect = QRCodeEncoder.ERROR_CORRECTION.H;
+
+                Image image;
+                image = qrCodeEncoder.Encode(code);
+                image.Save(Response.OutputStream, ImageFormat.Gif);
+                Response.End();
+            }
+        }
         public string GetProvinceJson()
         {
             return GYProvinceBLL.Instance.GetListGYProvinceJson();
@@ -85,7 +103,7 @@ namespace SuperMarket.Web.CommonControllers
         { 
             int _pid = FormString.IntSafeQ("pid", -1); 
             IList<ClassesFoundEntity> list = new List<ClassesFoundEntity>();
-            list = ClassesFoundBLL.Instance.GetClassesAllByPId(_pid, true, -1 );
+            list = ClassesFoundBLL.Instance.GetClassesAllByPId(_pid, false, -1 );
             string liststr = JsonJC.ObjectToJson(list);
             return liststr;
         }
@@ -177,12 +195,12 @@ namespace SuperMarket.Web.CommonControllers
         /// 根据分类得到对应属性
         /// </summary>
         /// <returns></returns>
-        public string GetPropertyBySiteId()
+        public string GetPropertyByClassId()
         {
-            int _siteid = FormString.IntSafeQ("siteid");
+            int _classid = FormString.IntSafeQ("classid");
             int _parentid = FormString.IntSafeQ("pid");//上级 ，0代表第一级
-            IList<BasicSitePropertiesEntity> list = new List<BasicSitePropertiesEntity>();
-            list = BasicSitePropertiesBLL.Instance.GetListBySiteId(_siteid );
+            IList<ClassPropertiesEntity> list = new List<ClassPropertiesEntity>();
+            list = ClassPropertiesBLL.Instance.GetListByClassId(_classid);
             var listfilter = list.Select(
                      p => new
                      {
@@ -203,8 +221,8 @@ namespace SuperMarket.Web.CommonControllers
         {
             int _propertyId = FormString.IntSafeQ("propertyId");
             int _pid = FormString.IntSafeQ("pid");//上级品牌Id，0代表第一级
-            IList<BasicSiteProDetailsEntity> list = new List<BasicSiteProDetailsEntity>();
-            list = BasicSiteProDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
+            IList<ClassProDetailsEntity> list = new List<ClassProDetailsEntity>();
+            list = ClassProDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
             //list = ComPropertyDetailsBLL.Instance.GetListByPropertyId(_propertyId, _pid);
             var listfilter = list.Select(
                      p => new
@@ -309,8 +327,8 @@ namespace SuperMarket.Web.CommonControllers
         public string GetSpecsShowByStyle()
         {
             int _styleid = FormString.IntSafeQ("styleid");
-            //IList<VWBasicSitePropertiesEntity> _list = BasicSitePropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
-            IList<VWBasicSitePropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
+            //IList<VWClassPropertiesEntity> _list = ClassPropertiesBLL.Instance.GetSpecsByClass(_styleid, _pid);
+            IList<VWClassPropertiesEntity> _list = null;// ProductStyleProBLL.Instance.GetSpecsByStyle(_styleid);
             string liststr = JsonJC.ObjectToJson(_list);
             return liststr;
         }
@@ -402,7 +420,7 @@ namespace SuperMarket.Web.CommonControllers
         #region 精选产品
         public string GetProductFine()
         {
-            int _finetype = FormString.IntSafeQ("ft", (int)ProductFineTypeEnum.MobileHome);//精选类型
+            int _finetype = FormString.IntSafeQ("ft", (int)ProductFineModuleIdEnum.MobileHome);//精选类型
             int _pageindex = FormString.IntSafeQ("pageindex");
             int _pagesize = CommonKey.PageSizeList;
             int total = 0;

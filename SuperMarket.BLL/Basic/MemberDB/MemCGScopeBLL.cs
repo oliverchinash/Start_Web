@@ -196,7 +196,7 @@ namespace SuperMarket.BLL.MemberDB
             if (cache)
             {
                 string _cachekey = "GetMemCGScopeAllByMemId_" + memid;// SysCacheKey.MemCGScopeListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
 

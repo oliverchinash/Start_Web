@@ -135,7 +135,7 @@ namespace SuperMarket.BLL.JcOrderInquiry
             await Task.Run(() =>
             {
                 string _cachekey ="ConfirmOrderCGMemListKey";// SysCacheKey.ConfirmOrderCGMemListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<ConfirmOrderCGMemEntity> list = null;

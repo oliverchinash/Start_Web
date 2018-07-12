@@ -124,7 +124,7 @@ namespace SuperMarket.BLL.MemberDB
             await Task.Run(() =>
             {
                 string _cachekey ="MemGiftLogListKey";// SysCacheKey.MemGiftLogListKey;
-                object obj = MemCache.GetCache(_cachekey); ;
+                object obj = MemCache.GetCache(_cachekey);
                 if (obj == null)
                 {
                     IList<MemGiftLogEntity> list = null;

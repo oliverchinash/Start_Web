@@ -36,7 +36,7 @@ namespace SuperMarket.Web.Controllers
         {
             ViewBag.PageMenu = "2";
             int siteid = QueryString.IntSafeQ("s");
-            if (siteid == 0) siteid = (int)SiteEnum.Default;
+            if (siteid == 0) siteid = (int)SiteIdEnum.BathRoom;
             int _classmenutype = (int)ClassMenuTypeEnum.Normal;//分类列表选择类型
             int jishi = QueryString.IntSafeQ("js");
             if (jishi == 0) jishi = (int)JiShiSongEnum.Normal; 
@@ -54,9 +54,7 @@ namespace SuperMarket.Web.Controllers
             int brandid = QueryString.IntSafeQ("bd"); 
             int cartypemodelid = QueryString.IntSafeQ("ct");//车型 
             int siteid = QueryString.IntSafeQ("s");
-            if (siteid == 0) siteid = (int)SiteEnum.Default; 
-            int jishi = QueryString.IntSafeQ("js");//是否及时送
-            if (jishi == 0) jishi = (int)JiShiSongEnum.Normal;
+            if (siteid == 0) siteid = (int)SiteIdEnum.BathRoom;  
              
             int producttype = QueryString.IntSafeQ("pt");
             if(producttype==0)  producttype = (int)ProductType.Normal;
@@ -169,8 +167,7 @@ namespace SuperMarket.Web.Controllers
             ViewBag.SiteId = siteid;
             int maxpage = _recordCount / _pagesize;
             if (_recordCount % _pagesize > 0) maxpage = maxpage + 1;
-            ViewBag.MaxPageIndex = maxpage;
-            ViewBag.JiShiSong = jishi;  
+            ViewBag.MaxPageIndex = maxpage; 
             ViewBag.ClassmMenuType = _classmenutype; 
             return View();
         }

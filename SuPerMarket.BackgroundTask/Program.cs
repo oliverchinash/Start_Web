@@ -14,7 +14,7 @@ namespace SuPerMarket.BackgroundTask
         [STAThread]
         static void Main()
         {
-            log4net.Config.XmlConfigurator.Configure();
+            log4net.Config.XmlConfigurator.Configure(); ComPressPic.ComPressProductPic();
         }
     }
 }
