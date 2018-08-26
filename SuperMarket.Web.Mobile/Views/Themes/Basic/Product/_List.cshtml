@@ -223,7 +223,7 @@
         var classid = $("#spannavclass").html();
         var brandid = $("#spanselectbrand").html(); 
         var key = $("#txtSearchkey").val(); 
-        location.href = "/Product/List?cid=" + classid + "&pt=" + producttype + "&bd=" + brandid + "&key=" + key;
+        location.href = "/Product/List?cid=" + classid + "&bd=" + brandid + "&key=" + key;
     }
     function FunSearch(pageindex)
     {
@@ -247,9 +247,7 @@
         var maxpage = $("#spanmaxpageindex").html();
         var classid = $("#spannavclass").html();
         var brandid = $("#spanselectbrand").html();   
-        var key = $("#txtSearchkey").val();
-        alert(maxpage);
-        alert(page);
+        var key = $("#txtSearchkey").val(); 
         // dropload
         $("#divproductlistbox").dropload({
             scrollArea : window, 

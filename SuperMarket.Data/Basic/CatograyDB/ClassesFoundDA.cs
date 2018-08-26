@@ -382,7 +382,10 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
         { 
             
             string where = "WHERE  1=1";
-              where += " and   SiteId=@SiteId ";
+            if(siteid > 0)
+            {
+                where += " and   SiteId=@SiteId "; 
+            } 
             if (level > 0)
             {
                 where += " And ClassLevel=@ClassLevel";
@@ -419,8 +422,10 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
             DbCommand cmd = db.GetSqlStringCommand(sql);
             db.AddInParameter(cmd, "@PageIndex", DbType.Int32, pageindex);
             db.AddInParameter(cmd, "@PageSize", DbType.Int32, pagesize);
-            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
-
+            if (siteid > 0)
+            {
+                db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
+            }
             if (level > 0)
             {
                 db.AddInParameter(cmd, "@ClassLevel", DbType.Int32, level);
@@ -471,8 +476,10 @@ RedirectClassId,ClassType,SiteId  FROM dbo.[ClassesFound] WITH(NOLOCK)	 WHERE [I
                 }
             }
             cmd = db.GetSqlStringCommand(sql2);
-
-            db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
+            if (siteid > 0)
+            {
+                db.AddInParameter(cmd, "@SiteId", DbType.Int32, siteid);
+            } 
             if (level > 0)
             {
                 db.AddInParameter(cmd, "@ClassLevel", DbType.Int32, level);

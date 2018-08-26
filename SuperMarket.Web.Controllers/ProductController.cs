@@ -256,6 +256,14 @@ namespace SuperMarket.Web.Controllers
             return View();
         }
 
+        public ActionResult Categray()
+        { 
+            int siteid = QueryString.IntSafeQ("s");
+            if (siteid == 0) siteid = (int)SiteIdEnum.BathRoom;  
+            ViewBag.SiteId = siteid; 
+            return View();
+        }
+
         public string GetJsonList()
         {
             ListObj result = new ListObj();

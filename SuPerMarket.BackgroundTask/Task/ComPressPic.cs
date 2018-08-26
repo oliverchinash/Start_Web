@@ -91,7 +91,7 @@ namespace SuPerMarket.BackgroundTask
                                     {
                                         int Width = en.Width;
                                         int Height = en.Height;
-                                        string uploadpath = ImagePath + o.PicUrl + "/" + en.PicName + "." + o.PicSuffix;
+                                        string uploadpath = ImagePath + o.PicUrl  + en.PicName + "." + o.PicSuffix;
                                         using (Image ThumbImgl = PicTool.GetImageThumb(sourceImg, Width, Height))
                                         {
                                             byte[] _byts = PicTool.GetByteByImage(ThumbImgl);

@@ -147,6 +147,7 @@ namespace SuperMarket.SysWeb.Controllers
             int _isactive = QueryString.IntSafeQ("isactive", -1);
             int _parentid = QueryString.IntSafeQ("parentid", -1);
             int _classtype = QueryString.IntSafeQ("classtype", -1);
+            int _siteid = QueryString.IntSafeQ("siteid", -1);
             ViewBag.ClassType = _classtype;
             string _name = QueryString.SafeQ("name");
 
@@ -154,15 +155,9 @@ namespace SuperMarket.SysWeb.Controllers
             int _pagesize = CommonKey.PageSizeClass;
             int _recordCount = 0;
 
-            IList<ConditionUnit> wherelist = new List<ConditionUnit>();
-            wherelist.Add(new ConditionUnit { FieldName = "Level", CompareValue = _level.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "IsActive", CompareValue = _isactive.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ParentId", CompareValue = _parentid.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "Name", CompareValue = _name.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ClassType", CompareValue = _classtype.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ClassMenuType", CompareValue = ((int)ClassMenuTypeEnum.Default).ToString() });
-            IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesFoundList(_pagesize, _pageindex, ref _recordCount, wherelist);
-            string _url = "/SysBasicInfo/ClassList?level=" + _level + "&parentid=" + _parentid + "&name" + _name + "&isactive=" + _isactive + "&_classtype=" + _classtype;
+ 
+            IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesFoundList(_pagesize, _pageindex, ref _recordCount,   _level, _name, _parentid, _isactive, _classtype, (int)ClassMenuTypeEnum.Default, _siteid);
+            string _url = "/SysBasicInfo/ClassList?siteid="+ _siteid+"&level = " + _level + "&parentid=" + _parentid + "&name" + _name + "&isactive=" + _isactive + "&_classtype=" + _classtype;
             string _PageStr = HTMLPage.SetProductListPage(_recordCount, _pagesize, _pageindex, _url);
             ViewBag.PageStr = _PageStr;
             ViewBag.entitylist = entitylist;

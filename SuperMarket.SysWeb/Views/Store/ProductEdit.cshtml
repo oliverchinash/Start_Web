@@ -160,8 +160,8 @@
             if (level > 1) {
                 var plevel = level - 1;
                 _pid = $("#txtClassId" + plevel).val();
-            }
-            if ($("#txtClassId" + level) != null && $("#txtClassId" + level) != undefined && $("#txtClassId" + level).val() != "" && $("#txtClassId" + level).val() != "0") {
+            } 
+            if ($("#txtClassId" + level) != null && $("#txtClassId" + level) != undefined && $("#txtClassId" + level).val() != "") {
                 BindClassSelected($("#txtSiteId").val(), _pid, level, $("#txtClassId" + level).val());
             }
            

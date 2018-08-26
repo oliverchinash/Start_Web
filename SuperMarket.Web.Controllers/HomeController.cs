@@ -44,9 +44,9 @@ namespace SuperMarket.Web.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if(Globals.IsMobileDevice())
+            if(Globals.IsMobileDevice()&& ! Request.Url.AbsoluteUri.Contains("m.xindahv.com"))
             {
-              return   Redirect("http://m.aahama.com");
+              return   Redirect("http://m.xindahv.com");
             }
             int siteid=QueryString.IntSafeQ("s");
             if (siteid == 0) siteid = 1;

@@ -67,13 +67,14 @@
         <img src="~/Themes/Img/home.png" />
         <div class="title_text">您当前的位置：后台管理系统><span>分类管理</span></div>
         <div class="add_admin">
-                <span><a href="/Class/ClassEdit?parentid=@(ViewBag.ParentId)&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加分类</a></span>
+                <span><a href="/Class/ClassEdit?siteid=@(ViewBag.SiteId)&parentid=@(ViewBag.ParentId)&op=add" target="_blank"><img src="~/Themes/Img/Add.png" />添加分类</a></span>
             </div>
     </div>
 
 
     <div class="title_main">    请选择站点:
-<select id="selSiteId" name="">
+<select id="selSiteId" name=""><option value="0" >--请选择--</option>
+
     @{
         IList<SuperMarket.Core.Enums.EnumUnitEntity> lists = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.SiteIdEnum>();
         foreach (SuperMarket.Core.Enums.EnumUnitEntity entitys in lists)
@@ -84,7 +85,7 @@
 </select>
 
         请选择类型:
-        <select id="selClassTypeId" name="">
+        <select id="selClassTypeId" name=""><option value="-1">--请选择--</option>
             @{
                 IList<SuperMarket.Core.Enums.EnumUnitEntity> listu = SuperMarket.Core.Enums.EnumShow.Instance.GetListByEnum<SuperMarket.Model.ClassTypeEnum>();
                 foreach (SuperMarket.Core.Enums.EnumUnitEntity entityu in listu)
@@ -132,8 +133,7 @@
 
         <div class="admin_title">
             <ul>
-                <li style="width:10%">分类名称</li>
-                <li style="width:10%">所属类型</li>
+                <li style="width:10%">分类名称</li> 
                 <li style="width:10%">级别</li>
                 <li style="width:10%">终极</li>
                 <li style="width:10%">有效</li>
@@ -148,7 +148,7 @@
                 {
                     <div class="admin_detail">
                         <ul>
-                            <li class="li_iterm" style="width:10%">@entity.Name</li> 
+                            <li class="li_iterm" style="width:10%">@entity.Name</li>  
                             <li class="li_iterm" style="width:10%">@(entity.ClassLevel)</li>
                             <li class="li_iterm" style="width:10%">@(entity.IsEnd==1?"是":"否")</li>
                             <li class="li_iterm" style="width:10%" id="@("isactive"+entity.Id)">@(entity.IsActive == 1 ? "有效" : "无效")</li>

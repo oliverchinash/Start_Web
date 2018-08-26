@@ -40,7 +40,7 @@
                         <!------------内容列表的折叠面板开始--------------->
                         <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
                             @{
-                                IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll((int)ViewBag.SiteId,   -1, false);
+                                IList<SuperMarket.Model.VWClassesFoundEntity> list = SuperMarket.BLL.CatograyDB.ClassesFoundBLL.Instance.GetClassMenuAll(0,   -1, false);
                                 if (list != null && list.Count > 0)
                                 {
                                     foreach (SuperMarket.Model.VWClassesFoundEntity entity in list)
@@ -77,112 +77,7 @@
                         </section>
 
                         <!------------内容列表的折叠面板结束--------------->
-                    </div>
-
-
-                    <div data-tab-panel-1 class="am-tab-panel ">
-                        <!------------内容列表的折叠面板开始--------------->
-                        <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }' style="padding: 0;">
-                            <!--------前保险杠开始----------->
-                            <dl class="am-accordion-item">
-                                <dt class="am-accordion-title">
-                                    前保险杠
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <!-------折叠内列表开始------->
-                                        <a href="javascript:void(0)" class="classify-list-a">
-                                            <div class="classify-list">
-                                                全部
-                                            </div>
-                                        </a>
-                                        <!---------折叠内列表结束---------->
-                                    </div>
-                                </dd>
-                            </dl>
-                            <!--------------前保险杠结束------->
-                            <!--------后保险杠开始----------->
-                            <dl class="am-accordion-item">
-                                <dt class="am-accordion-title">
-                                    后保险杠
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <!-------折叠内列表开始------->
-                                        <a href="javascript:void(0)" class="classify-list-a">
-                                            <div class="classify-list">
-                                                全部
-                                            </div>
-                                        </a>
-                                        <!---------折叠内列表结束---------->
-                                    </div>
-                                </dd>
-                            </dl>
-                            <!---------后保险杠结束----------->
-                            <!--------中网开始----------->
-                            <dl class="am-accordion-item">
-                                <dt class="am-accordion-title">
-                                    中网
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <!-------折叠内列表开始------->
-                                        <a href="javascript:void(0)" class="classify-list-a">
-                                            <div class="classify-list">
-                                                全部
-                                            </div>
-                                        </a>
-                                        <!---------折叠内列表结束---------->
-                                    </div>
-                                </dd>
-                            </dl>
-                            <!--------中网结束-------------->
-                            <!------------前照灯开始------------>
-                            <dl class="am-accordion-item">
-                                <dt class="am-accordion-title">
-                                    前照灯
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <!-------折叠内列表开始------->
-                                        <a href="javascript:void(0)" class="classify-list-a">
-                                            <div class="classify-list">
-                                                全部
-                                            </div>
-                                        </a>
-                                        <!---------折叠内列表结束---------->
-                                    </div>
-                                </dd>
-                            </dl>
-                            <!------------前照灯结束------------->
-                            <!------------后灯开始----------------->
-                            <dl class="am-accordion-item">
-                                <dt class="am-accordion-title">
-                                    后灯
-                                </dt>
-                                <dd class="am-accordion-bd am-collapse">
-                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
-                                    <div class="am-accordion-content">
-                                        <!-------折叠内列表开始------->
-                                        <a href="javascript:void(0)" class="classify-list-a">
-                                            <div class="classify-list">
-                                                全部
-                                            </div>
-                                        </a>
-                                        <!---------折叠内列表结束---------->
-                                    </div>
-                                </dd>
-                            </dl>
-                            <!------------后灯结束----------------->
-
-                        </section>
-
-                        <!------------内容列表的折叠面板结束--------------->
-                    </div>
+                    </div> 
                 </div>
             </div>
 

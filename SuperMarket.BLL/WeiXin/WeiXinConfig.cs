@@ -15,7 +15,7 @@ namespace SuperMarket.BLL.WeiXin
         /// <summary>
         /// 微信导航转接中枢
         /// </summary>
-        public const string URL_WeiXin_Redirect = "http://wechat.aahama.com/Url/AutoTrans?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state={2}#wechat_redirect";
+        public const string URL_WeiXin_Redirect = "http://wechat.xindahv.com/Url/AutoTrans?appid={0}&redirect_uri={1}&response_type=code&scope=snsapi_base&state={2}#wechat_redirect";
         /// <summary>
         /// 客服接口-发消息
         /// </summary>

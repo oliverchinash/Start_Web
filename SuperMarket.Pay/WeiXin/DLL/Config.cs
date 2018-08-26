@@ -38,7 +38,7 @@ namespace SuperMarket.Pay.WeiXin
         //=======【支付结果通知url】===================================== 
         /* 支付结果通知回调url，用于商户接收支付结果
         */
-        public const string NOTIFY_URL = "http://pay.aahama.com/Cashier/WeiXinNotify";
+        public const string NOTIFY_URL = "http://pay.xindahv.com/Cashier/WeiXinNotify";
 
         //=======【商户系统后台机器IP】===================================== 
         /* 此参数可手动配置也可在程序中自动获取

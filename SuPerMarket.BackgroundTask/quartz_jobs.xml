@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+<!--This file contains job definitions in schema version 2.0 format-->
+
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives> 
+  <schedule>
+    <job>
+      <name>ComPressPicJob</name>
+      <group>Normal</group>
+      <description>ComPressPicJob</description>
+      <job-type>SuPerMarket.BackgroundTask.Jobs.ComPressPicJob,SuPerMarket.BackgroundTask</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+    <trigger>
+      <cron>
+        <name>ComPressPicJobTrigger</name>
+        <group>Normal</group>
+        <job-name>ComPressPicJob</job-name>
+        <job-group>Normal</job-group>
+        <start-time>2016-01-09T00:00:00+08:00</start-time>
+        <cron-expression>* * * * * ?</cron-expression>
+      </cron>
+    </trigger> 
+  </schedule>
+</job-scheduling-data>

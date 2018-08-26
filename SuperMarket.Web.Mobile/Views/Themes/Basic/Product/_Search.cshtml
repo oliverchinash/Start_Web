@@ -131,14 +131,8 @@
                                             <div class="am-fl" style="margin-top: .5rem; line-height:1.8rem">
                                                 <input id="txtProductNum@(_productentity.ProductDetailId)" style="width:100px;" class="alignment" hascreate="0"   value="1" />
                                             </div>
-                                            @if (_productentity.ActualPrice >= SuperMarket.Model.CommonKey.MaxPrice)
-                                            {
-
-                                            }
-                                            else
-                                            {
-                                                <div class="am-fr clsaddtocart" jishi="@(_productentity.JiShiSong)" ProductDetailId="@(_productentity.ProductDetailId)" style="border: 1px solid #FF5000; border-radius: .5rem;padding: .3rem .5rem; color:#FF5000 ">加入购物车</div>
-                                            }
+                                            <div class="am-fr clsaddtocart" jishi="0" ProductDetailId="@(_productentity.ProductDetailId)" style="border: 1px solid #FF5000; border-radius: .5rem;padding: .3rem .5rem; color:#FF5000 ">加入购物车</div>
+                                            
                                          </div>
                                     </div>
                                 </li>
@@ -161,8 +155,7 @@
         @Html.Partial("controls/_SearchCmsBrand") 
     </div>
     <div style="display:none;">
-    <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span>
-    <span id="spanproducttype">@ViewBag.ProductType</span>
+    <span id="spanmaxpageindex">@ViewBag.MaxPageIndex</span> 
     <span id="spanjishisong">@ViewBag.JiShiSong</span>
     <span id="spansiteid">@ViewBag.SiteId</span>
     </div>

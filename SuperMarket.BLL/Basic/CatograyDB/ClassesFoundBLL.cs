@@ -301,62 +301,10 @@ namespace SuperMarket.BLL.CatograyDB
         ///// <summary>
         ///// 获得数据列表
         ///// </summary>
-        public IList<ClassesFoundEntity> GetClassesFoundList(int pageSize, int pageIndex, ref int recordCount, IList<ConditionUnit> wherelist)
+        public IList<ClassesFoundEntity> GetClassesFoundList(int pageSize, int pageIndex, ref int recordCount, int level=0, string name = "", int parentid = -1, int isactive = -1, int classtype = -1, int classmenutype = 1, int siteid = 1)
         {
-            int _level = 0;
-            int _isactive = -1;
-            int _parentid = -1;
-            int _classtype = -1;
-            int _classmenutype = 1;
-            int _siteid = 1;
-            string _name = string.Empty;
-
-            if (wherelist != null && wherelist.Count > 0)
-            {
-                foreach (ConditionUnit item in wherelist)
-                {
-                    switch (item.FieldName)
-                    {
-                        case "Level":
-                            {
-                                _level = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-                        case "IsActive":
-                            {
-                                _isactive = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-                        case "ParentId":
-                            {
-                                _parentid = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-
-                        case "Name":
-                            {
-                                _name = StringUtils.GetDbString(item.CompareValue);
-                                break;
-                            }
-                        case "ClassType":
-                            {
-                                _classtype = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-                        case "ClassMenuType":
-                            {
-                                _classmenutype = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-                        case "SiteId":
-                            {
-                                _siteid = StringUtils.GetDbInt(item.CompareValue);
-                                break;
-                            }
-                    }
-                }
-            }
-            return ClassesFoundDA.Instance.GetClassesFoundList(pageSize, pageIndex, ref recordCount, _level, _name, _parentid, _isactive, _classtype, _classmenutype, _siteid);
+           
+            return ClassesFoundDA.Instance.GetClassesFoundList(pageSize, pageIndex, ref recordCount,  level,  name,  parentid,  isactive,  classtype,  classmenutype,  siteid);
         }
        /// <summary>
        /// 货物分类导航

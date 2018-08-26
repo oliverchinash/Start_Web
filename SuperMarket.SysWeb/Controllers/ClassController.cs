@@ -35,16 +35,9 @@ namespace SuperMarket.SysWeb.Controllers
             int _pagesize = CommonKey.PageSizeClass;
             int _recordCount = 0;
 
-            IList<ConditionUnit> wherelist = new List<ConditionUnit>();
-            wherelist.Add(new ConditionUnit { FieldName = "Level", CompareValue = _level.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "IsActive", CompareValue = _isactive.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ParentId", CompareValue = _parentid.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "Name", CompareValue = _name.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ClassType", CompareValue = _classtype.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "SiteId", CompareValue = _siteid.ToString() });
-            wherelist.Add(new ConditionUnit { FieldName = "ClassMenuType", CompareValue = ((int)ClassMenuTypeEnum.Default).ToString() });
-            IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesFoundList(_pagesize, _pageindex, ref _recordCount, wherelist);
-            string _url = "/Class/ClassManage?level=" + _level+ "&parentid=" + _parentid+ "&name"+_name+"&isactive="+_isactive+ "&_classtype="+ _classtype;
+       
+            IList<ClassesFoundEntity> entitylist = ClassesFoundBLL.Instance.GetClassesFoundList(_pagesize, _pageindex, ref _recordCount, _level, _name, _parentid, _isactive, _classtype, (int)ClassMenuTypeEnum.Default, _siteid);
+            string _url = "/Class/ClassManage?siteid="+ _siteid+"&level = " + _level+ "&parentid=" + _parentid+ "&name"+_name+"&isactive="+_isactive+ "&_classtype="+ _classtype;
             string _PageStr = HTMLPage.SetProductListPage(_recordCount, _pagesize, _pageindex, _url);
             ViewBag.PageStr = _PageStr;
             ViewBag.entitylist = entitylist;
@@ -61,11 +54,13 @@ namespace SuperMarket.SysWeb.Controllers
             string _op = QueryString.SafeQ("op");
             int _id = QueryString.IntSafeQ("id");
             int _parentid = QueryString.IntSafeQ("parentid");
+            int _siteid = QueryString.IntSafeQ("siteid");
             ClassesFoundEntity entity = new ClassesFoundEntity();
 
             if (_op == "add")
             {  
                 entity.ParentId = _parentid;
+                entity.SiteId = _siteid;
             }
             else 
             {
@@ -94,11 +89,12 @@ namespace SuperMarket.SysWeb.Controllers
             int _classtype = FormString.IntSafeQ("classtype"); 
             int _hasproperty = FormString.IntSafeQ("hasproperty");
             int _haspropertyclassid = FormString.IntSafeQ("haspropertyclassid");
+            int _siteid = FormString.IntSafeQ("siteid");
             string _code = FormString.SafeQ("code");
             string _name = FormString.SafeQ("name");
             string _fullname = FormString.SafeQ("fullname");
             string _pyshort = FormString.SafeQ("pyshort");
-            string _pyfull = FormString.SafeQ("pyfull");
+            string _pyfull = FormString.SafeQ("pyfull"); 
 
             ClassesFoundEntity entity = new ClassesFoundEntity();
 
@@ -115,6 +111,7 @@ namespace SuperMarket.SysWeb.Controllers
             entity.FullName = _fullname;
             entity.PYShort = _pyshort;
             entity.PYFull = _pyfull;
+            entity.SiteId = _siteid;
 
             entity.UpdateTime = entity.CreateTime = DateTime.Now;
 

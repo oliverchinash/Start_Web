@@ -42,7 +42,7 @@ namespace SuperMarket.Pay
             this.return_url =  alipayConfig.return_url ;
             this.notify_url = alipayConfig.notify_url  ;
             this.body = "易店心订单"; 
-            this.show_url = "www.aahama.com";
+            this.show_url = "www.xindahv.com";
             _sign_type = alipayConfig.sign_type.Trim().ToUpper();
              this.key = alipayConfig.key;
             this.partner = alipayConfig.partner;

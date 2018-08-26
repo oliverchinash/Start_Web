@@ -16,11 +16,19 @@ namespace SuperMarket.Model
 	[Serializable()]
 	public class ClassesFoundEntity
 	{
-	    #region Public Properties	
-	    /// <summary>
-		/// 
-		/// <summary>
-		private  int _Id;
+        public ClassesFoundEntity()
+        {
+            _IsActive = 1;
+            _IsEnd = 1;
+            _HasProduct = 1;
+            _HasProperties = 1;
+
+        }
+        #region Public Properties	
+        /// <summary>
+        /// 
+        /// <summary>
+        private  int _Id;
 	 	public int Id
 		{
 			get

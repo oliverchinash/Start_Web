@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuPerMarket.BackgroundTask"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMatrix.net", "DataMatrix.net\DataMatrix.net.csproj", "{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuPerMarket.Web.WeChat", "SuPerMarket.Web.WeChat\SuPerMarket.Web.WeChat.csproj", "{10C4D87F-83AD-4524-B54C-4E312C0451E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74E675E8-11CE-46DA-AEF4-AE7C996C4C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C4D87F-83AD-4524-B54C-4E312C0451E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C4D87F-83AD-4524-B54C-4E312C0451E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C4D87F-83AD-4524-B54C-4E312C0451E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C4D87F-83AD-4524-B54C-4E312C0451E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

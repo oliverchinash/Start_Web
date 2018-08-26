@@ -34,12 +34,12 @@ namespace SuperMarket.Pay
         public static string seller_email = "lgz@aahama.com";
         
         // 服务器异步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数,必须外网可以正常访问
-        public static string notify_url = "http://pay.aahama.com/Cashier/PayAliPayNotify";
+        public static string notify_url = "http://pay.xindahv.com/Cashier/PayAliPayNotify";
 
         // 页面跳转同步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-        public static string return_url = "http://www.aahama.com/pay/PayAliPayResult";
+        public static string return_url = "http://www.xindahv.com/pay/PayAliPayResult";
         // 页面跳转同步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-        public static string rebacknotify_url = "http://www.aahama.com/pay/PayReturnBack";
+        public static string rebacknotify_url = "http://www.xindahv.com/pay/PayReturnBack";
 
         // 签名方式
         public static string sign_type = "MD5";
