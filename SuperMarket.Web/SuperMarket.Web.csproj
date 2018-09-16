@@ -496,9 +496,6 @@
     <Content Include="Themes\Basic\js\shopcartbehind.js" />
     <Content Include="Themes\Basic\js\swiper.jquery.min.js" />
     <Content Include="Themes\Basic\js\swiper.min.js" />
-    <Content Include="Themes\Basic\js\weixin.js" />
-    <Content Include="Themes\Basic\js\weixinshare.js" />
-    <Content Include="Themes\Basic\js\weixinshareopt.js" />
     <Content Include="Themes\Basic\js\zepto.min.js" />
     <Content Include="Views\MobileProduct\hotSale.html" />
     <Content Include="Views\Shared\Error.cshtml" />

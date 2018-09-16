@@ -93,9 +93,9 @@
 
     //成功初始化后执行api 分享事务  
     wxShare.readySuccessCall.push(function () {
-        var title = "小店-国内最专业的汽车零部件及相关用品的在线采购网站",
+        var title = "小店",
            link = window.location.href,
-            imgUrl = "http://m.xindahv.com/Themes/Basic/img/ahamatitle.jpg",//分享接口显示的图片  
+            imgUrl = "",//分享接口显示的图片  
             desc = "分享接口测试",
             success = function () {
                 alert("系统提示", "分享成功1", false);
